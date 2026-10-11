@@ -1,0 +1,135 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  A (2 bits)
+ - input  B (2 bits)
+ - output z
+
+The module should implement a circuit that has two 2-bit inputs A[1:0]
+and B[1:0], and produces an output z. The value of z should be 1 if A =
+B, otherwise z should be 0.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a 2-bit equality comparator module called `TopModule` with:
+- **Inputs**: Two 2-bit signals `A[1:0]` and `B[1:0]`
+- **Output**: Single-bit signal `z` that is high when `A == B`, low otherwise
+- **Function**: `z = 1` when `A = B`, `z = 0` when `A ≠ B`
+
+## 2. Ambiguity Analysis
+
+**No significant ambiguities found.** The specification is clear and unambiguous:
+- Bit ordering is explicitly defined as `A[1:0]` and `B[1:0]`
+- The equality comparison logic is straightforward and well-specified
+- Input/output port widths are clearly defined
+
+## 3. Missing Critical Details
+
+**Critical omissions that must be addressed:**
+
+1. **Clock and Reset Strategy**: No specification of:
+   - Is this combinational or sequential logic?
+   - Clock input (if sequential)
+   - Reset type (synchronous/asynchronous) and polarity
+   - Reset behavior for output `z`
+
+2. **Timing Requirements**: Missing:
+   - Input setup/hold times (if sequential)
+   - Output delay constraints
+   - Maximum operating frequency
+
+3. **Power-on Behavior**: Unspecified initial state after power-up
+
+4. **Input Validation**: No specification for handling unknown (X) or high-impedance (Z) inputs
+
+## 4. Edge Cases & Boundary Conditions
+
+**Identified edge cases requiring explicit handling:**
+
+1. **Reset Conditions**: 
+   - Output behavior during active reset
+   - Reset release timing
+
+2. **Meta-stability**: 
+   - Potential need for synchronization if inputs are asynchronous
+
+3. **Unknown Values**: 
+   - Behavior when inputs contain X or Z values (simulation vs. synthesis)
+
+4. **Timing Violations**: 
+   - Output behavior when setup/hold times are violated (if sequential)
+
+## 5. Functional Correctness Prediction
+
+**High confidence in functional correctness** for the core logic:
+- 2-bit equality comparison is trivial: `z = (A[1] == B[1]) && (A[0] == B[0])`
+- Truth table is simple and verifiable:
+  ```
+  A[1:0]  B[1:0]  z
+  00      00      1
+  00      01      0
+  00      10      0
+  00      11      0
+  01      00      0
+  ... etc.
+  ```
+
+**Potential correctness risks**:
+- Missing reset strategy could lead to unpredictable initial behavior
+- No timing constraints may cause hold time violations in sequential implementation
+
+## 6. Actionable Guidance for RTL Generation
+
+**Immediate Implementation Decisions Required:**
+
+1. **Architecture Selection**:
+   ```
+   Option A: Combinational (immediate response)
+     always_comb z = (A == B);
+   
+   Option B: Sequential (registered output)
+     always_ff @(posedge clk) z <= (A == B);
+   ```
+
+2. **Reset Strategy** (recommended):
+   ```systemverilog
+   // Recommended sequential implementation with async reset
+   module TopModule (
+     input clk,
+     input rst_n,        // Active-low asynchronous reset
+     input [1:0] A,
+     input [1:0] B, 
+     output logic z
+   );
+     always_ff @(posedge clk or negedge rst_n) begin
+       if (!rst_n) z <= 1'b0;  // Reset output to 0
+       else z <= (A == B);
+     end
+   endmodule
+   ```
+
+3. **Additional Recommendations**:
+   - Add input synchronization if A/B come from different clock domains
+   - Include assertions for functional verification
+   - Consider adding `logic [1:0] A, B` instead of `input A (2 bits)` for SystemVerilog compliance
+   - Add timing constraints for synthesis
+
+4. **Verification Strategy**:
+   - Test all 16 input combinations (4×4)
+   - Verify reset functionality
+   - Check timing constraints with static timing analysis
+
+**Default Implementation Choice**: Recommend sequential implementation with asynchronous active-low reset for robustness and predictable behavior.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,11 @@
+{
+ "case": "JC_counter",
+ "category": "Control",
+ "top": "JC_counter",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "JC_counter"
+ ]
+}

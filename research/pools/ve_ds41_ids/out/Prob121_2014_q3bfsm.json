@@ -1,0 +1,202 @@
+{
+ "case": "Prob121_2014_q3bfsm",
+ "n_samples": 9,
+ "n_distinct": 9,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "9b00d238af6e",
+   "sources": [
+    "ids:i00"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\i00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1006,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "21011d74566b",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\i01.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 312,
+    "samples": 1006,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "6c755ef1fcb6",
+   "sources": [
+    "ids:i10"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\i10.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1006,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "4fb453d87eef",
+   "sources": [
+    "ids:i11"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\i11.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 2,
+    "samples": 1006,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "7026eeaee124",
+   "sources": [
+    "ve_ds41_ids:s0"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1006,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "42ba1ecd6108",
+   "sources": [
+    "ve_ds41_ids:s1"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\s1.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:40: error: This assignment requires an explicit cast.\ndut.sv:44: error: This assignment requires an explicit cast.\ndut.sv:48: error: This assignment requires an explicit cast.\n5 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "8256ba7a70f3",
+   "sources": [
+    "ve_ds41_ids:s2"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\s2.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1006,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "1ee0876c0359",
+   "sources": [
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1006,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c8",
+   "hash": "15bab92629fe",
+   "sources": [
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob121_2014_q3bfsm\\s4.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1006,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c2",
+    "c4",
+    "c6"
+   ],
+   "votes": 4,
+   "correct": true
+  },
+  {
+   "members": [
+    "c7",
+    "c8"
+   ],
+   "votes": 2,
+   "correct": true
+  },
+  {
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": false
+  },
+  {
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": false
+  }
+ ]
+}

@@ -1,0 +1,259 @@
+{
+ "case": "Prob143_fsm_onehot",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    1
+   ],
+   [
+    "state",
+    10
+   ]
+  ],
+  "outputs": [
+   [
+    "next_state",
+    10
+   ],
+   [
+    "out1",
+    1
+   ],
+   [
+    "out2",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "votes": 9,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c5",
+   "members": [
+    "c5"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 24,
+    "first_cycle": 1001,
+    "stim": [
+     [
+      1,
+      500
+     ],
+     [
+      0,
+      501
+     ],
+     [
+      1,
+      501
+     ],
+     [
+      0,
+      502
+     ],
+     [
+      1,
+      502
+     ],
+     [
+      0,
+      503
+     ],
+     [
+      1,
+      503
+     ],
+     [
+      0,
+      504
+     ],
+     [
+      1,
+      504
+     ],
+     [
+      0,
+      505
+     ],
+     [
+      1,
+      505
+     ],
+     [
+      0,
+      506
+     ],
+     [
+      1,
+      506
+     ],
+     [
+      0,
+      507
+     ],
+     [
+      1,
+      507
+     ],
+     [
+      0,
+      508
+     ],
+     [
+      1,
+      508
+     ],
+     [
+      0,
+      509
+     ],
+     [
+      1,
+      509
+     ],
+     [
+      0,
+      510
+     ],
+     [
+      1,
+      510
+     ],
+     [
+      0,
+      511
+     ],
+     [
+      1,
+      511
+     ],
+     [
+      0,
+      512
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "001110101011",
+      "110000000111",
+      "001110101011",
+      "110000000111",
+      "001110111011",
+      "110000000111",
+      "001110111011",
+      "110000000111",
+      "001111001011",
+      "110000000111",
+      "001111001011",
+      "110000000111",
+      "001111011011",
+      "110000000111",
+      "001111011011",
+      "110000000111",
+      "001111101011",
+      "110000000111",
+      "001111101011",
+      "110000000111",
+      "001111111011",
+      "110000000111",
+      "001111111011",
+      "000000000111"
+     ],
+     [
+      "001110101011",
+      "110000000111",
+      "001110101011",
+      "110000000111",
+      "001110111011",
+      "110000000111",
+      "001110111011",
+      "110000000111",
+      "001111001011",
+      "110000000111",
+      "001111001011",
+      "110000000111",
+      "001111011011",
+      "110000000111",
+      "001111011011",
+      "110000000111",
+      "001111101011",
+      "110000000111",
+      "001111101011",
+      "110000000111",
+      "001111111011",
+      "110000000111",
+      "001111111011",
+      "000000000101"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in\n - input  state (10 bits)\n - output next_state (10 bits)\n - output out1\n - output out2\n\nGiven the follow state machine with 1 input and 2 outputs (the outputs\nare given as \"(out1, out2)\"):\n\n  S0 (0, 0) --0--> S0\n  S0 (0, 0) --1--> S1\n  S1 (0, 0) --0--> S0\n  S1 (0, 0) --1--> S2\n  S2 (0, 0) --0--> S0\n  S2 (0, 0) --1--> S3\n  S3 (0, 0) --0--> S0\n  S3 (0, 0) --1--> S4\n  S4 (0, 0) --0--> S0\n  S4 (0, 0) --1--> S5\n  S5 (0, 0) --0--> S8\n  S5 (0, 0) --1--> S6\n  S6 (0, 0) --0--> S9\n  S6 (0, 0) --1--> S7\n  S7 (0, 1) --0--> S0\n  S7 (0, 1) --1--> S7\n  S8 (1, 0) --0--> S0\n  S8 (1, 0) --1--> S1\n  S9 (1, 1) --0--> S0\n  S9 (1, 1) --1--> S1\n\nSuppose this state machine uses one-hot encoding, where state[0] through\nstate[9] correspond to the states S0 though S9, respectively. The outputs\nare zero unless otherwise specified. The next_state[0] through next_state[9] \ncorrespond to the transition to next states S0 though S9. For example, The \nnext_state[1] is set to 1 when the next state is S1 , otherwise, it is set to 0.\n\nHere, the input state[9:0] can be a combinational of multiple states, and \nthe TopModule is expected to response.\nFor example: \nWhen the state[9:0] = 10'b0000010100, state[4] == 1, and state[2] == 1, the \nstates includes S4, and S2 states.\n\nThe module should implement the state transition logic and output logic\nportions of the state machine (but not the state flip-flops). You are\ngiven the current state in state[9:0] and must implement next_state[9:0] \nand the two outputs.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | in | state | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b1 | 10'h1f4 | next_state=10'h0ea, out1=1'b1, out2=1'b1 | next_state=10'h0ea, out1=1'b1, out2=1'b1 |\n| 1 | 1'b0 | 10'h1f5 | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 2 | 1'b1 | 10'h1f5 | next_state=10'h0ea, out1=1'b1, out2=1'b1 | next_state=10'h0ea, out1=1'b1, out2=1'b1 |\n| 3 | 1'b0 | 10'h1f6 | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 4 | 1'b1 | 10'h1f6 | next_state=10'h0ee, out1=1'b1, out2=1'b1 | next_state=10'h0ee, out1=1'b1, out2=1'b1 |\n| 5 | 1'b0 | 10'h1f7 | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 6 | 1'b1 | 10'h1f7 | next_state=10'h0ee, out1=1'b1, out2=1'b1 | next_state=10'h0ee, out1=1'b1, out2=1'b1 |\n| 7 | 1'b0 | 10'h1f8 | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 8 | 1'b1 | 10'h1f8 | next_state=10'h0f2, out1=1'b1, out2=1'b1 | next_state=10'h0f2, out1=1'b1, out2=1'b1 |\n| 9 | 1'b0 | 10'h1f9 | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 10 | 1'b1 | 10'h1f9 | next_state=10'h0f2, out1=1'b1, out2=1'b1 | next_state=10'h0f2, out1=1'b1, out2=1'b1 |\n| 11 | 1'b0 | 10'h1fa | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 12 | 1'b1 | 10'h1fa | next_state=10'h0f6, out1=1'b1, out2=1'b1 | next_state=10'h0f6, out1=1'b1, out2=1'b1 |\n| 13 | 1'b0 | 10'h1fb | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 14 | 1'b1 | 10'h1fb | next_state=10'h0f6, out1=1'b1, out2=1'b1 | next_state=10'h0f6, out1=1'b1, out2=1'b1 |\n| 15 | 1'b0 | 10'h1fc | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 16 | 1'b1 | 10'h1fc | next_state=10'h0fa, out1=1'b1, out2=1'b1 | next_state=10'h0fa, out1=1'b1, out2=1'b1 |\n| 17 | 1'b0 | 10'h1fd | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 18 | 1'b1 | 10'h1fd | next_state=10'h0fa, out1=1'b1, out2=1'b1 | next_state=10'h0fa, out1=1'b1, out2=1'b1 |\n| 19 | 1'b0 | 10'h1fe | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 20 | 1'b1 | 10'h1fe | next_state=10'h0fe, out1=1'b1, out2=1'b1 | next_state=10'h0fe, out1=1'b1, out2=1'b1 |\n| 21 | 1'b0 | 10'h1ff | next_state=10'h301, out1=1'b1, out2=1'b1 | next_state=10'h301, out1=1'b1, out2=1'b1 |\n| 22 | 1'b1 | 10'h1ff | next_state=10'h0fe, out1=1'b1, out2=1'b1 | next_state=10'h0fe, out1=1'b1, out2=1'b1 |\n| 23 | 1'b0 | 10'h200 | next_state=10'h001, out1=1'b1, out2=1'b1 | next_state=10'h001, out1=1'b0, out2=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c5"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     512
+    ]
+   ],
+   "options": [
+    "000000000111",
+    "000000000101"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c5": "B"
+   },
+   "label": "A",
+   "ref_value": "000000000111",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in\n - input  state (10 bits)\n - output next_state (10 bits)\n - output out1\n - output out2\n\nGiven the follow state machine with 1 input and 2 outputs (the outputs\nare given as \"(out1, out2)\"):\n\n  S0 (0, 0) --0--> S0\n  S0 (0, 0) --1--> S1\n  S1 (0, 0) --0--> S0\n  S1 (0, 0) --1--> S2\n  S2 (0, 0) --0--> S0\n  S2 (0, 0) --1--> S3\n  S3 (0, 0) --0--> S0\n  S3 (0, 0) --1--> S4\n  S4 (0, 0) --0--> S0\n  S4 (0, 0) --1--> S5\n  S5 (0, 0) --0--> S8\n  S5 (0, 0) --1--> S6\n  S6 (0, 0) --0--> S9\n  S6 (0, 0) --1--> S7\n  S7 (0, 1) --0--> S0\n  S7 (0, 1) --1--> S7\n  S8 (1, 0) --0--> S0\n  S8 (1, 0) --1--> S1\n  S9 (1, 1) --0--> S0\n  S9 (1, 1) --1--> S1\n\nSuppose this state machine uses one-hot encoding, where state[0] through\nstate[9] correspond to the states S0 though S9, respectively. The outputs\nare zero unless otherwise specified. The next_state[0] through next_state[9] \ncorrespond to the transition to next states S0 though S9. For example, The \nnext_state[1] is set to 1 when the next state is S1 , otherwise, it is set to 0.\n\nHere, the input state[9:0] can be a combinational of multiple states, and \nthe TopModule is expected to response.\nFor example: \nWhen the state[9:0] = 10'b0000010100, state[4] == 1, and state[2] == 1, the \nstates includes S4, and S2 states.\n\nThe module should implement the state transition logic and output logic\nportions of the state machine (but not the state flip-flops). You are\ngiven the current state in state[9:0] and must implement next_state[9:0] \nand the two outputs.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | in | state | out |\n|---|---|---|---|\n| 0 | 1'b0 | 10'h200 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: next_state=10'h001, out1=1'b1, out2=1'b1\n- **B**: next_state=10'h001, out1=1'b0, out2=1'b1\n"
+  }
+ ]
+}

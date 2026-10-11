@@ -1,0 +1,132 @@
+{
+ "case": "Prob043_vector5",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ],
+   [
+    "b",
+    1
+   ],
+   [
+    "c",
+    1
+   ],
+   [
+    "d",
+    1
+   ],
+   [
+    "e",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    25
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3",
+    "c4"
+   ],
+   "votes": 6,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 2,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1111111111111111111111111",
+      "1000001111011110111101111"
+     ],
+     [
+      "1111111111111111111111111",
+      "1111011110111101111000001"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - input  e\n - output out (25 bits)\n\nImplement a module that given five 1-bit signals (a, b, c, d, and e),\ncompute all 25 pairwise one-bit comparisons in the 25-bit output vector.\nThe output should be 1 if the two bits being compared are equal. Example:\nout[24] = ~a ^ a; out[23] = ~a ^ b; out[22] = ~a ^ c; ...\nout[ 1] = ~e ^ d; out[ 0] = ~e ^ e.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | e | A out | B out |\n|---|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | out=25'h1ffffff | out=25'h1ffffff |\n| 1 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | out=25'h107bdef | out=25'h1ef7bc1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "1000001111011110111101111",
+    "1111011110111101111000001"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "1000001111011110111101111",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - input  e\n - output out (25 bits)\n\nImplement a module that given five 1-bit signals (a, b, c, d, and e),\ncompute all 25 pairwise one-bit comparisons in the 25-bit output vector.\nThe output should be 1 if the two bits being compared are equal. Example:\nout[24] = ~a ^ a; out[23] = ~a ^ b; out[22] = ~a ^ c; ...\nout[ 1] = ~e ^ d; out[ 0] = ~e ^ e.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | e | out |\n|---|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=25'h107bdef\n- **B**: out=25'h1ef7bc1\n"
+  }
+ ]
+}

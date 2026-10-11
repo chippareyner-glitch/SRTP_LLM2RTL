@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "q port direction / missing output",
+   "severity": "high",
+   "readings": [
+    "q is the flip-flop output; the interface typo should read 'output q', and the module drives q with the value of d registered on the rising edge of clk.",
+    "q is truly an input as listed; the module has no output port, so there is no observable flip-flop output and q cannot be driven by the module."
+   ]
+  },
+  {
+   "aspect": "initial/reset value of the flip-flop",
+   "severity": "medium",
+   "readings": [
+    "No reset or initialization is specified, so the flip-flop state/output is unknown until the first rising clock edge with a known d.",
+    "The flip-flop is power-on initialized to a fixed value such as 0 or 1, making the output observable before the first clock edge."
+   ]
+  }
+ ]
+}

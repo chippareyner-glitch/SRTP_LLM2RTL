@@ -1,0 +1,155 @@
+{
+ "case": "Prob084_ece241_2013_q12",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "enable",
+    1
+   ],
+   [
+    "S",
+    1
+   ],
+   [
+    "A",
+    1
+   ],
+   [
+    "B",
+    1
+   ],
+   [
+    "C",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "Z",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1",
+   "c2",
+   "c4",
+   "c5",
+   "c6",
+   "c7"
+  ],
+  [
+   "c0"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 7,
+ "ci_found": 7,
+ "ci_missed": [],
+ "off_pairs": 13,
+ "off_found": 13,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     0,
+     1,
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 12,
+   "orig_len": 5,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 8
+}

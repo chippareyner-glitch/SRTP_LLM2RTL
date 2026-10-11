@@ -1,0 +1,276 @@
+{
+ "case": "Prob137_fsm_serial",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c5",
+   "c6",
+   "c7",
+   "c8"
+  ],
+  [
+   "c1",
+   "c2",
+   "c4"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 18,
+ "ci_found": 18,
+ "ci_missed": [],
+ "off_pairs": 23,
+ "off_found": 23,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 10,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 32,
+   "orig_len": 11,
+   "min_len": 10,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 87,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 64,
+   "orig_len": 88,
+   "min_len": 20,
+   "toggles": 5
+  },
+  {
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 10,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 32,
+   "orig_len": 11,
+   "min_len": 10,
+   "toggles": 3
+  }
+ ],
+ "status": "ok",
+ "n_live": 9
+}

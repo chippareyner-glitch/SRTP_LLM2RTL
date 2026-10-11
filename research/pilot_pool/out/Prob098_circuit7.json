@@ -1,0 +1,145 @@
+{
+ "case": "Prob098_circuit7",
+ "n_samples": 8,
+ "n_distinct": 7,
+ "n_compiling": 7,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "0a87932a9e81",
+   "sources": [
+    "deepseek_full"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob098_circuit7\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 58,
+    "samples": 123
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "0ae7ca8a165f",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob098_circuit7\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 58,
+    "samples": 123
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "a8813c0703e7",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob098_circuit7\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 58,
+    "samples": 123
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "9719f55fdd63",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob098_circuit7\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 123
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "ad6597a57e10",
+   "sources": [
+    "tri0926:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob098_circuit7\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 123
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "6e48b2e3c6e0",
+   "sources": [
+    "tri0927:candidate_1_literal",
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob098_circuit7\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 123
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c6",
+   "hash": "76b57705ef47",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob098_circuit7\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 123
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+   ],
+   "votes": 5,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c0",
+    "c1",
+    "c2"
+   ],
+   "votes": 3,
+   "correct": false,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 12
+}

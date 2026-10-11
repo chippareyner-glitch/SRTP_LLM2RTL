@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset type (synchronous vs asynchronous)",
+   "severity": "high",
+   "readings": [
+    "Reset is synchronous: registers clear only on the rising clock edge when rst is low.",
+    "Reset is asynchronous: registers clear immediately when rst goes low, independent of clk."
+   ]
+  },
+  {
+   "aspect": "Output latency (combinational vs registered)",
+   "severity": "high",
+   "readings": [
+    "ins, ad1, and ad2 are combinational assignments from the internal registers, so they update in the same cycle as the register write.",
+    "ins, ad1, and ad2 are registered outputs, adding one clock cycle of latency after the internal registers update."
+   ]
+  },
+  {
+   "aspect": "Mapping of outputs to internal registers",
+   "severity": "medium",
+   "readings": [
+    "ins and ad1 are always derived from ins_p1 (first source), and ad2 is always derived from ins_p2 (second source), regardless of fetch.",
+    "ins and ad1 are derived from whichever register was most recently written (ins_p1 for fetch=01, ins_p2 for fetch=10), while ad2 is from ins_p2 only."
+   ]
+  },
+  {
+   "aspect": "Source of ad2 when fetch=2'b10",
+   "severity": "medium",
+   "readings": [
+    "ad2 is always the registered value of ins_p2, so it updates one cycle after fetch=2'b10 is applied.",
+    "ad2 is a combinational pass-through of the data input when fetch=2'b10, updating in the same cycle."
+   ]
+  }
+ ]
+}

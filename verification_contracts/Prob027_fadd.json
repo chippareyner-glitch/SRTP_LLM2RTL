@@ -1,0 +1,24 @@
+{
+  "case_id": "Prob027_fadd",
+  "rtl_file": "Prob027_fadd_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob027_fadd_prompt.txt",
+  "ports": [
+    {"name": "a", "direction": "input", "width": 1},
+    {"name": "b", "direction": "input", "width": 1},
+    {"name": "cin", "direction": "input", "width": 1},
+    {"name": "cout", "direction": "output", "width": 1},
+    {"name": "sum", "direction": "output", "width": 1}
+  ],
+  "initial": {"a": "0", "b": "0", "cin": "0"},
+  "tests": [
+    {"id": "000", "requirement": "full-adder truth table", "steps": [{"set": {"a": "0", "b": "0", "cin": "0"}, "delay": 1, "expect": {"cout": "0", "sum": "0"}}]},
+    {"id": "001", "requirement": "full-adder truth table", "steps": [{"set": {"a": "0", "b": "0", "cin": "1"}, "delay": 1, "expect": {"cout": "0", "sum": "1"}}]},
+    {"id": "010", "requirement": "full-adder truth table", "steps": [{"set": {"a": "0", "b": "1", "cin": "0"}, "delay": 1, "expect": {"cout": "0", "sum": "1"}}]},
+    {"id": "011", "requirement": "full-adder truth table", "steps": [{"set": {"a": "0", "b": "1", "cin": "1"}, "delay": 1, "expect": {"cout": "1", "sum": "0"}}]},
+    {"id": "100", "requirement": "full-adder truth table", "steps": [{"set": {"a": "1", "b": "0", "cin": "0"}, "delay": 1, "expect": {"cout": "0", "sum": "1"}}]},
+    {"id": "101", "requirement": "full-adder truth table", "steps": [{"set": {"a": "1", "b": "0", "cin": "1"}, "delay": 1, "expect": {"cout": "1", "sum": "0"}}]},
+    {"id": "110", "requirement": "full-adder truth table", "steps": [{"set": {"a": "1", "b": "1", "cin": "0"}, "delay": 1, "expect": {"cout": "1", "sum": "0"}}]},
+    {"id": "111", "requirement": "full-adder truth table", "steps": [{"set": {"a": "1", "b": "1", "cin": "1"}, "delay": 1, "expect": {"cout": "1", "sum": "1"}}]}
+  ]
+}

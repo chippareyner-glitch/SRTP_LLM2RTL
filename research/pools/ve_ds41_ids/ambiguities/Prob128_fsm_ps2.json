@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Done-cycle input handling",
+   "severity": "high",
+   "readings": [
+    "During the cycle when done is asserted, the FSM is in a dedicated DONE state and does not examine the input byte; the next byte is examined only in the following cycle.",
+    "During the cycle when done is asserted, the FSM has already returned to the search state and examines the input byte for in[3]=1, allowing a new message to start immediately after the third byte."
+   ]
+  },
+  {
+   "aspect": "Reset priority over message completion",
+   "severity": "medium",
+   "readings": [
+    "Synchronous reset has priority: if reset is high in the same cycle as the third byte, the FSM resets and done is not asserted in the following cycle.",
+    "The third byte is processed and done is asserted even if reset is high in that cycle, with reset only affecting the cycle after."
+   ]
+  },
+  {
+   "aspect": "Done pulse duration",
+   "severity": "low",
+   "readings": [
+    "done is asserted for exactly one clock cycle (the cycle immediately after the third byte).",
+    "done remains asserted until the next message starts or reset is asserted."
+   ]
+  },
+  {
+   "aspect": "Reset value of done",
+   "severity": "low",
+   "readings": [
+    "done is reset to 0 when reset is active.",
+    "done is not explicitly reset and its value after reset is undefined until the first message."
+   ]
+  }
+ ]
+}

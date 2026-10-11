@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Storage element type (latch vs flip-flop)",
+   "severity": "high",
+   "readings": [
+    "Level-sensitive D latch: q tracks d while ena is high (transparent), holds when ena is low, using always @(*) if (ena) q = d;",
+    "Edge-triggered D flip-flop: q samples d only on a clock/edge (e.g., always @(posedge ena)), so q changes one event later and never follows d continuously"
+   ]
+  },
+  {
+   "aspect": "Enable polarity",
+   "severity": "medium",
+   "readings": [
+    "ena is active-high: latch is transparent when ena == 1 and holds when ena == 0",
+    "ena is active-low: latch is transparent when ena == 0 and holds when ena == 1"
+   ]
+  },
+  {
+   "aspect": "Initial/reset value of q",
+   "severity": "medium",
+   "readings": [
+    "q is undefined (X) from time 0 until the first enabling event, since no reset port or initial condition is specified",
+    "q must be initialized to a defined value (e.g., 0) at time 0 (initial block / declaration initializer)"
+   ]
+  },
+  {
+   "aspect": "Always-block sensitivity / update timing",
+   "severity": "medium",
+   "readings": [
+    "Sensitivity covers d (always @(*) or always @(ena or d)): q updates combinationally in the same cycle as a change on d while ena is high",
+    "Sensitivity is always @(ena) only: changes on d while ena is high do not propagate to q until ena itself changes, giving a delayed/stale q"
+   ]
+  }
+ ]
+}

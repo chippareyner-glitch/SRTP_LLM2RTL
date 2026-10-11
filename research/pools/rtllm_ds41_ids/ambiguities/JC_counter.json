@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "reset type (asynchronous vs synchronous assertion)",
+   "severity": "medium",
+   "readings": [
+    "Asynchronous: rst_n appears in the event list (always @(posedge clk or negedge rst_n)), so Q is forced to 64'h0 the instant rst_n falls, independent of clk; a low pulse shorter than one clock period still clears Q immediately",
+    "Synchronous: rst_n is only sampled at posedge clk, so Q is cleared at the first rising clock edge at which rst_n is low; a low pulse that does not span a rising clock edge leaves Q unchanged"
+   ]
+  },
+  {
+   "aspect": "behaviour in non-Johnson (unused) states",
+   "severity": "low",
+   "readings": [
+    "The rule is applied literally to whatever value Q holds (new MSB = ~Q[0], remaining bits = Q[63:1]), so all 2^64 states evolve deterministically even though only 128 are reachable from reset",
+    "Only the 128 legal Johnson states are reachable, so unused states are don't-care and may be treated as X or forced back to a legal state by self-correcting logic, giving a different value for those states if they are ever observed (e.g. before reset is applied)"
+   ]
+  }
+ ]
+}

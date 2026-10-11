@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T17:54:29.780669+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob144_conwaylife",
+  "returned_model": "deepseek-flash",
+  "id": "6ff6c87f-2fa0-4932-8ebd-2ae45f7333ee",
+  "usage": {
+    "prompt_tokens": 1023,
+    "completion_tokens": 268,
+    "total_tokens": 1291,
+    "prompt_tokens_details": {
+      "cached_tokens": 768
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 149
+    },
+    "prompt_cache_hit_tokens": 768,
+    "prompt_cache_miss_tokens": 255
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 2.152272700001049
+}

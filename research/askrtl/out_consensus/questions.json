@@ -1,0 +1,803 @@
+[
+ {
+  "case": "Prob034_dff8",
+  "tag": "ve_ds41",
+  "cand": "c0",
+  "cand_votes": 1,
+  "cluster_votes": 5,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": null,
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "d",
+     8
+    ]
+   ],
+   "outputs": [
+    [
+     "q",
+     8
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    0
+   ]
+  ],
+  "k": 0,
+  "hist": [],
+  "options": [
+   "xxxxxxxx",
+   "00000000"
+  ],
+  "len": 1
+ },
+ {
+  "case": "Prob053_m2014_q4d",
+  "tag": "ve_ds41",
+  "cand": "c0",
+  "cand_votes": 5,
+  "cluster_votes": null,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": null,
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "in",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "out",
+     1
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    0
+   ]
+  ],
+  "k": 0,
+  "hist": [],
+  "options": [
+   "x",
+   "0"
+  ],
+  "len": 1
+ },
+ {
+  "case": "Prob062_bugs_mux2",
+  "tag": "ve_ds41",
+  "cand": "c1",
+  "cand_votes": 3,
+  "cluster_votes": 3,
+  "n_samples": 5,
+  "iface": {
+   "sequential": false,
+   "clock": null,
+   "reset": null,
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "sel",
+     1
+    ],
+    [
+     "a",
+     8
+    ],
+    [
+     "b",
+     8
+    ]
+   ],
+   "outputs": [
+    [
+     "out",
+     8
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    0,
+    0,
+    10
+   ]
+  ],
+  "k": 0,
+  "hist": [],
+  "options": [
+   "00000000",
+   "00001010"
+  ],
+  "len": 1
+ },
+ {
+  "case": "Prob093_ece241_2014_q3",
+  "tag": "ve_ds41",
+  "cand": "c1",
+  "cand_votes": 1,
+  "cluster_votes": 4,
+  "n_samples": 5,
+  "iface": {
+   "sequential": false,
+   "clock": null,
+   "reset": null,
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "c",
+     1
+    ],
+    [
+     "d",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "mux_in",
+     4
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "exhaustive",
+  "stim": [
+   [
+    0,
+    0
+   ]
+  ],
+  "k": 0,
+  "hist": [],
+  "options": [
+   "1000",
+   "0100"
+  ],
+  "len": 1
+ },
+ {
+  "case": "Prob099_m2014_q6c",
+  "tag": "ve_ds41",
+  "cand": "c0",
+  "cand_votes": 2,
+  "cluster_votes": null,
+  "n_samples": 5,
+  "iface": {
+   "sequential": false,
+   "clock": null,
+   "reset": null,
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "y",
+     6
+    ],
+    [
+     "w",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "Y1",
+     1
+    ],
+    [
+     "Y3",
+     1
+    ]
+   ]
+  },
+  "status": "no_divergence"
+ },
+ {
+  "case": "Prob104_mt2015_muxdff",
+  "tag": "ve_ds41",
+  "cand": "c0",
+  "cand_votes": 1,
+  "cluster_votes": 5,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": null,
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "L",
+     1
+    ],
+    [
+     "q_in",
+     1
+    ],
+    [
+     "r_in",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "Q",
+     1
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    0,
+    0,
+    0
+   ]
+  ],
+  "k": 0,
+  "hist": [],
+  "options": [
+   "x",
+   "0"
+  ],
+  "len": 1
+ },
+ {
+  "case": "Prob131_mt2015_q4",
+  "tag": "ve_ds41",
+  "status": "no_compilable_candidate"
+ },
+ {
+  "case": "Prob136_m2014_q6",
+  "tag": "ve_ds41",
+  "cand": "c2",
+  "cand_votes": 1,
+  "cluster_votes": null,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": "reset",
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "reset",
+     1
+    ],
+    [
+     "w",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "z",
+     1
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform2",
+  "stim": [
+   [
+    1,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "k": 8,
+  "hist": [
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "1"
+  ],
+  "options": [
+   "0",
+   "1"
+  ],
+  "len": 5
+ },
+ {
+  "case": "Prob138_2012_q2fsm",
+  "tag": "ve_ds41",
+  "status": "no_compilable_candidate"
+ },
+ {
+  "case": "Prob140_fsm_hdlc",
+  "tag": "ve_ds41",
+  "status": "no_compilable_candidate"
+ },
+ {
+  "case": "Prob146_fsm_serialdata",
+  "tag": "ve_ds41",
+  "cand": "c2",
+  "cand_votes": 1,
+  "cluster_votes": 2,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": "reset",
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "in",
+     1
+    ],
+    [
+     "reset",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "out_byte",
+     8
+    ],
+    [
+     "done",
+     1
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    1,
+    1
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "k": 19,
+  "hist": [
+   "xxxxxxxxx",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000"
+  ],
+  "options": [
+   "100000001",
+   "xxxxxxxx0"
+  ],
+  "len": 10
+ },
+ {
+  "case": "Prob149_ece241_2013_q4",
+  "tag": "ve_ds41",
+  "cand": "c1",
+  "cand_votes": 1,
+  "cluster_votes": 2,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": "reset",
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "reset",
+     1
+    ],
+    [
+     "s",
+     3
+    ]
+   ],
+   "outputs": [
+    [
+     "fr2",
+     1
+    ],
+    [
+     "fr1",
+     1
+    ],
+    [
+     "fr0",
+     1
+    ],
+    [
+     "dfr",
+     1
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    1,
+    6
+   ],
+   [
+    0,
+    3
+   ]
+  ],
+  "k": 3,
+  "hist": [
+   "0000",
+   "1111",
+   "1111"
+  ],
+  "options": [
+   "0011",
+   "0110"
+  ],
+  "len": 2
+ },
+ {
+  "case": "Prob151_review2015_fsm",
+  "tag": "ve_ds41",
+  "status": "no_compilable_candidate"
+ },
+ {
+  "case": "Prob156_review2015_fancytimer",
+  "tag": "ve_ds41",
+  "cand": "c0",
+  "cand_votes": 1,
+  "cluster_votes": 4,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": "reset",
+   "reset_active_low": false,
+   "inputs": [
+    [
+     "reset",
+     1
+    ],
+    [
+     "data",
+     1
+    ],
+    [
+     "ack",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "count",
+     4
+    ],
+    [
+     "counting",
+     1
+    ],
+    [
+     "done",
+     1
+    ]
+   ]
+  },
+  "status": "no_divergence"
+ },
+ {
+  "case": "freq_divbyodd",
+  "tag": "rtllm_ds41",
+  "cand": "c0",
+  "cand_votes": 1,
+  "cluster_votes": 5,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": "rst_n",
+   "reset_active_low": true,
+   "inputs": [
+    [
+     "rst_n",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "clk_div",
+     1
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    0
+   ],
+   [
+    1
+   ],
+   [
+    1
+   ]
+  ],
+  "k": 5,
+  "hist": [
+   "1",
+   "1",
+   "1",
+   "1",
+   "1"
+  ],
+  "options": [
+   "0",
+   "1"
+  ],
+  "len": 3
+ },
+ {
+  "case": "fsm",
+  "tag": "rtllm_ds41",
+  "status": "no_compilable_candidate"
+ },
+ {
+  "case": "pulse_detect",
+  "tag": "rtllm_ds41",
+  "cand": "c0",
+  "cand_votes": 1,
+  "cluster_votes": 5,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": "rst_n",
+   "reset_active_low": true,
+   "inputs": [
+    [
+     "rst_n",
+     1
+    ],
+    [
+     "data_in",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "data_out",
+     1
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "k": 6,
+  "hist": [
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  "options": [
+   "0",
+   "1"
+  ],
+  "len": 4
+ },
+ {
+  "case": "sequence_detector",
+  "tag": "rtllm_ds41",
+  "status": "no_compilable_candidate"
+ },
+ {
+  "case": "serial2parallel",
+  "tag": "rtllm_ds41",
+  "cand": "c0",
+  "cand_votes": 1,
+  "cluster_votes": 5,
+  "n_samples": 5,
+  "iface": {
+   "sequential": true,
+   "clock": "clk",
+   "reset": "rst_n",
+   "reset_active_low": true,
+   "inputs": [
+    [
+     "rst_n",
+     1
+    ],
+    [
+     "din_serial",
+     1
+    ],
+    [
+     "din_valid",
+     1
+    ]
+   ],
+   "outputs": [
+    [
+     "dout_parallel",
+     8
+    ],
+    [
+     "dout_valid",
+     1
+    ]
+   ]
+  },
+  "status": "ok",
+  "suite": "uniform0",
+  "stim": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ]
+  ],
+  "k": 17,
+  "hist": [
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000",
+   "000000000"
+  ],
+  "options": [
+   "111111111",
+   "000000000"
+  ],
+  "len": 9
+ }
+]

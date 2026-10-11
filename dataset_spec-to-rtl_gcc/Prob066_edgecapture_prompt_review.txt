@@ -1,0 +1,133 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  in    (32 bits)
+ - output out   (32 bits)
+
+The module should examine each bit in the 32-bit input vector, and
+capture when the input signal changes from 1 in one clock cycle to 0 the
+next. "Capture" means that the output will remain 1 until the register is
+reset (active high synchronous reset). Assume all sequential logic is
+triggered on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` is a 32-bit falling edge detector with memory. It monitors each bit of the 32-bit input vector and detects when a bit transitions from 1 to 0 across consecutive clock cycles. When such a transition occurs, the corresponding output bit is set to 1 and remains latched until a synchronous reset is applied.
+
+**Key characteristics:**
+- 32-bit parallel input/output
+- Positive edge-triggered sequential logic
+- Synchronous active-high reset
+- Falling edge detection with latching behavior
+- Independent detection per bit position
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity - Reset Behavior:**
+- Unclear whether reset clears only the detection flags or has broader functionality
+- Specification states "output will remain 1 until the register is reset" but doesn't specify initial state after reset
+
+**Detection Timing Ambiguity:**
+- "Changes from 1 in one clock cycle to 0 the next" implies edge detection, but the exact timing relationship needs clarification
+- Should the output update on the same cycle as the falling edge detection or the following cycle?
+
+## 3. Missing Critical Details
+
+**Reset Initialization:**
+- What should be the output value immediately after reset deassertion?
+- Should previously detected edges remain cleared or does reset have persistent effect?
+
+**Input Timing Constraints:**
+- No setup/hold time requirements specified for input signal
+- No mention of input stability requirements around clock edges
+
+**Power-up State:**
+- Behavior at power-on (before first reset) is undefined
+- Should the module have a defined power-up state?
+
+**Output Behavior:**
+- Unclear if multiple falling edges on the same bit should have any effect
+- Should the output remain high indefinitely until reset, or is there any auto-clear mechanism?
+
+## 4. Edge Cases & Boundary Conditions
+
+**Simultaneous Reset and Detection:**
+- What happens if reset occurs on the same cycle as a falling edge detection?
+- Priority: reset should likely override detection
+
+**Multiple Bit Transitions:**
+- All 32 bits experiencing falling edges simultaneously
+- Mixed patterns with some bits rising, some falling
+
+**Stable Input Patterns:**
+- Input remaining constant at 0 or 1 for extended periods
+- Rapid toggling input (every cycle)
+
+**Boundary Conditions:**
+- First clock cycle after reset deassertion
+- Consecutive falling edges (1→0→1→0 pattern)
+
+## 5. Functional Correctness Prediction
+
+**Expected Behavior:**
+- Each output bit functions as an independent falling edge detector with memory
+- Detection occurs when: `previous_input[bit] == 1'b1 && current_input[bit] == 1'b0`
+- Once set, output bits remain high until synchronous reset
+- Reset clears all output bits to 0
+
+**Potential Issues:**
+- Without clear reset initialization, simulation mismatches may occur
+- Concurrent reset and edge detection could lead to race conditions in simulation
+- Metastability concerns if input is asynchronous to clock
+
+## 6. Actionable Guidance for RTL Generation
+
+**Architecture Recommendation:**
+```
+Implement as 32 parallel falling edge detectors with:
+- 32-bit input register to store previous cycle values
+- 32-bit output register to maintain detection flags
+- Combinational detection logic feeding synchronous set conditions
+```
+
+**Critical Design Decisions:**
+1. **Reset Behavior:** Output bits = 0 after reset, detection flags cleared
+2. **Timing:** Detect on current cycle, update output on next positive edge
+3. **Priority:** Reset has highest priority, overrides any edge detection
+4. **Initialization:** All registers initialize to 0 on reset
+
+**Implementation Strategy:**
+- Use `always_ff @(posedge clk)` for sequential logic
+- Implement synchronous reset: `if (reset) out <= 32'b0;`
+- Store previous input in 32-bit register
+- Generate detection using: `detect = prev_in & ~current_in`
+- Set output using: `out <= reset ? 32'b0 : (out | detect);`
+
+**Verification Requirements:**
+- Test individual bit falling edge detection
+- Verify reset clears all outputs
+- Test simultaneous multi-bit transitions
+- Validate behavior with stable and toggling inputs
+- Check reset during active detection
+
+**Synthesis Considerations:**
+- All 32 bits should have identical timing characteristics
+- Register all inputs if they come from asynchronous domains
+- Consider adding input synchronizers if inputs are not clock-synchronous
+
+This analysis provides a foundation for a robust, testable implementation that addresses the specification's ambiguities while maintaining hardware efficiency.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

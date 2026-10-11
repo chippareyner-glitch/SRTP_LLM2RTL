@@ -1,0 +1,168 @@
+{
+ "case": "Prob107_fsm1s",
+ "n_samples": 10,
+ "n_distinct": 9,
+ "n_compiling": 7,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "053bd282957f",
+   "sources": [
+    "deepseek_full"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob107_fsm1s\\attempt_00\\module.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:14: error: This assignment requires an explicit cast.\ndut.sv:15: error: This assignment requires an explicit cast.\n2 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "7aae8536b8bb",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob107_fsm1s\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "31ea2f49b78c",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob107_fsm1s\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "116ba5aa251d",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob107_fsm1s\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "37aa25701dd4",
+   "sources": [
+    "tri0926:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob107_fsm1s\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "d064775eed10",
+   "sources": [
+    "tri0926:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob107_fsm1s\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:14: error: This assignment requires an explicit cast.\ndut.sv:15: error: This assignment requires an explicit cast.\n2 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "3a12ed3cdb2f",
+   "sources": [
+    "tri0926:candidate_3_counterexample",
+    "tri0927:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob107_fsm1s\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "2c3eeb44d7b7",
+   "sources": [
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob107_fsm1s\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c8",
+   "hash": "85f29d42cfb1",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob107_fsm1s\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "votes": 8,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 0
+}

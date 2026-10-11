@@ -1,0 +1,198 @@
+{
+ "case": "Prob066_edgecapture",
+ "n_samples": 9,
+ "n_distinct": 9,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "395b8773f1b8",
+   "sources": [
+    "ids:i00"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\i00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 99,
+    "samples": 266,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "739a00abd0b9",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\i01.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 266,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "7e972a1b4a6a",
+   "sources": [
+    "ids:i10"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\i10.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 91,
+    "samples": 266,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "854a53e9abcf",
+   "sources": [
+    "ids:i11"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\i11.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 266,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "736ef5b57c15",
+   "sources": [
+    "ve_ds41_ids:s0"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 266,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "35751c59f8b6",
+   "sources": [
+    "ve_ds41_ids:s1"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\s1.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 99,
+    "samples": 266,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c6",
+   "hash": "262341eddb69",
+   "sources": [
+    "ve_ds41_ids:s2"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\s2.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 91,
+    "samples": 266,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "5e79d96dc24b",
+   "sources": [
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 266,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c8",
+   "hash": "770fa328e5d4",
+   "sources": [
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob066_edgecapture\\s4.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 99,
+    "samples": 266,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1",
+    "c3",
+    "c4",
+    "c7"
+   ],
+   "votes": 4,
+   "correct": true
+  },
+  {
+   "members": [
+    "c0",
+    "c5",
+    "c8"
+   ],
+   "votes": 3,
+   "correct": false
+  },
+  {
+   "members": [
+    "c2",
+    "c6"
+   ],
+   "votes": 2,
+   "correct": false
+  }
+ ]
+}

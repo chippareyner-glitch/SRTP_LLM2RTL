@@ -1,0 +1,373 @@
+{
+ "case": "Prob141_count_clock",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "ena",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "pm",
+    1
+   ],
+   [
+    "hh",
+    8
+   ],
+   [
+    "mm",
+    8
+   ],
+   [
+    "ss",
+    8
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+   ],
+   "votes": 6,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 1,
+    "outs": [
+     [
+      "xxxxxxxxxxxxxxxxxxxxxxxxx",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000001",
+      "0000100100000000000000001",
+      "0000100100000000000000001",
+      "0000100100000000000000001",
+      "0000100100000000000000010",
+      "0000100100000000000000010",
+      "0000100100000000000000010",
+      "0000100100000000000000010",
+      "0000100100000000000000011",
+      "0000100100000000000000011",
+      "0000100100000000000000100",
+      "0000100100000000000000100",
+      "0000100100000000000000100",
+      "0000100100000000000000100",
+      "0000100100000000000000101",
+      "0000100100000000000000101",
+      "0000100100000000000000110",
+      "0000100100000000000000110",
+      "0000100100000000000000111",
+      "0000100100000000000000111",
+      "0000100100000000000001000",
+      "0000100100000000000001000",
+      "0000100100000000000001000",
+      "0000100100000000000001000",
+      "0000100100000000000001000",
+      "0000100100000000000001000",
+      "0000100100000000000001001",
+      "0000100100000000000001001",
+      "0000100100000000000010000",
+      "0000100100000000000010000",
+      "0000100100000000000010000",
+      "0000100100000000000010000",
+      "0000100100000000000010001",
+      "0000100100000000000010001",
+      "0000100100000000000010010",
+      "0000100100000000000010010",
+      "0000100100000000000010010",
+      "0000100100000000000010010",
+      "0000100100000000000010010",
+      "0000100100000000000010010",
+      "0000100100000000000010011",
+      "0000100100000000000010011",
+      "0000100100000000000010011",
+      "0000100100000000000010011",
+      "0000100100000000000010100",
+      "0000100100000000000010100",
+      "0000100100000000000010101",
+      "0000100100000000000010101",
+      "0000100100000000000010110",
+      "0000100100000000000010110",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000",
+      "0000100100000000000000000"
+     ],
+     [
+      "xxxxxxxxxxxxxxxxxxxxxxxxx",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000010000",
+      "0001000010000000000010000",
+      "0001000010000000000010000",
+      "0001000010000000000010000",
+      "0001000010000000000100000",
+      "0001000010000000000100000",
+      "0001000010000000000100000",
+      "0001000010000000000100000",
+      "0001000010000000000110000",
+      "0001000010000000000110000",
+      "0001000010000000001000000",
+      "0001000010000000001000000",
+      "0001000010000000001000000",
+      "0001000010000000001000000",
+      "0001000010000000001010000",
+      "0001000010000000001010000",
+      "0001000010000000001100000",
+      "0001000010000000001100000",
+      "0001000010000000001110000",
+      "0001000010000000001110000",
+      "0001000010000000010000000",
+      "0001000010000000010000000",
+      "0001000010000000010000000",
+      "0001000010000000010000000",
+      "0001000010000000010000000",
+      "0001000010000000010000000",
+      "0001000010000000010010000",
+      "0001000010000000010010000",
+      "0001000010000000000000001",
+      "0001000010000000000000001",
+      "0001000010000000000000001",
+      "0001000010000000000000001",
+      "0001000010000000000010001",
+      "0001000010000000000010001",
+      "0001000010000000000100001",
+      "0001000010000000000100001",
+      "0001000010000000000100001",
+      "0001000010000000000100001",
+      "0001000010000000000100001",
+      "0001000010000000000100001",
+      "0001000010000000000110001",
+      "0001000010000000000110001",
+      "0001000010000000000110001",
+      "0001000010000000000110001",
+      "0001000010000000001000001",
+      "0001000010000000001000001",
+      "0001000010000000001010001",
+      "0001000010000000001010001",
+      "0001000010000000001100001",
+      "0001000010000000001100001",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000",
+      "0001000010000000000000000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  ena\n - output pm\n - output hh (8 bits)\n - output mm (8 bits)\n - output ss (8 bits)\n\nCreate a set of counters suitable for use as a 12-hour clock (with am/pm\nindicator). Your counters are clocked by a fast-running clk, with a pulse\non ena whenever your clock should increment (i.e., once per second, while\n\"clk\" is much faster than once per second). The signal \"pm\" is asserted\nif the clock is PM, or is otherwise AM. hh, mm, and ss are two BCD\n(Binary- Coded Decimal) digits each for hours (01-12), minutes (00-59),\nand seconds (00-59). Reset is the active high synchronous signal that\nresets the clock to \"12:00 AM.\" Reset has higher priority than enable and\ncan occur even when not enabled. Assume all sequential logic is triggered\non the positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | reset | ena | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | - | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | - | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 |\n| 1 | 1'b1 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 |\n| 2 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 |\n| 3 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h01 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h10 |\n| 4 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h01 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h01 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h10 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h10 |\n| 5 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h01 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h02 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h10 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h20 |\n| 6 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h02 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h02 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h20 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h20 |\n| 7 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h02 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h03 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h20 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h30 |\n| 8 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h03 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h04 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h30 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h40 |\n| 9 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h04 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h04 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h40 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h40 |\n| 10 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h04 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h05 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h40 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h50 |\n| 11 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h05 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h06 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h50 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h60 |\n| 12 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h06 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h07 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h60 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h70 |\n| 13 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h07 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h08 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h70 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h80 |\n| 14 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h08 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h08 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h80 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h80 |\n| 15 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h08 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h08 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h80 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h80 |\n| 16 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h08 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h09 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h80 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h90 |\n| 17 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h09 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h10 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h90 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h01 |\n| 18 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h10 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h10 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h01 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h01 |\n| 19 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h10 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h11 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h01 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h11 |\n| 20 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h11 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h12 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h11 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h21 |\n| 21 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h12 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h12 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h21 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h21 |\n| 22 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h12 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h12 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h21 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h21 |\n| 23 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h12 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h13 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h21 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h31 |\n| 24 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h13 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h13 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h31 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h31 |\n| 25 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h13 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h14 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h31 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h41 |\n| 26 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h14 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h15 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h41 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h51 |\n| 27 | 1'b0 | 1'b1 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h15 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h16 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h51 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h61 |\n| 28 | 1'b1 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h16 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h61 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 |\n| 29 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 |\n| 30 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 |\n| 31 | 1'b0 | 1'b0 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 | pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     1
+    ]
+   ],
+   "options": [
+    "0000100100000000000000000",
+    "0001000010000000000000000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "0000100100000000000000000",
+   "x_involved": false,
+   "hist": [
+    "xxxxxxxxxxxxxxxxxxxxxxxxx"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  ena\n - output pm\n - output hh (8 bits)\n - output mm (8 bits)\n - output ss (8 bits)\n\nCreate a set of counters suitable for use as a 12-hour clock (with am/pm\nindicator). Your counters are clocked by a fast-running clk, with a pulse\non ena whenever your clock should increment (i.e., once per second, while\n\"clk\" is much faster than once per second). The signal \"pm\" is asserted\nif the clock is PM, or is otherwise AM. hh, mm, and ss are two BCD\n(Binary- Coded Decimal) digits each for hours (01-12), minutes (00-59),\nand seconds (00-59). Reset is the active high synchronous signal that\nresets the clock to \"12:00 AM.\" Reset has higher priority than enable and\ncan occur even when not enabled. Assume all sequential logic is triggered\non the positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | reset | ena | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | pm=1'bx, hh=8'bxxxxxxxx, mm=8'bxxxxxxxx, ss=8'bxxxxxxxx | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: pm=1'b0, hh=8'h12, mm=8'h00, ss=8'h00\n- **B**: pm=1'b0, hh=8'h21, mm=8'h00, ss=8'h00\n"
+  }
+ ]
+}

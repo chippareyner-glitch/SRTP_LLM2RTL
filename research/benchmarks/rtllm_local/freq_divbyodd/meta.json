@@ -1,0 +1,11 @@
+{
+ "case": "freq_divbyodd",
+ "category": "Miscellaneous",
+ "top": "freq_divbyodd",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "freq_divbyodd"
+ ]
+}

@@ -1,0 +1,123 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in (4 bits)
+ - output out_and
+ - output out_or
+ - output out_xor
+
+The module should implement a combinational circuit with four inputs,
+in[3:0]. There are 3 outputs:
+
+  (1) out_and : output of a 4-input AND gate
+  (2) out_or  : output of a 4-input OR  gate
+  (3) out_xor : output of a 4-input XOR gate
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a combinational logic module `TopModule` with:
+- **Input**: 4-bit `in[3:0]`
+- **Outputs**: 
+  - `out_and`: 4-input AND of all input bits
+  - `out_or`: 4-input OR of all input bits  
+  - `out_xor`: 4-input XOR of all input bits
+- **Type**: Pure combinational logic (no clock, no reset)
+
+## 2. Ambiguity Analysis
+
+**No significant ambiguities found.** The specification is clear and unambiguous:
+- Bit ordering is explicitly `in[3:0]` (MSB:in[3], LSB:in[0])
+- All operations are clearly defined as standard 4-input logic functions
+- Port directions and widths are explicitly specified
+
+## 3. Missing Critical Details
+
+**Minimal missing details identified:**
+
+- **Timing Constraints**: No propagation delay requirements specified
+- **Output Drive Strength**: No fanout or loading constraints mentioned
+- **Power Constraints**: No low-power design requirements
+- **I/O Standards**: No voltage levels or I/O characteristics specified
+
+*Note: These are reasonable omissions for a basic combinational logic specification.*
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical edge cases to consider:**
+
+- **All-Zero Input**: `in = 4'b0000`
+  - out_and = 0, out_or = 0, out_xor = 0
+- **All-One Input**: `in = 4'b1111`  
+  - out_and = 1, out_or = 1, out_xor = 0
+- **Alternating Patterns**: e.g., `in = 4'b1010`
+  - out_and = 0, out_or = 1, out_xor = 0
+- **Single Bit High**: e.g., `in = 4'b0001`
+  - out_and = 0, out_or = 1, out_xor = 1
+- **Single Bit Low**: e.g., `in = 4'b1110`
+  - out_and = 0, out_or = 1, out_xor = 1
+
+## 5. Functional Correctness Prediction
+
+**High confidence in functional correctness** due to:
+- Simple, well-defined combinational logic functions
+- No sequential elements or complex control logic
+- Standard logic operations with predictable behavior
+- Minimal state space (16 possible input combinations)
+
+**Expected truth table:**
+| in[3:0] | out_and | out_or | out_xor |
+|---------|---------|--------|---------|
+| 0000    | 0       | 0      | 0       |
+| 0001    | 0       | 1      | 1       |
+| ...     | ...     | ...    | ...     |
+| 1110    | 0       | 1      | 1       |
+| 1111    | 1       | 1      | 0       |
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  logic [3:0] in,
+    output logic       out_and,
+    output logic       out_or,
+    output logic       out_xor
+);
+
+    // Direct gate-level implementation (most efficient)
+    assign out_and = &in;     // 4-input AND: in[3] & in[2] & in[1] & in[0]
+    assign out_or  = |in;     // 4-input OR: in[3] | in[2] | in[1] | in[0]  
+    assign out_xor = ^in;     // 4-input XOR: in[3] ^ in[2] ^ in[1] ^ in[0]
+
+endmodule
+```
+
+**Verification Requirements:**
+- Test all 16 input combinations exhaustively
+- Verify all three outputs for each input pattern
+- Include corner cases (all-0, all-1, alternating patterns)
+- No need for timing checks (combinational only)
+
+**Synthesis Considerations:**
+- Use `logic` data type for SystemVerilog compatibility
+- No sequential elements required
+- Minimal area implementation using built-in reduction operators
+- No timing constraints needed for basic functionality
+
+**Additional Recommendations:**
+- Add `/* synthesis keep */` pragma if netlist preservation is needed
+- Consider adding assertion checks for formal verification
+- Document the module with header comments describing functionality
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

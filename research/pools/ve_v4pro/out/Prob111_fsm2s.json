@@ -1,0 +1,25 @@
+{
+ "case": "Prob111_fsm2s",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "c1c86814764d",
+   "sources": [
+    "ve_v4pro:s0"
+   ],
+   "model": "ve_v4pro",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_v4pro\\gen\\Prob111_fsm2s\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\n2 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

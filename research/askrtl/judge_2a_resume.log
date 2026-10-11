@@ -1,0 +1,10 @@
+﻿resuming 20261009_152757_min_live: 150 done, 70 remaining
+70 judge prompts from 8 problems; ~90K input tokens (+ reasoning/output). Saved to out_judge\20261009_152757_min_live
+Prob149_ece241_2013_q4 3 D -> API_ERROR x
+Prob149_ece241_2013_q4 4 B -> API_ERROR x
+Prob149_ece241_2013_q4 5 A -> A OK
+Prob149_ece241_2013_q4 6 B -> ANY x
+Prob149_ece241_2013_q4 7 C -> ANY x
+Prob149_ece241_2013_q4 8 D -> ANY x
+Prob149_ece241_2013_q4 9 B -> ANY x
+Prob149_ece241_2013_q4 10 A -> A OK

@@ -1,0 +1,261 @@
+{
+ "case": "Prob156_review2015_fancytimer",
+ "excluded_iface": [
+  "c4"
+ ],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "data",
+    1
+   ],
+   [
+    "ack",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "count",
+    4
+   ],
+   [
+    "counting",
+    1
+   ],
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c5"
+  ],
+  [
+   "c2"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 10,
+ "off_found": 7,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 13,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 32,
+   "orig_len": 14,
+   "min_len": 9,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 13,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 32,
+   "orig_len": 14,
+   "min_len": 9,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 13,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 32,
+   "orig_len": 14,
+   "min_len": 9,
+   "toggles": 3
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

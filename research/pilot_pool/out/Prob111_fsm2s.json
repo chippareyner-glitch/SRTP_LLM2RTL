@@ -1,0 +1,154 @@
+{
+ "case": "Prob111_fsm2s",
+ "n_samples": 10,
+ "n_distinct": 8,
+ "n_compiling": 7,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "f4b52f141a59",
+   "sources": [
+    "deepseek_full"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob111_fsm2s\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 241
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "3c38db3459f7",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob111_fsm2s\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 241
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "9dd9f57b5f04",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob111_fsm2s\\module.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\n2 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c3",
+   "hash": "a8d9a3fd2c82",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob111_fsm2s\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 241
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "9771295c82d7",
+   "sources": [
+    "tri0926:candidate_1_literal",
+    "tri0926:candidate_2_contract",
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob111_fsm2s\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 241
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "2011f9147624",
+   "sources": [
+    "tri0926:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob111_fsm2s\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 241
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c6",
+   "hash": "5a7d2cb9fae2",
+   "sources": [
+    "tri0927:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob111_fsm2s\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 241
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "610b1226e560",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob111_fsm2s\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 241
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7"
+   ],
+   "votes": 9,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 0
+}

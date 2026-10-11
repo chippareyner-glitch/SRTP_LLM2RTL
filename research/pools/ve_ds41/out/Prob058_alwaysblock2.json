@@ -1,0 +1,108 @@
+{
+ "case": "Prob058_alwaysblock2",
+ "n_samples": 5,
+ "n_distinct": 5,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "138eecc1f34c",
+   "sources": [
+    "ve_ds41:s0"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob058_alwaysblock2\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:15: error: out_always_comb is not a valid l-value in tb.top_module1.\ndut.sv:6:      : out_always_comb is declared here as wire.\ndut.sv:20: error: out_always_ff is not a valid l-value in tb.top_module1.\ndut.sv:7:      : out_always_ff is declared here as wire.\n2 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "82a29b91372c",
+   "sources": [
+    "ve_ds41:s1"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob058_alwaysblock2\\s1.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 219,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "628d1181066e",
+   "sources": [
+    "ve_ds41:s2"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob058_alwaysblock2\\s2.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 219,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "e71ff68ebd0d",
+   "sources": [
+    "ve_ds41:s3"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob058_alwaysblock2\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 219,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "7936cad35a8d",
+   "sources": [
+    "ve_ds41:s4"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob058_alwaysblock2\\s4.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 219,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1",
+    "c2",
+    "c3",
+    "c4"
+   ],
+   "votes": 4,
+   "correct": true
+  }
+ ]
+}

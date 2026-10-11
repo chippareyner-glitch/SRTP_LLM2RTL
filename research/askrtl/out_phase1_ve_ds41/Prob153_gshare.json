@@ -1,0 +1,138 @@
+{
+ "case": "Prob153_gshare",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "areset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "areset",
+    1
+   ],
+   [
+    "predict_valid",
+    1
+   ],
+   [
+    "predict_pc",
+    7
+   ],
+   [
+    "train_valid",
+    1
+   ],
+   [
+    "train_taken",
+    1
+   ],
+   [
+    "train_mispredicted",
+    1
+   ],
+   [
+    "train_history",
+    7
+   ],
+   [
+    "train_pc",
+    7
+   ]
+  ],
+  "outputs": [
+   [
+    "predict_taken",
+    1
+   ],
+   [
+    "predict_history",
+    7
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c4"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 4,
+ "ci_found": 4,
+ "ci_missed": [],
+ "off_pairs": 4,
+ "off_found": 4,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 7,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     27,
+     64
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     1,
+     26,
+     64
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     26,
+     64
+    ]
+   ],
+   "ok": true,
+   "calls": 31,
+   "orig_len": 8,
+   "min_len": 4,
+   "toggles": 6
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

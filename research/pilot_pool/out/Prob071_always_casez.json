@@ -1,0 +1,106 @@
+{
+ "case": "Prob071_always_casez",
+ "n_samples": 10,
+ "n_distinct": 4,
+ "n_compiling": 4,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "9d720d44bc00",
+   "sources": [
+    "deepseek_full",
+    "json_ir"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob071_always_casez\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 346
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "351b908719f0",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob071_always_casez\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 346
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "fc0a9dc86ac3",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob071_always_casez\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 346
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "7814e322219c",
+   "sources": [
+    "tri0926:candidate_1_literal",
+    "tri0926:candidate_2_contract",
+    "tri0926:candidate_3_counterexample",
+    "tri0927:candidate_1_literal",
+    "tri0927:candidate_2_contract",
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob071_always_casez\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 312,
+    "samples": 346
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c3"
+   ],
+   "votes": 6,
+   "correct": false,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c0",
+    "c2"
+   ],
+   "votes": 3,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 5
+}

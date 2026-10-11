@@ -1,0 +1,362 @@
+{
+ "majority|0.5": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority|0.6": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority|0.7": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority|0.8": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority|0.9": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority|1.0": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority per-config|0.5": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority per-config|0.6": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority per-config|0.7": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority per-config|0.8": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority per-config|0.9": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "majority per-config|1.0": {
+  "acc": 0.6017094017094018,
+  "q_per_div_problem": 0.0
+ },
+ "top2 (1 q)|0.5": {
+  "acc": 0.5982920227920215,
+  "q_per_div_problem": 1.0
+ },
+ "top2 (1 q)|0.6": {
+  "acc": 0.5975626780626766,
+  "q_per_div_problem": 1.0
+ },
+ "top2 (1 q)|0.7": {
+  "acc": 0.5954729344729327,
+  "q_per_div_problem": 1.0
+ },
+ "top2 (1 q)|0.8": {
+  "acc": 0.5979273504273483,
+  "q_per_div_problem": 1.0
+ },
+ "top2 (1 q)|0.9": {
+  "acc": 0.5994999999999977,
+  "q_per_div_problem": 1.0
+ },
+ "top2 (1 q)|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 1.0
+ },
+ "bayes votes B=1|0.5": {
+  "acc": 0.5976780626780616,
+  "q_per_div_problem": 1.0
+ },
+ "bayes votes B=1|0.6": {
+  "acc": 0.5979401709401694,
+  "q_per_div_problem": 1.0
+ },
+ "bayes votes B=1|0.7": {
+  "acc": 0.5949658119658102,
+  "q_per_div_problem": 1.0
+ },
+ "bayes votes B=1|0.8": {
+  "acc": 0.5981538461538443,
+  "q_per_div_problem": 1.0
+ },
+ "bayes votes B=1|0.9": {
+  "acc": 0.599253561253559,
+  "q_per_div_problem": 1.0
+ },
+ "bayes votes B=1|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 1.0
+ },
+ "bayes votes B=2|0.5": {
+  "acc": 0.5975911680911671,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes votes B=2|0.6": {
+  "acc": 0.5953796296296285,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes votes B=2|0.7": {
+  "acc": 0.5942279202279188,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes votes B=2|0.8": {
+  "acc": 0.5965170940170924,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes votes B=2|0.9": {
+  "acc": 0.5993333333333312,
+  "q_per_div_problem": 1.5561764705882353
+ },
+ "bayes votes B=2|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes votes B=3|0.5": {
+  "acc": 0.5986467236467231,
+  "q_per_div_problem": 2.1176470588235294
+ },
+ "bayes votes B=3|0.6": {
+  "acc": 0.5960633903133896,
+  "q_per_div_problem": 2.117450980392157
+ },
+ "bayes votes B=3|0.7": {
+  "acc": 0.5927300569800562,
+  "q_per_div_problem": 2.116764705882353
+ },
+ "bayes votes B=3|0.8": {
+  "acc": 0.5966702279202266,
+  "q_per_div_problem": 2.116470588235294
+ },
+ "bayes votes B=3|0.9": {
+  "acc": 0.599891737891736,
+  "q_per_div_problem": 2.1098039215686275
+ },
+ "bayes votes B=3|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 2.1176470588235294
+ },
+ "bayes votes B=5|0.5": {
+  "acc": 0.5983796296296293,
+  "q_per_div_problem": 2.7058823529411766
+ },
+ "bayes votes B=5|0.6": {
+  "acc": 0.5972685185185183,
+  "q_per_div_problem": 2.7048039215686277
+ },
+ "bayes votes B=5|0.7": {
+  "acc": 0.5946801994301992,
+  "q_per_div_problem": 2.701764705882353
+ },
+ "bayes votes B=5|0.8": {
+  "acc": 0.5970641025641018,
+  "q_per_div_problem": 2.6986274509803923
+ },
+ "bayes votes B=5|0.9": {
+  "acc": 0.5991673789173771,
+  "q_per_div_problem": 2.6935294117647057
+ },
+ "bayes votes B=5|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 2.7058823529411766
+ },
+ "bayes configs B=1|0.5": {
+  "acc": 0.5976780626780616,
+  "q_per_div_problem": 1.0
+ },
+ "bayes configs B=1|0.6": {
+  "acc": 0.5979401709401694,
+  "q_per_div_problem": 1.0
+ },
+ "bayes configs B=1|0.7": {
+  "acc": 0.5949658119658102,
+  "q_per_div_problem": 1.0
+ },
+ "bayes configs B=1|0.8": {
+  "acc": 0.5981538461538443,
+  "q_per_div_problem": 1.0
+ },
+ "bayes configs B=1|0.9": {
+  "acc": 0.599253561253559,
+  "q_per_div_problem": 1.0
+ },
+ "bayes configs B=1|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 1.0
+ },
+ "bayes configs B=2|0.5": {
+  "acc": 0.5975911680911671,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes configs B=2|0.6": {
+  "acc": 0.5953796296296285,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes configs B=2|0.7": {
+  "acc": 0.5942279202279188,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes configs B=2|0.8": {
+  "acc": 0.5965170940170924,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes configs B=2|0.9": {
+  "acc": 0.5993333333333312,
+  "q_per_div_problem": 1.5561764705882353
+ },
+ "bayes configs B=2|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes configs B=3|0.5": {
+  "acc": 0.5986467236467231,
+  "q_per_div_problem": 2.1176470588235294
+ },
+ "bayes configs B=3|0.6": {
+  "acc": 0.5960633903133896,
+  "q_per_div_problem": 2.117450980392157
+ },
+ "bayes configs B=3|0.7": {
+  "acc": 0.5928169515669507,
+  "q_per_div_problem": 2.1165686274509805
+ },
+ "bayes configs B=3|0.8": {
+  "acc": 0.597029202279201,
+  "q_per_div_problem": 2.116470588235294
+ },
+ "bayes configs B=3|0.9": {
+  "acc": 0.599891737891736,
+  "q_per_div_problem": 2.1098039215686275
+ },
+ "bayes configs B=3|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 2.1176470588235294
+ },
+ "bayes configs B=5|0.5": {
+  "acc": 0.5983796296296293,
+  "q_per_div_problem": 2.7058823529411766
+ },
+ "bayes configs B=5|0.6": {
+  "acc": 0.5972685185185183,
+  "q_per_div_problem": 2.7048039215686277
+ },
+ "bayes configs B=5|0.7": {
+  "acc": 0.5943433048433044,
+  "q_per_div_problem": 2.7026470588235294
+ },
+ "bayes configs B=5|0.8": {
+  "acc": 0.5975612535612528,
+  "q_per_div_problem": 2.6999019607843135
+ },
+ "bayes configs B=5|0.9": {
+  "acc": 0.5991673789173771,
+  "q_per_div_problem": 2.6935294117647057
+ },
+ "bayes configs B=5|1.0": {
+  "acc": 0.6017094017093992,
+  "q_per_div_problem": 2.7058823529411766
+ },
+ "bayes uniform B=1|0.5": {
+  "acc": 0.5718518518518513,
+  "q_per_div_problem": 1.0
+ },
+ "bayes uniform B=1|0.6": {
+  "acc": 0.5729686609686602,
+  "q_per_div_problem": 1.0
+ },
+ "bayes uniform B=1|0.7": {
+  "acc": 0.5714544159544153,
+  "q_per_div_problem": 1.0
+ },
+ "bayes uniform B=1|0.8": {
+  "acc": 0.5718290598290589,
+  "q_per_div_problem": 1.0
+ },
+ "bayes uniform B=1|0.9": {
+  "acc": 0.5714900284900271,
+  "q_per_div_problem": 1.0
+ },
+ "bayes uniform B=1|1.0": {
+  "acc": 0.5717948717948704,
+  "q_per_div_problem": 1.0
+ },
+ "bayes uniform B=2|0.5": {
+  "acc": 0.5718575498575492,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes uniform B=2|0.6": {
+  "acc": 0.5704294871794868,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes uniform B=2|0.7": {
+  "acc": 0.5715071225071215,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes uniform B=2|0.8": {
+  "acc": 0.5715598290598283,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes uniform B=2|0.9": {
+  "acc": 0.5717065527065515,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes uniform B=2|1.0": {
+  "acc": 0.5717948717948704,
+  "q_per_div_problem": 1.5588235294117647
+ },
+ "bayes uniform B=3|0.5": {
+  "acc": 0.5731908831908828,
+  "q_per_div_problem": 2.1176470588235294
+ },
+ "bayes uniform B=3|0.6": {
+  "acc": 0.5719487179487177,
+  "q_per_div_problem": 2.1176470588235294
+ },
+ "bayes uniform B=3|0.7": {
+  "acc": 0.5701061253561251,
+  "q_per_div_problem": 2.116764705882353
+ },
+ "bayes uniform B=3|0.8": {
+  "acc": 0.5720292022792017,
+  "q_per_div_problem": 2.116470588235294
+ },
+ "bayes uniform B=3|0.9": {
+  "acc": 0.5710477207977197,
+  "q_per_div_problem": 2.116470588235294
+ },
+ "bayes uniform B=3|1.0": {
+  "acc": 0.5717948717948704,
+  "q_per_div_problem": 2.1176470588235294
+ },
+ "bayes uniform B=5|0.5": {
+  "acc": 0.5739138176638174,
+  "q_per_div_problem": 2.7058823529411766
+ },
+ "bayes uniform B=5|0.6": {
+  "acc": 0.5730377492877491,
+  "q_per_div_problem": 2.7050980392156863
+ },
+ "bayes uniform B=5|0.7": {
+  "acc": 0.5720733618233615,
+  "q_per_div_problem": 2.702156862745098
+ },
+ "bayes uniform B=5|0.8": {
+  "acc": 0.5728062678062675,
+  "q_per_div_problem": 2.699411764705882
+ },
+ "bayes uniform B=5|0.9": {
+  "acc": 0.572663105413105,
+  "q_per_div_problem": 2.703529411764706
+ },
+ "bayes uniform B=5|1.0": {
+  "acc": 0.5717948717948704,
+  "q_per_div_problem": 2.7058823529411766
+ }
+}

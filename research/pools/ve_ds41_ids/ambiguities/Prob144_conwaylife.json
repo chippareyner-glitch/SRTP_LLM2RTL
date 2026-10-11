@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial state / reset behavior",
+   "severity": "high",
+   "readings": [
+    "q initializes to all zeros (or some default) at power-up before any load",
+    "q is undefined (X) at power-up and only becomes defined after the first load"
+   ]
+  },
+  {
+   "aspect": "Load vs game update priority",
+   "severity": "high",
+   "readings": [
+    "When load=1, q_next = data (load overrides game update)",
+    "When load=1, the game still advances, i.e., q_next = next_state(q), ignoring data or combining both"
+   ]
+  },
+  {
+   "aspect": "Column bit ordering within a row",
+   "severity": "medium",
+   "readings": [
+    "q[0] is column 0 (LSB-first within each 16-bit row)",
+    "q[15] is column 0 (MSB-first within each 16-bit row)"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "behavior for non-one-hot y",
+   "severity": "medium",
+   "readings": [
+    "Treat invalid y values as don't-cares; outputs may be optimized to any value (e.g., 1 for some invalid combinations) for non-one-hot inputs.",
+    "Implement equations strictly as derived from the one-hot states, yielding Y1=0 and Y3=0 for all non-one-hot y values."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "case": "Prob029_m2014_q4g",
+ "n_samples": 10,
+ "n_distinct": 4,
+ "n_compiling": 4,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "22f09527b675",
+   "sources": [
+    "deepseek_full",
+    "legacy_v2",
+    "direct_batch"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob029_m2014_q4g\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "c2b16c3763dc",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob029_m2014_q4g\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "440ba359b704",
+   "sources": [
+    "tri0926:candidate_1_literal",
+    "tri0927:candidate_1_literal",
+    "tri0927:candidate_2_contract",
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob029_m2014_q4g\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "4eca25a4d3e8",
+   "sources": [
+    "tri0926:candidate_2_contract",
+    "tri0926:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob029_m2014_q4g\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c3"
+   ],
+   "votes": 10,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 0
+}

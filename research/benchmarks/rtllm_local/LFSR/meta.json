@@ -1,0 +1,11 @@
+{
+ "case": "LFSR",
+ "category": "Memory",
+ "top": "LFSR",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "LFSR"
+ ]
+}

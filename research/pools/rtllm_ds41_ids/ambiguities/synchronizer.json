@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "enable synchronizer depth / whether en_data_reg counts as one of the two flops",
+   "severity": "high",
+   "readings": [
+    "en_data_reg (clk_a) + en_clap_one + en_clap_two (clk_b) = 3 flops total, so dataout updates 2 clk_b edges after en_data_reg rises (as literally listed in the register description)",
+    "the 'two D flip-flops' are the entire delay chain from data_en (data_en sampled directly by clk_b into en_clap_one), so dataout updates 2 clk_b edges after data_en, i.e. one clk_b cycle earlier than the first reading"
+   ]
+  },
+  {
+   "aspect": "data path synchronization into clk_b",
+   "severity": "high",
+   "readings": [
+    "dataout is loaded directly from data_reg (a clk_a flop) on the same clk_b edge that en_clap_two is high, adding zero extra latency (as written in 'Output Assignment')",
+    "data_reg must itself be re-registered through two clk_b flops before being selected, so dataout appears 2 clk_b cycles later and a different (already-stable) value is captured"
+   ]
+  },
+  {
+   "aspect": "data_reg capture condition",
+   "severity": "medium",
+   "readings": [
+    "data_reg is updated with data_in on every clk_a edge regardless of data_en, so it can already hold the next value when the synchronized enable arrives",
+    "data_reg is only updated while data_en is high (enable-qualified capture), so it holds the value present during the enable window"
+   ]
+  },
+  {
+   "aspect": "level-sensitive vs one-shot (edge) use of en_clap_two",
+   "severity": "low",
+   "readings": [
+    "dataout reloads data_reg on every clk_b edge while en_clap_two is high (level-sensitive mux), so any change of data_reg during a long enable window propagates to dataout",
+    "en_clap_two is treated as a single-cycle pulse/edge detect, so dataout is loaded exactly once per data_en event and never follows data_reg afterwards"
+   ]
+  }
+ ]
+}

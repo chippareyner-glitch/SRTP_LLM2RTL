@@ -1,0 +1,214 @@
+[
+  {
+    "case": "Prob079_fsm3onehot",
+    "from": "ve_ds41_ids:q0",
+    "check": {
+      "next_state": "0101"
+    },
+    "reference": "pass",
+    "held_out_ids": false,
+    "designs": [
+      {
+        "id": "c0",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 1
+      },
+      {
+        "id": "c1",
+        "official": true,
+        "supp": "fail",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c2",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      },
+      {
+        "id": "c3",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      },
+      {
+        "id": "c4",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      },
+      {
+        "id": "c5",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      }
+    ]
+  },
+  {
+    "case": "Prob143_fsm_onehot",
+    "from": "ve_ds41_ids:q1",
+    "check": {
+      "out2": "1"
+    },
+    "reference": "pass",
+    "held_out_ids": false,
+    "designs": [
+      {
+        "id": "c0",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 1
+      },
+      {
+        "id": "c1",
+        "official": true,
+        "supp": "pass",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c2",
+        "official": true,
+        "supp": "pass",
+        "n_base": 3,
+        "n_ids": 1
+      },
+      {
+        "id": "c3",
+        "official": true,
+        "supp": "fail",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c4",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      }
+    ]
+  },
+  {
+    "case": "Prob143_fsm_onehot",
+    "from": "ve_ds41_ids:q2",
+    "check": {
+      "next_state": "0000000110"
+    },
+    "reference": "pass",
+    "held_out_ids": false,
+    "designs": [
+      {
+        "id": "c0",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 1
+      },
+      {
+        "id": "c1",
+        "official": true,
+        "supp": "fail",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c2",
+        "official": true,
+        "supp": "pass",
+        "n_base": 3,
+        "n_ids": 1
+      },
+      {
+        "id": "c3",
+        "official": true,
+        "supp": "pass",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c4",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      }
+    ]
+  },
+  {
+    "case": "JC_counter",
+    "from": "rtllm_ds41_ids:q0",
+    "check": {
+      "Q": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "reference": "pass",
+    "held_out_ids": false,
+    "designs": [
+      {
+        "id": "c0",
+        "official": true,
+        "supp": "pass",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c1",
+        "official": true,
+        "supp": "fail",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c2",
+        "official": true,
+        "supp": "pass",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c3",
+        "official": true,
+        "supp": "pass",
+        "n_base": 0,
+        "n_ids": 1
+      },
+      {
+        "id": "c4",
+        "official": true,
+        "supp": "pass",
+        "n_base": 2,
+        "n_ids": 0
+      },
+      {
+        "id": "c5",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      },
+      {
+        "id": "c6",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      },
+      {
+        "id": "c7",
+        "official": true,
+        "supp": "pass",
+        "n_base": 1,
+        "n_ids": 0
+      }
+    ]
+  }
+]

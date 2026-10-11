@@ -1,0 +1,135 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a              (3 bits)
+ - input  b              (3 bits)
+ - output out_or_bitwise (3 bits)
+ - output out_or_logical
+ - output out_not        (6 bits)
+
+Implement a module with two 3-bit inputs that computes the bitwise-OR of
+the two vectors, the logical-OR of the two vectors, and the inverse (NOT)
+of both vectors. Place the inverse of b in the upper half of out_not
+(i.e., bits [5:3]), and the inverse of a in the lower half.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` processes two 3-bit inputs to generate three outputs:
+- **out_or_bitwise**: 3-bit bitwise OR of inputs a and b
+- **out_or_logical**: 1-bit logical OR (true if either input is non-zero)
+- **out_not**: 6-bit concatenation of NOT(b) and NOT(a)
+
+**Port Mapping:**
+- Inputs: a[2:0], b[2:0] (3-bit each)
+- Outputs: out_or_bitwise[2:0], out_or_logical, out_not[5:0]
+
+## 2. Ambiguity Analysis
+
+**Bit Order Clarification:**
+- The specification states "upper half of out_not (i.e., bits [5:3])" for NOT(b)
+- This implies big-endian bit numbering (MSB at highest index)
+- Need to confirm if NOT(b)[2] maps to out_not[5] or out_not[3]
+
+**Logical OR Interpretation:**
+- "Logical OR of the two vectors" is clear (true if a ≠ 0 or b ≠ 0)
+- However, should consider if this means reduction OR of bitwise OR, or separate evaluation
+
+## 3. Missing Critical Details
+
+**Timing Requirements:**
+- No clock or reset signals specified
+- Must be purely combinational logic
+- No timing constraints (setup/hold, propagation delay)
+
+**Bit Significance Convention:**
+- Unspecified whether inputs use little-endian or big-endian bit ordering
+- Recommendation: Use standard Verilog convention (a[2] = MSB, a[0] = LSB)
+
+**Synthesis Constraints:**
+- No area, power, or timing optimization targets
+- No technology library constraints
+
+## 4. Edge Cases & Boundary Conditions
+
+**All-Zero Inputs:**
+- a=3'b000, b=3'b000 → out_or_bitwise=3'b000, out_or_logical=1'b0, out_not=6'b111111
+
+**All-Ones Inputs:**
+- a=3'b111, b=3'b111 → out_or_bitwise=3'b111, out_or_logical=1'b1, out_not=6'b000000
+
+**Mixed Patterns:**
+- a=3'b101, b=3'b010 → out_or_bitwise=3'b111, out_or_logical=1'b1, out_not=6'b101010
+
+**Bit Order Edge Case:**
+- Need to verify NOT(b) correctly maps to bits [5:3] of out_not
+- Example: b=3'b001 → NOT(b)=3'b110 → out_not[5:3]=3'b110
+
+## 5. Functional Correctness Prediction
+
+**High Confidence Areas:**
+- Bitwise OR operation is straightforward and unambiguous
+- Logical OR (reduction OR) has clear definition
+- NOT operations are well-defined
+
+**Potential Risk Areas:**
+- Bit ordering in 6-bit concatenation (NOT(b) in upper bits)
+- Possible confusion between bit numbering conventions
+
+**Verification Requirements:**
+- Test all 64 input combinations (6-bit input space)
+- Focus on corner cases: all zeros, all ones, alternating patterns
+- Verify bit positioning in out_not[5:0]
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  [2:0] a,
+    input  [2:0] b,
+    output [2:0] out_or_bitwise,
+    output       out_or_logical,
+    output [5:0] out_not
+);
+
+    // Bitwise OR (direct vector operation)
+    assign out_or_bitwise = a | b;
+    
+    // Logical OR (reduction OR of bitwise OR)
+    assign out_or_logical = |(a | b);
+    
+    // NOT operations with concatenation
+    // NOT(b) in bits [5:3], NOT(a) in bits [2:0]
+    assign out_not = {~b, ~a};
+
+endmodule
+```
+
+**Verification Testbench Requirements:**
+- Create comprehensive test vectors covering all boundary conditions
+- Verify bit ordering through specific test cases:
+  - a=3'b001, b=3'b010 → Check out_not[5:3]=3'b101, out_not[2:0]=3'b110
+- Include assertion checks for logical OR correctness
+
+**Synthesis Considerations:**
+- All operations map efficiently to standard cell libraries
+- No sequential elements needed (combinational only)
+- Estimated 10-15 gate equivalents depending on technology
+
+**Documentation Additions:**
+- Explicitly document bit numbering convention
+- Specify that module is purely combinational
+- Include truth table for quick reference
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

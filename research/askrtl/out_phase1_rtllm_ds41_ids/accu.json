@@ -1,0 +1,88 @@
+{
+ "case": "accu",
+ "excluded_iface": [
+  "c2"
+ ],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "rst_n",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "rst_n",
+    1
+   ],
+   [
+    "data_in",
+    8
+   ],
+   [
+    "valid_in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "valid_out",
+    1
+   ],
+   [
+    "data_out",
+    10
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1",
+   "c3",
+   "c4",
+   "c5",
+   "c6",
+   "c7",
+   "c8"
+  ],
+  [
+   "c0"
+  ]
+ ],
+ "ci_pairs": 7,
+ "ci_found": 7,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 7,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     216,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 1,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 8
+}

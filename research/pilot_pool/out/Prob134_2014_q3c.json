@@ -1,0 +1,216 @@
+{
+ "case": "Prob134_2014_q3c",
+ "n_samples": 10,
+ "n_distinct": 10,
+ "n_compiling": 10,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "7bcd8877fca5",
+   "sources": [
+    "deepseek_full"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob134_2014_q3c\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 200
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "94b34999857c",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob134_2014_q3c\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 200
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "c72d9a1be643",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob134_2014_q3c\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 200
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "f501bd0b425a",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob134_2014_q3c\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 200
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "c4d615eb99af",
+   "sources": [
+    "tri0926:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob134_2014_q3c\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 200
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "990b9542a76d",
+   "sources": [
+    "tri0926:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob134_2014_q3c\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 12,
+    "samples": 200
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c6",
+   "hash": "01ad4a1c421f",
+   "sources": [
+    "tri0926:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob134_2014_q3c\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 200
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "8da83f46647c",
+   "sources": [
+    "tri0927:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob134_2014_q3c\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 200
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c8",
+   "hash": "b6632adf2c24",
+   "sources": [
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob134_2014_q3c\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 200
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c9",
+   "hash": "841933b1eda7",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob134_2014_q3c\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 49,
+    "samples": 200
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c3",
+    "c4",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "votes": 5,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c0",
+    "c1"
+   ],
+   "votes": 2,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c5"
+   ],
+   "votes": 1,
+   "correct": false,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c9"
+   ],
+   "votes": 1,
+   "correct": false,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 34
+}

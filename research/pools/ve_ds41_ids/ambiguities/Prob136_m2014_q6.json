@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset target state",
+   "severity": "high",
+   "readings": [
+    "reset forces the state to A (so z=0 after reset)",
+    "reset forces the state to an unspecified state (e.g., E or F, giving z=1) because the reset state is never named"
+   ]
+  },
+  {
+   "aspect": "Reset assertion and synchrony",
+   "severity": "high",
+   "readings": [
+    "reset is synchronous and active-high: state updates to the reset state only on a positive clk edge while reset=1",
+    "reset is asynchronous and/or active-low: state changes immediately on reset assertion independent of clk, or the opposite reset polarity is used"
+   ]
+  },
+  {
+   "aspect": "Output z registration/latency",
+   "severity": "medium",
+   "readings": [
+    "z is a combinational Moore output of the current state, so it changes in the same cycle the state register updates",
+    "z is a registered output, so it can lag the state by one cycle depending on whether it is assigned from current or next state"
+   ]
+  },
+  {
+   "aspect": "Output value mapping",
+   "severity": "low",
+   "readings": [
+    "z equals the parenthetical value shown for the current state: 1 for E and F, 0 for A, B, C, D",
+    "the parenthetical value is not explicitly stated to be z, so z could be assigned differently or left undefined"
+   ]
+  }
+ ]
+}

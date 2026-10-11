@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output latency",
+   "severity": "high",
+   "readings": [
+    "anyedge becomes 1 in the same clock cycle as the new input value (i.e., the cycle immediately following the clock edge at which the change is sampled).",
+    "anyedge becomes 1 one clock cycle later than the new input value (i.e., an extra pipeline register delays the pulse by one cycle)."
+   ]
+  },
+  {
+   "aspect": "Initial state of previous-value register",
+   "severity": "medium",
+   "readings": [
+    "The previous-input register is initialized to 0 at power-up, so a first-cycle input of 1 produces anyedge=1.",
+    "The previous-input register is initialized to the first sampled input value (or left uninitialized), so no edge is detected in the first cycle."
+   ]
+  },
+  {
+   "aspect": "Output type (registered vs combinational)",
+   "severity": "low",
+   "readings": [
+    "anyedge is a registered output that only updates at the positive clock edge.",
+    "anyedge is a combinational output that updates immediately whenever in changes."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,134 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - output q (4 bits)
+
+The module should implement a decade counter that counts 1 through 10,
+inclusive. Assume all sequential logic is triggered on the positive edge
+of the clock. The reset input is active high synchronous, and should
+reset the counter to 1.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+**Module**: TopModule  
+**Function**: Decade counter counting 1 through 10 (inclusive)  
+**Interface**:
+- `clk` (1-bit input) - positive edge triggered
+- `reset` (1-bit input) - synchronous active high
+- `q` (4-bit output) - counter value
+
+**Key Behavior**:
+- Count sequence: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 1 (repeats)
+- Reset behavior: Sets counter to 1 on active reset
+- Synchronous operation: All state changes on rising clock edge
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities**:
+
+1. **Counter Behavior After 10**: The spec states "counts 1 through 10, inclusive" but doesn't explicitly define what happens after reaching 10. While implied to wrap to 1, this should be explicitly stated.
+
+2. **Power-on Initial State**: No specification for initial state after power-on without explicit reset. Should the counter initialize to 1 or an undefined state?
+
+3. **Reset Timing**: "Synchronous reset" is clear, but behavior when reset is asserted for multiple cycles is unspecified. Should counter remain at 1 while reset is held?
+
+4. **Output Behavior During Reset**: Is `q` guaranteed to be 1 only on the clock edge following reset assertion, or immediately?
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications**:
+
+1. **Counter Representation**: How is value 10 represented in 4 bits? (Binary: 1010 or BCD: 0001_0000?)
+2. **Counting Speed**: No clock frequency or timing constraints specified
+3. **Output Timing**: Propagation delay requirements or output stability timing
+4. **Reset Recovery/Removal**: Timing constraints for reset deassertion relative to clock
+5. **Glitch Handling**: Behavior with input glitches or metastability considerations
+6. **Testability Features**: No scan chain or test mode requirements mentioned
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle**:
+
+1. **Reset Assertion at Count 10**: Ensure proper transition to 1
+2. **Reset Deassertion Timing**: Counter should begin counting from 1 on first clock after reset release
+3. **Consecutive Reset Cycles**: Counter should remain at 1 while reset is active
+4. **Clock Gating**: Behavior if clock stops during operation
+5. **Simultaneous Reset and Count Overflow**: Priority clarification needed
+6. **Maximum Frequency Operation**: Behavior at timing margins
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Risks**:
+
+1. **State Encoding Risk**: If using binary counting, value 10 (1010) followed by 1 (0001) creates multiple bit transitions → potential glitches
+2. **Synchronous Reset Timing**: Risk of reset signal meeting setup/hold times
+3. **Rollover Logic**: Complex comparison logic for detecting count=10
+4. **Test Coverage**: Difficult to verify all state transitions without explicit test points
+
+**Recommended Implementation Approach**:
+- Use BCD encoding (1=0001, 10=0001_0000) for cleaner decade counting
+- Implement as 4-bit register with next-state logic
+- Explicit state machine for clear rollover handling
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Requirements**:
+
+```systemverilog
+// Pseudo-code structure
+module TopModule (
+    input  logic clk,
+    input  logic reset, 
+    output logic [3:0] q
+);
+
+// Recommended: BCD implementation
+logic [3:0] count_reg;
+
+always_ff @(posedge clk) begin
+    if (reset) begin
+        count_reg <= 4'b0001;  // Reset to 1
+    end else begin
+        if (count_reg == 4'b1010) begin  // Binary: 10
+            count_reg <= 4'b0001;        // Wrap to 1
+        end else begin
+            count_reg <= count_reg + 1;  // Increment
+        end
+    end
+end
+
+assign q = count_reg;
+```
+
+**Critical Design Decisions**:
+1. **Encoding Choice**: Binary vs BCD (recommend binary for simplicity)
+2. **Reset Polarity**: Confirm active-high synchronous
+3. **Rollover Detection**: Use `== 10` comparison rather than `>= 10`
+4. **Synthesis Directives**: Add `synopsys sync_set_reset` if needed
+
+**Verification Requirements**:
+- Test sequence: 1→2→3→...→10→1
+- Reset during each count value
+- Reset assertion/deassertion timing variations
+- Corner cases: reset at count=10, consecutive resets
+
+**Additional Recommendations**:
+- Add parameter for counter modulus for flexibility
+- Include assertion checks for valid count range
+- Consider adding a "carry out" signal for future expansion
+- Document reset recovery time requirements
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

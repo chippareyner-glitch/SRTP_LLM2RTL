@@ -1,0 +1,110 @@
+{
+ "case": "Prob145_circuit8",
+ "n_samples": 5,
+ "n_distinct": 5,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "aa6de51a8072",
+   "sources": [
+    "ve_ds41:s0"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob145_circuit8\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 240,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "5c8f0b3096ce",
+   "sources": [
+    "ve_ds41:s1"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob145_circuit8\\s1.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 240,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "68e170e00fa2",
+   "sources": [
+    "ve_ds41:s2"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob145_circuit8\\s2.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 240,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "e52ff371e40f",
+   "sources": [
+    "ve_ds41:s3"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob145_circuit8\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 240,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "c096a1d17c3b",
+   "sources": [
+    "ve_ds41:s4"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob145_circuit8\\s4.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 240,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c3",
+    "c4"
+   ],
+   "votes": 5,
+   "correct": true
+  }
+ ]
+}

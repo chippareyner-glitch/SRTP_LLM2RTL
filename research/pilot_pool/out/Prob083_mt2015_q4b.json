@@ -1,0 +1,76 @@
+{
+ "case": "Prob083_mt2015_q4b",
+ "n_samples": 10,
+ "n_distinct": 3,
+ "n_compiling": 3,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "d7506a7bd36a",
+   "sources": [
+    "deepseek_full",
+    "direct_batch",
+    "json_ir"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob083_mt2015_q4b\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 110
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "ef6b12aac368",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob083_mt2015_q4b\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 110
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "b3f940238622",
+   "sources": [
+    "tri0926:candidate_1_literal",
+    "tri0926:candidate_2_contract",
+    "tri0926:candidate_3_counterexample",
+    "tri0927:candidate_1_literal",
+    "tri0927:candidate_2_contract",
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob083_mt2015_q4b\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 110
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1",
+    "c2"
+   ],
+   "votes": 10,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 0
+}

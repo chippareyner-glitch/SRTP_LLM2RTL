@@ -1,0 +1,83 @@
+{
+ "case": "adder_bcd",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "A",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "Cin",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "Sum",
+    4
+   ],
+   [
+    "Cout",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2"
+  ],
+  [
+   "c3",
+   "c4"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 6,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 191,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     15,
+     11,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 11,
+   "orig_len": 192,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

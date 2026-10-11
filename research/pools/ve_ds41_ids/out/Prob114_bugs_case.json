@@ -1,0 +1,82 @@
+{
+ "case": "Prob114_bugs_case",
+ "n_samples": 7,
+ "n_distinct": 3,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "a9f1e266b0dc",
+   "sources": [
+    "ids:i00",
+    "ve_ds41_ids:s1",
+    "ve_ds41_ids:s2",
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob114_bugs_case\\i00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1041,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "d5b9ce9e81dc",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob114_bugs_case\\i01.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1041,
+    "samples": 1041,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "f3664fec5ecf",
+   "sources": [
+    "ve_ds41_ids:s0",
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob114_bugs_case\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1041,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c2"
+   ],
+   "votes": 6,
+   "correct": true
+  },
+  {
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": false
+  }
+ ]
+}

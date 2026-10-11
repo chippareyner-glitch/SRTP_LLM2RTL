@@ -1,0 +1,156 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  w
+ - output z
+
+The module should implement the state machine shown below:
+
+  A (0) --1--> B
+  A (0) --0--> A
+  B (0) --1--> C
+  B (0) --0--> D
+  C (0) --1--> E
+  C (0) --0--> D
+  D (0) --1--> F
+  D (0) --0--> A
+  E (1) --1--> E
+  E (1) --0--> D
+  F (1) --1--> C
+  F (1) --0--> D
+
+Reset resets into state A and is synchronous active-high. Assume all
+sequential logic is triggered on the positive edge of the clock.
+
+Use separate always blocks for the state table and the state flip-flops.
+Describe the FSM output, which is called _z_, using either continuous
+assignment statement(s) or an always block (at your discretion). Assign
+any state codes that you wish to use.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+**Module**: `TopModule`
+- **Inputs**: `clk`, `reset` (active-high, synchronous), `w` (1-bit data input)
+- **Output**: `z` (1-bit FSM output)
+- **FSM States**: A, B, C, D, E, F (6 states)
+- **State Encoding**: Designer's choice
+- **Reset Behavior**: Synchronous reset to state A
+- **Clock**: Positive-edge triggered
+- **Architecture**: Separate always blocks for state transitions and output logic
+
+**State Machine Behavior**:
+- State A: z=0, w=1→B, w=0→A
+- State B: z=0, w=1→C, w=0→D  
+- State C: z=0, w=1→E, w=0→D
+- State D: z=0, w=1→F, w=0→A
+- State E: z=1, w=1→E, w=0→D
+- State F: z=1, w=1→C, w=0→D
+
+## 2. Ambiguity Analysis
+
+**Clarified Points**:
+- **State encoding freedom**: Specification allows any encoding choice (binary, one-hot, gray code)
+- **Output implementation flexibility**: Continuous assignment or always block acceptable
+- **Reset timing**: Synchronous active-high reset clearly specified
+
+**Remaining Ambiguity**: None significant - the specification is well-defined and unambiguous.
+
+## 3. Missing Critical Details
+
+**Identified Gaps**:
+1. **State encoding recommendation**: No guidance on optimal encoding strategy
+2. **Unreachable state handling**: No specification for what happens if FSM enters invalid states
+3. **Power-on reset behavior**: Not explicitly mentioned (though synchronous reset covers this)
+4. **Output glitch prevention**: No mention of registered vs combinational outputs
+
+**Recommended Additions**:
+- Suggest one-hot encoding for 6 states to simplify decoding and improve timing
+- Add default case in state machine to handle unexpected states
+- Consider registering z output to prevent glitches
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Scenarios to Handle**:
+
+1. **Reset during normal operation**: Ensure clean transition to state A
+2. **Input changes near clock edge**: Setup/hold time considerations
+3. **Unreachable states**: Protection against FSM corruption
+4. **Consecutive identical inputs**: All transitions properly defined
+5. **State machine completeness**: All 2^6 = 64 possible (state, input) combinations covered
+
+**Special Conditions**:
+- **State D**: Serves as a convergence point (transitions from B, C, E, F)
+- **State A**: Only state reachable via reset and from state D with w=0
+- **Output persistence**: z=1 only in states E and F
+
+## 5. Functional Correctness Prediction
+
+**High Confidence Areas**:
+- State transitions are fully specified and deterministic
+- Reset behavior is clearly defined
+- Output values are explicitly tied to states
+- Clocking and reset methodology is standard
+
+**Potential Risk Areas**:
+- **No deadlock states**: All states have defined transitions for both input values
+- **Output stability**: z changes only when state changes between {A,B,C,D} and {E,F}
+- **Race conditions**: Proper synchronous design mitigates timing issues
+
+**Verification Priority**: Focus on state coverage and transition sequences, particularly:
+- A→B→C→E→D→A path
+- A→B→D→F→C→D→A path
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy**:
+
+```systemverilog
+// Recommended state encoding (one-hot for 6 states)
+typedef enum logic [5:0] {
+    STATE_A = 6'b000001,
+    STATE_B = 6'b000010, 
+    STATE_C = 6'b000100,
+    STATE_D = 6'b001000,
+    STATE_E = 6'b010000,
+    STATE_F = 6'b100000
+} state_t;
+
+// Architecture:
+// 1. Sequential always block for state registers + reset
+// 2. Combinational always block for next state logic
+// 3. Combinational output logic (registered optional)
+```
+
+**Critical Implementation Notes**:
+
+1. **State Encoding**: Use one-hot encoding for better timing and simpler decoding
+2. **Reset Coverage**: Ensure reset works for both power-on and runtime scenarios
+3. **Default Case**: Include default transition to state A for fault tolerance
+4. **Output Assignment**: Use continuous assignment for simplicity: `assign z = (state == STATE_E) || (state == STATE_F);`
+
+**Verification Hooks**:
+- Add debug signal for current state (3-bit encoded for waveform viewing)
+- Consider adding state coverage points for verification
+- Test all transition sequences, including worst-case paths
+
+**Synthesis Considerations**:
+- One-hot encoding requires synthesis directive for FSM recognition
+- Ensure all flip-flops have identical reset behavior
+- Consider output registration if z timing is critical
+
+This specification provides a solid foundation for a clean, verifiable FSM implementation with minimal ambiguity.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

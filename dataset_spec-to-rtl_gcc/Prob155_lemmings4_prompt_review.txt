@@ -1,0 +1,174 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  bump_left
+ - input  bump_right
+ - input  ground
+ - input  dig
+ - output walk_left
+ - output walk_right
+ - output aaah
+ - output digging
+
+The game Lemmings involves critters with fairly simple brains. So simple
+that we are going to model it using a finite state machine. In the
+Lemmings' 2D world, Lemmings can be in one of two states: walking left
+(walk_left is 1) or walking right (walk_right is 1). It will switch
+directions if it hits an obstacle. In particular, if a Lemming is bumped
+on the left (by receiving a 1 on bump_left), it will walk right. If it's
+bumped on the right (by receiving a 1 on bump_right), it will walk left.
+If it's bumped on both sides at the same time, it will still switch
+directions.
+
+In addition to walking left and right and changing direction when bumped,
+when ground=0, the Lemming will fall and say ""aaah!"". When the ground
+reappears (ground=1), the Lemming will resume walking in the same
+direction as before the fall. Being bumped while falling does not affect
+the walking direction, and being bumped in the same cycle as ground
+disappears (but not yet falling), or when the ground reappears while
+still falling, also does not affect the walking direction.
+
+In addition to walking and falling, Lemmings can sometimes be told to do
+useful things, like dig (it starts digging when dig=1). A Lemming can dig
+if it is currently walking on ground (ground=1 and not falling), and will
+continue digging until it reaches the other side (ground=0). At that
+point, since there is no ground, it will fall (aaah!), then continue
+walking in its original direction once it hits ground again. As with
+falling, being bumped while digging has no effect, and being told to dig
+when falling or when there is no ground is ignored. (In other words, a
+walking Lemming can fall, dig, or switch directions. If more than one of
+these conditions are satisfied, fall has higher precedence than dig,
+which has higher precedence than switching directions.)
+
+Although Lemmings can walk, fall, and dig, Lemmings aren't invulnerable.
+If a Lemming falls for too long then hits the ground, it can splatter. In
+particular, if a Lemming falls for more than 20 clock cycles then hits
+the ground, it will splatter and cease walking, falling, or digging (all
+4 outputs become 0), forever (Or until the FSM gets reset). There is no
+upper limit on how far a Lemming can fall before hitting the ground.
+Lemmings only splatter when hitting the ground; they do not splatter in
+mid-air.
+
+Implement a Moore state machine that models this behaviour. areset is
+positive edge triggered asynchronous reseting the Lemming machine to walk
+left.
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a finite state machine for a Lemming character with the following key behaviors:
+
+**States & Transitions:**
+- **Walking States**: Left/Right walking with directional switching when bumped
+- **Falling State**: Triggered when ground=0, with 20-cycle fall limit before splattering
+- **Digging State**: Triggered by dig=1 while walking on ground, transitions to falling when ground disappears
+
+**Priority Hierarchy:**
+1. Falling (highest priority)
+2. Digging 
+3. Direction switching (lowest priority)
+
+**Critical Constraints:**
+- Asynchronous reset to walk left
+- Moore-type outputs (outputs depend only on current state)
+- Splatter condition: falling >20 cycles then ground=1
+- Permanent splatter state until reset
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **Simultaneous ground disappearance and bump**: "being bumped in the same cycle as ground disappears (but not yet falling)" - This suggests falling has a 1-cycle latency, but timing is unclear.
+
+2. **Fall counter behavior**: Does the counter reset when falling stops? Or only on splatter/reset? (Should reset when falling ends without splatter)
+
+3. **Digging termination**: "continues digging until it reaches the other side (ground=0)" - Does this mean ground=0 while digging immediately transitions to falling?
+
+4. **Priority conflict resolution timing**: When multiple high-priority events occur simultaneously, the exact state transition order needs clarification.
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+1. **State encoding**: No guidance on state representation (binary, one-hot) or specific state definitions
+2. **Output behavior in splatter state**: Explicit confirmation that all outputs are 0 when splattered
+3. **Fall counter initialization**: Should counter start at 0 or 1 when falling begins?
+4. **Input synchronization**: Are inputs assumed to be synchronized to clk? (Critical for bump/ground detection)
+5. **Output timing**: When do outputs update relative to state transitions?
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+1. **Simultaneous bump_left and bump_right**: Specification says "still switch directions" but direction choice is ambiguous
+2. **Fall counter at exactly 20 cycles**: Inclusive or exclusive comparison? (>=20 or >20)
+3. **Reset during falling/digging**: Clear behavior needed for intermediate states
+4. **Dig signal while falling**: Should be ignored, but need explicit handling
+5. **Ground reappears exactly at fall limit**: Race condition between splatter and resume walking
+6. **Multiple state-changing events in same cycle**: Need explicit priority ordering
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **Fall counter management**: Likely source of off-by-one errors
+2. **Priority logic implementation**: Complex combinatorial conditions may cause glitches
+3. **State transition timing**: Moore vs Mealy behavior confusion possible
+4. **Splatter condition race**: Falling→ground transition at cycle boundary needs careful handling
+
+**Verification Challenges:**
+- Need comprehensive test cases for priority combinations
+- Fall duration boundary testing (19, 20, 21 cycles)
+- Simultaneous input scenarios
+- Reset recovery from all states
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+// Recommended State Encoding
+typedef enum logic [2:0] {
+    WALK_LEFT,
+    WALK_RIGHT, 
+    FALL_LEFT,      // Falling, will walk left when ground reappears
+    FALL_RIGHT,     // Falling, will walk right when ground reappears
+    DIG_LEFT,       // Digging, will walk left when done
+    DIG_RIGHT,      // Digging, will walk right when done
+    SPLATTER        // Permanent failure state
+} state_t;
+```
+
+**Critical Implementation Rules:**
+1. **Use explicit state machine with registered outputs** (Moore style)
+2. **Implement fall counter with clear reset conditions**: Reset when not falling or when splattered
+3. **Priority logic ordering**:
+   - First check: ground=0 → falling (highest priority)
+   - Second check: dig=1 AND ground=1 AND walking → digging  
+   - Third check: bump conditions → direction switch
+4. **Handle splatter condition synchronously**: Only check when ground=1 AND falling
+5. **Use non-blocking assignments for all sequential logic**
+
+**Verification Requirements:**
+- Test all state transitions with various input combinations
+- Verify fall counter behavior at boundaries (19, 20, 21 cycles)
+- Check reset functionality from each state
+- Validate priority ordering with simultaneous inputs
+
+**Additional Recommendations:**
+- Add parameter for fall duration limit for flexibility
+- Include assertion checks for illegal state transitions
+- Consider adding a "fall_timer" output for debug visibility
+- Document all assumptions about input timing constraints
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

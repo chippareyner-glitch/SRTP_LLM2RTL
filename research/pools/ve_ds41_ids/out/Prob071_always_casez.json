@@ -1,0 +1,90 @@
+{
+ "case": "Prob071_always_casez",
+ "n_samples": 5,
+ "n_distinct": 4,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "351b908719f0",
+   "sources": [
+    "ve_ds41_ids:s0",
+    "ve_ds41_ids:s1"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob071_always_casez\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 346,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "945cb678bebe",
+   "sources": [
+    "ve_ds41_ids:s2"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob071_always_casez\\s2.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:10: sorry: break statements not supported.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c2",
+   "hash": "3c7ebd14fb97",
+   "sources": [
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob071_always_casez\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 346,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "c9177e4165ca",
+   "sources": [
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob071_always_casez\\s4.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 346,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c2",
+    "c3"
+   ],
+   "votes": 4,
+   "correct": true
+  }
+ ]
+}

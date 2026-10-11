@@ -1,0 +1,14 @@
+﻿status: {'ok': 37, 'harness_error': 3, 'single_candidate': 2}
+pair_recall_correct_vs_incorrect: 128/128 = 1.000
+problems_fully_separated: 15/15
+separated_by_category: {'sequential': '15/15'}
+missed_problems: {}
+official_pair_recall: 0/0 = 0.000
+extra_splits(total, x-involved): [319, 85]
+impure_clusters: 0
+minimised_pairs: 116
+long_horizon_pairs(windowed): {}
+ci_trace_len(orig_median, min_median, min_max): [3, 1, 33]
+ci_trace_len_hist: {1: 26, 2: 11, 3: 2, 4: 4, 5: 2, 6: 1, 12: 1, 14: 1, 33: 1}
+ci_toggles_median: 0
+sim_calls_median: 4.0

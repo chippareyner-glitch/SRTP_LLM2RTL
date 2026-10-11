@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "State after disc (0111110)",
+   "severity": "high",
+   "readings": [
+    "After detecting 0111110, the FSM returns to the state representing 'previous input 0' (resetting the consecutive-1 counter), so a following 1 is treated as the first 1.",
+    "After detecting 0111110, the FSM discards the 0 and remains in the state representing five consecutive 1s, so a following 1 is treated as the sixth 1."
+   ]
+  },
+  {
+   "aspect": "Error output duration for 7+ consecutive 1s",
+   "severity": "high",
+   "readings": [
+    "err is asserted for exactly one cycle after the 7th consecutive 1 is received, then deasserts even if more 1s follow.",
+    "err remains asserted as long as 7 or more consecutive 1s are present (i.e., stays high until a 0 is received)."
+   ]
+  },
+  {
+   "aspect": "Reset effect on outputs",
+   "severity": "medium",
+   "readings": [
+    "During the cycle when reset is high, outputs still reflect the current state (e.g., err may be 1 if the FSM was in the error state before the reset edge).",
+    "During the cycle when reset is high, all outputs are forced to 0 immediately (or on the next edge) regardless of the previous state."
+   ]
+  }
+ ]
+}

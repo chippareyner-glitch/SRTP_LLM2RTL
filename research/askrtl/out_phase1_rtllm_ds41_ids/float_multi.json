@@ -1,0 +1,32 @@
+{
+ "case": "float_multi",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "rst",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "rst",
+    1
+   ],
+   [
+    "a",
+    32
+   ],
+   [
+    "b",
+    32
+   ]
+  ],
+  "outputs": [
+   [
+    "z",
+    32
+   ]
+  ]
+ },
+ "status": "single_candidate",
+ "n_live": 1
+}

@@ -1,0 +1,12 @@
+﻿prompt=conv: 11 questions, 0 done, 11 to call
+  Prob034_dff8                             -> ANY (1721 tok, total 1721)
+  Prob062_bugs_mux2                        -> A (1780 tok, total 3501)
+  Prob053_m2014_q4d                        -> ANY (3352 tok, total 6853)
+  Prob093_ece241_2014_q3                   -> B (8046 tok, total 14899)
+  Prob104_mt2015_muxdff                    -> ANY (8846 tok, total 23745)
+  Prob136_m2014_q6                         -> B (11739 tok, total 35484)
+  Prob146_fsm_serialdata                   -> B (11338 tok, total 46822)
+  Prob149_ece241_2013_q4                   -> A (6188 tok, total 53010)
+  pulse_detect                             -> A (5353 tok, total 58363)
+  freq_divbyodd                            -> B (15365 tok, total 73728)
+  serial2parallel                          -> B (13045 tok, total 86773)

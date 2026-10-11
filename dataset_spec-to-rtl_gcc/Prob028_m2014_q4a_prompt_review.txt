@@ -1,0 +1,100 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  d
+ - input  ena
+ - output q
+
+The module should impement a D latch using an always block.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+- **Module Name**: TopModule
+- **Interface**: 
+  - `d` (1-bit input) - Data input
+  - `ena` (1-bit input) - Enable input
+  - `q` (1-bit output) - Data output
+- **Functionality**: D latch implementation using an always block
+- **Key Behavior**: When enable is active, output follows input; when inactive, output holds previous value
+
+## 2. Ambiguity Analysis
+- **Always block type**: Not specified whether to use `always_comb`, `always_latch`, or general `always`
+- **Sensitivity list**: Unclear what signals should trigger the always block
+- **Reset behavior**: No specification of initial state or reset mechanism
+- **Output type**: Not specified if `q` should be `reg` type or use continuous assignment
+- **Timing**: No specification of propagation delays or timing constraints
+
+## 3. Missing Critical Details
+- **Reset mechanism**: No power-on state or asynchronous/synchronous reset
+- **Output type declaration**: Need to specify if `q` should be declared as `reg` for always block usage
+- **Latch transparency**: Should clarify expected behavior when `ena` is active
+- **Synthesis guidance**: No indication of target technology or area/timing constraints
+- **Simulation behavior**: Initial value of `q` when simulation starts
+
+## 4. Edge Cases & Boundary Conditions
+- **Enable transitions**: Behavior when `ena` transitions while `d` is changing
+- **Simultaneous changes**: What happens when `d` and `ena` change simultaneously
+- **Unknown states**: Handling of 'x' or 'z' values on inputs
+- **Power-up state**: Initial value before first enable
+- **Metastability**: No specification for handling setup/hold violations
+
+## 5. Functional Correctness Prediction
+- **Basic functionality**: Should correctly implement transparent latch behavior
+- **Potential issues**: Without reset, simulation may start with unknown state
+- **Synthesis concerns**: May infer unintended latches if sensitivity list is incorrect
+- **Race conditions**: Risk of simulation-synthesis mismatch if always block not properly constructed
+- **Testability**: Difficult to verify initial state without reset mechanism
+
+## 6. Actionable Guidance for RTL Generation
+
+### Recommended Implementation:
+```systemverilog
+module TopModule (
+    input  logic d,
+    input  logic ena, 
+    output logic q
+);
+    
+    // Use always_latch for explicit latch inference
+    always_latch begin
+        if (ena) begin
+            q <= d;
+        end
+        // Implicit else: q retains current value
+    end
+    
+endmodule
+```
+
+### Critical Implementation Notes:
+1. **Use `always_latch`** instead of general `always` for clear design intent
+2. **Declare `q` as `logic`** type to support procedural assignment
+3. **No sensitivity list needed** for `always_latch` - tools automatically infer
+4. **Avoid reset** since not specified, but document this limitation
+5. **Add simulation initialization** if needed for testbench compatibility
+
+### Verification Requirements:
+- Test all enable transitions (0→1, 1→0)
+- Verify hold behavior when enable is inactive
+- Check simultaneous input changes
+- Validate power-up behavior matches requirements
+- Verify no glitches on output during transitions
+
+### Synthesis Considerations:
+- Tool will infer a level-sensitive latch
+- Ensure proper timing constraints for enable/data setup
+- Consider adding `// synopsys translate_off`/`on` directives if simulation-specific code needed
+
+This implementation provides a clean, synthesis-friendly D latch that matches the specified interface while addressing the identified ambiguities.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

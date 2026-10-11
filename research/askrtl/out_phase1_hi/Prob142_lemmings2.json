@@ -1,0 +1,107 @@
+{
+ "case": "Prob142_lemmings2",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "areset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "areset",
+    1
+   ],
+   [
+    "bump_left",
+    1
+   ],
+   [
+    "bump_right",
+    1
+   ],
+   [
+    "ground",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "walk_left",
+    1
+   ],
+   [
+    "walk_right",
+    1
+   ],
+   [
+    "aaah",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c2",
+   "c3",
+   "c4",
+   "c5",
+   "c7"
+  ],
+  [
+   "c0",
+   "c1",
+   "c6"
+  ]
+ ],
+ "ci_pairs": 15,
+ "ci_found": 15,
+ "ci_missed": [],
+ "off_pairs": 15,
+ "off_found": 15,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 25,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0,
+     1
+    ],
+    [
+     0,
+     1,
+     0,
+     1
+    ],
+    [
+     0,
+     1,
+     0,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 23,
+   "orig_len": 26,
+   "min_len": 3,
+   "toggles": 1
+  }
+ ],
+ "status": "ok",
+ "n_live": 8
+}

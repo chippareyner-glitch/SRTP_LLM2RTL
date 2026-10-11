@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial/reset value of q (no reset port specified)",
+   "severity": "high",
+   "readings": [
+    "q has no defined reset; its value is unknown/uninitialized (X in simulation) until the first rising clock edge loads d, so the first-cycle output is indeterminate",
+    "An implicit power-on/async reset to 8'h00 is assumed (some tools/implementations infer one), so q reads 8'h00 until d is loaded"
+   ]
+  },
+  {
+   "aspect": "Bit ordering between d and q",
+   "severity": "medium",
+   "readings": [
+    "Identity mapping: q[i] is the flip-flop driven by d[i] for i=0..7, so q tracks d directly",
+    "Reversed mapping: q[7-i] is driven by d[i] (bit-endianness swap), so q equals the bit-reversed value of d"
+   ]
+  },
+  {
+   "aspect": "Output latency / number of register stages on q",
+   "severity": "low",
+   "readings": [
+    "q is the direct output of the 8 D flip-flops: q changes one rising edge after d is captured (1-cycle latency)",
+    "The 8 DFFs form a pipeline whose output is further registered/conditioned so q appears two edges after d, or is additionally gated by clock enable logic"
+   ]
+  }
+ ]
+}

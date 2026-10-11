@@ -1,0 +1,11 @@
+{
+ "case": "freq_div",
+ "category": "Miscellaneous",
+ "top": "freq_div",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "freq_div"
+ ]
+}

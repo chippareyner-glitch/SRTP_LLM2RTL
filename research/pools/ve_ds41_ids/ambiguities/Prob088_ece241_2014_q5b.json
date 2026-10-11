@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset timing (sync vs async)",
+   "severity": "high",
+   "readings": [
+    "Asynchronous reset: when areset=1, state becomes A immediately, independent of clk; z follows state A (z=x) immediately.",
+    "Synchronous reset: areset is sampled on the positive edge of clk; state becomes A only on a rising clock edge while areset=1, so state and z remain unchanged until then."
+   ]
+  },
+  {
+   "aspect": "Output z during reset",
+   "severity": "high",
+   "readings": [
+    "During reset (areset=1), state is forced to A, so Mealy output z follows the A-state behavior: z = x.",
+    "During reset (areset=1), the output z is forced to a fixed value, typically 0 (or 1), regardless of x."
+   ]
+  },
+  {
+   "aspect": "Behaviour in invalid one-hot states",
+   "severity": "medium",
+   "readings": [
+    "If the one-hot state register enters an invalid state (00 or 11), the FSM treats it as a don't-care; output z and next state are undefined.",
+    "If the one-hot state register enters an invalid state, the next-state and output logic must be defined to, e.g., hold the invalid state, go to A, or produce a specific z (e.g., z=0)."
+   ]
+  }
+ ]
+}

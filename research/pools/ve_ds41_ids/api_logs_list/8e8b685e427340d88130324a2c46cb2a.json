@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T16:32:34.514485+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob067_countslow",
+  "returned_model": "deepseek-flash",
+  "id": "38db3796-426d-4458-9233-bf1d117bdd30",
+  "usage": {
+    "prompt_tokens": 399,
+    "completion_tokens": 10536,
+    "total_tokens": 10935,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 10328
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 143
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 46.169213400000444
+}

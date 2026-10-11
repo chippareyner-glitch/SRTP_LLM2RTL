@@ -1,0 +1,112 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in (100 bits)
+ - output out_and
+ - output out_or
+ - output out_xor
+
+The module should implement a combinational circuit with 100 inputs,
+in[99:0]. There are 3 outputs:
+
+  (1) out_and : output of a 100-input AND gate
+  (2) out_or  : output of a 100-input OR  gate
+  (3) out_xor : output of a 100-input XOR gate
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+The module `TopModule` is a pure combinational circuit with:
+- **Input**: `in` (100-bit bus, `in[99:0]`)
+- **Outputs**: 
+  - `out_and`: Logical AND of all 100 input bits
+  - `out_or`: Logical OR of all 100 input bits  
+  - `out_xor`: Logical XOR of all 100 input bits
+- **Type**: Combinational logic (no clocks, resets, or sequential elements)
+
+## 2. Ambiguity Analysis
+- **Bit ordering**: Specification states `in[99:0]` but doesn't clarify if `in[99]` is MSB or LSB. However, for logical operations, bit ordering is irrelevant.
+- **Output behavior for all-zeros/all-ones**: While technically unambiguous, the behavior should be explicitly confirmed for verification purposes.
+- **Propagation delay**: No timing constraints specified (acceptable for pure combinational spec).
+
+## 3. Missing Critical Details
+- **Input validation**: No specification for handling unknown (X) or high-impedance (Z) states in simulation.
+- **Output timing**: No maximum propagation delay constraints for synthesis optimization.
+- **Power optimization**: No guidance on whether to prioritize area vs. power vs. speed.
+- **Testability**: No mention of scan insertion or test mode requirements.
+
+## 4. Edge Cases & Boundary Conditions
+**Critical edge cases to verify:**
+- All inputs = 0: `out_and`=0, `out_or`=0, `out_xor`=0
+- All inputs = 1: `out_and`=1, `out_or`=1, `out_xor`=0 (for even 100 bits)
+- Single bit = 1 (others 0): `out_and`=0, `out_or`=1, `out_xor`=1
+- Single bit = 0 (others 1): `out_and`=0, `out_or`=1, `out_xor`=1
+- Alternating pattern 0101...: `out_and`=0, `out_or`=1, `out_xor`=0 (50 ones)
+- All bits floating (simulation): Should propagate X to all outputs
+
+## 5. Functional Correctness Prediction
+**High confidence** for correct implementation because:
+- Well-defined Boolean functions with clear mathematical properties
+- No sequential elements or complex control logic
+- No feedback paths or state-dependent behavior
+- Operations are bit-order independent
+
+**Potential implementation risks:**
+- XOR gate implementation efficiency for 100 inputs
+- Balanced tree vs. chain structure for timing closure
+- Synthesis tool optimization variations
+
+## 6. Actionable Guidance for RTL Generation
+
+### RTL Implementation Strategy:
+```systemverilog
+module TopModule (
+    input  logic [99:0] in,
+    output logic out_and,
+    output logic out_or, 
+    output logic out_xor
+);
+    
+    // Use reduction operators for clean implementation
+    assign out_and = &in;  // 100-input AND
+    assign out_or  = |in;  // 100-input OR
+    assign out_xor = ^in;  // 100-input XOR
+    
+endmodule
+```
+
+### Synthesis & Optimization Guidance:
+1. **Tree structure implementation**: Request synthesis tool to build balanced trees
+2. **Timing constraints**: Add `set_max_delay` constraints if timing critical
+3. **Area optimization**: Use `set_max_area` if resource-constrained
+4. **Fanout management**: Consider buffer insertion for high-fanout nets
+
+### Verification Requirements:
+```systemverilog
+// Testbench must cover:
+- All zeros pattern
+- All ones pattern  
+- Single bit patterns (0→1 and 1→0 variations)
+- Alternating patterns
+- Random patterns (multiple seeds)
+- X-propagation tests
+```
+
+### Documentation Requirements:
+- Clearly document that this is pure combinational logic
+- Note that no clock or reset is required
+- Specify that inputs are sampled continuously
+- Document expected propagation delays post-synthesis
+
+This specification is well-defined and suitable for straightforward RTL implementation with high confidence in functional correctness.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

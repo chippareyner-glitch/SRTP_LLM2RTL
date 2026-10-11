@@ -1,0 +1,141 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  a
+ - input  b
+ - output out_assign
+ - output out_always_comb
+ - output out_always_ff
+
+The module should implement an XOR gate three ways, using an assign
+statement (output out_assign), a combinational always block (output
+out_always_comb), and a clocked always block (output out_always_ff). Note
+that the clocked always block produces a different circuit from the other
+two: There is a flip- flop so the output is delayed. Assume all
+sequential logic is triggered on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification requires a module `TopModule` that implements an XOR function three different ways:
+- **Continuous assignment**: `out_assign = a ^ b` (combinational logic)
+- **Combinational always block**: `out_always_comb` using `always_comb` (combinational logic)
+- **Sequential always block**: `out_always_ff` using `always_ff` (registered output, positive edge-triggered)
+
+All three outputs should implement XOR logic, but `out_always_ff` will be delayed by one clock cycle due to the flip-flop.
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Reset behavior unspecified**: No reset mechanism is defined for the sequential output `out_always_ff`. Should it have a synchronous reset, asynchronous reset, or no reset?
+- **Initial state undefined**: Power-on state of `out_always_ff` is not specified, creating synthesis and simulation mismatches.
+- **Input timing constraints**: No setup/hold requirements specified for inputs `a` and `b` relative to `clk` for the sequential implementation.
+
+**Minor Clarifications Needed:**
+- The term "flip-flop so the output is delayed" implies single-cycle latency, but this should be explicitly confirmed.
+
+## 3. Missing Critical Details
+
+**Synthesis/Safety Concerns:**
+- **Reset strategy**: Essential for predictable hardware behavior
+- **Clock domain specification**: Single clock domain assumed but not explicitly stated
+- **Glitch handling**: Combinational outputs may glitch during input transitions
+- **Timing constraints**: No maximum frequency or input timing requirements
+
+**Implementation Details:**
+- **Register initialization**: No specification for initial flip-flop state
+- **Testbench requirements**: No guidance on verification methodology
+- **Synthesis directives**: No pragmas or constraints for tool compatibility
+
+## 4. Edge Cases & Boundary Conditions
+
+**Timing-Related Scenarios:**
+- **Input changes near clock edges**: Potential metastability for `out_always_ff` if inputs violate setup/hold
+- **Clock gating/absence**: Behavior when clock stops or has long periods undefined
+- **Simulation startup**: Initial X-propagation handling not specified
+
+**Functional Boundary Cases:**
+- **Power-on reset**: First clock cycle behavior undefined
+- **Concurrent input changes**: Multiple inputs changing simultaneously
+- **Clock frequency extremes**: Very high frequency vs. static inputs
+
+## 5. Functional Correctness Prediction
+
+**Expected Behavior:**
+- `out_assign` and `out_always_comb`: Should match exactly (a ^ b) with zero delay
+- `out_always_ff`: Should equal a^b from previous clock cycle: `out_always_ff(t) = a(t-1) ^ b(t-1)`
+
+**Potential Issues:**
+- **Simulation vs. synthesis mismatch**: Likely if reset behavior not properly handled
+- **Timing violations**: Sequential output may capture metastable values without timing constraints
+- **Testability challenge**: Difficult to verify without known initial state
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Requirements:**
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic a,
+    input  logic b,
+    output logic out_assign,
+    output logic out_always_comb,
+    output logic out_always_ff
+);
+
+// Add parameter for reset type selection
+parameter RESET_TYPE = "NONE"; // "SYNC", "ASYNC", or "NONE"
+parameter logic INIT_VALUE = 1'b0;
+
+// Continuous assignment
+assign out_assign = a ^ b;
+
+// Combinational always block
+always_comb begin
+    out_always_comb = a ^ b;
+end
+
+// Sequential implementation with configurable reset
+generate
+    if (RESET_TYPE == "ASYNC") begin
+        always_ff @(posedge clk or posedge reset) begin
+            if (reset) out_always_ff <= INIT_VALUE;
+            else out_always_ff <= a ^ b;
+        end
+    end else if (RESET_TYPE == "SYNC") begin
+        always_ff @(posedge clk) begin
+            if (reset) out_always_ff <= INIT_VALUE;
+            else out_always_ff <= a ^ b;
+        end
+    end else begin
+        always_ff @(posedge clk) begin
+            out_always_ff <= a ^ b;
+        end
+    end
+endgenerate
+```
+
+**Verification Strategy:**
+1. **Reset sequence test**: Verify all reset conditions (if implemented)
+2. **Timing verification**: Check setup/hold constraints with timing analysis
+3. **Concurrent change test**: Validate behavior when a and b change simultaneously
+4. **Clock domain verification**: Ensure single-clock domain compliance
+5. **Initial state validation**: Confirm power-on behavior matches requirements
+
+**Synthesis Constraints:**
+- Add `create_clock` constraint for clk
+- Set false paths between combinational inputs and sequential output
+- Specify maximum clock frequency based on target technology
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

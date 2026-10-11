@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output z timing",
+   "severity": "high",
+   "readings": [
+    "z is a combinational Moore output of the current state, updating in the same cycle as the state.",
+    "z is a registered output updated on the positive clock edge, so it is delayed by one cycle relative to the state."
+   ]
+  },
+  {
+   "aspect": "Reset effect on z",
+   "severity": "medium",
+   "readings": [
+    "Reset does not affect z; z continues to reflect the current state even while reset is asserted.",
+    "z is forced to 0 (or to A's output) whenever reset is asserted, regardless of the current state."
+   ]
+  },
+  {
+   "aspect": "Unused state behavior",
+   "severity": "medium",
+   "readings": [
+    "Unused state codes are unspecified; the FSM may produce undefined z and next state for them.",
+    "Unused state codes are explicitly handled by defaulting to state A with z=0."
+   ]
+  },
+  {
+   "aspect": "Initial state without reset",
+   "severity": "low",
+   "readings": [
+    "The state register has no specified power-up value; it is X until reset is applied.",
+    "The state register is initialized to state A at power-up (e.g., via initial block)."
+   ]
+  }
+ ]
+}

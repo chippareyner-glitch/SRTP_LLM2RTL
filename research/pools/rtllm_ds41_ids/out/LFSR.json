@@ -1,0 +1,75 @@
+{
+ "case": "LFSR",
+ "n_samples": 7,
+ "n_distinct": 4,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "55ca4544a789",
+   "sources": [
+    "ids:i00"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\LFSR\\i00.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "37177e7b798a",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\LFSR\\i01.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "7e4081f3743a",
+   "sources": [
+    "rtllm_ds41_ids:s0",
+    "rtllm_ds41_ids:s2"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\LFSR\\s0.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "01615992bfda",
+   "sources": [
+    "rtllm_ds41_ids:s1",
+    "rtllm_ds41_ids:s3",
+    "rtllm_ds41_ids:s4"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\LFSR\\s1.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": []
+}

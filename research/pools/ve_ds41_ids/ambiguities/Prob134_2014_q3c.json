@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Undefined present states (y=101,110,111)",
+   "severity": "high",
+   "readings": [
+    "For y=101,110,111, Y0 and z are don't-cares; synthesis may assign arbitrary values (e.g., Y=000, z=0), so outputs can be 0 or 1 depending on implementation.",
+    "For y=101,110,111, the design must define explicit next-state and output behavior (e.g., self-loop with Y=y,z=0 or transition to 000 with z=0), but the table omits these rows, so two engineers can choose different fixed outputs."
+   ]
+  },
+  {
+   "aspect": "clk usage / output timing",
+   "severity": "high",
+   "readings": [
+    "Combinational outputs: Y0 and z are functions of current x and y; clk is ignored, so outputs change in the same cycle as inputs.",
+    "Sequential outputs: Y0 and z are registered on clk (e.g., rising edge), so they update one cycle later and hold between clock edges."
+   ]
+  },
+  {
+   "aspect": "Reset/initial value if sequential",
+   "severity": "medium",
+   "readings": [
+    "No reset is provided, so if any register exists its power-up value is unspecified and outputs may be unknown until a known transition occurs.",
+    "The module is purely combinational, so reset is irrelevant and outputs are always determined by x and y."
+   ]
+  }
+ ]
+}

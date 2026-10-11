@@ -1,0 +1,39 @@
+{
+ "id": "Prob067_countslow__down",
+ "base": "Prob067_countslow",
+ "delta": "down",
+ "category": "rule",
+ "edits": [
+  [
+   "decade counter that counts from 0 through 9, inclusive, with a period of 10.",
+   "decade down-counter that counts from 9 down to 0, inclusive, with a period of 10 (after 0 it wraps back to 9)."
+  ],
+  [
+   "should reset the counter to 0.",
+   "should reset the counter to 9."
+  ],
+  [
+   "rather than always incrementing",
+   "rather than always decrementing"
+  ],
+  [
+   "indicates when the counter should increment",
+   "indicates when the counter should decrement"
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 499,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 498,
+   "samples": 499,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

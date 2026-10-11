@@ -1,0 +1,117 @@
+{
+ "case": "ROM",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "addr",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "dout",
+    16
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2"
+   ],
+   "votes": 2,
+   "correct": [
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1",
+    "c3"
+   ],
+   "votes": 3,
+   "correct": [
+    true,
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 5,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      2
+     ],
+     [
+      3
+     ],
+     [
+      4
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1010000010100000",
+      "1011000110110001",
+      "1100001011000010",
+      "1101001111010011",
+      "0000000000000000"
+     ],
+     [
+      "1010000010100000",
+      "1011000110110001",
+      "1100001011000010",
+      "1101001111010011",
+      "xxxxxxxxxxxxxxxx"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nA Read-Only Memory (ROM) module designed for storing fixed data. This module provides a way to access predefined data based on an 8-bit address input.\n\nModule name:\n    ROM\n\nInput ports:\n    addr [7:0]: 8-bit address input used to select the data location in memory.\n\nOutput ports:\n    dout [15:0]: 16-bit output that delivers the data stored in the ROM at the specified address.\nMemory Array:\n    reg [15:0] mem [0:255]: Defines a ROM with 256 locations, each 16 bits wide.\nInitial Block:\n    The initial block is used to pre-load the ROM with fixed data. In this example, memory locations 0 through 3 are initialized with specific values (16'hA0A0, 16'hB1B1, 16'hC2C2, 16'hD3D3). Other locations can be initialized as needed.\nBehavior:\n    The always @(*) block continuously outputs the data stored in the ROM at the memory location specified by addr.\nSince ROM is read-only, this module includes only read operations.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | addr | A out | B out |\n|---|---|---|---|\n| 0 | 8'h00 | dout=16'ha0a0 | dout=16'ha0a0 |\n| 1 | 8'h01 | dout=16'hb1b1 | dout=16'hb1b1 |\n| 2 | 8'h02 | dout=16'hc2c2 | dout=16'hc2c2 |\n| 3 | 8'h03 | dout=16'hd3d3 | dout=16'hd3d3 |\n| 4 | 8'h04 | dout=16'h0000 | dout=16'bxxxxxxxxxxxxxxxx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     4
+    ]
+   ],
+   "options": [
+    "0000000000000000",
+    "xxxxxxxxxxxxxxxx"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "xxxxxxxxxxxxxxxx",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nA Read-Only Memory (ROM) module designed for storing fixed data. This module provides a way to access predefined data based on an 8-bit address input.\n\nModule name:\n    ROM\n\nInput ports:\n    addr [7:0]: 8-bit address input used to select the data location in memory.\n\nOutput ports:\n    dout [15:0]: 16-bit output that delivers the data stored in the ROM at the specified address.\nMemory Array:\n    reg [15:0] mem [0:255]: Defines a ROM with 256 locations, each 16 bits wide.\nInitial Block:\n    The initial block is used to pre-load the ROM with fixed data. In this example, memory locations 0 through 3 are initialized with specific values (16'hA0A0, 16'hB1B1, 16'hC2C2, 16'hD3D3). Other locations can be initialized as needed.\nBehavior:\n    The always @(*) block continuously outputs the data stored in the ROM at the memory location specified by addr.\nSince ROM is read-only, this module includes only read operations.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | addr | out |\n|---|---|---|\n| 0 | 8'h04 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: dout=16'h0000\n- **B**: dout=16'bxxxxxxxxxxxxxxxx\n"
+  }
+ ]
+}

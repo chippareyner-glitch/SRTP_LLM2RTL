@@ -1,0 +1,88 @@
+{
+ "case": "multi_16bit",
+ "n_samples": 5,
+ "n_distinct": 5,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "64feed33b391",
+   "sources": [
+    "rtllm_ds41:s0"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\multi_16bit\\s0.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "4db94de7593d",
+   "sources": [
+    "rtllm_ds41:s1"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\multi_16bit\\s1.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "595b05be50a7",
+   "sources": [
+    "rtllm_ds41:s2"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\multi_16bit\\s2.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "586b53df1898",
+   "sources": [
+    "rtllm_ds41:s3"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\multi_16bit\\s3.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "4e6b539e5393",
+   "sources": [
+    "rtllm_ds41:s4"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\multi_16bit\\s4.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": []
+}

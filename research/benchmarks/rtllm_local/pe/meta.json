@@ -1,0 +1,11 @@
+{
+ "case": "pe",
+ "category": "Miscellaneous",
+ "top": "pe",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "pe"
+ ]
+}

@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T11:23:10.853851+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "fixed_point_adder",
+  "returned_model": "deepseek-flash",
+  "id": "611638e7-e490-4eff-aa65-fa6ef2e608ac",
+  "usage": {
+    "prompt_tokens": 845,
+    "completion_tokens": 10097,
+    "total_tokens": 10942,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 9861
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 205
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 44.97087079999983
+}

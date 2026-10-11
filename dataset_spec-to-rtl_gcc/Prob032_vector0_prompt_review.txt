@@ -1,0 +1,117 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  vec  (3 bits)
+ - output outv (3 bits)
+ - output o2
+ - output o1
+ - output o0
+
+The module has one 3-bit input, then outputs the same vector, and also
+splits it into three separate 1-bit outputs. Connect output o0 to the
+input vector's position 0, o1 to position 1, etc.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+# Analysis Report for TopModule Specification
+
+## 1. Specification Summary
+The TopModule is a simple 3-bit vector passthrough and splitter module with:
+- **Input**: 3-bit vector `vec[2:0]`
+- **Outputs**: 
+  - `outv[2:0]` (3-bit): Direct copy of input vector
+  - `o2`, `o1`, `o0` (1-bit each): Individual bits of input vector
+
+## 2. Ambiguity Analysis
+**Critical Issues Identified:**
+- **Bit numbering ambiguity**: The specification states "o0 to position 0, o1 to position 1, etc." but doesn't specify if position 0 is LSB or MSB
+- **Port direction clarity**: While stated as "one 3-bit input," the vector bit ordering needs explicit definition
+
+**Resolution Required:**
+- Define bit ordering convention (MSB:0 or LSB:0)
+- Clarify if `vec[0]` refers to LSB or MSB
+
+## 3. Missing Critical Details
+**Essential Missing Specifications:**
+- **Timing behavior**: No clock or timing constraints specified (combinational vs sequential)
+- **Reset strategy**: No reset mechanism defined
+- **Propagation delay**: No timing requirements for output stability
+- **Input/output timing relationships**: No setup/hold time requirements
+
+**Recommended Additions:**
+- Add clock input if sequential behavior is needed
+- Define reset polarity and synchronous/asynchronous behavior
+- Specify maximum propagation delay if timing-critical
+
+## 4. Edge Cases & Boundary Conditions
+**Identified Edge Cases:**
+- **Unknown (X) and high-impedance (Z) inputs**: No specification for handling metastable states
+- **Power-on initialization**: Behavior when module powers up undefined
+- **Glitch propagation**: No filtering requirements for input transitions
+
+**Mitigation Strategies:**
+- Implement proper X-propagation handling
+- Define power-on reset state for outputs
+- Consider adding input synchronization if clocked
+
+## 5. Functional Correctness Prediction
+**High Confidence Areas:**
+- Basic functionality is straightforward and well-defined
+- Simple combinational logic with minimal implementation risk
+- Clear input-output mapping relationship
+
+**Potential Risk Areas:**
+- Timing closure without explicit constraints
+- Metastability handling undefined
+- Verification completeness without timing specifications
+
+## 6. Actionable Guidance for RTL Generation
+
+### Immediate Implementation Recommendations:
+```systemverilog
+module TopModule (
+    input  logic [2:0] vec,    // Assuming vec[0] is LSB, vec[2] is MSB
+    output logic [2:0] outv,
+    output logic o2, o1, o0
+);
+    
+    // Direct vector passthrough
+    assign outv = vec;
+    
+    // Individual bit outputs (assuming vec[2] is MSB, vec[0] is LSB)
+    assign o2 = vec[2];  // MSB
+    assign o1 = vec[1];  // Middle bit  
+    assign o0 = vec[0];  // LSB
+    
+endmodule
+```
+
+### Critical Questions for Specification Clarification:
+1. **Bit ordering**: Is `vec[0]` the LSB or MSB?
+2. **Timing**: Combinational or sequential? If sequential, clock frequency?
+3. **Reset**: Is reset required? If so, synchronous or asynchronous?
+4. **Timing constraints**: Any specific propagation delay requirements?
+
+### Verification Strategy:
+- Create testbench to verify all 8 possible input combinations
+- Add timing checks for propagation delay measurement
+- Include metastability tests with asynchronous inputs (if applicable)
+- Verify bit ordering matches specification intent
+
+### Synthesis Considerations:
+- Module will synthesize to pure wiring (no logic gates)
+- Ensure proper constraints for timing analysis
+- Consider adding dont_touch attributes to preserve hierarchy
+
+**Priority Action**: Confirm bit ordering convention before implementation begins.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

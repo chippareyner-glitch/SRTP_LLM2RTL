@@ -1,0 +1,88 @@
+{
+ "case": "adder_16bit",
+ "n_samples": 5,
+ "n_distinct": 5,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "43123d9c8c2e",
+   "sources": [
+    "rtllm_ds41_ids:s0"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\adder_16bit\\s0.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "1756cf635f80",
+   "sources": [
+    "rtllm_ds41_ids:s1"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\adder_16bit\\s1.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "5bda8c00d11a",
+   "sources": [
+    "rtllm_ds41_ids:s2"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\adder_16bit\\s2.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "c99d75600ccb",
+   "sources": [
+    "rtllm_ds41_ids:s3"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\adder_16bit\\s3.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "6eaca93ec9c7",
+   "sources": [
+    "rtllm_ds41_ids:s4"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\adder_16bit\\s4.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": []
+}

@@ -1,0 +1,287 @@
+{
+ "case": "Prob113_2012_q1g",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "x",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "f",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3",
+   "c6"
+  ],
+  [
+   "c7",
+   "c8"
+  ],
+  [
+   "c4"
+  ],
+  [
+   "c5"
+  ],
+  [
+   "c9"
+  ]
+ ],
+ "ci_pairs": 25,
+ "ci_found": 25,
+ "ci_missed": [],
+ "off_pairs": 34,
+ "off_found": 34,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c7"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     4
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 5,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c5"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     2
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 3,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c9"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     4
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 5,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c4",
+    "c7"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c5",
+    "c7"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     2
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 3,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c7",
+    "c9"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 10,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     10
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 11,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c4",
+    "c5"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c4",
+    "c9"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c5",
+    "c9"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     2
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 3,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 10
+}

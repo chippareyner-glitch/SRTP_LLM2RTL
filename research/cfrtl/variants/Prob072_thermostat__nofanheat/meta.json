@@ -1,0 +1,27 @@
+{
+ "id": "Prob072_thermostat__nofanheat",
+ "base": "Prob072_thermostat",
+ "delta": "nofanheat",
+ "category": "rule",
+ "edits": [
+  [
+   "When the heater or air conditioner are on, also turn on the fan to circulate the air.",
+   "When the air conditioner is on, also turn on the fan to circulate the air; the heater is a radiant heater, so the fan should not be turned on just because the heater is on."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 248,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 36,
+   "samples": 248,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

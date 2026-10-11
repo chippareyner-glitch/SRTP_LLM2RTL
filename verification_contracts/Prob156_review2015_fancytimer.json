@@ -1,0 +1,41 @@
+{
+  "case_id": "Prob156_review2015_fancytimer",
+  "dut_module": "TopModule",
+  "rtl_file": "Prob156_review2015_fancytimer_ref.sv",
+  "timeout_seconds": 30,
+  "ports": [
+    {"name": "clk", "direction": "input", "width": 1},
+    {"name": "reset", "direction": "input", "width": 1},
+    {"name": "data", "direction": "input", "width": 1},
+    {"name": "count", "direction": "output", "width": 4},
+    {"name": "counting", "direction": "output", "width": 1},
+    {"name": "done", "direction": "output", "width": 1},
+    {"name": "ack", "direction": "input", "width": 1}
+  ],
+  "clock": {"name": "clk", "half_period": 5},
+  "initial": {
+    "reset": "1'b0",
+    "data": "1'b0",
+    "ack": "1'b0"
+  },
+  "tests": [
+    {
+      "id": "delay_zero_exact_edges",
+      "requirement": "After 1101 and four delay bits 0000, counting begins immediately and lasts exactly 1000 cycles.",
+      "steps": [
+        {"set": {"reset": "1'b1"}, "posedge": 1, "expect": {"counting": "1'b0", "done": "1'b0"}},
+        {"set": {"reset": "1'b0", "data": "1'b1"}, "posedge": 1},
+        {"set": {"data": "1'b1"}, "posedge": 1},
+        {"set": {"data": "1'b0"}, "posedge": 1},
+        {"set": {"data": "1'b1"}, "posedge": 1, "expect": {"counting": "1'b0"}},
+        {"set": {"data": "1'b0"}, "posedge": 1},
+        {"set": {"data": "1'b0"}, "posedge": 1},
+        {"set": {"data": "1'b0"}, "posedge": 1},
+        {"set": {"data": "1'b0"}, "posedge": 1, "expect": {"counting": "1'b1", "done": "1'b0", "count": "4'd0"}},
+        {"posedge": 999, "expect": {"counting": "1'b1", "done": "1'b0", "count": "4'd0"}},
+        {"posedge": 1, "expect": {"counting": "1'b0", "done": "1'b1"}},
+        {"set": {"ack": "1'b1"}, "posedge": 1, "expect": {"counting": "1'b0", "done": "1'b0"}}
+      ]
+    }
+  ]
+}

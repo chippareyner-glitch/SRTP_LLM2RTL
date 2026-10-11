@@ -1,0 +1,129 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  d
+ - input  r
+ - output q
+
+The module should implement a simple D flip flop with active high
+synchronous reset (reset output to 0).
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis for TopModule D Flip-Flop Implementation
+
+### 1. Specification Summary
+- **Module Name**: TopModule
+- **Interface**: 
+  - `clk` (1-bit input) - Clock signal
+  - `d` (1-bit input) - Data input
+  - `r` (1-bit input) - Synchronous reset (active high)
+  - `q` (1-bit output) - Data output
+- **Function**: D flip-flop with active high synchronous reset that resets output to 0
+
+### 2. Ambiguity Analysis
+
+**No significant ambiguities identified** - The specification is clear and concise:
+- All port directions and bit widths are explicitly defined
+- Reset behavior (synchronous, active high, resets to 0) is unambiguous
+- Basic D flip-flop functionality is well-understood
+
+**Minor Clarification Points:**
+- Reset priority: When both reset and data change occur simultaneously, reset takes precedence (standard for synchronous resets)
+- Output behavior during non-reset conditions: q follows d on clock edges
+
+### 3. Missing Critical Details
+
+**Critical Missing Specifications:**
+- **Reset timing**: When exactly does reset take effect relative to clock edge?
+- **Setup/hold times**: No timing constraints specified for input signals
+- **Initial power-on state**: Behavior at system startup/power-on not defined
+- **Clock frequency/period**: No timing requirements for synthesis
+- **Output timing**: Propagation delay from clock edge to output not specified
+
+**Recommended Additions:**
+- Reset is sampled on the rising clock edge (assumed but should be explicit)
+- Setup time: d and r must be stable before clock rising edge
+- Hold time: d and r must remain stable after clock rising edge
+
+### 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle:**
+1. **Reset assertion during clock edge**: r=1 with rising clock edge → q=0
+2. **Reset deassertion during clock edge**: r=0 with rising clock edge → q=d
+3. **Reset and data change simultaneously**: Reset has priority → q=0
+4. **Clock glitches**: Should be ignored (only rising edges matter)
+5. **Metastability conditions**: Inputs changing too close to clock edge
+
+**Boundary Conditions:**
+- All inputs at undefined states (X/Z) should be handled gracefully
+- Reset held high for multiple cycles → q should remain 0
+- No reset ever asserted → normal D flip-flop behavior
+
+### 5. Functional Correctness Prediction
+
+**High Confidence in Correct Implementation** due to:
+- Simple, well-defined synchronous digital circuit
+- Standard D flip-flop with synchronous reset is a fundamental building block
+- Clear reset priority and behavior specification
+
+**Potential Risk Areas:**
+- Timing violations if setup/hold requirements are violated in actual system
+- Metastability if asynchronous signals feed into d or r inputs
+
+### 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic d,
+    input  logic r,
+    output logic q
+);
+    
+    always_ff @(posedge clk) begin
+        if (r) begin
+            q <= 1'b0;  // Synchronous reset
+        end else begin
+            q <= d;     // Normal operation
+        end
+    end
+    
+endmodule
+```
+
+**Critical Implementation Notes:**
+
+1. **Use `always_ff`** for flip-flop inference clarity
+2. **Reset priority**: Reset condition checked before data assignment
+3. **Non-blocking assignments (`<=`)** for proper sequential logic
+4. **Explicit reset value**: `1'b0` for clarity
+
+**Verification Requirements:**
+- Test reset assertion/deassertion at various clock edges
+- Verify reset priority over data input
+- Check behavior across multiple clock cycles
+- Validate output remains stable between clock edges
+
+**Synthesis Considerations:**
+- Module will infer a single D flip-flop with synchronous reset
+- Ensure target technology library supports synchronous reset flip-flops
+- Consider adding `// synopsys translate_off`/`on` directives if needed for simulation
+
+**Additional Recommendations:**
+- Add `default_nettype none to prevent implicit wire declarations
+- Consider adding assertion checks for setup/hold violations in simulation
+- Document assumed timing requirements in module header comments
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

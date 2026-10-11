@@ -1,0 +1,108 @@
+{
+ "case": "Prob062_bugs_mux2",
+ "n_samples": 9,
+ "n_distinct": 4,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "296be96979b0",
+   "sources": [
+    "ids:i00",
+    "ids:i11",
+    "ve_ds41_ids:s1",
+    "ve_ds41_ids:s2",
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob062_bugs_mux2\\i00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 85,
+    "samples": 114,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "c385248ac421",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob062_bugs_mux2\\i01.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 110,
+    "samples": 114,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "1864456ca3ef",
+   "sources": [
+    "ids:i10"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob062_bugs_mux2\\i10.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 110,
+    "samples": 114,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "2f44f2feeae1",
+   "sources": [
+    "ve_ds41_ids:s0",
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob062_bugs_mux2\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 111,
+    "samples": 114,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 5,
+   "correct": false
+  },
+  {
+   "members": [
+    "c1",
+    "c2"
+   ],
+   "votes": 2,
+   "correct": false
+  },
+  {
+   "members": [
+    "c3"
+   ],
+   "votes": 2,
+   "correct": false
+  }
+ ]
+}

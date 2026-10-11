@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:21:34.799183+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob044_vectorgates",
+  "returned_model": "deepseek-flash",
+  "id": "d135e338-d926-4a25-9460-5b2ccfc2935a",
+  "usage": {
+    "prompt_tokens": 268,
+    "completion_tokens": 397,
+    "total_tokens": 665,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 293
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 140
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 1.8707388000002538
+}

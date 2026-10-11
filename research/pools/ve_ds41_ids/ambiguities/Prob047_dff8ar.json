@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset triggering: asynchronous vs synchronous",
+   "severity": "high",
+   "readings": [
+    "Asynchronous reset dominates: areset is a level-sensitive asynchronous trigger, so q becomes 0 immediately when areset=1, independent of clk, and clk edges are ignored while areset=1.",
+    "Only posedge clk triggers the DFFs: areset is sampled on posedge clk, so q becomes 0 only at a clock edge when areset=1 (synchronous reset)."
+   ]
+  },
+  {
+   "aspect": "Reset deassertion timing",
+   "severity": "high",
+   "readings": [
+    "Asynchronous deassertion: when areset goes low, the DFFs are released immediately; if areset goes low before a posedge clk, q updates to d on the next posedge clk.",
+    "Synchronous deassertion: the reset is released only after the next posedge clk (e.g., via a reset synchronizer), so q remains 0 for one additional clock cycle after areset goes low before updating to d."
+   ]
+  },
+  {
+   "aspect": "Power-on / initial value of q",
+   "severity": "medium",
+   "readings": [
+    "q initializes to 0 at power-up (implicit initial value), even before areset is asserted.",
+    "q is undefined (X in simulation) until areset is asserted at least once; no power-on reset value is implied."
+   ]
+  }
+ ]
+}

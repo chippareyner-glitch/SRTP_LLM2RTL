@@ -1,0 +1,154 @@
+{
+ "case": "Prob138_2012_q2fsm",
+ "n_samples": 9,
+ "n_distinct": 8,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "f35aa86e495c",
+   "sources": [
+    "ids:i00"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob138_2012_q2fsm\\i00.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\ndut.sv:27: error: This assignment requires an explicit cast.\ndut.sv:28: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "3680ed5e1eef",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob138_2012_q2fsm\\i01.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\ndut.sv:27: error: This assignment requires an explicit cast.\ndut.sv:28: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c2",
+   "hash": "b5b470676f02",
+   "sources": [
+    "ids:i10"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob138_2012_q2fsm\\i10.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\ndut.sv:27: error: This assignment requires an explicit cast.\ndut.sv:28: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c3",
+   "hash": "28d3b141914e",
+   "sources": [
+    "ids:i11"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob138_2012_q2fsm\\i11.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 400,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "5fd5abe7f133",
+   "sources": [
+    "ve_ds41_ids:s0",
+    "ve_ds41_ids:s1"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob138_2012_q2fsm\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:22: error: This assignment requires an explicit cast.\ndut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\ndut.sv:27: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c5",
+   "hash": "242c215be674",
+   "sources": [
+    "ve_ds41_ids:s2"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob138_2012_q2fsm\\s2.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\ndut.sv:27: error: This assignment requires an explicit cast.\ndut.sv:28: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "b146f0c0f7b1",
+   "sources": [
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob138_2012_q2fsm\\s3.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:21: error: This assignment requires an explicit cast.\ndut.sv:22: error: This assignment requires an explicit cast.\ndut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c7",
+   "hash": "6c3e2f79f5d3",
+   "sources": [
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob138_2012_q2fsm\\s4.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\ndut.sv:27: error: This assignment requires an explicit cast.\ndut.sv:28: error: This assignment requires an explicit cast.\ndut.sv:29: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": false
+  }
+ ]
+}

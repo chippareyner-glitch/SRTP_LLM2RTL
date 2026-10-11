@@ -1,0 +1,194 @@
+{
+ "case": "Prob045_edgedetect2",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "anyedge",
+    8
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c3",
+   "c5",
+   "c7"
+  ],
+  [
+   "c4",
+   "c6"
+  ],
+  [
+   "c1"
+  ],
+  [
+   "c2"
+  ]
+ ],
+ "ci_pairs": 15,
+ "ci_found": 15,
+ "ci_missed": [],
+ "off_pairs": 21,
+ "off_found": 21,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 2,
+   "min_len": 2,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c1",
+    "c4"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c2",
+    "c4"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 8
+}

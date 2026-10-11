@@ -1,0 +1,136 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  slowena
+ - output q (4 bits)
+
+The module should implement a decade counter that counts from 0 through
+9, inclusive, with a period of 10. The reset input is active high
+synchronous, and should reset the counter to 0. We want to be able to
+pause the counter rather than always incrementing every clock cycle, so
+the "slowena" input if high indicates when the counter should increment.
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+Here's my comprehensive analysis of the decade counter specification:
+
+## 1. Specification Summary
+
+The module implements a synchronous decade counter with the following key characteristics:
+- **Module Name**: `TopModule`
+- **Counter Range**: 0 to 9 (inclusive)
+- **Counter Behavior**: Wraps from 9 back to 0
+- **Clock**: Positive-edge triggered
+- **Reset**: Synchronous, active-high, resets to 0
+- **Enable Control**: `slowena` input controls counting (count when high)
+- **Output**: 4-bit `q` representing the counter value
+
+## 2. Ambiguity Analysis
+
+**No significant ambiguities found.** The specification is clear and well-defined:
+- Counter behavior (0→1→2→...→9→0) is explicitly stated
+- Reset timing (synchronous) and polarity (active-high) are specified
+- Enable control (`slowena`) behavior is clearly described
+- Clock edge (positive) is defined
+- Output width (4 bits) matches the counter range requirement
+
+## 3. Missing Critical Details
+
+**All essential details are present.** However, the following could be explicitly clarified:
+- **Output behavior during disabled state**: When `slowena = 0`, the counter should hold its current value (implied but not explicitly stated)
+- **Reset priority**: Reset should override enable control (standard practice but worth confirming)
+- **Initial power-on state**: Not specified, but synchronous reset handles this
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical edge cases to handle:**
+
+1. **Counter rollover**: 9 → 0 transition must occur correctly
+2. **Enable toggling at boundary**: If `slowena` toggles when counter=9, ensure proper behavior
+3. **Reset during counting**: Reset should take precedence regardless of enable state
+4. **Enable glitches**: `slowena` changing near clock edge should not cause double-counting
+5. **Simultaneous reset and enable**: Reset should dominate
+
+**Boundary conditions:**
+- Minimum count: 0 (4'b0000)
+- Maximum count: 9 (4'b1001)
+- Invalid states: 10-15 should never occur in normal operation
+
+## 5. Functional Correctness Prediction
+
+**High confidence in correctness** with proper implementation:
+
+- **State transitions**: Well-defined finite state machine (10 states)
+- **Control signals**: Clear precedence (reset > enable)
+- **Timing requirements**: All synchronous, no complex timing paths
+- **Output encoding**: Natural binary (0-9), no special encoding required
+
+**Potential failure modes to avoid:**
+- Incorrect state encoding leading to non-sequential counting
+- Improper reset synchronization
+- Enable signal meta-stability issues (if async)
+- Rollover logic errors at count=9
+
+## 6. Actionable Guidance for RTL Generation
+
+**Key implementation recommendations:**
+
+```systemverilog
+// Recommended implementation approach:
+module TopModule (
+    input  logic       clk,
+    input  logic       reset,
+    input  logic       slowena,
+    output logic [3:0] q
+);
+
+// Use registered output for clean timing
+always_ff @(posedge clk) begin
+    if (reset) begin
+        q <= 4'b0000;  // Synchronous reset to 0
+    end else if (slowena) begin
+        // Count from 0 to 9, then wrap to 0
+        if (q == 4'b1001) begin  // Count = 9
+            q <= 4'b0000;
+        end else begin
+            q <= q + 4'b0001;
+        end
+    end
+    // Else: q maintains current value (implicit hold)
+end
+
+endmodule
+```
+
+**Verification requirements:**
+1. **Reset functionality**: Verify counter resets to 0 on reset assertion
+2. **Counting sequence**: Verify 0→1→2→...→9→0 progression
+3. **Enable control**: Verify counting only occurs when `slowena=1`
+4. **Boundary conditions**: Test transitions at count=9 with various enable states
+5. **Concurrent events**: Test reset+enable scenarios
+
+**Synthesis considerations:**
+- The design should synthesize to 4 flip-flops with simple combinational logic
+- No timing critical paths expected
+- Reset distribution should be clean for synchronous reset
+
+**Testbench coverage points:**
+- All 10 counter states visited
+- Reset functionality at various counter values
+- Enable toggling during counting and at boundaries
+- Power-on reset behavior simulation
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

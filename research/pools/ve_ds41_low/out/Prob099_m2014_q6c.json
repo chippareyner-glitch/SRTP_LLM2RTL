@@ -1,0 +1,25 @@
+{
+ "case": "Prob099_m2014_q6c",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "5ab3723e775b",
+   "sources": [
+    "ve_ds41_low:s0"
+   ],
+   "model": "ve_ds41_low",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_low\\gen\\Prob099_m2014_q6c\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:71: error: port ``Y4'' is not a port of good1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y2'' is not a port of top_module1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

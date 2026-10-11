@@ -1,0 +1,168 @@
+{
+ "case": "Prob100_fsm3comb",
+ "n_samples": 10,
+ "n_distinct": 8,
+ "n_compiling": 7,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "598ab3eca498",
+   "sources": [
+    "deepseek_full"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob100_fsm3comb\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "45c75506ffd0",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob100_fsm3comb\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "6a2c5ac2c9fe",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob100_fsm3comb\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "467eb0b2a072",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob100_fsm3comb\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "60c88938dee9",
+   "sources": [
+    "tri0926:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob100_fsm3comb\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "b.top_module1.\ndut.sv:4:      : next_state is declared here as wire.\ndut.sv:18: error: next_state is not a valid l-value in tb.top_module1.\ndut.sv:4:      : next_state is declared here as wire.\ndut.sv:19: error: next_state is not a valid l-value in tb.top_module1.\ndut.sv:4:      : next_state is declared here as wire.\ndut.sv:20: error: next_state is not a valid l-value in tb.top_module1.\ndut.sv:4:      : next_state is declared here as wire.\ndut.sv:21: error: next_state is not a valid l-value in tb.top_module1.\ndut.sv:4:      : next_state is declared here as wire.\n5 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c5",
+   "hash": "42095de22f25",
+   "sources": [
+    "tri0926:candidate_2_contract",
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob100_fsm3comb\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c6",
+   "hash": "3ac0b2332da8",
+   "sources": [
+    "tri0926:candidate_3_counterexample",
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob100_fsm3comb\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "f34d815d5101",
+   "sources": [
+    "tri0927:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob100_fsm3comb\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1",
+    "c2",
+    "c6"
+   ],
+   "votes": 4,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c0",
+    "c3",
+    "c7"
+   ],
+   "votes": 3,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c5"
+   ],
+   "votes": 2,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 15
+}

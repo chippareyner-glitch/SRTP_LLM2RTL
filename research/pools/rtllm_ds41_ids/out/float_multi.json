@@ -1,0 +1,24 @@
+{
+ "case": "float_multi",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "3f6f2c6ef8ba",
+   "sources": [
+    "rtllm_ds41_ids:s0"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\float_multi\\s0.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": []
+}

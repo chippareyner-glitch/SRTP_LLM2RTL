@@ -1,0 +1,408 @@
+{
+ "case": "Prob133_2014_q3fsm",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "s",
+    1
+   ],
+   [
+    "w",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "z",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c5"
+  ],
+  [
+   "c1"
+  ],
+  [
+   "c2"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 4,
+ "ci_found": 4,
+ "ci_missed": [],
+ "off_pairs": 10,
+ "off_found": 9,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 42,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 58,
+   "orig_len": 43,
+   "min_len": 20,
+   "toggles": 2
+  },
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 15,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 14,
+   "orig_len": 16,
+   "min_len": 5,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 20,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 18,
+   "orig_len": 21,
+   "min_len": 5,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 15,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 19,
+   "orig_len": 16,
+   "min_len": 5,
+   "toggles": 2
+  },
+  {
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 20,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 16,
+   "orig_len": 21,
+   "min_len": 5,
+   "toggles": 4
+  },
+  {
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 15,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     0,
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 22,
+   "orig_len": 16,
+   "min_len": 6,
+   "toggles": 2
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

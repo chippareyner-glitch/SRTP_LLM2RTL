@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output latency (Mealy vs Moore)",
+   "severity": "high",
+   "readings": [
+    "start_shifting is asserted in the same cycle that the final 1 of 1101 is sampled (combinational/Mealy output).",
+    "start_shifting is asserted one clock cycle later, after the FSM registers the final bit (registered/Moore output)."
+   ]
+  },
+  {
+   "aspect": "Reset scope",
+   "severity": "high",
+   "readings": [
+    "Reset clears both the sequence-detection state and start_shifting, so the FSM restarts from the initial state and start_shifting goes to 0.",
+    "Reset only clears start_shifting while leaving the sequence-detection state unchanged, so the FSM can continue a partial match across reset."
+   ]
+  },
+  {
+   "aspect": "Reset vs detection priority",
+   "severity": "medium",
+   "readings": [
+    "start_shifting is gated by reset, so it is forced to 0 whenever reset is high, regardless of the current state and input.",
+    "start_shifting is not gated by reset; since reset is synchronous, it only affects the state at the clock edge, so start_shifting can still be 1 during a cycle where reset is high if the sequence condition is met."
+   ]
+  },
+  {
+   "aspect": "Initial value before reset",
+   "severity": "low",
+   "readings": [
+    "Before reset is asserted, start_shifting is 0 and the FSM is in the idle state (e.g., due to initial values).",
+    "Before reset is asserted, start_shifting and the FSM state are undefined and may take any value."
+   ]
+  }
+ ]
+}

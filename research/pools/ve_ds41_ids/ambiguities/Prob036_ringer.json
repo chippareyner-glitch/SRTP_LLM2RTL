@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Conditional on ring vs. vibrate_mode-only outputs",
+   "severity": "high",
+   "readings": [
+    "The mode selection applies only when ring=1: ringer = ring & ~vibrate_mode, motor = ring & vibrate_mode, so both outputs are 0 when ring=0.",
+    "The mode selection is unconditional: ringer = ~vibrate_mode, motor = vibrate_mode, so one output is 1 even when ring=0."
+   ]
+  },
+  {
+   "aspect": "Idle behavior when ring=0",
+   "severity": "medium",
+   "readings": [
+    "When ring=0, both ringer and motor must be 0.",
+    "When ring=0, the outputs are not specified and may be 0, 1, or hold previous values."
+   ]
+  }
+ ]
+}

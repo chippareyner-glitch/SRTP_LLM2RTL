@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-10T18:52:25.349082+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob066_edgecapture",
+  "returned_model": "deepseek-flash",
+  "id": "773a5c87-4637-4da6-a396-795ab5c6b858",
+  "usage": {
+    "prompt_tokens": 255,
+    "completion_tokens": 417,
+    "total_tokens": 672,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 299
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 255
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "low",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 2.415849499997421
+}

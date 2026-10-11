@@ -1,0 +1,38 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset behavior and initial values",
+   "severity": "high",
+   "readings": [
+    "rst_n=0 asynchronously resets cnt, data, and valid to 0; when rst_n=1, normal counting applies (increment unless cnt==3, then reset to 0).",
+    "rst_n=1 causes cnt to increment every clock cycle regardless of cnt==3; rst_n=0 holds cnt or resets it, and data/valid have no defined reset value."
+   ]
+  },
+  {
+   "aspect": "valid_out timing and duration",
+   "severity": "high",
+   "readings": [
+    "valid_out is a one-cycle pulse asserted on the cycle when the MSB of a newly loaded d is present at dout.",
+    "valid_out is asserted for all four cycles of each serial word (while cnt counts 0 through 3).",
+    "valid_out is asserted on the cnt==3 cycle (the last bit of the current word), so it coincides with the last bit rather than the MSB."
+   ]
+  },
+  {
+   "aspect": "Counter condition and data load timing",
+   "severity": "high",
+   "readings": [
+    "cnt==3 marks the last bit of the current word; that bit is output on the cnt==3 cycle, and new d is loaded at the next clock edge, with its MSB output the following cycle.",
+    "cnt==3 triggers loading new d immediately, so the MSB of the new d appears on the cnt==3 cycle or the next cycle, and the previous word's last bit may be dropped or already output."
+   ]
+  },
+  {
+   "aspect": "dout during invalid cycles and shift semantics",
+   "severity": "medium",
+   "readings": [
+    "dout is continuously assigned to data[3], so during valid_out=0 cycles it continues to show the shifted bits (bit 2, bit 1, bit 0).",
+    "dout holds the last valid bit (or is forced to 0) when valid_out=0, so invalid cycles output 0 or a stale value.",
+    "The data register shifts left with the MSB rotated into the LSB (rotate), versus a plain left shift with zero fill."
+   ]
+  }
+ ]
+}

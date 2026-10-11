@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:44:17.745179+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "traffic_light",
+  "returned_model": "deepseek-flash",
+  "id": "40f80f92-3a71-4f16-ba16-9904847f1c06",
+  "usage": {
+    "prompt_tokens": 942,
+    "completion_tokens": 21631,
+    "total_tokens": 22573,
+    "prompt_tokens_details": {
+      "cached_tokens": 768
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 20904
+    },
+    "prompt_cache_hit_tokens": 768,
+    "prompt_cache_miss_tokens": 174
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 82.31514100000277
+}

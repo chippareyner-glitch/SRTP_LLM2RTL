@@ -1,0 +1,31 @@
+{
+ "id": "Prob035_count1to10__3to12",
+ "base": "Prob035_count1to10",
+ "delta": "3to12",
+ "category": "param",
+ "edits": [
+  [
+   "decade counter that counts 1 through 10, inclusive.",
+   "counter that counts 3 through 12, inclusive."
+  ],
+  [
+   "reset the counter to 1.",
+   "reset the counter to 3."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 439,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 438,
+   "samples": 439,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

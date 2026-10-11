@@ -1,0 +1,31 @@
+{
+ "id": "Prob085_shift4__left",
+ "base": "Prob085_shift4",
+ "delta": "left",
+ "category": "rule",
+ "edits": [
+  [
+   "4-bit shift register (right shift)",
+   "4-bit shift register (left shift)"
+  ],
+  [
+   "(3) ena: Shift right (q[3] becomes zero, q[0] is shifted out and disappears).",
+   "(3) ena: Shift left (q[0] becomes zero, q[3] is shifted out and disappears)."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 427,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 61,
+   "samples": 427,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

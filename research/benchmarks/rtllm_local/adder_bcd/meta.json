@@ -1,0 +1,11 @@
+{
+ "case": "adder_bcd",
+ "category": "Arithmetic",
+ "top": "adder_bcd",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "adder_bcd"
+ ]
+}

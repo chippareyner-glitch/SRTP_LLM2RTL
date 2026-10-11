@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Meaning of the bubble on in2",
+   "severity": "medium",
+   "readings": [
+    "The bubble inverts only the in2 operand, so out = in1 & (~in2) (AND gate with one inverted input)",
+    "The bubble denotes inversion of the AND gate's result, so out = ~(in1 & in2) (a NAND of in1 and in2)"
+   ]
+  }
+ ]
+}

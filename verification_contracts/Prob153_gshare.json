@@ -1,0 +1,60 @@
+{
+  "case_id": "Prob153_gshare",
+  "rtl_file": "Prob153_gshare_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob153_gshare_prompt.txt",
+  "normalization_notes": [
+    "The prompt does not define the reset value of PHT counters, so this contract first trains an entry to a known saturated state before checking its prediction."
+  ],
+  "ports": [
+    {"name": "clk", "direction": "input", "width": 1},
+    {"name": "areset", "direction": "input", "width": 1},
+    {"name": "predict_valid", "direction": "input", "width": 1},
+    {"name": "predict_pc", "direction": "input", "width": 7},
+    {"name": "predict_taken", "direction": "output", "width": 1},
+    {"name": "predict_history", "direction": "output", "width": 7},
+    {"name": "train_valid", "direction": "input", "width": 1},
+    {"name": "train_taken", "direction": "input", "width": 1},
+    {"name": "train_mispredicted", "direction": "input", "width": 1},
+    {"name": "train_history", "direction": "input", "width": 7},
+    {"name": "train_pc", "direction": "input", "width": 7}
+  ],
+  "clock": {"name": "clk", "half_period": 5},
+  "initial": {
+    "areset": "0", "predict_valid": "0", "predict_pc": "0",
+    "train_valid": "0", "train_taken": "0", "train_mispredicted": "0",
+    "train_history": "0", "train_pc": "0"
+  },
+  "tests": [
+    {
+      "id": "asynchronous_reset_history",
+      "requirement": "active-high asynchronous reset clears global history",
+      "steps": [
+        {"set": {"predict_valid": "1", "areset": "1"}, "delay": 1, "expect": {"predict_history": "7'b0000000"}},
+        {"set": {"areset": "0", "predict_valid": "0"}, "delay": 1}
+      ]
+    },
+    {
+      "id": "train_to_taken",
+      "requirement": "repeated taken training saturates a PHT entry to a taken prediction",
+      "steps": [
+        {"set": {"train_valid": "1", "train_taken": "1", "train_mispredicted": "0", "train_history": "0", "train_pc": "7'd5"}, "posedge": 3},
+        {"set": {"train_valid": "0", "predict_valid": "1", "predict_pc": "7'd5"}, "delay": 1, "expect": {"predict_history": "0", "predict_taken": "1"}}
+      ]
+    },
+    {
+      "id": "speculative_history_update",
+      "requirement": "a valid prediction shifts its predicted outcome into global history",
+      "steps": [
+        {"posedge": 1, "expect": {"predict_history": "7'b0000001"}}
+      ]
+    },
+    {
+      "id": "mispredict_recovery_priority",
+      "requirement": "misprediction training overrides prediction and restores history including actual outcome",
+      "steps": [
+        {"set": {"train_valid": "1", "train_taken": "1", "train_mispredicted": "1", "train_history": "7'b1010101", "train_pc": "7'd9", "predict_valid": "1", "predict_pc": "7'd3"}, "posedge": 1, "expect": {"predict_history": "7'b0101011"}}
+      ]
+    }
+  ]
+}

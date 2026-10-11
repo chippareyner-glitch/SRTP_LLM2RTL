@@ -1,0 +1,149 @@
+[
+ {
+  "case": "Prob045_edgedetect2",
+  "askrtl": 1.0,
+  "questions": 0,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob062_bugs_mux2",
+  "askrtl": 0.0,
+  "questions": 1,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob066_edgecapture",
+  "askrtl": 1.0,
+  "questions": 1,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob070_ece241_2013_q2",
+  "askrtl": 1.0,
+  "questions": 0,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob078_dualedge",
+  "askrtl": 1.0,
+  "questions": 1,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob093_ece241_2014_q3",
+  "askrtl": 0.0,
+  "questions": 1,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob098_circuit7",
+  "askrtl": 0.0,
+  "questions": 1,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob112_always_case2",
+  "askrtl": 1.0,
+  "questions": 1,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob116_m2014_q3",
+  "askrtl": 0.0,
+  "questions": 2,
+  "majority_votes": 0.5,
+  "majority_configs": 0.5
+ },
+ {
+  "case": "Prob124_rule110",
+  "askrtl": 1.0,
+  "questions": 0,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob135_m2014_q6b",
+  "askrtl": 0.5,
+  "questions": 2,
+  "majority_votes": 0.5,
+  "majority_configs": 0.5
+ },
+ {
+  "case": "Prob137_fsm_serial",
+  "askrtl": 1.0,
+  "questions": 1,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob144_conwaylife",
+  "askrtl": 1.0,
+  "questions": 0,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob145_circuit8",
+  "askrtl": 1.0,
+  "questions": 1,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob146_fsm_serialdata",
+  "askrtl": 0.0,
+  "questions": 1,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob149_ece241_2013_q4",
+  "askrtl": 0.0,
+  "questions": 3,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob150_review2015_fsmonehot",
+  "askrtl": 0.0,
+  "questions": 3,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob153_gshare",
+  "askrtl": 0.0,
+  "questions": 1,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob154_fsm_ps2data",
+  "askrtl": 0.0,
+  "questions": 3,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ },
+ {
+  "case": "Prob155_lemmings4",
+  "askrtl": 1.0,
+  "questions": 3,
+  "majority_votes": 1.0,
+  "majority_configs": 1.0
+ },
+ {
+  "case": "Prob156_review2015_fancytimer",
+  "askrtl": 0.0,
+  "questions": 0,
+  "majority_votes": 0.0,
+  "majority_configs": 0.0
+ }
+]

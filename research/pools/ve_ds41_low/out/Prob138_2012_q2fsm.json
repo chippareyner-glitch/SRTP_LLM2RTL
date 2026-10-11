@@ -1,0 +1,25 @@
+{
+ "case": "Prob138_2012_q2fsm",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "425fe5759ce6",
+   "sources": [
+    "ve_ds41_low:s0"
+   ],
+   "model": "ve_ds41_low",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_low\\gen\\Prob138_2012_q2fsm\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

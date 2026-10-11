@@ -1,0 +1,12 @@
+module TopModule (
+    input  logic c,
+    input  logic d,
+    output logic [3:0] mux_in
+);
+
+    assign mux_in[0] = d ? 1'b1 : c;
+    assign mux_in[1] = 1'b0;
+    assign mux_in[2] = d ? c : 1'b0;
+    assign mux_in[3] = d ? c : 1'b1;
+
+endmodule

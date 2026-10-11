@@ -1,0 +1,159 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  s
+ - input  w
+ - output z
+
+The module should implement a finite state machine with inputs s and w.
+Assume that the FSM begins in a reset state called A, as depicted below.
+The FSM remains in state A as long as s = 0, and it moves to state B when
+s = 1. Once in state B the FSM examines the value of the input w in the
+next three clock cycles. If w = 1 in exactly two of these clock cycles,
+then the FSM has to set an output z to 1 in the following clock cycle.
+Otherwise z has to be 0. The FSM continues checking w for the next three
+clock cycles, and so on. Use as few states as possible. Note that the s
+input is used only in state A, so you need to consider just the w input.
+Assume reset is active high synchronous. Assume all sequential logic is
+triggered on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a finite state machine (FSM) with:
+- **Inputs**: clk, reset (active high, synchronous), s (state transition control), w (data input)
+- **Output**: z (result indicator)
+- **Initial State**: A (reset state)
+- **State Transition**: A → B when s=1 (stays in A while s=0)
+- **B State Behavior**: In state B, monitor w for exactly 3 clock cycles, count occurrences of w=1
+- **Output Logic**: z=1 if exactly two w=1 occurrences in the 3-cycle window, z=0 otherwise
+- **Cyclic Operation**: After each 3-cycle evaluation, immediately begin next 3-cycle window
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **Window Alignment**: Unclear when the 3-cycle counting window starts relative to entering state B
+   - Does counting begin immediately upon entering B (cycle 1) or on the next cycle (cycle 2)?
+   - *Interpretation needed: First cycle in B should be first counting cycle*
+
+2. **Output Timing**: "Following clock cycle" after the 3-cycle window is ambiguous
+   - Is z asserted in the 4th cycle after entering B, or immediately after the 3rd cycle?
+   - *Interpretation needed: z should be valid in the cycle immediately following the 3rd counting cycle*
+
+3. **Continuous Operation**: Behavior after the first 3-cycle window completion is underspecified
+   - Does the FSM return to A or continue monitoring in B?
+   - *Interpretation: Continuous operation in B with overlapping 3-cycle windows*
+
+## 3. Missing Critical Details
+
+**Timing Specifications:**
+- No specification for z behavior during first 3 cycles in state B
+- No specification for reset behavior of z output
+- No timing relationship defined between s=0 in state B (should be ignored per spec)
+
+**State Machine Definition:**
+- Missing state definitions beyond A and B
+- No specification for minimum number of states required
+- No clarification on whether counting requires additional states
+
+**Input Constraints:**
+- No assumptions about s input stability in state B
+- No timing constraints for s input changes relative to clock
+
+## 4. Edge Cases & Boundary Conditions
+
+**Reset Scenarios:**
+- Reset asserted during 3-cycle counting window
+- Reset asserted exactly when z should be asserted
+- Reset deassertion timing relative to s input
+
+**Input Sequence Edge Cases:**
+- s=1 then immediately s=0 while in state B
+- s toggling rapidly in state A
+- All w=0 or all w=1 in 3-cycle window
+- w pattern: 1,1,1 (three ones) → should yield z=0
+- w pattern: 1,1,0 (two ones) → should yield z=1
+- w pattern: 1,0,1 (two ones) → should yield z=1
+- w pattern: 0,1,1 (two ones) → should yield z=1
+
+**Timing Edge Cases:**
+- s=1 exactly at clock edge when leaving reset
+- Back-to-back 3-cycle windows with different w patterns
+- s input changing during the counting phase
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Issues:**
+- **State Encoding**: Minimal implementation likely requires 4-5 states (A + counting states)
+- **Counting Logic**: Need 2-bit counter for w=1 occurrences, 3-cycle timer
+- **Window Management**: Overlapping windows require careful state sequencing
+- **Output Timing**: z must be computed and registered correctly
+
+**Expected State Breakdown:**
+- State A: Reset/wait state
+- State B1: First counting cycle (store w)
+- State B2: Second counting cycle (store w)  
+- State B3: Third counting cycle (store w, compute result)
+- State B4: Output z and begin next window (optional, could be merged)
+
+**Critical Verification Points:**
+- z=1 only for exactly two 1's in any order
+- z=0 for all other cases (0,1,3 ones)
+- Continuous operation without returning to A
+- Proper reset behavior
+
+## 6. Actionable Guidance for RTL Generation
+
+**Architecture Recommendations:**
+```
+Module Structure:
+- FSM state register (3-4 bits, one-hot recommended)
+- 2-bit counter for w=1 occurrences
+- 2-bit cycle counter for window timing
+- Output register for z
+```
+
+**State Machine Definition:**
+```systemverilog
+typedef enum logic [2:0] {
+    A  = 3'b001,  // Wait for s=1
+    B1 = 3'b010,  // Cycle 1 of 3
+    B2 = 3'b011,  // Cycle 2 of 3  
+    B3 = 3'b100   // Cycle 3 of 3 (compute z)
+} state_t;
+```
+
+**Critical Implementation Rules:**
+1. **Reset**: All state machines and counters reset to A state
+2. **State A**: Transition to B1 when s=1, else remain in A
+3. **Counting States**: Advance B1→B2→B3→B1 continuously
+4. **w Counting**: Increment counter when w=1 in B1/B2/B3
+5. **z Calculation**: Compare counter value at B3→B1 transition
+6. **Output Register**: z registered output, cleared during reset
+
+**Timing Constraints:**
+- z valid one cycle after each 3-cycle window completes
+- Counting windows are contiguous and overlapping
+- s input only sampled in state A
+
+**Verification Strategy:**
+- Test all 8 possible w patterns over 3 cycles
+- Verify continuous operation for multiple windows
+- Test reset during active counting
+- Verify s=0 ignored in state B
+
+This analysis provides a complete foundation for correct RTL implementation with clear resolution of ambiguities and comprehensive edge case coverage.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,865 @@
+{
+ "case": "Prob034_dff8",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "d",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    8
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c4",
+    "c5"
+   ],
+   "votes": 7,
+   "correct": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      216
+     ],
+     [
+      98
+     ],
+     [
+      194
+     ],
+     [
+      227
+     ],
+     [
+      107
+     ],
+     [
+      10
+     ],
+     [
+      66
+     ],
+     [
+      247
+     ],
+     [
+      130
+     ],
+     [
+      124
+     ],
+     [
+      103
+     ],
+     [
+      235
+     ],
+     [
+      200
+     ],
+     [
+      212
+     ],
+     [
+      77
+     ],
+     [
+      247
+     ],
+     [
+      122
+     ],
+     [
+      91
+     ],
+     [
+      149
+     ],
+     [
+      228
+     ],
+     [
+      232
+     ],
+     [
+      55
+     ],
+     [
+      129
+     ],
+     [
+      35
+     ],
+     [
+      72
+     ],
+     [
+      35
+     ],
+     [
+      193
+     ],
+     [
+      24
+     ],
+     [
+      158
+     ],
+     [
+      204
+     ],
+     [
+      64
+     ],
+     [
+      252
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxxxxxxx",
+      "11011000",
+      "11011000",
+      "01100010",
+      "01100010",
+      "11000010",
+      "11000010",
+      "11100011",
+      "11100011",
+      "01101011",
+      "01101011",
+      "00001010",
+      "00001010",
+      "01000010",
+      "01000010",
+      "11110111",
+      "11110111",
+      "10000010",
+      "10000010",
+      "01111100",
+      "01111100",
+      "01100111",
+      "01100111",
+      "11101011",
+      "11101011",
+      "11001000",
+      "11001000",
+      "11010100",
+      "11010100",
+      "01001101",
+      "01001101",
+      "11110111",
+      "11110111",
+      "01111010",
+      "01111010",
+      "01011011",
+      "01011011",
+      "10010101",
+      "10010101",
+      "11100100",
+      "11100100",
+      "11101000",
+      "11101000",
+      "00110111",
+      "00110111",
+      "10000001",
+      "10000001",
+      "00100011",
+      "00100011",
+      "01001000",
+      "01001000",
+      "00100011",
+      "00100011",
+      "11000001",
+      "11000001",
+      "00011000",
+      "00011000",
+      "10011110",
+      "10011110",
+      "11001100",
+      "11001100",
+      "01000000",
+      "01000000",
+      "11111100"
+     ],
+     [
+      "00000000",
+      "11011000",
+      "11011000",
+      "01100010",
+      "01100010",
+      "11000010",
+      "11000010",
+      "11100011",
+      "11100011",
+      "01101011",
+      "01101011",
+      "00001010",
+      "00001010",
+      "01000010",
+      "01000010",
+      "11110111",
+      "11110111",
+      "10000010",
+      "10000010",
+      "01111100",
+      "01111100",
+      "01100111",
+      "01100111",
+      "11101011",
+      "11101011",
+      "11001000",
+      "11001000",
+      "11010100",
+      "11010100",
+      "01001101",
+      "01001101",
+      "11110111",
+      "11110111",
+      "01111010",
+      "01111010",
+      "01011011",
+      "01011011",
+      "10010101",
+      "10010101",
+      "11100100",
+      "11100100",
+      "11101000",
+      "11101000",
+      "00110111",
+      "00110111",
+      "10000001",
+      "10000001",
+      "00100011",
+      "00100011",
+      "01001000",
+      "01001000",
+      "00100011",
+      "00100011",
+      "11000001",
+      "11000001",
+      "00011000",
+      "00011000",
+      "10011110",
+      "10011110",
+      "11001100",
+      "11001100",
+      "01000000",
+      "01000000",
+      "11111100"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d   (8 bits)\n - output q   (8 bits)\n\nThe module should include 8 D flip-flops. All DFFs should be triggered by\nthe positive edge of clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | d | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 8'hd8 | q=8'bxxxxxxxx | q=8'hd8 | q=8'h00 | q=8'hd8 |\n| 1 | 8'h62 | q=8'hd8 | q=8'h62 | q=8'hd8 | q=8'h62 |\n| 2 | 8'hc2 | q=8'h62 | q=8'hc2 | q=8'h62 | q=8'hc2 |\n| 3 | 8'he3 | q=8'hc2 | q=8'he3 | q=8'hc2 | q=8'he3 |\n| 4 | 8'h6b | q=8'he3 | q=8'h6b | q=8'he3 | q=8'h6b |\n| 5 | 8'h0a | q=8'h6b | q=8'h0a | q=8'h6b | q=8'h0a |\n| 6 | 8'h42 | q=8'h0a | q=8'h42 | q=8'h0a | q=8'h42 |\n| 7 | 8'hf7 | q=8'h42 | q=8'hf7 | q=8'h42 | q=8'hf7 |\n| 8 | 8'h82 | q=8'hf7 | q=8'h82 | q=8'hf7 | q=8'h82 |\n| 9 | 8'h7c | q=8'h82 | q=8'h7c | q=8'h82 | q=8'h7c |\n| 10 | 8'h67 | q=8'h7c | q=8'h67 | q=8'h7c | q=8'h67 |\n| 11 | 8'heb | q=8'h67 | q=8'heb | q=8'h67 | q=8'heb |\n| 12 | 8'hc8 | q=8'heb | q=8'hc8 | q=8'heb | q=8'hc8 |\n| 13 | 8'hd4 | q=8'hc8 | q=8'hd4 | q=8'hc8 | q=8'hd4 |\n| 14 | 8'h4d | q=8'hd4 | q=8'h4d | q=8'hd4 | q=8'h4d |\n| 15 | 8'hf7 | q=8'h4d | q=8'hf7 | q=8'h4d | q=8'hf7 |\n| 16 | 8'h7a | q=8'hf7 | q=8'h7a | q=8'hf7 | q=8'h7a |\n| 17 | 8'h5b | q=8'h7a | q=8'h5b | q=8'h7a | q=8'h5b |\n| 18 | 8'h95 | q=8'h5b | q=8'h95 | q=8'h5b | q=8'h95 |\n| 19 | 8'he4 | q=8'h95 | q=8'he4 | q=8'h95 | q=8'he4 |\n| 20 | 8'he8 | q=8'he4 | q=8'he8 | q=8'he4 | q=8'he8 |\n| 21 | 8'h37 | q=8'he8 | q=8'h37 | q=8'he8 | q=8'h37 |\n| 22 | 8'h81 | q=8'h37 | q=8'h81 | q=8'h37 | q=8'h81 |\n| 23 | 8'h23 | q=8'h81 | q=8'h23 | q=8'h81 | q=8'h23 |\n| 24 | 8'h48 | q=8'h23 | q=8'h48 | q=8'h23 | q=8'h48 |\n| 25 | 8'h23 | q=8'h48 | q=8'h23 | q=8'h48 | q=8'h23 |\n| 26 | 8'hc1 | q=8'h23 | q=8'hc1 | q=8'h23 | q=8'hc1 |\n| 27 | 8'h18 | q=8'hc1 | q=8'h18 | q=8'hc1 | q=8'h18 |\n| 28 | 8'h9e | q=8'h18 | q=8'h9e | q=8'h18 | q=8'h9e |\n| 29 | 8'hcc | q=8'h9e | q=8'hcc | q=8'h9e | q=8'hcc |\n| 30 | 8'h40 | q=8'hcc | q=8'h40 | q=8'hcc | q=8'h40 |\n| 31 | 8'hfc | q=8'h40 | q=8'hfc | q=8'h40 | q=8'hfc |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "xxxxxxxx",
+    "00000000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B",
+    "c3": "A"
+   },
+   "label": "B",
+   "ref_value": "00000000",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d   (8 bits)\n - output q   (8 bits)\n\nThe module should include 8 D flip-flops. All DFFs should be triggered by\nthe positive edge of clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | d | pre | post |\n|---|---|---|---|\n| 0 | 8'h00 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=8'bxxxxxxxx\n- **B**: q=8'h00\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      216
+     ],
+     [
+      98
+     ],
+     [
+      194
+     ],
+     [
+      227
+     ],
+     [
+      107
+     ],
+     [
+      10
+     ],
+     [
+      66
+     ],
+     [
+      247
+     ],
+     [
+      130
+     ],
+     [
+      124
+     ],
+     [
+      103
+     ],
+     [
+      235
+     ],
+     [
+      200
+     ],
+     [
+      212
+     ],
+     [
+      77
+     ],
+     [
+      247
+     ],
+     [
+      122
+     ],
+     [
+      91
+     ],
+     [
+      149
+     ],
+     [
+      228
+     ],
+     [
+      232
+     ],
+     [
+      55
+     ],
+     [
+      129
+     ],
+     [
+      35
+     ],
+     [
+      72
+     ],
+     [
+      35
+     ],
+     [
+      193
+     ],
+     [
+      24
+     ],
+     [
+      158
+     ],
+     [
+      204
+     ],
+     [
+      64
+     ],
+     [
+      252
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxxxxxxx",
+      "11011000",
+      "11011000",
+      "01100010",
+      "01100010",
+      "11000010",
+      "11000010",
+      "11100011",
+      "11100011",
+      "01101011",
+      "01101011",
+      "00001010",
+      "00001010",
+      "01000010",
+      "01000010",
+      "11110111",
+      "11110111",
+      "10000010",
+      "10000010",
+      "01111100",
+      "01111100",
+      "01100111",
+      "01100111",
+      "11101011",
+      "11101011",
+      "11001000",
+      "11001000",
+      "11010100",
+      "11010100",
+      "01001101",
+      "01001101",
+      "11110111",
+      "11110111",
+      "01111010",
+      "01111010",
+      "01011011",
+      "01011011",
+      "10010101",
+      "10010101",
+      "11100100",
+      "11100100",
+      "11101000",
+      "11101000",
+      "00110111",
+      "00110111",
+      "10000001",
+      "10000001",
+      "00100011",
+      "00100011",
+      "01001000",
+      "01001000",
+      "00100011",
+      "00100011",
+      "11000001",
+      "11000001",
+      "00011000",
+      "00011000",
+      "10011110",
+      "10011110",
+      "11001100",
+      "11001100",
+      "01000000",
+      "01000000",
+      "11111100"
+     ],
+     [
+      "xxxxxxxx",
+      "00011011",
+      "00011011",
+      "01000110",
+      "01000110",
+      "01000011",
+      "01000011",
+      "11000111",
+      "11000111",
+      "11010110",
+      "11010110",
+      "01010000",
+      "01010000",
+      "01000010",
+      "01000010",
+      "11101111",
+      "11101111",
+      "01000001",
+      "01000001",
+      "00111110",
+      "00111110",
+      "11100110",
+      "11100110",
+      "11010111",
+      "11010111",
+      "00010011",
+      "00010011",
+      "00101011",
+      "00101011",
+      "10110010",
+      "10110010",
+      "11101111",
+      "11101111",
+      "01011110",
+      "01011110",
+      "11011010",
+      "11011010",
+      "10101001",
+      "10101001",
+      "00100111",
+      "00100111",
+      "00010111",
+      "00010111",
+      "11101100",
+      "11101100",
+      "10000001",
+      "10000001",
+      "11000100",
+      "11000100",
+      "00010010",
+      "00010010",
+      "11000100",
+      "11000100",
+      "10000011",
+      "10000011",
+      "00011000",
+      "00011000",
+      "01111001",
+      "01111001",
+      "00110011",
+      "00110011",
+      "00000010",
+      "00000010",
+      "00111111"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d   (8 bits)\n - output q   (8 bits)\n\nThe module should include 8 D flip-flops. All DFFs should be triggered by\nthe positive edge of clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | d | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 8'hd8 | q=8'bxxxxxxxx | q=8'hd8 | q=8'bxxxxxxxx | q=8'h1b |\n| 1 | 8'h62 | q=8'hd8 | q=8'h62 | q=8'h1b | q=8'h46 |\n| 2 | 8'hc2 | q=8'h62 | q=8'hc2 | q=8'h46 | q=8'h43 |\n| 3 | 8'he3 | q=8'hc2 | q=8'he3 | q=8'h43 | q=8'hc7 |\n| 4 | 8'h6b | q=8'he3 | q=8'h6b | q=8'hc7 | q=8'hd6 |\n| 5 | 8'h0a | q=8'h6b | q=8'h0a | q=8'hd6 | q=8'h50 |\n| 6 | 8'h42 | q=8'h0a | q=8'h42 | q=8'h50 | q=8'h42 |\n| 7 | 8'hf7 | q=8'h42 | q=8'hf7 | q=8'h42 | q=8'hef |\n| 8 | 8'h82 | q=8'hf7 | q=8'h82 | q=8'hef | q=8'h41 |\n| 9 | 8'h7c | q=8'h82 | q=8'h7c | q=8'h41 | q=8'h3e |\n| 10 | 8'h67 | q=8'h7c | q=8'h67 | q=8'h3e | q=8'he6 |\n| 11 | 8'heb | q=8'h67 | q=8'heb | q=8'he6 | q=8'hd7 |\n| 12 | 8'hc8 | q=8'heb | q=8'hc8 | q=8'hd7 | q=8'h13 |\n| 13 | 8'hd4 | q=8'hc8 | q=8'hd4 | q=8'h13 | q=8'h2b |\n| 14 | 8'h4d | q=8'hd4 | q=8'h4d | q=8'h2b | q=8'hb2 |\n| 15 | 8'hf7 | q=8'h4d | q=8'hf7 | q=8'hb2 | q=8'hef |\n| 16 | 8'h7a | q=8'hf7 | q=8'h7a | q=8'hef | q=8'h5e |\n| 17 | 8'h5b | q=8'h7a | q=8'h5b | q=8'h5e | q=8'hda |\n| 18 | 8'h95 | q=8'h5b | q=8'h95 | q=8'hda | q=8'ha9 |\n| 19 | 8'he4 | q=8'h95 | q=8'he4 | q=8'ha9 | q=8'h27 |\n| 20 | 8'he8 | q=8'he4 | q=8'he8 | q=8'h27 | q=8'h17 |\n| 21 | 8'h37 | q=8'he8 | q=8'h37 | q=8'h17 | q=8'hec |\n| 22 | 8'h81 | q=8'h37 | q=8'h81 | q=8'hec | q=8'h81 |\n| 23 | 8'h23 | q=8'h81 | q=8'h23 | q=8'h81 | q=8'hc4 |\n| 24 | 8'h48 | q=8'h23 | q=8'h48 | q=8'hc4 | q=8'h12 |\n| 25 | 8'h23 | q=8'h48 | q=8'h23 | q=8'h12 | q=8'hc4 |\n| 26 | 8'hc1 | q=8'h23 | q=8'hc1 | q=8'hc4 | q=8'h83 |\n| 27 | 8'h18 | q=8'hc1 | q=8'h18 | q=8'h83 | q=8'h18 |\n| 28 | 8'h9e | q=8'h18 | q=8'h9e | q=8'h18 | q=8'h79 |\n| 29 | 8'hcc | q=8'h9e | q=8'hcc | q=8'h79 | q=8'h33 |\n| 30 | 8'h40 | q=8'hcc | q=8'h40 | q=8'h33 | q=8'h02 |\n| 31 | 8'hfc | q=8'h40 | q=8'hfc | q=8'h02 | q=8'h3f |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     216
+    ]
+   ],
+   "options": [
+    "11011000",
+    "00011011"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "other",
+    "c3": "B"
+   },
+   "label": "NONE",
+   "ref_value": "11011000",
+   "x_involved": false,
+   "hist": [
+    "xxxxxxxx"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d   (8 bits)\n - output q   (8 bits)\n\nThe module should include 8 D flip-flops. All DFFs should be triggered by\nthe positive edge of clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | d | pre | post |\n|---|---|---|---|\n| 0 | 8'hd8 | q=8'bxxxxxxxx | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=8'hd8\n- **B**: q=8'h1b\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      216
+     ],
+     [
+      98
+     ],
+     [
+      194
+     ],
+     [
+      227
+     ],
+     [
+      107
+     ],
+     [
+      10
+     ],
+     [
+      66
+     ],
+     [
+      247
+     ],
+     [
+      130
+     ],
+     [
+      124
+     ],
+     [
+      103
+     ],
+     [
+      235
+     ],
+     [
+      200
+     ],
+     [
+      212
+     ],
+     [
+      77
+     ],
+     [
+      247
+     ],
+     [
+      122
+     ],
+     [
+      91
+     ],
+     [
+      149
+     ],
+     [
+      228
+     ],
+     [
+      232
+     ],
+     [
+      55
+     ],
+     [
+      129
+     ],
+     [
+      35
+     ],
+     [
+      72
+     ],
+     [
+      35
+     ],
+     [
+      193
+     ],
+     [
+      24
+     ],
+     [
+      158
+     ],
+     [
+      204
+     ],
+     [
+      64
+     ],
+     [
+      252
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00000000",
+      "11011000",
+      "11011000",
+      "01100010",
+      "01100010",
+      "11000010",
+      "11000010",
+      "11100011",
+      "11100011",
+      "01101011",
+      "01101011",
+      "00001010",
+      "00001010",
+      "01000010",
+      "01000010",
+      "11110111",
+      "11110111",
+      "10000010",
+      "10000010",
+      "01111100",
+      "01111100",
+      "01100111",
+      "01100111",
+      "11101011",
+      "11101011",
+      "11001000",
+      "11001000",
+      "11010100",
+      "11010100",
+      "01001101",
+      "01001101",
+      "11110111",
+      "11110111",
+      "01111010",
+      "01111010",
+      "01011011",
+      "01011011",
+      "10010101",
+      "10010101",
+      "11100100",
+      "11100100",
+      "11101000",
+      "11101000",
+      "00110111",
+      "00110111",
+      "10000001",
+      "10000001",
+      "00100011",
+      "00100011",
+      "01001000",
+      "01001000",
+      "00100011",
+      "00100011",
+      "11000001",
+      "11000001",
+      "00011000",
+      "00011000",
+      "10011110",
+      "10011110",
+      "11001100",
+      "11001100",
+      "01000000",
+      "01000000",
+      "11111100"
+     ],
+     [
+      "xxxxxxxx",
+      "00011011",
+      "00011011",
+      "01000110",
+      "01000110",
+      "01000011",
+      "01000011",
+      "11000111",
+      "11000111",
+      "11010110",
+      "11010110",
+      "01010000",
+      "01010000",
+      "01000010",
+      "01000010",
+      "11101111",
+      "11101111",
+      "01000001",
+      "01000001",
+      "00111110",
+      "00111110",
+      "11100110",
+      "11100110",
+      "11010111",
+      "11010111",
+      "00010011",
+      "00010011",
+      "00101011",
+      "00101011",
+      "10110010",
+      "10110010",
+      "11101111",
+      "11101111",
+      "01011110",
+      "01011110",
+      "11011010",
+      "11011010",
+      "10101001",
+      "10101001",
+      "00100111",
+      "00100111",
+      "00010111",
+      "00010111",
+      "11101100",
+      "11101100",
+      "10000001",
+      "10000001",
+      "11000100",
+      "11000100",
+      "00010010",
+      "00010010",
+      "11000100",
+      "11000100",
+      "10000011",
+      "10000011",
+      "00011000",
+      "00011000",
+      "01111001",
+      "01111001",
+      "00110011",
+      "00110011",
+      "00000010",
+      "00000010",
+      "00111111"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d   (8 bits)\n - output q   (8 bits)\n\nThe module should include 8 D flip-flops. All DFFs should be triggered by\nthe positive edge of clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | d | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 8'hd8 | q=8'h00 | q=8'hd8 | q=8'bxxxxxxxx | q=8'h1b |\n| 1 | 8'h62 | q=8'hd8 | q=8'h62 | q=8'h1b | q=8'h46 |\n| 2 | 8'hc2 | q=8'h62 | q=8'hc2 | q=8'h46 | q=8'h43 |\n| 3 | 8'he3 | q=8'hc2 | q=8'he3 | q=8'h43 | q=8'hc7 |\n| 4 | 8'h6b | q=8'he3 | q=8'h6b | q=8'hc7 | q=8'hd6 |\n| 5 | 8'h0a | q=8'h6b | q=8'h0a | q=8'hd6 | q=8'h50 |\n| 6 | 8'h42 | q=8'h0a | q=8'h42 | q=8'h50 | q=8'h42 |\n| 7 | 8'hf7 | q=8'h42 | q=8'hf7 | q=8'h42 | q=8'hef |\n| 8 | 8'h82 | q=8'hf7 | q=8'h82 | q=8'hef | q=8'h41 |\n| 9 | 8'h7c | q=8'h82 | q=8'h7c | q=8'h41 | q=8'h3e |\n| 10 | 8'h67 | q=8'h7c | q=8'h67 | q=8'h3e | q=8'he6 |\n| 11 | 8'heb | q=8'h67 | q=8'heb | q=8'he6 | q=8'hd7 |\n| 12 | 8'hc8 | q=8'heb | q=8'hc8 | q=8'hd7 | q=8'h13 |\n| 13 | 8'hd4 | q=8'hc8 | q=8'hd4 | q=8'h13 | q=8'h2b |\n| 14 | 8'h4d | q=8'hd4 | q=8'h4d | q=8'h2b | q=8'hb2 |\n| 15 | 8'hf7 | q=8'h4d | q=8'hf7 | q=8'hb2 | q=8'hef |\n| 16 | 8'h7a | q=8'hf7 | q=8'h7a | q=8'hef | q=8'h5e |\n| 17 | 8'h5b | q=8'h7a | q=8'h5b | q=8'h5e | q=8'hda |\n| 18 | 8'h95 | q=8'h5b | q=8'h95 | q=8'hda | q=8'ha9 |\n| 19 | 8'he4 | q=8'h95 | q=8'he4 | q=8'ha9 | q=8'h27 |\n| 20 | 8'he8 | q=8'he4 | q=8'he8 | q=8'h27 | q=8'h17 |\n| 21 | 8'h37 | q=8'he8 | q=8'h37 | q=8'h17 | q=8'hec |\n| 22 | 8'h81 | q=8'h37 | q=8'h81 | q=8'hec | q=8'h81 |\n| 23 | 8'h23 | q=8'h81 | q=8'h23 | q=8'h81 | q=8'hc4 |\n| 24 | 8'h48 | q=8'h23 | q=8'h48 | q=8'hc4 | q=8'h12 |\n| 25 | 8'h23 | q=8'h48 | q=8'h23 | q=8'h12 | q=8'hc4 |\n| 26 | 8'hc1 | q=8'h23 | q=8'hc1 | q=8'hc4 | q=8'h83 |\n| 27 | 8'h18 | q=8'hc1 | q=8'h18 | q=8'h83 | q=8'h18 |\n| 28 | 8'h9e | q=8'h18 | q=8'h9e | q=8'h18 | q=8'h79 |\n| 29 | 8'hcc | q=8'h9e | q=8'hcc | q=8'h79 | q=8'h33 |\n| 30 | 8'h40 | q=8'hcc | q=8'h40 | q=8'h33 | q=8'h02 |\n| 31 | 8'hfc | q=8'h40 | q=8'hfc | q=8'h02 | q=8'h3f |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "00000000",
+    "xxxxxxxx"
+   ],
+   "cluster_option": {
+    "c0": "B",
+    "c1": "A",
+    "c3": "B"
+   },
+   "label": "A",
+   "ref_value": "00000000",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d   (8 bits)\n - output q   (8 bits)\n\nThe module should include 8 D flip-flops. All DFFs should be triggered by\nthe positive edge of clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | d | pre | post |\n|---|---|---|---|\n| 0 | 8'h00 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=8'h00\n- **B**: q=8'bxxxxxxxx\n"
+  }
+ ]
+}

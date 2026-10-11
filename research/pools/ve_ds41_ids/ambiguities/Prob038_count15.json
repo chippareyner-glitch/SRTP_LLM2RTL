@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "bit ordering of q",
+   "severity": "high",
+   "readings": [
+    "q[3] is MSB and q[0] is LSB (conventional binary encoding)",
+    "q[0] is MSB and q[3] is LSB (reversed bit order)"
+   ]
+  },
+  {
+   "aspect": "initial value without reset",
+   "severity": "low",
+   "readings": [
+    "q is initialized to 0 at power-up",
+    "q is undefined (X) until reset is applied"
+   ]
+  }
+ ]
+}

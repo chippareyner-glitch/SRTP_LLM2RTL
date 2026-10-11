@@ -1,0 +1,63 @@
+{
+ "case": "Prob072_thermostat",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "mode",
+    1
+   ],
+   [
+    "too_cold",
+    1
+   ],
+   [
+    "too_hot",
+    1
+   ],
+   [
+    "fan_on",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "heater",
+    1
+   ],
+   [
+    "aircon",
+    1
+   ],
+   [
+    "fan",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3",
+   "c4"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 5
+}

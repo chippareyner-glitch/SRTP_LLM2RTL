@@ -1,0 +1,40 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "clk_div output latency / registered vs combinational",
+   "severity": "high",
+   "readings": [
+    "clk_div is the direct logical OR of the two intermediate registers, so it changes in the same half-cycle in which the counter reaches the step boundary",
+    "clk_div is itself registered (on clk or on the combining edge), so every transition of the intermediate clocks appears one half source-clock cycle later on clk_div"
+   ],
+   "note": "Both satisfy 'the two intermediate clocks are OR-ed' but produce edges offset by half a clk cycle."
+  },
+  {
+   "aspect": "Distribution of the 3 high half-steps between the posedge and negedge intermediate clocks",
+   "severity": "high",
+   "readings": [
+    "posedge-domain pulse is high for half-steps 0-1 and the negedge-domain pulse for half-step 2, so the OR is high for exactly half-steps 0-2 (1.5 clk high / 2.0 clk low)",
+    "posedge-domain pulse is high for half-steps 0-2 and the negedge-domain pulse also covers half-step 3, so the OR is high for 4 half-steps (2.0 clk high / 1.5 clk low)"
+   ],
+   "note": "'high for the first 3 half clock steps' fixes the total high time but not which branch (and hence which edge) supplies which step; the described 'duty cycle imbalance adjustment' can be read either way."
+  },
+  {
+   "aspect": "Initial/post-reset state and phase of the first output period",
+   "severity": "medium",
+   "readings": [
+    "All state is 0 after reset and counting starts immediately, so clk_div rises in the first half-step after reset release (first period begins with a high phase)",
+    "The first posedge-derived pulse is only generated when the counter reaches its terminal value, so clk_div stays low for the whole first period and the high phase begins after the first wrap"
+   ],
+   "note": "Spec only says reset initializes counter and intermediate clocks to 0; the resulting first-period phase is unspecified."
+  },
+  {
+   "aspect": "Counter terminal count / period length",
+   "severity": "medium",
+   "readings": [
+    "Counter is 3 bits counting 0..6 and wraps on cnt == MUL2_DIV_CLK-1 (7 states = 7 half-steps = 3.5 clk)",
+    "Counter wraps on cnt == MUL2_DIV_CLK (i.e., 0..7, 8 half-steps = 4.0 clk), with the 7th step unused or used as the phase-shift slot"
+   ],
+   "note": "MUL2_DIV_CLK = 7 is described as both the number of half-steps and the counter modulus; whether it is used as a terminal value or as an exclusive modulus changes the division ratio."
+  }
+ ]
+}

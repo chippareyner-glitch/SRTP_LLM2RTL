@@ -1,0 +1,178 @@
+{
+ "case": "Prob139_2013_q2bfsm",
+ "n_samples": 8,
+ "n_distinct": 8,
+ "n_compiling": 6,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "6cab731c76e1",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob139_2013_q2bfsm\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 198,
+    "samples": 1002
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "d36f9cec7b83",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob139_2013_q2bfsm\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1002
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "45677fca7e81",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob139_2013_q2bfsm\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 532,
+    "samples": 1002
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "85db783d67d3",
+   "sources": [
+    "tri0926:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob139_2013_q2bfsm\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:28: error: This assignment requires an explicit cast.\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c4",
+   "hash": "6d3523fd3ba1",
+   "sources": [
+    "tri0926:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob139_2013_q2bfsm\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 30,
+    "samples": 1002
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "50fdde32ac41",
+   "sources": [
+    "tri0927:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob139_2013_q2bfsm\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:38: error: This assignment requires an explicit cast.\ndut.sv:39: error: This assignment requires an explicit cast.\ndut.sv:40: error: This assignment requires an explicit cast.\ndut.sv:41: error: This assignment requires an explicit cast.\ndut.sv:42: error: This assignment requires an explicit cast.\n5 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "34962f6cf5c0",
+   "sources": [
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob139_2013_q2bfsm\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 30,
+    "samples": 1002
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "0b62bdf7a965",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob139_2013_q2bfsm\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 240,
+    "samples": 1002
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c4",
+    "c6"
+   ],
+   "votes": 2,
+   "correct": false,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": false,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": false,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c7"
+   ],
+   "votes": 1,
+   "correct": false,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 14
+}

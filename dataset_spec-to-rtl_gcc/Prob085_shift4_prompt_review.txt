@@ -1,0 +1,139 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  load
+ - input  ena
+ - input  data (4 bits)
+ - output q (4 bits)
+
+The module should implement a 4-bit shift register (right shift), with
+asynchronous positive edge triggered areset, synchronous active high
+signals load, and enable.
+
+  (1) areset: Resets shift register to zero.
+
+  (2) load: Loads shift register with data[3:0] instead of shifting.
+
+  (3) ena: Shift right (q[3] becomes zero, q[0] is shifted out and
+       disappears).
+
+  (4) q: The contents of the shift register. If both the load and ena
+       inputs are asserted (1), the load input has higher priority.
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a 4-bit right-shift register with the following key features:
+- **Clock**: Positive edge-triggered sequential logic
+- **Reset**: Asynchronous active-high reset (areset) that clears all bits to 0
+- **Load**: Synchronous active-high load that loads data[3:0] into the register
+- **Enable**: Synchronous active-high enable that performs right shift (q[3]←0, q[2:0]←q[3:1])
+- **Priority**: Load has priority over enable when both are asserted
+- **Output**: 4-bit q representing the current register contents
+
+## 2. Ambiguity Analysis
+
+**Clarified Points:**
+- **Shift behavior**: Specification clearly states q[3] becomes zero and q[0] is lost during right shift
+- **Priority**: Explicitly states load has priority over enable
+- **Reset polarity**: Clear that areset is active-high (positive edge triggered)
+
+**Minor Ambiguity:**
+- **Simultaneous areset with other signals**: Not specified what happens if areset is asserted concurrently with load/ena on a clock edge (areset should dominate due to asynchronicity)
+
+## 3. Missing Critical Details
+
+**Critical Omissions:**
+- **Power-on reset state**: Not specified for initial power-up condition
+- **Timing constraints**: No setup/hold times specified for input signals relative to clock
+- **Output behavior during reset**: Implied but not explicitly stated that q=0 during areset
+- **Clock frequency limitations**: No maximum clock frequency constraints
+- **Input signal stability requirements**: No mention of glitch handling or signal stability
+
+## 4. Edge Cases & Boundary Conditions
+
+**Identified Edge Cases:**
+1. **areset + load + ena simultaneously**: areset should dominate (async clear)
+2. **load=1, ena=1 on clock edge**: Load takes priority, data loaded, no shift
+3. **ena=1 with no load, no reset**: Normal right shift operation
+4. **No operations (load=0, ena=0)**: Register holds current value
+5. **Frequent toggling of control signals**: Need to ensure proper synchronization if async
+6. **Meta-stability considerations**: For signals coming from different clock domains
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Risks:**
+- **Priority logic ordering**: Must ensure load truly overrides enable in all cases
+- **Asynchronous reset recovery**: Potential issues if areset deasserts near clock edge
+- **Shift direction confusion**: Right shift implementation must be verified (MSB to LSB)
+- **Bit ordering**: Ensure data[3] maps to q[3] (MSB) and data[0] to q[0] (LSB)
+
+**Verification Requirements:**
+- Reset dominance test (areset with other controls)
+- Load priority verification (load=1, ena=1 scenarios)
+- Shift functionality (multiple consecutive shifts)
+- Hold behavior (load=0, ena=0 cases)
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  clk,
+    input  areset,    // async active-high reset
+    input  load,      // sync load
+    input  ena,       // sync enable
+    input  [3:0] data,
+    output reg [3:0] q
+);
+
+always_ff @(posedge clk or posedge areset) begin
+    if (areset) begin
+        q <= 4'b0;           // Async reset dominates
+    end else if (load) begin
+        q <= data;           // Load has priority over enable
+    end else if (ena) begin
+        q <= {1'b0, q[3:1]}; // Right shift: q[3]←0, q[2:0]←q[3:1]
+    end
+    // else: q holds current value (implicit)
+end
+
+endmodule
+```
+
+**Critical Implementation Notes:**
+1. **Use `always_ff`** for clear sequential logic intent
+2. **Maintain priority order**: areset → load → ena → hold
+3. **Right shift implementation**: `{1'b0, q[3:1]}` correctly implements the specification
+4. **No default case needed** due to priority structure
+5. **Use non-blocking assignments** (`<=`) for sequential logic
+
+**Verification Test Plan:**
+- Test 1: Power-on + areset assertion
+- Test 2: Load functionality with various data patterns
+- Test 3: Continuous shifting (ena only)
+- Test 4: Priority tests (load vs ena conflicts)
+- Test 5: Reset during active operations
+- Test 6: Corner cases (all 1s, all 0s data)
+
+**Synthesis Considerations:**
+- Ensure all control signals are properly constrained for timing
+- Consider adding input synchronizers if signals come from different clock domains
+- Verify reset tree distribution for asynchronous reset
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

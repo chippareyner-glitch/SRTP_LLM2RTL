@@ -1,0 +1,11 @@
+{
+ "case": "sub_64bit",
+ "category": "Arithmetic",
+ "top": "sub_64bit",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "sub_64bit"
+ ]
+}

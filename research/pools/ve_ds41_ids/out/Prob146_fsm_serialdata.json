@@ -1,0 +1,208 @@
+{
+ "case": "Prob146_fsm_serialdata",
+ "n_samples": 9,
+ "n_distinct": 9,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "fbeeaf740ac6",
+   "sources": [
+    "ids:i00"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\i00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 72,
+    "samples": 905,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "7ef07fccace3",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\i01.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 905,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "64128d84b1e6",
+   "sources": [
+    "ids:i10"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\i10.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 72,
+    "samples": 905,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "7e4f6f1b5eda",
+   "sources": [
+    "ids:i11"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\i11.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 101,
+    "samples": 905,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "0dfdd1145294",
+   "sources": [
+    "ve_ds41_ids:s0"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 72,
+    "samples": 905,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "597375b916a1",
+   "sources": [
+    "ve_ds41_ids:s1"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\s1.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:51: error: This assignment requires an explicit cast.\ndut.sv:52: error: This assignment requires an explicit cast.\ndut.sv:53: error: This assignment requires an explicit cast.\ndut.sv:54: error: This assignment requires an explicit cast.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "48f3d3c1f20d",
+   "sources": [
+    "ve_ds41_ids:s2"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\s2.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 72,
+    "samples": 905,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "b7acaac58550",
+   "sources": [
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 72,
+    "samples": 905,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c8",
+   "hash": "a12f52fbddf6",
+   "sources": [
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob146_fsm_serialdata\\s4.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 24,
+    "samples": 905,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c2",
+    "c6",
+    "c7"
+   ],
+   "votes": 3,
+   "correct": false
+  },
+  {
+   "members": [
+    "c0",
+    "c4"
+   ],
+   "votes": 2,
+   "correct": false
+  },
+  {
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": true
+  },
+  {
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": false
+  },
+  {
+   "members": [
+    "c8"
+   ],
+   "votes": 1,
+   "correct": false
+  }
+ ]
+}

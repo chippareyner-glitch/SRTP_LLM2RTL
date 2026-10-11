@@ -1,0 +1,52 @@
+{
+ "case": "Prob087_gates",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ],
+   [
+    "b",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out_and",
+    1
+   ],
+   [
+    "out_or",
+    1
+   ],
+   [
+    "out_xor",
+    1
+   ],
+   [
+    "out_nand",
+    1
+   ],
+   [
+    "out_nor",
+    1
+   ],
+   [
+    "out_xnor",
+    1
+   ],
+   [
+    "out_anotb",
+    1
+   ]
+  ]
+ },
+ "status": "single_candidate",
+ "n_live": 1
+}

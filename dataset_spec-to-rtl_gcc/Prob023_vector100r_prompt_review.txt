@@ -1,0 +1,119 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in  (100 bits)
+ - output out (100 bits)
+
+The module should reverse the bit ordering of the input and write to the
+output.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+The module `TopModule` is a simple bit-reversal circuit that takes a 100-bit input vector and outputs the same bits in reverse order. The input `in[99:0]` will be mapped to output `out[0:99]` (or vice versa depending on indexing convention).
+
+## 2. Ambiguity Analysis
+- **Bit ordering convention**: The specification doesn't explicitly define whether `in[0]` should map to `out[99]` or `in[99]` should map to `out[0]`. While bit reversal typically means MSB becomes LSB, this should be clarified.
+- **Timing behavior**: No specification of whether this is combinational or registered logic.
+- **Reset behavior**: No mention of reset strategy or initial output state.
+
+## 3. Missing Critical Details
+- **Timing requirements**: Missing clock input, setup/hold times, and output delay constraints
+- **Reset strategy**: No reset input port or power-on initialization behavior
+- **Performance constraints**: No timing closure requirements (maximum frequency)
+- **Power considerations**: No low-power design constraints
+- **I/O timing**: Missing input valid/output ready handshaking if needed
+- **Synthesis directives**: No area or timing optimization priorities
+
+## 4. Edge Cases & Boundary Conditions
+- **Power-on state**: Undefined output behavior at power-up
+- **Metastability**: No handling for asynchronous input changes
+- **All-zero/all-one inputs**: Special patterns that should be correctly reversed
+- **Single-bit toggles**: Behavior when only one input bit changes
+- **Glitch propagation**: Potential for temporary incorrect outputs during input transitions
+
+## 5. Functional Correctness Prediction
+- **High correctness likelihood**: Simple combinatorial function with straightforward mapping
+- **Potential issues**: 
+  - Simulation-synthesis mismatch if not purely combinational
+  - Timing violations if used in high-frequency applications without pipelining
+  - Testability challenges for stuck-at faults in deep combinatorial logic
+
+## 6. Actionable Guidance for RTL Generation
+
+### Interface Definition
+```systemverilog
+module TopModule (
+    input  logic [99:0] in,   // 100-bit input
+    output logic [99:0] out   // 100-bit output (reversed)
+);
+```
+
+### Implementation Options
+**Option 1: Pure Combinatorial (Recommended for simplicity)**
+```systemverilog
+// Direct bit-reversal assignment
+assign out = {in[0], in[1], in[2], ..., in[99]}; // Manual expansion
+// OR using generate loop
+genvar i;
+generate
+    for (i = 0; i < 100; i++) begin : bit_reverse
+        assign out[i] = in[99-i];
+    end
+endgenerate
+```
+
+**Option 2: Registered Output (Better timing)**
+```systemverilog
+logic [99:0] out_comb;
+logic [99:0] out_reg;
+
+// Combinatorial reversal
+genvar i;
+generate
+    for (i = 0; i < 100; i++) begin : bit_reverse
+        assign out_comb[i] = in[99-i];
+    end
+endgenerate
+
+// Registered output
+always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        out_reg <= '0;  // Reset to all zeros
+    end else begin
+        out_reg <= out_comb;
+    end
+end
+
+assign out = out_reg;
+```
+
+### Critical Constraints to Add
+```systemverilog
+// Timing constraints (SDC format)
+set_max_delay -from [get_ports in] -to [get_ports out] 2.0
+
+// Synthesis directives
+set_dont_touch [get_nets out*]  // Prevent optimization of reversal logic
+```
+
+### Verification Strategy
+```systemverilog
+// Testbench checks
+assert property (@(posedge clk) in == {out[0], out[1], ..., out[99]});
+// Test all 1s, all 0s, walking 1s, and random patterns
+```
+
+### Recommended Implementation
+Given the simplicity, implement as pure combinatorial logic with clear documentation of the bit-ordering convention. Add timing constraints for synthesis and recommend clocked version if timing becomes critical.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

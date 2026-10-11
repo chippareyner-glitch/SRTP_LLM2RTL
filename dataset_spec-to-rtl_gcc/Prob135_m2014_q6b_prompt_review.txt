@@ -1,0 +1,125 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  y (3 bits)
+ - input  w
+ - output Y1
+
+The module should implement the state machine shown below:
+
+  A (0) --0--> B
+  A (0) --1--> A
+  B (0) --0--> C
+  B (0) --1--> D
+  C (0) --0--> E
+  C (0) --1--> D
+  D (0) --0--> F
+  D (0) --1--> A
+  E (1) --0--> E
+  E (1) --1--> D
+  F (1) --0--> C
+  F (1) --1--> D
+
+The FSM should be implemented using three flip-flops and state codes
+y = 000, 001, ..., 101 for states A, B, ..., F, respectively. Implement
+just the next-state logic for y[1]. The output Y1 is y[1].
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a 6-state finite state machine (FSM) with states A-F encoded using 3-bit binary values (y[2:0]). The module `TopModule` has:
+- 3-bit state input `y`
+- 1-bit control input `w`  
+- 1-bit output `Y1` (which equals y[1])
+
+The FSM transition table is provided, showing current state, next state transitions based on input `w`, and the output value for each state. The implementation should focus only on the next-state logic for bit y[1] using three flip-flops.
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **State Encoding Conflict**: The spec states "y = 000, 001, ..., 101 for states A, B, ..., F" but only provides codes for 6 states (A-F), leaving state code '110' and '111' undefined. These unused states need explicit handling.
+
+2. **Input/Output Timing**: No specification of clock, reset, or timing requirements. It's unclear if this is synchronous logic and what the reset behavior should be.
+
+3. **"Implement just the next-state logic for y[1]"**: This is ambiguous - does it mean:
+   - Only generate the combinational next-state logic for y[1] while assuming y[0] and y[2] exist?
+   - Implement the complete FSM but only show/use y[1] logic?
+
+## 3. Missing Critical Details
+
+**Essential Missing Information:**
+1. **Clock and Reset**: No clock signal specified for the flip-flops
+2. **Reset Behavior**: Initial state after reset not defined
+3. **Unused State Handling**: No policy for illegal state codes (110, 111)
+4. **Input Timing**: Setup/hold times for input `w` relative to clock
+5. **Output Timing**: Timing requirements for output `Y1`
+6. **Technology Constraints**: No timing/power/area constraints mentioned
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+1. **Unused State Transitions**: What happens when current state y = 110 or 111?
+2. **Reset Conditions**: Behavior during and after reset
+3. **Meta-stability**: Input `w` synchronization if asynchronous
+4. **Glitch Conditions**: Combinational logic hazards in next-state function
+5. **Power-up State**: Initial state when power is applied
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **State Encoding Verification**: The transition table must be carefully mapped to binary codes:
+   - A=000, B=001, C=010, D=011, E=100, F=101
+   
+2. **y[1] Logic Complexity**: y[1] is the middle bit of the state encoding, which may have non-intuitive transitions
+
+3. **Unused State Handling**: If not properly handled, the FSM could enter unrecoverable states
+
+**Predicted Truth Table for y[1]_next:**
+Based on the state transitions and encoding, y[1]_next will depend on both current state bits and input w in a complex pattern that requires careful derivation.
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  [2:0] y,    // Current state
+    input        w,     // Control input
+    output       Y1     // y[1] output
+);
+
+// 1. Derive y[1] next-state logic from transition table
+// 2. Implement safe state machine with reset handling
+// 3. Add unused state recovery mechanism
+
+// Recommended additions to spec:
+// - Add clock and reset inputs
+// - Specify reset state (suggest A=000)
+// - Define unused state behavior (suggest reset to state A)
+```
+
+**Critical Implementation Steps:**
+1. Create complete state transition table with binary encodings
+2. Derive Karnaugh map or logic equations for y[1]_next = f(y[2:0], w)
+3. Implement synchronous always block with reset
+4. Add recovery logic for unused states (110, 111)
+5. Verify all transitions through simulation
+
+**Verification Requirements:**
+- Test all state transitions with both w=0 and w=1
+- Verify unused state recovery
+- Check reset functionality
+- Validate output Y1 = y[1] in all states
+
+The implementation should prioritize robustness with proper reset handling and unused state recovery to ensure reliable operation.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

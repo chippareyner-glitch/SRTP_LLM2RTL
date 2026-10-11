@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Tap position indexing",
+   "severity": "high",
+   "readings": [
+    "Taps at bit positions 5 and 3 are 1-indexed from LSB, so they correspond to q[4] (MSB) and q[2] (middle bit).",
+    "Taps are 0-indexed, but position 5 is invalid in a 5-bit register; a reasonable engineer may instead use q[3] and q[1] or number bits from MSB giving q[0] and q[2]."
+   ]
+  },
+  {
+   "aspect": "XOR application point",
+   "severity": "medium",
+   "readings": [
+    "The XOR with q[0] is applied to the shifted-in value at the tap position (standard Galois): next q[i] = (shifted-in value) XOR q[0].",
+    "The XOR with q[0] is applied to the current bit before shifting: next state = (q XOR (q[0] ? mask : 0)) >> 1."
+   ]
+  }
+ ]
+}

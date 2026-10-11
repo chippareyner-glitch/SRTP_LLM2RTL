@@ -1,0 +1,11 @@
+{
+ "case": "calendar",
+ "category": "Miscellaneous",
+ "top": "calendar",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "calendar"
+ ]
+}

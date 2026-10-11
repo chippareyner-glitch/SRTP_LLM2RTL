@@ -1,0 +1,77 @@
+{
+ "case": "Prob097_mux9to1v",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    16
+   ],
+   [
+    "b",
+    16
+   ],
+   [
+    "c",
+    16
+   ],
+   [
+    "d",
+    16
+   ],
+   [
+    "e",
+    16
+   ],
+   [
+    "f",
+    16
+   ],
+   [
+    "g",
+    16
+   ],
+   [
+    "h",
+    16
+   ],
+   [
+    "i",
+    16
+   ],
+   [
+    "sel",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    16
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 3
+}

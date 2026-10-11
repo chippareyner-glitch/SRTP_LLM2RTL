@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:22:37.126440+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "ROM",
+  "returned_model": "deepseek-flash",
+  "id": "6dacffa1-9cd5-46e3-8324-42d7efc02f02",
+  "usage": {
+    "prompt_tokens": 413,
+    "completion_tokens": 544,
+    "total_tokens": 957,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 413
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 157
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 2.63467689999743
+}

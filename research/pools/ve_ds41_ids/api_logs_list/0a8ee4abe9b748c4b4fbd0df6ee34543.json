@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T16:29:22.309255+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob017_mux2to1v",
+  "returned_model": "deepseek-flash",
+  "id": "6ae68c31-3f61-4ee5-b893-e9e689475baa",
+  "usage": {
+    "prompt_tokens": 339,
+    "completion_tokens": 508,
+    "total_tokens": 847,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 501
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 211
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 3.3400113999996393
+}

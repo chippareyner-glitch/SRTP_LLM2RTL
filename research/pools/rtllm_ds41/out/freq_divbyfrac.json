@@ -1,0 +1,40 @@
+{
+ "case": "freq_divbyfrac",
+ "n_samples": 2,
+ "n_distinct": 2,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "24dfa4b377bf",
+   "sources": [
+    "rtllm_ds41:s3"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\freq_divbyfrac\\s3.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "bb70461778af",
+   "sources": [
+    "rtllm_ds41:s4"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\freq_divbyfrac\\s4.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": []
+}

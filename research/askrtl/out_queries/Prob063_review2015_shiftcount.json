@@ -1,0 +1,396 @@
+{
+ "case": "Prob063_review2015_shiftcount",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "shift_ena",
+    1
+   ],
+   [
+    "count_ena",
+    1
+   ],
+   [
+    "data",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    4
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c3",
+    "c4",
+    "c5"
+   ],
+   "votes": 9,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c2",
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxxx",
+      "xxx1",
+      "xxx1",
+      "xx10",
+      "xx10",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxx0",
+      "xxx0",
+      "xx00",
+      "xx00",
+      "x001",
+      "x001",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxx1",
+      "xxx1",
+      "xx11",
+      "xx11",
+      "xx11",
+      "xx11",
+      "x111",
+      "x111",
+      "1110",
+      "1110",
+      "1101",
+      "1101",
+      "1101",
+      "1101",
+      "1011",
+      "1011",
+      "1010",
+      "1010",
+      "1010",
+      "1010",
+      "0100",
+      "0100",
+      "1001",
+      "1001",
+      "0010",
+      "0010",
+      "0100",
+      "0100",
+      "1001",
+      "1001",
+      "0010",
+      "0010",
+      "0101",
+      "0101",
+      "1010",
+      "1010",
+      "0101",
+      "0101",
+      "1010",
+      "1010",
+      "0100"
+     ],
+     [
+      "xxxx",
+      "1xxx",
+      "1xxx",
+      "01xx",
+      "01xx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "0xxx",
+      "0xxx",
+      "00xx",
+      "00xx",
+      "100x",
+      "100x",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "xxxx",
+      "1xxx",
+      "1xxx",
+      "11xx",
+      "11xx",
+      "11xx",
+      "11xx",
+      "111x",
+      "111x",
+      "0111",
+      "0111",
+      "0110",
+      "0110",
+      "0110",
+      "0110",
+      "1011",
+      "1011",
+      "1010",
+      "1010",
+      "1010",
+      "1010",
+      "0101",
+      "0101",
+      "1010",
+      "1010",
+      "0101",
+      "0101",
+      "0010",
+      "0010",
+      "1001",
+      "1001",
+      "0100",
+      "0100",
+      "1010",
+      "1010",
+      "0101",
+      "0101",
+      "1010",
+      "1010",
+      "0101",
+      "0101",
+      "0010"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  shift_ena\n - input  count_ena\n - input  data\n - output q (4 bits)\n\nThe module should implement a four-bit shift register that also acts as a\ndown counter. Data is shifted in most-significant-bit first when\nshift_ena is 1. The number currently in the shift register is decremented\nwhen count_ena is 1. Since the full system doesn't ever use shift_ena and\ncount_ena together, it does not matter what your circuit does if both\ncontrol inputs are 1 (this mainly means that it doesn't matter which case\ngets higher priority). Assume all sequential logic is triggered on the\npositive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | shift_ena | count_ena | data | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | 1'b1 | q=4'bxxxx | q=4'bxxx1 | q=4'bxxxx | q=4'b1xxx |\n| 1 | 1'b1 | 1'b0 | 1'b0 | q=4'bxxx1 | q=4'bxx10 | q=4'b1xxx | q=4'b01xx |\n| 2 | 1'b0 | 1'b1 | 1'b1 | q=4'bxx10 | q=4'bxxxx | q=4'b01xx | q=4'bxxxx |\n| 3 | 1'b0 | 1'b0 | 1'b1 | q=4'bxxxx | q=4'bxxxx | q=4'bxxxx | q=4'bxxxx |\n| 4 | 1'b1 | 1'b1 | 1'b0 | q=4'bxxxx | q=4'bxxx0 | q=4'bxxxx | q=4'b0xxx |\n| 5 | 1'b1 | 1'b0 | 1'b0 | q=4'bxxx0 | q=4'bxx00 | q=4'b0xxx | q=4'b00xx |\n| 6 | 1'b1 | 1'b1 | 1'b1 | q=4'bxx00 | q=4'bx001 | q=4'b00xx | q=4'b100x |\n| 7 | 1'b0 | 1'b1 | 1'b0 | q=4'bx001 | q=4'bxxxx | q=4'b100x | q=4'bxxxx |\n| 8 | 1'b0 | 1'b0 | 1'b1 | q=4'bxxxx | q=4'bxxxx | q=4'bxxxx | q=4'bxxxx |\n| 9 | 1'b0 | 1'b1 | 1'b1 | q=4'bxxxx | q=4'bxxxx | q=4'bxxxx | q=4'bxxxx |\n| 10 | 1'b0 | 1'b1 | 1'b1 | q=4'bxxxx | q=4'bxxxx | q=4'bxxxx | q=4'bxxxx |\n| 11 | 1'b1 | 1'b1 | 1'b1 | q=4'bxxxx | q=4'bxxx1 | q=4'bxxxx | q=4'b1xxx |\n| 12 | 1'b1 | 1'b1 | 1'b1 | q=4'bxxx1 | q=4'bxx11 | q=4'b1xxx | q=4'b11xx |\n| 13 | 1'b0 | 1'b0 | 1'b0 | q=4'bxx11 | q=4'bxx11 | q=4'b11xx | q=4'b11xx |\n| 14 | 1'b1 | 1'b0 | 1'b1 | q=4'bxx11 | q=4'bx111 | q=4'b11xx | q=4'b111x |\n| 15 | 1'b1 | 1'b1 | 1'b0 | q=4'bx111 | q=4'b1110 | q=4'b111x | q=4'b0111 |\n| 16 | 1'b0 | 1'b1 | 1'b0 | q=4'b1110 | q=4'b1101 | q=4'b0111 | q=4'b0110 |\n| 17 | 1'b0 | 1'b0 | 1'b0 | q=4'b1101 | q=4'b1101 | q=4'b0110 | q=4'b0110 |\n| 18 | 1'b1 | 1'b1 | 1'b1 | q=4'b1101 | q=4'b1011 | q=4'b0110 | q=4'b1011 |\n| 19 | 1'b0 | 1'b1 | 1'b1 | q=4'b1011 | q=4'b1010 | q=4'b1011 | q=4'b1010 |\n| 20 | 1'b0 | 1'b0 | 1'b1 | q=4'b1010 | q=4'b1010 | q=4'b1010 | q=4'b1010 |\n| 21 | 1'b1 | 1'b0 | 1'b0 | q=4'b1010 | q=4'b0100 | q=4'b1010 | q=4'b0101 |\n| 22 | 1'b1 | 1'b1 | 1'b1 | q=4'b0100 | q=4'b1001 | q=4'b0101 | q=4'b1010 |\n| 23 | 1'b1 | 1'b0 | 1'b0 | q=4'b1001 | q=4'b0010 | q=4'b1010 | q=4'b0101 |\n| 24 | 1'b1 | 1'b1 | 1'b0 | q=4'b0010 | q=4'b0100 | q=4'b0101 | q=4'b0010 |\n| 25 | 1'b1 | 1'b1 | 1'b1 | q=4'b0100 | q=4'b1001 | q=4'b0010 | q=4'b1001 |\n| 26 | 1'b1 | 1'b1 | 1'b0 | q=4'b1001 | q=4'b0010 | q=4'b1001 | q=4'b0100 |\n| 27 | 1'b1 | 1'b0 | 1'b1 | q=4'b0010 | q=4'b0101 | q=4'b0100 | q=4'b1010 |\n| 28 | 1'b1 | 1'b0 | 1'b0 | q=4'b0101 | q=4'b1010 | q=4'b1010 | q=4'b0101 |\n| 29 | 1'b1 | 1'b0 | 1'b1 | q=4'b1010 | q=4'b0101 | q=4'b0101 | q=4'b1010 |\n| 30 | 1'b1 | 1'b0 | 1'b0 | q=4'b0101 | q=4'b1010 | q=4'b1010 | q=4'b0101 |\n| 31 | 1'b1 | 1'b1 | 1'b0 | q=4'b1010 | q=4'b0100 | q=4'b0101 | q=4'b0010 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "xxx0",
+    "0xxx"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c2": "B"
+   },
+   "label": "A",
+   "ref_value": "xxx0",
+   "x_involved": true,
+   "hist": [
+    "xxxx"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  shift_ena\n - input  count_ena\n - input  data\n - output q (4 bits)\n\nThe module should implement a four-bit shift register that also acts as a\ndown counter. Data is shifted in most-significant-bit first when\nshift_ena is 1. The number currently in the shift register is decremented\nwhen count_ena is 1. Since the full system doesn't ever use shift_ena and\ncount_ena together, it does not matter what your circuit does if both\ncontrol inputs are 1 (this mainly means that it doesn't matter which case\ngets higher priority). Assume all sequential logic is triggered on the\npositive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | shift_ena | count_ena | data | pre | post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | 1'b0 | q=4'bxxxx | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=4'bxxx0\n- **B**: q=4'b0xxx\n"
+  }
+ ]
+}

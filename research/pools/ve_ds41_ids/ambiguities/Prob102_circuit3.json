@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "unknown/X input handling",
+   "severity": "low",
+   "readings": [
+    "q must follow gate-level X semantics (q is X whenever any of a, b, c, d is X)",
+    "X inputs are never exercised by the waveform, so q may be defined as 0 (or any value) for them"
+   ]
+  },
+  {
+   "aspect": "output propagation delay / glitches",
+   "severity": "low",
+   "readings": [
+    "Zero-delay combinational: q = (a|b) & (c|d) at every instant, no transient values",
+    "q changes only after a nonzero propagation delay, so brief glitches can appear between input transitions (waveform only samples every 5 ns)"
+   ]
+  }
+ ]
+}

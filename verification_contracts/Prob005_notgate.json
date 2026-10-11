@@ -1,0 +1,23 @@
+{
+  "case_id": "Prob005_notgate",
+  "rtl_file": "Prob005_notgate_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob005_notgate_prompt.txt",
+  "ports": [
+    {"name": "in", "direction": "input", "width": 1},
+    {"name": "out", "direction": "output", "width": 1}
+  ],
+  "initial": {"in": "1'b0"},
+  "tests": [
+    {
+      "id": "invert_zero",
+      "requirement": "out is logical NOT of in",
+      "steps": [{"set": {"in": "1'b0"}, "delay": 1, "expect": {"out": "1'b1"}}]
+    },
+    {
+      "id": "invert_one",
+      "requirement": "out is logical NOT of in",
+      "steps": [{"set": {"in": "1'b1"}, "delay": 1, "expect": {"out": "1'b0"}}]
+    }
+  ]
+}

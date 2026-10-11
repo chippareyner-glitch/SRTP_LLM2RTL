@@ -1,0 +1,202 @@
+[ORIGINAL SPECIFICATION]
+
+Module A implements the boolean function z = (x^y) & x.
+
+Module B can be described by the following simulation waveform:
+
+  time  x  y  z
+  0ns   0  0  1
+  5ns   0  0  1
+  10ns  0  0  1
+  15ns  0  0  1
+  20ns  0  0  1
+  25ns  1  0  0
+  30ns  1  0  0
+  35ns  0  1  0
+  40ns  0  1  0
+  45ns  1  1  1
+  50ns  1  1  1
+  55ns  0  0  1
+  60ns  0  1  0
+  65ns  0  1  0
+  70ns  1  1  1
+  75ns  0  1  0
+  80ns  0  1  0
+  85ns  0  1  0
+  90ns  1  0  0
+
+Now consider a top-level module with the following interface:
+
+ - input  x
+ - input  y
+ - output z
+
+The module is implemented with two A submodules and two B submodules. The
+first input of all four submodules is connect to input 'x', and the
+second input of all four submodules is connected to 'y'. The output of
+the first A submodule is connected to a two-input OR, along with the
+output of the first B submodule. The second pair of A and B submodules is
+similarly connected to an AND gate. The output of the OR and the AND is
+connected to an XOR, whose output is 'z'.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The system implements a hierarchical logic function using four submodules:
+- **2× Module A**: Implements `z = (x^y) & x` (which simplifies to `x & ~y`)
+- **2× Module B**: Implements an unknown function defined by simulation waveform
+- **Top-level connectivity**: 
+  - All submodules receive same inputs (x, y)
+  - OR(A1_out, B1_out) → XOR input 1
+  - AND(A2_out, B2_out) → XOR input 2
+  - XOR output → final z
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **Module B Timing Behavior**: The waveform shows specific timing but doesn't specify if B is combinational or sequential
+2. **Clock/Reset Interface**: No clock or reset signals defined for sequential implementation
+3. **Timing Relationships**: Unclear if inputs change synchronously or asynchronously relative to waveform timepoints
+4. **Module B Function**: Only defined by example, not by explicit logic equation
+
+## 3. Missing Critical Details
+
+**Hardware Implementation:**
+- **Clock Domain**: No clock specification for Module B if sequential
+- **Reset Strategy**: No reset behavior defined for Module B
+- **Timing Constraints**: No setup/hold requirements specified
+- **Propagation Delays**: No timing constraints for combinational paths
+
+**Interface Specification:**
+- **Input Timing**: When can inputs change relative to clock edges?
+- **Output Stability**: When is output z valid after input changes?
+- **Power-on Behavior**: Initial state after reset/power-on
+
+**Module B Definition:**
+- Complete truth table not explicitly provided
+- No formal specification of the logic function
+
+## 4. Edge Cases & Boundary Conditions
+
+**Input Scenarios:**
+- All input combinations not covered in waveform (e.g., transitions not shown)
+- Simultaneous input changes (if asynchronous)
+- Metastability conditions at clock edges
+
+**Timing Edge Cases:**
+- Input changes during clock edges (if sequential)
+- Maximum frequency operation
+- Minimum pulse width violations
+
+**Functional Edge Cases:**
+- Power-on reset state
+- Unknown (X) propagation through the logic
+- Glitch conditions in combinational paths
+
+## 5. Functional Correctness Prediction
+
+**Module A Analysis:**
+- Boolean simplification: `(x^y) & x = x & (~y)` 
+- Truth table: (0,0)→0, (0,1)→0, (1,0)→1, (1,1)→0
+
+**Module B Analysis from Waveform:**
+```
+x y | z
+0 0 | 1
+0 1 | 0  
+1 0 | 0
+1 1 | 1
+```
+- This corresponds to: `z = ~(x ^ y)` or `z = x ~^ y` (XNOR function)
+
+**Predicted Top-Level Function:**
+- OR path: `A1_out OR B1_out = (x&~y) OR (x~^y)`
+- AND path: `A2_out AND B2_out = (x&~y) AND (x~^y)`
+- Final: `z = [OR_path] XOR [AND_path]`
+
+**Potential Issues:**
+- If Module B is sequential, timing mismatches could cause functional errors
+- No timing closure guarantees for the combined logic
+
+## 6. Actionable Guidance for RTL Generation
+
+**Immediate Requirements Clarification:**
+```
+// REQUIRED CLARIFICATIONS:
+// 1. Is Module B combinational or sequential?
+// 2. If sequential: clock frequency? reset type? 
+// 3. Input timing constraints?
+// 4. Target technology/frequency?
+```
+
+**Recommended Implementation Strategy:**
+
+```systemverilog
+// Option 1: Combinational Implementation (if timing allows)
+module top_level (
+  input  logic x, y,
+  output logic z
+);
+  
+  // Module A function: z = (x^y) & x = x & ~y
+  logic a1_out, a2_out;
+  assign a1_out = x & ~y;
+  assign a2_out = x & ~y;
+  
+  // Module B function: z = x ~^ y (XNOR)
+  logic b1_out, b2_out;
+  assign b1_out = ~(x ^ y);
+  assign b2_out = ~(x ^ y);
+  
+  // Top-level combinational logic
+  logic or_path, and_path;
+  assign or_path  = a1_out | b1_out;
+  assign and_path = a2_out & b2_out;
+  assign z = or_path ^ and_path;
+  
+endmodule
+
+// Option 2: Sequential Implementation (if Module B requires timing)
+module top_level_seq (
+  input  logic clk, reset,
+  input  logic x, y,
+  output logic z
+);
+  
+  // Register inputs for synchronous operation
+  logic x_sync, y_sync;
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      x_sync <= 1'b0;
+      y_sync <= 1'b0;
+    end else begin
+      x_sync <= x;
+      y_sync <= y;
+    end
+  end
+  
+  // Rest of logic using synchronized inputs...
+  // [Same combinational logic as above]
+  
+endmodule
+```
+
+**Verification Strategy:**
+- Create testbench that reproduces the Module B waveform
+- Verify all 4 input combinations for both combinational and timing behavior
+- Add timing checks for sequential implementation
+- Include corner case tests for reset and power-on scenarios
+
+**Synthesis Considerations:**
+- Critical path analysis through OR→XOR and AND→XOR chains
+- Potential for logic minimization in the final expression
+- Area vs. speed tradeoffs for the target technology
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

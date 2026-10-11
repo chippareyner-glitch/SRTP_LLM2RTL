@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "number representation (two's complement vs sign-magnitude)",
+   "severity": "high",
+   "readings": [
+    "Treat a and b as two's complement fixed-point words and compute c = a - b directly; e.g. a=0001, b=1111 yields c=0010",
+    "Treat the MSB as an independent sign bit and the remaining bits as magnitude, performing separate sign comparison and magnitude add/subtract; the same input vectors produce a completely different c bit pattern"
+   ]
+  },
+  {
+   "aspect": "output latency (combinational vs registered)",
+   "severity": "high",
+   "readings": [
+    "res is combinational (always @(*) / assign) so c is valid in the same cycle as a and b",
+    "res is a clocked register (always @(posedge clk)) so c is delayed by one clock cycle relative to a and b"
+   ]
+  },
+  {
+   "aspect": "overflow / out-of-range result behaviour",
+   "severity": "medium",
+   "readings": [
+    "Wrap around: keep only the low N bits of the full-width difference, discarding any carry-out/borrow",
+    "Saturate: clamp the result to the most positive or most negative N-bit value when the true difference is out of range"
+   ]
+  },
+  {
+   "aspect": "zero detection and negative-zero normalization",
+   "severity": "medium",
+   "readings": [
+    "Zero means all N bits equal 0; no additional logic is needed because two's complement zero already has sign bit 0",
+    "Zero is detected from the magnitude field only, so a 'negative zero' pattern (sign bit = 1, magnitude = 0) must be explicitly converted to all-zeros, forcing extra output logic"
+   ]
+  }
+ ]
+}

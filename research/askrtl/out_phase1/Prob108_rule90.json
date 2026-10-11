@@ -1,0 +1,50 @@
+{
+ "case": "Prob108_rule90",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "load",
+    1
+   ],
+   [
+    "data",
+    512
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    512
+   ]
+  ]
+ },
+ "sims_failed": 1,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3",
+   "c4",
+   "c5",
+   "c6",
+   "c7"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 8
+}

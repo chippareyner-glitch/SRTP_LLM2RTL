@@ -1,0 +1,167 @@
+{
+ "case": "Prob135_m2014_q6b",
+ "n_samples": 9,
+ "n_distinct": 8,
+ "n_compiling": 7,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "490d5684d286",
+   "sources": [
+    "deepseek_full",
+    "legacy_v2"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob135_m2014_q6b\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "4320710c7ceb",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob135_m2014_q6b\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "311bf94135f4",
+   "sources": [
+    "tri0926:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob135_m2014_q6b\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "dc27a0b61bd0",
+   "sources": [
+    "tri0926:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob135_m2014_q6b\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 45,
+    "samples": 100
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "d506ccc19c09",
+   "sources": [
+    "tri0926:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob135_m2014_q6b\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 45,
+    "samples": 100
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "e62bef2df2c8",
+   "sources": [
+    "tri0927:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob135_m2014_q6b\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c6",
+   "hash": "28f5d57c4a36",
+   "sources": [
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob135_m2014_q6b\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:14: error: y['sd1] is not a valid l-value in tb.top_module1.\ndut.sv:2:      : y['sd1] is declared here as wire.\n1 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c7",
+   "hash": "761f12e45f12",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob135_m2014_q6b\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 45,
+    "samples": 100
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1",
+    "c2",
+    "c5"
+   ],
+   "votes": 3,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c3",
+    "c4",
+    "c7"
+   ],
+   "votes": 3,
+   "correct": false,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 2,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 15
+}

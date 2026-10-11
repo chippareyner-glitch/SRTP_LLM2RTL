@@ -1,0 +1,103 @@
+{
+ "case": "Prob019_m2014_q4f",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in1",
+    1
+   ],
+   [
+    "in2",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3"
+   ],
+   "votes": 6,
+   "correct": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0"
+     ],
+     [
+      "1"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in1\n - input  in2\n - output out\n\nThe module should implement the following circuit in Verilog. Two inputs\n(in1 and in2) go to an AND gate, but the in2 input to the AND gate has a\nbubble. The output of the AND gate is connected to 'out'.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | in1 | in2 | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | out=1'b0 | out=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "1"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in1\n - input  in2\n - output out\n\nThe module should implement the following circuit in Verilog. Two inputs\n(in1 and in2) go to an AND gate, but the in2 input to the AND gate has a\nbubble. The output of the AND gate is connected to 'out'.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | in1 | in2 | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=1'b0\n- **B**: out=1'b1\n"
+  }
+ ]
+}

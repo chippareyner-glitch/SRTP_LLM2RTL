@@ -1,0 +1,163 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  predict_valid
+ - input  predict_taken
+ - input  train_mispredicted
+ - input  train_taken
+ - input  train_history   (32 bits)
+ - output predict_history (32 bits)
+
+The module should implement a 32-bit global history shift register,
+including support for rolling back state in response to a pipeline flush
+caused by a branch misprediction. When a branch prediction is made
+(predict_valid = 1), shift in predict_taken from the LSB side to update
+the branch history for the predicted branch. (predict_history[0] is the
+direction of the youngest branch.) When a branch misprediction occurs
+(train_mispredicted = 1), load the branch history register with the
+history after the completion of the mispredicted branch. This is the
+history before the mispredicted branch (train_history) concatenated with
+the actual result of the branch (train_taken). If both a prediction and
+misprediction occur at the same time, the misprediction takes precedence,
+because the pipeline flush will also flush out the branch that is
+currently making a prediction. predict_history is the value of the branch
+history register. areset is a positive edge triggered asynchronous reset
+that resets the history counter to zero. Assume all sequential logic is
+triggered on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a 32-bit global branch history register with misprediction recovery. Key functionality:
+- **Normal operation**: On `predict_valid`, shift `predict_taken` into LSB (youngest branch position)
+- **Misprediction recovery**: On `train_mispredicted`, load history with `train_history` concatenated with `train_taken`
+- **Priority**: Misprediction overrides prediction when both occur simultaneously
+- **Reset**: Asynchronous positive-edge triggered reset to all zeros
+- **Output**: `predict_history` reflects current register state
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Clock edge timing**: "positive edge triggered asynchronous reset" is contradictory - asynchronous reset should be level-sensitive, not edge-triggered
+- **Simultaneous events**: "misprediction takes precedence" is clear, but timing of when prediction is ignored needs specification
+- **Register initialization**: Power-on state unspecified (handled by reset, but simulation initialization undefined)
+
+**Minor Clarifications:**
+- "shift in predict_taken from the LSB side" implies right-shift with new bit as LSB
+- "history after the completion of the mispredicted branch" clearly means `{train_history[30:0], train_taken}`
+
+## 3. Missing Critical Details
+
+**Timing Specifications:**
+- Setup/hold times for inputs relative to clock edge
+- Output delay timing constraints
+- Reset recovery/removal timing
+
+**Operational Details:**
+- Behavior when only `train_mispredicted` occurs without `predict_valid`
+- Behavior when only `predict_valid` occurs (normal shift operation)
+- Power-on initialization state for simulation
+- Maximum frequency constraints
+
+**Interface Assumptions:**
+- Input signal stability requirements during clock edges
+- Output loading characteristics
+
+## 4. Edge Cases & Boundary Conditions
+
+**Priority Conflicts:**
+- `predict_valid = 1` AND `train_mispredicted = 1` (specified: misprediction wins)
+- Multiple simultaneous control signals
+
+**Reset Scenarios:**
+- Reset assertion during normal operation
+- Reset de-assertion timing relative to clock
+- Reset while misprediction occurs
+
+**Input Combinations:**
+- All control signals inactive (maintain current state)
+- `train_mispredicted = 1` with `train_history` containing previous state
+- Rapid successive mispredictions
+
+**Boundary Conditions:**
+- History register overflow/underflow (handled by fixed 32-bit width)
+- Consecutive identical operations
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+- **Reset implementation**: "Positive edge triggered asynchronous reset" is problematic terminology
+- **Priority logic**: Potential for glitches in multiplexer control
+- **Simultaneous operation**: Clear definition needed for when prediction is suppressed
+
+**Verification Challenges:**
+- Testing all combinations of simultaneous events
+- Reset timing corner cases
+- Misprediction recovery accuracy
+
+**Expected Behavior:**
+- Normal shift: `history <= {history[30:0], predict_taken}` on predict_valid
+- Misprediction: `history <= {train_history[30:0], train_taken}` on train_mispredicted
+- Default: Maintain current state
+
+## 6. Actionable Guidance for RTL Generation
+
+**Reset Implementation:**
+```systemverilog
+// Clarification: Use standard asynchronous reset
+always_ff @(posedge clk or posedge areset) begin
+    if (areset) begin
+        history <= 32'b0;
+    end else begin
+        // Normal operation
+    end
+end
+```
+
+**Priority Logic Structure:**
+```systemverilog
+// Clear priority: misprediction > prediction > maintain state
+always_ff @(posedge clk or posedge areset) begin
+    if (areset) begin
+        history <= 32'b0;
+    end else if (train_mispredicted) begin
+        history <= {train_history[30:0], train_taken};
+    end else if (predict_valid) begin
+        history <= {history[30:0], predict_taken};
+    end
+    // else: maintain current state (implicit)
+end
+```
+
+**Critical Implementation Notes:**
+1. Use `always_ff` for sequential logic with proper reset
+2. Implement clear priority encoding to avoid latch inference
+3. Ensure `predict_history` is continuous combinational output
+4. Add assertions for mutually exclusive control in testbench
+5. Include timing constraints for synthesis
+
+**Verification Strategy:**
+- Test reset functionality under various timing conditions
+- Verify priority handling with simultaneous events
+- Validate misprediction recovery against expected history
+- Check boundary cases (all zeros, all ones history states)
+
+**Additional Recommendations:**
+- Add parameter for history width for flexibility
+- Include debug outputs for history changes
+- Consider adding error detection for invalid input combinations
+- Document assumption that inputs meet setup/hold requirements
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

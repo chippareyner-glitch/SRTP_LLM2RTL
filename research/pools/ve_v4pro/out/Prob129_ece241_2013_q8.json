@@ -1,0 +1,25 @@
+{
+ "case": "Prob129_ece241_2013_q8",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "b8337873be81",
+   "sources": [
+    "ve_v4pro:s0"
+   ],
+   "model": "ve_v4pro",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_v4pro\\gen\\Prob129_ece241_2013_q8\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\n3 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

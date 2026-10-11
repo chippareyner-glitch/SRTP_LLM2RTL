@@ -1,0 +1,27 @@
+{
+ "id": "Prob096_review2015_fsmseq__seq1011",
+ "base": "Prob096_review2015_fsmseq",
+ "delta": "seq1011",
+ "category": "param",
+ "edits": [
+  [
+   "searches for the sequence 1101",
+   "searches for the sequence 1011"
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 643,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 112,
+   "samples": 643,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "case": "pulse_detect",
+ "category": "Miscellaneous",
+ "top": "pulse_detect",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "pulse_detect"
+ ]
+}

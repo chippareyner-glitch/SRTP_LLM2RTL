@@ -1,0 +1,11 @@
+{
+ "case": "edge_detect",
+ "category": "Miscellaneous",
+ "top": "edge_detect",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "edge_detect"
+ ]
+}

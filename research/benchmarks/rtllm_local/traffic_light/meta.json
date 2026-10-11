@@ -1,0 +1,11 @@
+{
+ "case": "traffic_light",
+ "category": "Miscellaneous",
+ "top": "traffic_light",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "traffic_light"
+ ]
+}

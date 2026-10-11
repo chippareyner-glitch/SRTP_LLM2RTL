@@ -1,0 +1,11 @@
+{
+ "case": "multi_16bit",
+ "category": "Arithmetic",
+ "top": "multi_16bit",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "multi_16bit"
+ ]
+}

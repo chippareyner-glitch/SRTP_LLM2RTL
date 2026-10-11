@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-11T06:54:56.074912+00:00",
+  "requested_model": "deepseek-v4-pro",
+  "case_id": "Prob120_fsm3s",
+  "returned_model": "deepseek-v4-pro",
+  "id": "a24036a9-12c7-4761-af94-2f9c1afc419d",
+  "usage": {
+    "prompt_tokens": 346,
+    "completion_tokens": 870,
+    "total_tokens": 1216,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 622
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 218
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 8.38182070000039
+}

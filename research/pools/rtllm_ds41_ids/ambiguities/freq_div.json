@@ -1,0 +1,41 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "RST active level",
+   "severity": "high",
+   "readings": [
+    "RST is active-high: when RST is high, CLK_50/CLK_10/CLK_1 are forced to 0 and the counters are cleared",
+    "RST is active-low (typical FPGA push-button/nRST): the module resets while RST is low, so with an active-high reading the design would be permanently or never reset"
+   ],
+   "note": "The text only says 'if RST is active' without specifying the polarity; the two implementations give opposite output behaviour for the same RST waveform."
+  },
+  {
+   "aspect": "Reset style (asynchronous edge vs. asynchronous level vs. synchronous)",
+   "severity": "high",
+   "readings": [
+    "Asynchronous level-sensitive: RST in the sensitivity list, outputs/counters held at 0 as long as RST is asserted",
+    "Edge-triggered: 'on every positive edge of CLK_in or RST' means the outputs are only cleared on the rising edge of RST, so they resume toggling on subsequent CLK_in edges even while RST is still asserted",
+    "Synchronous: RST sampled on the CLK_in rising edge, so an RST pulse between clock edges has no effect"
+   ],
+   "note": "The phrase 'positive edge of CLK_in or RST' conflicts with normal async-reset semantics and leaves the observable reset latency (same cycle vs. next clock) undefined."
+  },
+  {
+   "aspect": "Power-on / pre-reset state",
+   "severity": "medium",
+   "readings": [
+    "CLK_50, CLK_10, CLK_1 and the counters are undefined/X until the first RST is applied; only a reset establishes 0",
+    "Outputs and counters have defined power-up values (e.g., 0 from an initial/FPGA power-up state) so the dividers run correctly even if RST is never asserted"
+   ],
+   "note": "The spec never defines initial values; simulation results and divider phase before the first reset differ between the two readings."
+  },
+  {
+   "aspect": "Counter terminal-value comparison semantics",
+   "severity": "low",
+   "readings": [
+    "Toggle only on an exact match (cnt_10 == 4 / cnt_100 == 49), giving a 5/50-clock toggle period (CLK_in/10 and CLK_in/100)",
+    "Compare-after-increment or >= comparison changes which cycle the toggle occurs on if the counter is not cleared on the same cycle, shifting the divider phase/period by one CLK_in cycle"
+   ],
+   "note": "Ordering of 'toggle+clear' versus 'increment' is stated but the resulting output phase (first high half-period length after reset release) is not pinned down."
+  }
+ ]
+}

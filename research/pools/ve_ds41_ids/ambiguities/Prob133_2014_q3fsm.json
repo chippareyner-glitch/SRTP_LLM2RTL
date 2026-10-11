@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "z output latency/registration",
+   "severity": "high",
+   "readings": [
+    "z is a combinational Moore output of the state entered after the third w sample; it is 1 in the clock cycle immediately following the third sampled cycle.",
+    "z is a registered output; it is 1 one clock cycle later, i.e., in the cycle after the decision state."
+   ]
+  },
+  {
+   "aspect": "Grouping of 3-cycle windows",
+   "severity": "high",
+   "readings": [
+    "The next 3-cycle window starts on the same cycle that z is asserted (the cycle immediately after the third sample); w on that cycle is the first sample of the next window.",
+    "The cycle after the third sample is an output-only cycle; the next 3-cycle window starts on the following cycle, so there is a one-cycle gap between windows."
+   ]
+  },
+  {
+   "aspect": "Reset behavior for z and auxiliary counters",
+   "severity": "medium",
+   "readings": [
+    "Synchronous reset forces z to 0 and clears all internal cycle and ones counters to their initial values.",
+    "Reset only forces the main FSM state to A; z and any separate cycle/ones counters retain their previous values (or undefined) and are only cleared by natural rollover."
+   ]
+  },
+  {
+   "aspect": "Start of w sampling after entering B",
+   "severity": "medium",
+   "readings": [
+    "The first w sample is taken in the first clock cycle the FSM is in state B (the cycle immediately after s=1 is captured).",
+    "The FSM waits one clock cycle after entering B before taking the first of the three w samples."
+   ]
+  }
+ ]
+}

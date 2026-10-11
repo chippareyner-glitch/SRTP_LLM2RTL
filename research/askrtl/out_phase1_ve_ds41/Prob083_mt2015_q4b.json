@@ -1,0 +1,28 @@
+{
+ "case": "Prob083_mt2015_q4b",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "x",
+    1
+   ],
+   [
+    "y",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "z",
+    1
+   ]
+  ]
+ },
+ "status": "single_candidate",
+ "n_live": 1
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "module": {
+    "name": "TopModule",
+    "ports": [
+      {"name": "clk", "direction": "input", "width": 1},
+      {"name": "reset", "direction": "input", "width": 1},
+      {"name": "q", "direction": "output", "width": 4}
+    ]
+  },
+  "design": {
+    "kind": "sequential",
+    "clock": {"signal": "clk", "edge": "posedge"},
+    "reset": {
+      "signal": "reset",
+      "type": "synchronous",
+      "level": "high",
+      "values": {"q": "4'd1"}
+    },
+    "registers": [
+      {"name": "q", "width": 4}
+    ],
+    "transitions": [
+      {"priority": 1, "when": "q == 4'd10", "updates": {"q": "4'd1"}},
+      {"priority": 2, "when": "otherwise", "updates": {"q": "q + 1'b1"}}
+    ],
+    "outputs": []
+  }
+}

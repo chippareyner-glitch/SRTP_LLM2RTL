@@ -1,0 +1,27 @@
+{
+ "id": "Prob096_review2015_fsmseq__pulse",
+ "base": "Prob096_review2015_fsmseq",
+ "delta": "pulse",
+ "category": "rule",
+ "edits": [
+  [
+   "When the sequence is found, it should set start_shifting to 1, forever, until reset.",
+   "When the sequence is found, it should set start_shifting to 1 for exactly one clock cycle and then continue searching; overlapping occurrences count (e.g. 1101101 contains two occurrences)."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 643,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 276,
+   "samples": 643,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

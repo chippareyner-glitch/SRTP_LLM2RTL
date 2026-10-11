@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:22:35.422179+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob059_wire4",
+  "returned_model": "deepseek-flash",
+  "id": "57b0e32b-7aa2-4c1b-a071-6f2b6b4a3761",
+  "usage": {
+    "prompt_tokens": 213,
+    "completion_tokens": 70,
+    "total_tokens": 283,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 213
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 0.8709490000001097
+}

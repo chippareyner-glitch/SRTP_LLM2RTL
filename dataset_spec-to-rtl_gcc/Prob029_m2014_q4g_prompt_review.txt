@@ -1,0 +1,155 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in1
+ - input  in2
+ - input  in3
+ - output out
+
+The module should impement the following circuit: A two-input XNOR
+(connected to 'in1' and 'in2) has an output connected to the input of a
+two-input XOR. The second input of the XOR is 'in3.' The output of the
+XOR is 'out'.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a simple combinational logic module with:
+- **Inputs**: `in1`, `in2`, `in3` (all 1-bit)
+- **Output**: `out` (1-bit)
+- **Function**: `out = (in1 XNOR in2) XOR in3`
+- **Structure**: XNOR(in1, in2) → XOR(intermediate, in3) → out
+
+## 2. Ambiguity Analysis
+
+**No significant ambiguities found.** The specification is clear and unambiguous:
+- Gate types (XNOR, XOR) are explicitly defined
+- Connectivity is precisely described with clear signal flow
+- Port directions and bit widths are explicitly specified
+
+**Minor clarification**: The specification states "all input and output ports are one bit unless otherwise specified" - this is redundant since no ports have non-1-bit widths, but it's good defensive specification.
+
+## 3. Missing Critical Details
+
+**Critical omissions that must be addressed:**
+
+1. **Timing Requirements**: No clock or timing constraints specified
+   - Is this purely combinational or sequential?
+   - If sequential, missing clock and reset signals
+   - No propagation delay requirements mentioned
+
+2. **Reset Behavior**: No reset mechanism defined
+   - Critical for predictable startup behavior
+   - Missing reset polarity and synchronization
+
+3. **Output Drive Strength**: No specification for output drive characteristics
+   - Important for fanout considerations
+
+4. **Input/Output Timing Constraints**: Missing setup/hold times if sequential
+
+## 4. Edge Cases & Boundary Conditions
+
+**For combinational implementation:**
+- **Power-up state**: Output undefined until inputs stabilize
+- **Glitch propagation**: XNOR→XOR chain may create glitches during input transitions
+- **Metastability**: If inputs change near clock edges (if sequential)
+- **Input constraints**: No constraints on simultaneous switching
+
+**Truth table analysis:**
+```
+in1 in2 in3 | XNOR(in1,in2) | out
+0   0   0   | 1             | 1
+0   0   1   | 1             | 0
+0   1   0   | 0             | 0
+0   1   1   | 0             | 1
+1   0   0   | 0             | 0
+1   0   1   | 0             | 1
+1   1   0   | 1             | 1
+1   1   1   | 1             | 0
+```
+
+## 5. Functional Correctness Prediction
+
+**High confidence for basic functionality** due to:
+- Simple, well-defined logic function
+- Clear signal path specification
+- Minimal state elements (if combinational)
+
+**Potential risks:**
+- Timing violations if implemented as sequential without proper constraints
+- Glitches in output during input transitions
+- Lack of reset may cause unpredictable startup behavior
+
+## 6. Actionable Guidance for RTL Generation
+
+### Implementation Strategy:
+```systemverilog
+// Recommended implementation approach
+module TopModule (
+    input  logic in1,
+    input  logic in2, 
+    input  logic in3,
+    output logic out
+);
+    
+    // Pure combinational implementation
+    logic xnor_out;
+    
+    assign xnor_out = ~(in1 ^ in2);  // XNOR operation
+    assign out = xnor_out ^ in3;     // XOR operation
+    
+endmodule
+```
+
+### Critical Additions Needed:
+1. **Add clock and reset if sequential:**
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic rst_n,  // active-low reset
+    input  logic in1,
+    input  logic in2,
+    input  logic in3,
+    output logic out
+);
+    logic xnor_out, out_ff;
+    
+    always_comb begin
+        xnor_out = ~(in1 ^ in2);
+        out_ff = xnor_out ^ in3;
+    end
+    
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) out <= 1'b0;
+        else out <= out_ff;
+    end
+endmodule
+```
+
+2. **Add timing constraints** in SDC file:
+```
+set_max_delay 1.0 -from [all_inputs] -to [all_outputs]
+```
+
+3. **Testbench coverage should verify:**
+   - All 8 input combinations from truth table
+   - Reset functionality (if sequential)
+   - Timing constraints compliance
+   - Glitch analysis during input transitions
+
+### Synthesis Considerations:
+- Use `logic` data type for better simulation-synthesis matching
+- Consider adding `unique` or `priority` case statements if expanding functionality
+- Add `default_nettype none` to catch undeclared wires
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

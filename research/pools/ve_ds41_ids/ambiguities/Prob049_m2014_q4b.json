@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "reset polarity",
+   "severity": "high",
+   "readings": [
+    "ar is active-high: q is asynchronously forced to the reset value when ar=1",
+    "ar is active-low: q is asynchronously forced to the reset value when ar=0"
+   ]
+  },
+  {
+   "aspect": "reset value",
+   "severity": "high",
+   "readings": [
+    "asynchronous reset forces q to 0",
+    "asynchronous reset forces q to 1"
+   ]
+  },
+  {
+   "aspect": "initial q before any reset or clock edge",
+   "severity": "low",
+   "readings": [
+    "q is undefined (e.g., x in simulation) until ar or a clk edge occurs",
+    "q is initialized to 0 at power-up/start of simulation"
+   ]
+  }
+ ]
+}

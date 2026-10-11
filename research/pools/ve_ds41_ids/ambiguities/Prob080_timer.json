@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial counter value / reset",
+   "severity": "high",
+   "readings": [
+    "Counter initializes to 0 at power-up, so tc is asserted (1) before any load.",
+    "Counter has no defined initial value; tc is unknown/X until the first load, or the counter may start at an arbitrary value and decrement from it."
+   ]
+  },
+  {
+   "aspect": "tc output latency (combinational vs registered)",
+   "severity": "high",
+   "readings": [
+    "tc is combinational (tc = (counter == 0)), changing in the same cycle the counter updates after a clock edge.",
+    "tc is registered, updating only on the next clock edge, so it asserts one cycle after the counter reaches 0."
+   ]
+  },
+  {
+   "aspect": "Timeout for data=0",
+   "severity": "medium",
+   "readings": [
+    "Loading data=0 with load=1 makes tc assert immediately in the same cycle (0-cycle timeout).",
+    "Loading data=0 with load=1 makes tc assert only after the next clock edge (1-cycle timeout)."
+   ]
+  },
+  {
+   "aspect": "Contradiction: single D flip-flop vs 10-bit down-counter",
+   "severity": "medium",
+   "readings": [
+    "Implement a 10-bit down-counter (requires 10 flip-flops), treating the single-DFF sentence as a typo.",
+    "Implement only a single flip-flop (e.g., for tc) and treat the counter as 1-bit or otherwise not storing 10 bits, contradicting the 10-bit data and decrement requirements."
+   ]
+  }
+ ]
+}

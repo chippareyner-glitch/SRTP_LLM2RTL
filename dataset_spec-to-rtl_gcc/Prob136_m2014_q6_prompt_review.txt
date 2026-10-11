@@ -1,0 +1,198 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  w
+ - output z
+
+The module should implement the state machine shown below:
+
+  A (0) --0--> B
+  A (0) --1--> A
+  B (0) --0--> C
+  B (0) --1--> D
+  C (0) --0--> E
+  C (0) --1--> D
+  D (0) --0--> F
+  D (0) --1--> A
+  E (1) --0--> E
+  E (1) --1--> D
+  F (1) --0--> C
+  F (1) --1--> D
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a 6-state finite state machine (FSM) with the following characteristics:
+- **Module**: `TopModule` with 1-bit ports: `clk`, `reset`, `w` (input), `z` (output)
+- **Clock**: Positive-edge triggered sequential logic
+- **States**: A, B, C, D, E, F (6 states total)
+- **Output**: `z` is 1 only in states E and F (Moore-type output)
+- **Transitions**: Defined by current state and input `w`
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **Reset State**: The specification does not define the initial/reset state
+2. **State Encoding**: No guidance on state representation (binary, one-hot, gray code)
+3. **Output Behavior During Reset**: `z` value during/after reset is unspecified
+4. **Unreachable States**: Handling of power-up or illegal states is not addressed
+
+**Minor Ambiguities:**
+- State transition table format uses mixed notations (state names with output values in parentheses)
+- No explicit mention of synchronous vs. asynchronous reset
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+1. **Reset Configuration**:
+   - Initial state after reset/power-on
+   - Reset type (synchronous vs asynchronous)
+   - Reset polarity (active-high vs active-low)
+
+2. **State Encoding Requirements**:
+   - Preferred encoding scheme for synthesis
+   - Area/power/timing constraints
+
+3. **Timing Specifications**:
+   - Input setup/hold times relative to clock
+   - Output delay constraints
+
+4. **Verification Requirements**:
+   - Expected test coverage metrics
+   - Corner cases to verify
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle:**
+1. **Reset Sequencing**:
+   - Reset assertion during normal operation
+   - Reset de-assertion timing relative to clock
+
+2. **Input Glitches**:
+   - `w` transitions near clock edges
+   - Metastability handling if `w` is asynchronous
+
+3. **State Machine Integrity**:
+   - Recovery from illegal states (if binary encoding used)
+   - Power-on reset behavior
+
+4. **Consecutive Identical Inputs**:
+   - Verify all transitions work correctly with repeated `w` values
+   - State E with `w=0` creates a self-loop
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Risks:**
+1. **State Encoding Choice**:
+   - Binary encoding: Risk of glitches during state transitions
+   - One-hot encoding: Higher area but better timing
+
+2. **Reset Handling**:
+   - Incorrect reset state could cause deadlock or incorrect startup
+   - Asynchronous reset requires proper synchronization
+
+3. **Output Timing**:
+   - `z` output must be stable within clock cycle constraints
+   - Potential for transient glitches during state transitions
+
+**Verification Challenges:**
+- State coverage: Ensure all 6 states are reachable
+- Transition coverage: Verify all 12 defined transitions
+- Output verification: Confirm `z=1` only in states E and F
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+
+1. **Reset Strategy** (require clarification):
+   ```systemverilog
+   // Option A: Synchronous reset (recommended for modern FPGA)
+   always_ff @(posedge clk) begin
+       if (reset) state <= STATE_A;  // Assuming STATE_A is reset state
+       else state <= next_state;
+   end
+   
+   // Option B: Asynchronous reset (if required)
+   always_ff @(posedge clk or posedge reset) begin
+       if (reset) state <= STATE_A;
+       else state <= next_state;
+   end
+   ```
+
+2. **State Encoding** (recommend one-hot for 6 states):
+   ```systemverilog
+   typedef enum logic [5:0] {
+       STATE_A = 6'b000001,
+       STATE_B = 6'b000010, 
+       STATE_C = 6'b000100,
+       STATE_D = 6'b001000,
+       STATE_E = 6'b010000,
+       STATE_F = 6'b100000
+   } state_t;
+   ```
+
+3. **Complete RTL Structure**:
+   ```systemverilog
+   module TopModule (
+       input  logic clk,
+       input  logic reset,
+       input  logic w,
+       output logic z
+   );
+   
+   state_t state, next_state;
+   
+   // Next state logic
+   always_comb begin
+       case (state)
+           STATE_A: next_state = w ? STATE_A : STATE_B;
+           STATE_B: next_state = w ? STATE_D : STATE_C;
+           STATE_C: next_state = w ? STATE_D : STATE_E;
+           STATE_D: next_state = w ? STATE_A : STATE_F;
+           STATE_E: next_state = w ? STATE_D : STATE_E;
+           STATE_F: next_state = w ? STATE_D : STATE_C;
+           default: next_state = STATE_A; // Safe recovery
+       endcase
+   end
+   
+   // Output logic (Moore-type)
+   assign z = (state == STATE_E) | (state == STATE_F);
+   
+   // State register
+   always_ff @(posedge clk) begin
+       if (reset) state <= STATE_A;
+       else state <= next_state;
+   end
+   
+   endmodule
+   ```
+
+4. **Verification Checklist**:
+   - Verify reset initializes to correct state
+   - Test all state transitions with both w=0 and w=1
+   - Confirm output z=1 only in states E and F
+   - Check recovery from illegal states (if using binary encoding)
+   - Validate timing constraints are met
+
+**Questions for Specification Clarification:**
+1. What is the reset state? (Recommended: STATE_A)
+2. Synchronous or asynchronous reset?
+3. Any area/timing constraints for synthesis?
+4. Should illegal state recovery be implemented?
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

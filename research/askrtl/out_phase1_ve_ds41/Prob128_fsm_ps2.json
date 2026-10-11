@@ -1,0 +1,28 @@
+{
+ "case": "Prob128_fsm_ps2",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "status": "single_candidate",
+ "n_live": 1
+}

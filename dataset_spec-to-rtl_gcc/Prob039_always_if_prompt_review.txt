@@ -1,0 +1,163 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a
+ - input  b
+ - input  sel_b1
+ - input  sel_b2
+ - output out_assign
+ - output out_always
+
+The module should implement a 2-to-1 mux that chooses between a and b.
+Choose b if both sel_b1 and sel_b2 are true. Otherwise, choose a. Do the
+same twice, once using assign statements and once using a procedural if
+statement.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` implements a 2-to-1 multiplexer with:
+- **Data inputs**: `a`, `b` (1-bit each)
+- **Control inputs**: `sel_b1`, `sel_b2` (1-bit each)
+- **Outputs**: `out_assign`, `out_always` (1-bit each)
+- **Selection logic**: Output equals `b` when both `sel_b1` AND `sel_b2` are true (logic 1), otherwise output equals `a`
+- **Implementation requirement**: Same functionality implemented twice - once using continuous assignment (`assign`) and once using procedural logic (`always` block)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity - Selection Logic Interpretation:**
+- The phrase "both sel_b1 and sel_b2 are true" is ambiguous for hardware design
+- **Interpretation 1**: Logical AND (`sel_b1 && sel_b2`)
+- **Interpretation 2**: Bitwise AND (`sel_b1 & sel_b2`)
+- **Resolution**: Since these are 1-bit signals, both interpretations yield the same result, but the specification should explicitly state the intended operation
+
+**Procedural Implementation Ambiguity:**
+- "Procedural if statement" could mean:
+  - `always_comb` block (recommended for combinational logic)
+  - `always @(*)` block (Verilog style)
+  - Sensitivity list completeness not specified
+
+## 3. Missing Critical Details
+
+**Timing and Synchronization:**
+- No clock or reset signals specified
+- No timing constraints (setup/hold requirements)
+- No maximum propagation delay specification
+
+**Reset Behavior:**
+- No power-on reset state specified for outputs
+- No asynchronous/synchronous reset requirements
+
+**Signal Properties:**
+- No input timing constraints (are inputs synchronous to a clock?)
+- No output drive strength specification
+- No input validity windows specified
+
+**Synthesis Constraints:**
+- No area/power/timing optimization targets
+- No technology library constraints
+
+## 4. Edge Cases & Boundary Conditions
+
+**Control Input Combinations:**
+```
+sel_b1 | sel_b2 | Selection
+-------+-------+-----------
+   0   |   0   | a
+   0   |   1   | a
+   1   |   0   | a
+   1   |   1   | b
+```
+
+**Metastability Considerations:**
+- No specification for handling asynchronous control inputs
+- No synchronizer requirements if `sel_b1/sel_b2` are asynchronous to data
+
+**X-propagation:**
+- Behavior when inputs are unknown (X) not specified
+- Should the design propagate X states or have defined behavior?
+
+**Power-up Conditions:**
+- Output behavior during power-on reset not defined
+- Initial state of outputs not specified
+
+## 5. Functional Correctness Prediction
+
+**Expected Behavior:**
+- Both outputs should be identical under all input conditions
+- Output should equal: `(sel_b1 & sel_b2) ? b : a`
+
+**Potential Issues:**
+- **Latch inference risk**: If procedural implementation misses else branch or incomplete sensitivity list
+- **Simulation vs synthesis mismatch**: Possible if blocking/non-blocking assignment misuse
+- **Timing violations**: No clock specified, so pure combinational logic assumed
+
+**Verification Requirements:**
+- All 16 input combinations (4 inputs) should be tested
+- Corner cases: transitions between selection states
+- Propagation delay measurements needed
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  logic a,
+    input  logic b, 
+    input  logic sel_b1,
+    input  logic sel_b2,
+    output logic out_assign,
+    output logic out_always
+);
+
+    // Continuous assignment implementation
+    assign out_assign = (sel_b1 & sel_b2) ? b : a;
+    
+    // Procedural implementation (combinational)
+    always_comb begin
+        if (sel_b1 && sel_b2) begin
+            out_always = b;
+        end else begin
+            out_always = a;
+        end
+    end
+
+endmodule
+```
+
+**Critical Implementation Notes:**
+
+1. **Use `always_comb`** instead of `always @(*)` for better linting and simulation checking
+2. **Explicit else branch** to prevent latch inference
+3. **Consistent operator use**: Bitwise AND (`&`) for assign, logical AND (`&&`) for if condition (equivalent for 1-bit)
+4. **`logic` type** for all ports for improved SystemVerilog compliance
+
+**Verification Testbench Requirements:**
+- Test all 16 input combinations
+- Include timing checks for propagation delay
+- Verify both outputs match identically
+- Add corner case tests with X/Z states if supported
+
+**Synthesis Guidance:**
+- Expect 2:1 MUX with AND gate for selection logic
+- Area: Approximately 3-4 gate equivalents
+- Critical path: AND gate → MUX
+- No sequential elements required
+
+**Documentation Additions:**
+- Clearly specify this is pure combinational logic
+- Document propagation delay characteristics
+- Note that no clock or reset is used
+- Specify input/output timing as combinational paths
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

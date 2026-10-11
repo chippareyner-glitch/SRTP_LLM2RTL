@@ -1,0 +1,215 @@
+{
+ "case": "fixed_point_adder",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    32
+   ],
+   [
+    "b",
+    32
+   ]
+  ],
+  "outputs": [
+   [
+    "c",
+    32
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c1",
+   "members": [
+    "c1",
+    "c2",
+    "c4"
+   ],
+   "votes": 3,
+   "correct": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "rep": "c0",
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00111010110010110111011110001011"
+     ],
+     [
+      "00001010011100110110011111110001"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a parameterized fixed-point adder for arithmetic operations with fixed precision.\n\nModule name:  \n    fixed_point_adder               \nInput parameters:\n    Q: Number of fractional bits (precision).\n    N: Total number of bits, including integer and fractional parts.\nInput ports:\n    a [N-1:0]: First N-bit fixed-point input operand.\n    b [N-1:0]: Second N-bit fixed-point input operand.\nOutput ports:\n    c [N-1:0]: N-bit output representing the result of the fixed-point addition.\n\nInternal Registers:\n    res [N-1:0]: N-bit register used to store the result of the addition or subtraction.\n\nImplementation:\n1. Absolute Value Addition:\n    - If the most significant bits (MSBs) of `a` and `b` are the same (both positive or both negative), their absolute values are added.\n    - The MSB of the result is set to match the MSBs of `a` and `b` (sign bit remains consistent).\n\n2. Absolute Value Subtraction:\n    - If the MSBs of `a` and `b` are different (one is positive, the other negative), the larger absolute value is determined.\n    - If `a` is greater than `b`, the result is `a - b` and the MSB of the result is set to 0 (positive).\n    - If `b` is greater than `a`, the result is `b - a`. The MSB of the result is set according to whether the result is zero or negative.\n\n3. Precision:\n    - The operands `a` and `b` consist of integer and fractional parts, with the fractional part determined by parameter `Q`.\n    - The precision is consistent across both inputs and the output to ensure accurate fixed-point arithmetic.\n\n4. Overflow Handling:\n    - Overflow is managed internally by observing the MSB to ensure the result fits within the N-bit range.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | A out | B out |\n|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | c=32'h3acb778b | c=32'h0a7367f1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     3626764237,
+     1654615998
+    ]
+   ],
+   "options": [
+    "00111010110010110111011110001011",
+    "00001010011100110110011111110001",
+    "10001010011100110110011111110001"
+   ],
+   "cluster_option": {
+    "c1": "B",
+    "c0": "A",
+    "c3": "C"
+   },
+   "label": "B",
+   "ref_value": "00001010011100110110011111110001",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a parameterized fixed-point adder for arithmetic operations with fixed precision.\n\nModule name:  \n    fixed_point_adder               \nInput parameters:\n    Q: Number of fractional bits (precision).\n    N: Total number of bits, including integer and fractional parts.\nInput ports:\n    a [N-1:0]: First N-bit fixed-point input operand.\n    b [N-1:0]: Second N-bit fixed-point input operand.\nOutput ports:\n    c [N-1:0]: N-bit output representing the result of the fixed-point addition.\n\nInternal Registers:\n    res [N-1:0]: N-bit register used to store the result of the addition or subtraction.\n\nImplementation:\n1. Absolute Value Addition:\n    - If the most significant bits (MSBs) of `a` and `b` are the same (both positive or both negative), their absolute values are added.\n    - The MSB of the result is set to match the MSBs of `a` and `b` (sign bit remains consistent).\n\n2. Absolute Value Subtraction:\n    - If the MSBs of `a` and `b` are different (one is positive, the other negative), the larger absolute value is determined.\n    - If `a` is greater than `b`, the result is `a - b` and the MSB of the result is set to 0 (positive).\n    - If `b` is greater than `a`, the result is `b - a`. The MSB of the result is set according to whether the result is zero or negative.\n\n3. Precision:\n    - The operands `a` and `b` consist of integer and fractional parts, with the fractional part determined by parameter `Q`.\n    - The precision is consistent across both inputs and the output to ensure accurate fixed-point arithmetic.\n\n4. Overflow Handling:\n    - Overflow is managed internally by observing the MSB to ensure the result fits within the N-bit range.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | out |\n|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: c=32'h3acb778b\n- **B**: c=32'h0a7367f1\n- **C**: c=32'h8a7367f1\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00001010011100110110011111110001"
+     ],
+     [
+      "10001010011100110110011111110001"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a parameterized fixed-point adder for arithmetic operations with fixed precision.\n\nModule name:  \n    fixed_point_adder               \nInput parameters:\n    Q: Number of fractional bits (precision).\n    N: Total number of bits, including integer and fractional parts.\nInput ports:\n    a [N-1:0]: First N-bit fixed-point input operand.\n    b [N-1:0]: Second N-bit fixed-point input operand.\nOutput ports:\n    c [N-1:0]: N-bit output representing the result of the fixed-point addition.\n\nInternal Registers:\n    res [N-1:0]: N-bit register used to store the result of the addition or subtraction.\n\nImplementation:\n1. Absolute Value Addition:\n    - If the most significant bits (MSBs) of `a` and `b` are the same (both positive or both negative), their absolute values are added.\n    - The MSB of the result is set to match the MSBs of `a` and `b` (sign bit remains consistent).\n\n2. Absolute Value Subtraction:\n    - If the MSBs of `a` and `b` are different (one is positive, the other negative), the larger absolute value is determined.\n    - If `a` is greater than `b`, the result is `a - b` and the MSB of the result is set to 0 (positive).\n    - If `b` is greater than `a`, the result is `b - a`. The MSB of the result is set according to whether the result is zero or negative.\n\n3. Precision:\n    - The operands `a` and `b` consist of integer and fractional parts, with the fractional part determined by parameter `Q`.\n    - The precision is consistent across both inputs and the output to ensure accurate fixed-point arithmetic.\n\n4. Overflow Handling:\n    - Overflow is managed internally by observing the MSB to ensure the result fits within the N-bit range.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | A out | B out |\n|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | c=32'h0a7367f1 | c=32'h8a7367f1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     3626764237,
+     0
+    ]
+   ],
+   "options": [
+    "11011000001011000000011111001101",
+    "01011000001011000000011111001101"
+   ],
+   "cluster_option": {
+    "c1": "A",
+    "c0": "A",
+    "c3": "B"
+   },
+   "label": "A",
+   "ref_value": "11011000001011000000011111001101",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a parameterized fixed-point adder for arithmetic operations with fixed precision.\n\nModule name:  \n    fixed_point_adder               \nInput parameters:\n    Q: Number of fractional bits (precision).\n    N: Total number of bits, including integer and fractional parts.\nInput ports:\n    a [N-1:0]: First N-bit fixed-point input operand.\n    b [N-1:0]: Second N-bit fixed-point input operand.\nOutput ports:\n    c [N-1:0]: N-bit output representing the result of the fixed-point addition.\n\nInternal Registers:\n    res [N-1:0]: N-bit register used to store the result of the addition or subtraction.\n\nImplementation:\n1. Absolute Value Addition:\n    - If the most significant bits (MSBs) of `a` and `b` are the same (both positive or both negative), their absolute values are added.\n    - The MSB of the result is set to match the MSBs of `a` and `b` (sign bit remains consistent).\n\n2. Absolute Value Subtraction:\n    - If the MSBs of `a` and `b` are different (one is positive, the other negative), the larger absolute value is determined.\n    - If `a` is greater than `b`, the result is `a - b` and the MSB of the result is set to 0 (positive).\n    - If `b` is greater than `a`, the result is `b - a`. The MSB of the result is set according to whether the result is zero or negative.\n\n3. Precision:\n    - The operands `a` and `b` consist of integer and fractional parts, with the fractional part determined by parameter `Q`.\n    - The precision is consistent across both inputs and the output to ensure accurate fixed-point arithmetic.\n\n4. Overflow Handling:\n    - Overflow is managed internally by observing the MSB to ensure the result fits within the N-bit range.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | out |\n|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h00000000 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: c=32'hd82c07cd\n- **B**: c=32'h582c07cd\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00111010110010110111011110001011"
+     ],
+     [
+      "10001010011100110110011111110001"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a parameterized fixed-point adder for arithmetic operations with fixed precision.\n\nModule name:  \n    fixed_point_adder               \nInput parameters:\n    Q: Number of fractional bits (precision).\n    N: Total number of bits, including integer and fractional parts.\nInput ports:\n    a [N-1:0]: First N-bit fixed-point input operand.\n    b [N-1:0]: Second N-bit fixed-point input operand.\nOutput ports:\n    c [N-1:0]: N-bit output representing the result of the fixed-point addition.\n\nInternal Registers:\n    res [N-1:0]: N-bit register used to store the result of the addition or subtraction.\n\nImplementation:\n1. Absolute Value Addition:\n    - If the most significant bits (MSBs) of `a` and `b` are the same (both positive or both negative), their absolute values are added.\n    - The MSB of the result is set to match the MSBs of `a` and `b` (sign bit remains consistent).\n\n2. Absolute Value Subtraction:\n    - If the MSBs of `a` and `b` are different (one is positive, the other negative), the larger absolute value is determined.\n    - If `a` is greater than `b`, the result is `a - b` and the MSB of the result is set to 0 (positive).\n    - If `b` is greater than `a`, the result is `b - a`. The MSB of the result is set according to whether the result is zero or negative.\n\n3. Precision:\n    - The operands `a` and `b` consist of integer and fractional parts, with the fractional part determined by parameter `Q`.\n    - The precision is consistent across both inputs and the output to ensure accurate fixed-point arithmetic.\n\n4. Overflow Handling:\n    - Overflow is managed internally by observing the MSB to ensure the result fits within the N-bit range.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | A out | B out |\n|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | c=32'h3acb778b | c=32'h8a7367f1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     3626764237,
+     0
+    ]
+   ],
+   "options": [
+    "11011000001011000000011111001101",
+    "01011000001011000000011111001101"
+   ],
+   "cluster_option": {
+    "c1": "A",
+    "c0": "A",
+    "c3": "B"
+   },
+   "label": "A",
+   "ref_value": "11011000001011000000011111001101",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a parameterized fixed-point adder for arithmetic operations with fixed precision.\n\nModule name:  \n    fixed_point_adder               \nInput parameters:\n    Q: Number of fractional bits (precision).\n    N: Total number of bits, including integer and fractional parts.\nInput ports:\n    a [N-1:0]: First N-bit fixed-point input operand.\n    b [N-1:0]: Second N-bit fixed-point input operand.\nOutput ports:\n    c [N-1:0]: N-bit output representing the result of the fixed-point addition.\n\nInternal Registers:\n    res [N-1:0]: N-bit register used to store the result of the addition or subtraction.\n\nImplementation:\n1. Absolute Value Addition:\n    - If the most significant bits (MSBs) of `a` and `b` are the same (both positive or both negative), their absolute values are added.\n    - The MSB of the result is set to match the MSBs of `a` and `b` (sign bit remains consistent).\n\n2. Absolute Value Subtraction:\n    - If the MSBs of `a` and `b` are different (one is positive, the other negative), the larger absolute value is determined.\n    - If `a` is greater than `b`, the result is `a - b` and the MSB of the result is set to 0 (positive).\n    - If `b` is greater than `a`, the result is `b - a`. The MSB of the result is set according to whether the result is zero or negative.\n\n3. Precision:\n    - The operands `a` and `b` consist of integer and fractional parts, with the fractional part determined by parameter `Q`.\n    - The precision is consistent across both inputs and the output to ensure accurate fixed-point arithmetic.\n\n4. Overflow Handling:\n    - Overflow is managed internally by observing the MSB to ensure the result fits within the N-bit range.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | out |\n|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h00000000 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: c=32'hd82c07cd\n- **B**: c=32'h582c07cd\n"
+  }
+ ]
+}

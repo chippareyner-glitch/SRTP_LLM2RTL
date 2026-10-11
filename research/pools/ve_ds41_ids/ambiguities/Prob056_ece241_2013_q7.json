@@ -1,0 +1,13 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial value of Q / reset behavior",
+   "severity": "high",
+   "readings": [
+    "Q initializes to 0 at power-up/start of simulation",
+    "Q initializes to 1 at power-up/start of simulation",
+    "Q is unknown (X) until the first positive clock edge because no reset or initial value is specified"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output signal naming and mapping",
+   "severity": "high",
+   "readings": [
+    "Output ports Y1 and Y3 are the next-state signals for states B (y[1]) and D (y[3]), so Y1 = next-state for B and Y3 = next-state for D.",
+    "The text says to implement next-state signals Y2 and Y4 corresponding to y[1] and y[3], implying outputs should be Y2 and Y4 (next-state for C and E), contradicting the interface's Y1/Y3."
+   ]
+  },
+  {
+   "aspect": "Sequential vs combinational / reset behavior",
+   "severity": "high",
+   "readings": [
+    "The module is purely combinational: y is the current one-hot state and Y1/Y3 are next-state bits computed by logic equations; the reset statement is irrelevant because there is no clock or reset input.",
+    "The module includes a state register that resets to state A, requiring clk/reset ports (not present) and making outputs sequential, so the reset statement affects initial cycles."
+   ]
+  },
+  {
+   "aspect": "Meaning of state-diagram parenthetical values",
+   "severity": "medium",
+   "readings": [
+    "The (0)/(1) values are Moore outputs for the states and should be implemented on some output (e.g., Y1 or Y3), adding logic such as Y1 = y[4] | y[5].",
+    "The (0)/(1) values are irrelevant annotations; only next-state transitions matter, so they do not affect Y1/Y3."
+   ]
+  },
+  {
+   "aspect": "Invalid one-hot input behavior",
+   "severity": "low",
+   "readings": [
+    "For non-one-hot y values, outputs follow the derived sum-of-products equations (e.g., Y1 = y[0] & ~w), producing defined but arbitrary values.",
+    "For non-one-hot y values, outputs should be forced to 0 (or treated as don't-cares), changing behavior for invalid inputs."
+   ]
+  }
+ ]
+}

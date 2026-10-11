@@ -1,0 +1,239 @@
+{
+ "case": "Prob146_fsm_serialdata",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    1
+   ],
+   [
+    "reset",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out_byte",
+    8
+   ],
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1",
+   "c2",
+   "c3",
+   "c5",
+   "c7",
+   "c8"
+  ],
+  [
+   "c4"
+  ],
+  [
+   "c6"
+  ]
+ ],
+ "ci_pairs": 12,
+ "ci_found": 12,
+ "ci_missed": [],
+ "off_pairs": 13,
+ "off_found": 13,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c1",
+    "c4"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 11,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 27,
+   "orig_len": 12,
+   "min_len": 10,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c1",
+    "c6"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 11,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 27,
+   "orig_len": 12,
+   "min_len": 10,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c4",
+    "c6"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 11,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 27,
+   "orig_len": 12,
+   "min_len": 10,
+   "toggles": 3
+  }
+ ],
+ "status": "ok",
+ "n_live": 8
+}

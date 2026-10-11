@@ -1,0 +1,15 @@
+{
+ "case": "adder_32bit",
+ "category": "Arithmetic",
+ "top": "adder_32bit",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "adder_32bit",
+  "CLA_16",
+  "adder_4",
+  "CLA",
+  "adder"
+ ]
+}

@@ -1,0 +1,331 @@
+{
+ "case": "Prob035_count1to10",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    4
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3",
+    "c4",
+    "c5"
+   ],
+   "votes": 6,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 6,
+    "stim": [
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0101",
+      "0110",
+      "0110",
+      "0111",
+      "0111",
+      "1000",
+      "1000",
+      "1001",
+      "1001",
+      "1010",
+      "1010",
+      "0001",
+      "0001",
+      "0010",
+      "0010",
+      "0011",
+      "0011",
+      "0100",
+      "0100",
+      "0101",
+      "0101",
+      "0110",
+      "0110",
+      "0111",
+      "0111",
+      "1000",
+      "1000",
+      "1001",
+      "1001",
+      "1010",
+      "1010",
+      "0001",
+      "0001",
+      "0010",
+      "0010",
+      "0011",
+      "0011",
+      "0100",
+      "0100",
+      "0101",
+      "0101",
+      "0110",
+      "0110",
+      "0111",
+      "0111",
+      "1000",
+      "1000",
+      "1001",
+      "1001",
+      "1010",
+      "1010",
+      "0001",
+      "0001",
+      "0010",
+      "0010",
+      "0011",
+      "0011",
+      "0100",
+      "0100",
+      "0101",
+      "0101",
+      "0110",
+      "0110",
+      "0001"
+     ],
+     [
+      "0101",
+      "0110",
+      "0110",
+      "0111",
+      "0111",
+      "1000",
+      "1000",
+      "1001",
+      "1001",
+      "1010",
+      "1010",
+      "0001",
+      "0001",
+      "0010",
+      "0010",
+      "0011",
+      "0011",
+      "0100",
+      "0100",
+      "0101",
+      "0101",
+      "0110",
+      "0110",
+      "0111",
+      "0111",
+      "1000",
+      "1000",
+      "1001",
+      "1001",
+      "1010",
+      "1010",
+      "0001",
+      "0001",
+      "0010",
+      "0010",
+      "0011",
+      "0011",
+      "0100",
+      "0100",
+      "0101",
+      "0101",
+      "0110",
+      "0110",
+      "0111",
+      "0111",
+      "1000",
+      "1000",
+      "1001",
+      "1001",
+      "1010",
+      "1010",
+      "0001",
+      "0001",
+      "0010",
+      "0010",
+      "0011",
+      "0011",
+      "0100",
+      "0100",
+      "0101",
+      "0101",
+      "0110",
+      "0001",
+      "0001"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - output q (4 bits)\n\nThe module should implement a decade counter that counts 1 through 10,\ninclusive. Assume all sequential logic is triggered on the positive edge\nof the clock. The reset input is active high synchronous, and should\nreset the counter to 1.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | reset | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| ... | *cycles 0-5 omitted (6 cycles; both traces were identical there)* |\n| 6 | 1'b0 | q=4'b0101 | q=4'b0110 | q=4'b0101 | q=4'b0110 |\n| 7 | 1'b0 | q=4'b0110 | q=4'b0111 | q=4'b0110 | q=4'b0111 |\n| 8 | 1'b0 | q=4'b0111 | q=4'b1000 | q=4'b0111 | q=4'b1000 |\n| 9 | 1'b0 | q=4'b1000 | q=4'b1001 | q=4'b1000 | q=4'b1001 |\n| 10 | 1'b0 | q=4'b1001 | q=4'b1010 | q=4'b1001 | q=4'b1010 |\n| 11 | 1'b0 | q=4'b1010 | q=4'b0001 | q=4'b1010 | q=4'b0001 |\n| 12 | 1'b0 | q=4'b0001 | q=4'b0010 | q=4'b0001 | q=4'b0010 |\n| 13 | 1'b0 | q=4'b0010 | q=4'b0011 | q=4'b0010 | q=4'b0011 |\n| 14 | 1'b0 | q=4'b0011 | q=4'b0100 | q=4'b0011 | q=4'b0100 |\n| 15 | 1'b0 | q=4'b0100 | q=4'b0101 | q=4'b0100 | q=4'b0101 |\n| 16 | 1'b0 | q=4'b0101 | q=4'b0110 | q=4'b0101 | q=4'b0110 |\n| 17 | 1'b0 | q=4'b0110 | q=4'b0111 | q=4'b0110 | q=4'b0111 |\n| 18 | 1'b0 | q=4'b0111 | q=4'b1000 | q=4'b0111 | q=4'b1000 |\n| 19 | 1'b0 | q=4'b1000 | q=4'b1001 | q=4'b1000 | q=4'b1001 |\n| 20 | 1'b0 | q=4'b1001 | q=4'b1010 | q=4'b1001 | q=4'b1010 |\n| 21 | 1'b0 | q=4'b1010 | q=4'b0001 | q=4'b1010 | q=4'b0001 |\n| 22 | 1'b0 | q=4'b0001 | q=4'b0010 | q=4'b0001 | q=4'b0010 |\n| 23 | 1'b0 | q=4'b0010 | q=4'b0011 | q=4'b0010 | q=4'b0011 |\n| 24 | 1'b0 | q=4'b0011 | q=4'b0100 | q=4'b0011 | q=4'b0100 |\n| 25 | 1'b0 | q=4'b0100 | q=4'b0101 | q=4'b0100 | q=4'b0101 |\n| 26 | 1'b0 | q=4'b0101 | q=4'b0110 | q=4'b0101 | q=4'b0110 |\n| 27 | 1'b0 | q=4'b0110 | q=4'b0111 | q=4'b0110 | q=4'b0111 |\n| 28 | 1'b0 | q=4'b0111 | q=4'b1000 | q=4'b0111 | q=4'b1000 |\n| 29 | 1'b0 | q=4'b1000 | q=4'b1001 | q=4'b1000 | q=4'b1001 |\n| 30 | 1'b0 | q=4'b1001 | q=4'b1010 | q=4'b1001 | q=4'b1010 |\n| 31 | 1'b0 | q=4'b1010 | q=4'b0001 | q=4'b1010 | q=4'b0001 |\n| 32 | 1'b0 | q=4'b0001 | q=4'b0010 | q=4'b0001 | q=4'b0010 |\n| 33 | 1'b0 | q=4'b0010 | q=4'b0011 | q=4'b0010 | q=4'b0011 |\n| 34 | 1'b0 | q=4'b0011 | q=4'b0100 | q=4'b0011 | q=4'b0100 |\n| 35 | 1'b0 | q=4'b0100 | q=4'b0101 | q=4'b0100 | q=4'b0101 |\n| 36 | 1'b0 | q=4'b0101 | q=4'b0110 | q=4'b0101 | q=4'b0110 |\n| 37 | 1'b1 | q=4'b0110 | q=4'b0001 | q=4'b0001 | q=4'b0001 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 4,
+   "len": 3,
+   "toggles": 2,
+   "stim": [
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "options": [
+    "0010",
+    "0001"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "0010",
+   "x_involved": false,
+   "hist": [
+    "xxxx",
+    "0001",
+    "0001",
+    "0010"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - output q (4 bits)\n\nThe module should implement a decade counter that counts 1 through 10,\ninclusive. Assume all sequential logic is triggered on the positive edge\nof the clock. The reset input is active high synchronous, and should\nreset the counter to 1.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | reset | pre | post |\n|---|---|---|---|\n| 0 | 1'b1 | q=4'bxxxx | q=4'b0001 |\n| 1 | 1'b0 | q=4'b0001 | q=4'b0010 |\n| 2 | 1'b1 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=4'b0010\n- **B**: q=4'b0001\n"
+  }
+ ]
+}

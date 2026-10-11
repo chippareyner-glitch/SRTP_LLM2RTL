@@ -1,0 +1,501 @@
+[
+ {
+  "case": "accu",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "B": "pass",
+   "A": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "adder_bcd",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "ANY",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": "A and B are specified as BCD digits 0-9; inputs 15 and 11 are invalid BCD, so output is unconstrained."
+ },
+ {
+  "case": "alu",
+  "qi": 22,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "B": "mixed",
+   "A": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "alu",
+  "qi": 12,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "A": "mixed",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "comparator_3bit",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "div_16bit",
+  "qi": 6,
+  "kind": "mixed",
+  "answer": "C",
+  "status": {
+   "C": "mixed",
+   "A": "pass",
+   "D": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.9,
+  "spec_gap": ""
+ },
+ {
+  "case": "div_16bit",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "div_16bit",
+  "qi": 3,
+  "kind": "mixed",
+  "answer": "API_ERROR",
+  "status": {
+   "A": "mixed",
+   "C": "pass",
+   "D": "pass",
+   "B": "pass"
+  },
+  "confidence": null,
+  "spec_gap": null
+ },
+ {
+  "case": "fixed_point_adder",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "B": "pass",
+   "C": "fail"
+  },
+  "confidence": 0.9,
+  "spec_gap": "Spec describes sign-magnitude absolute-value arithmetic rather than standard two's complement addition."
+ },
+ {
+  "case": "fixed_point_adder",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "B": "fail",
+   "A": "pass",
+   "C": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "fixed_point_substractor",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "B",
+  "status": {
+   "B": "pass",
+   "A": "pass"
+  },
+  "confidence": 0.8,
+  "spec_gap": "The spec is incomplete for same-sign subtraction when |a| < |b|; it only explicitly states the sign is the same as inputs."
+ },
+ {
+  "case": "freq_div",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "other": "pass",
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": "RST polarity is not explicitly stated, but the scenario shows RST=1 is inactive, implying active-low reset."
+ },
+ {
+  "case": "freq_div",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "freq_div",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "freq_divbyfrac",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "B",
+  "status": {
+   "B": "pass",
+   "A": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "freq_divbyodd",
+  "qi": 2,
+  "kind": "all-fail",
+  "answer": "API_ERROR",
+  "status": {
+   "other": "fail",
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": null,
+  "spec_gap": null
+ },
+ {
+  "case": "freq_divbyodd",
+  "qi": 1,
+  "kind": "all-fail",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "freq_divbyodd",
+  "qi": 0,
+  "kind": "all-fail",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.98,
+  "spec_gap": ""
+ },
+ {
+  "case": "fsm",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "B": "pass"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "JC_counter",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.98,
+  "spec_gap": ""
+ },
+ {
+  "case": "LIFObuffer",
+  "qi": 1,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "mixed",
+   "B": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "LIFObuffer",
+  "qi": 5,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "mixed"
+  },
+  "confidence": 0.9,
+  "spec_gap": "Reset does not explicitly specify dataOut, so it is assumed to retain its previous value."
+ },
+ {
+  "case": "LIFObuffer",
+  "qi": 3,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "mixed"
+  },
+  "confidence": 0.95,
+  "spec_gap": "The spec does not explicitly say whether dataOut is reset; it only clears stack memory and SP, so dataOut retains its prior value."
+ },
+ {
+  "case": "multi_16bit",
+  "qi": 2,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "B": "pass",
+   "A": "pass"
+  },
+  "confidence": 0.9,
+  "spec_gap": ""
+ },
+ {
+  "case": "multi_16bit",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "B",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "multi_booth_8bit",
+  "qi": 2,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.98,
+  "spec_gap": ""
+ },
+ {
+  "case": "multi_booth_8bit",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "B",
+  "status": {
+   "B": "pass",
+   "A": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "multi_pipe_8bit",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "parallel2serial",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "mixed",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "parallel2serial",
+  "qi": 5,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "sequence_detector",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "UNCLEAR",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.8,
+  "spec_gap": "Spec does not specify whether overlapping occurrences of 1001 should be detected (i.e., transition from S4 on subsequent bits)."
+ },
+ {
+  "case": "signal_generator",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "square_wave",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "pass"
+  },
+  "confidence": 0.9,
+  "spec_gap": "freq=0 causes an underflow to 255; initial count is not explicitly stated, but assuming count starts at 0 yields no toggle."
+ },
+ {
+  "case": "traffic_light",
+  "qi": 14,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "C": "mixed",
+   "B": "mixed",
+   "A": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "traffic_light",
+  "qi": 19,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "other": "mixed",
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "traffic_light",
+  "qi": 10,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "other": "mixed",
+   "A": "pass",
+   "B": "mixed"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "up_down_counter",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "width_8to16",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.97,
+  "spec_gap": ""
+ },
+ {
+  "case": "width_8to16",
+  "qi": 0,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "instr_reg",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "pass",
+   "other": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ }
+]

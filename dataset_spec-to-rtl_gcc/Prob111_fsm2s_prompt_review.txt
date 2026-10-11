@@ -1,0 +1,115 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  j
+ - input  k
+ - output out
+
+The module should implement a Moore state machine with two states, two
+inputs, and one output according to diagram described below. Reset is an
+active-high synchronous reset to state OFF.
+
+  OFF (out=0) --j=0--> OFF
+  OFF (out=0) --j=1--> ON
+  ON  (out=1) --k=0--> ON
+  ON  (out=1) --k=1--> OFF
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Analysis of TopModule Specification
+
+### 1. Specification Summary
+- **Module**: TopModule implementing a 2-state Moore FSM
+- **Interface**: 
+  - Inputs: clk, reset (active-high), j, k (1-bit each)
+  - Output: out (1-bit)
+- **FSM Behavior**:
+  - State OFF (out=0): j=0 → OFF, j=1 → ON
+  - State ON (out=1): k=0 → ON, k=1 → OFF
+- **Reset**: Synchronous active-high reset to OFF state
+
+### 2. Ambiguity Analysis
+- **Input Priority**: Unclear what happens when both j and k are asserted simultaneously
+- **State Encoding**: No specification for state representation (binary, one-hot, etc.)
+- **Input Behavior**: Undefined behavior when j/k change during clock cycle
+- **Output Timing**: Unclear if output should be registered or combinational
+
+### 3. Missing Critical Details
+- **Clock Domain**: No clock frequency or timing constraints specified
+- **Input Setup/Hold Times**: Missing timing requirements for j/k inputs
+- **Output Timing**: No specification of output delay relative to clock
+- **Power-Up State**: Behavior on initial power-up undefined
+- **State Encoding Preference**: No guidance on optimal state encoding for synthesis
+- **Testability Features**: No scan chain or observability requirements mentioned
+
+### 4. Edge Cases & Boundary Conditions
+- **Simultaneous Inputs**: j=1 and k=1 concurrently (both states)
+- **Input Glitches**: Rapid j/k transitions near clock edges
+- **Reset During Operation**: Reset assertion while FSM is active
+- **Input Stability**: j/k changing multiple times between clock edges
+- **Power-On Reset**: Behavior without explicit reset signal
+
+### 5. Functional Correctness Prediction
+- **High Risk Areas**:
+  - Simultaneous j/k assertion will cause undefined behavior
+  - Potential metastability if inputs violate setup/hold times
+  - Output glitches possible with unregistered outputs
+- **Verification Challenges**:
+  - Difficult to test all input combinations without clear priority rules
+  - Timing violations hard to detect without constraints
+
+### 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+```systemverilog
+// State encoding recommendation
+typedef enum logic {OFF = 1'b0, ON = 1'b1} state_t;
+
+// Input priority resolution (j has priority when both asserted)
+always_comb begin
+    case(current_state)
+        OFF: next_state = j ? ON : OFF;
+        ON:  next_state = k ? OFF : ON;
+        default: next_state = OFF;
+    endcase
+end
+
+// Registered outputs for clean timing
+assign out = (current_state == ON);
+```
+
+**Critical Design Decisions:**
+1. **Input Priority**: Implement j-input priority in OFF state, k-input priority in ON state
+2. **Output Registration**: Register output to prevent glitches
+3. **Reset Strategy**: Synchronous reset with default OFF state
+4. **State Encoding**: Use binary encoding for minimal area
+
+**Verification Requirements:**
+- Test all j/k combinations in both states
+- Verify synchronous reset functionality
+- Check output stability during state transitions
+- Validate timing constraints with back-annotated simulations
+
+**Synthesis Constraints:**
+```tcl
+# Example timing constraints
+create_clock -name clk -period 10 [get_ports clk]
+set_input_delay -clock clk 2 [get_ports j]
+set_input_delay -clock clk 2 [get_ports k]
+set_output_delay -clock clk 3 [get_ports out]
+```
+
+This analysis provides a foundation for robust RTL implementation that addresses the specification's ambiguities while maintaining synthesis-friendly design practices.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

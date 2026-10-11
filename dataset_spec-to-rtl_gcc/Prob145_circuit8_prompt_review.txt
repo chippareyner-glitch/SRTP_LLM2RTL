@@ -1,0 +1,158 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clock
+ - input  a
+ - output p
+ - output q
+
+The module should implement a sequential circuit. Read the simulation
+waveforms to determine what the circuit does, then implement it.
+
+  time   clock   a   p   q
+  0ns    0       0   x   x
+  5ns    0       0   x   x
+  10ns   0       0   x   x
+  15ns   0       0   x   x
+  20ns   0       0   x   x
+  25ns   1       0   0   x
+  30ns   1       0   0   x
+  35ns   1       0   0   x
+  40ns   1       0   0   x
+  45ns   1       0   0   x
+  50ns   1       0   0   x
+  55ns   0       0   0   0
+  60ns   0       0   0   0
+  65ns   0       0   0   0
+  70ns   0       1   0   0
+  75ns   0       0   0   0
+  80ns   0       1   0   0
+  85ns   1       0   0   0
+  90ns   1       1   1   0
+  95ns   1       0   0   0
+  100ns  1       1   1   0
+  105ns  1       0   0   0
+  110ns  1       1   1   0
+  115ns  0       0   1   1
+  120ns  0       1   1   1
+  125ns  0       0   1   1
+  130ns  0       1   1   1
+  135ns  0       0   1   1
+  140ns  0       0   1   1
+  145ns  1       0   0   1
+  150ns  1       0   0   1
+  155ns  1       0   0   1
+  160ns  1       0   0   1
+  165ns  1       1   1   1
+  170ns  1       0   0   1
+  175ns  0       1   0   0
+  180ns  0       0   0   0
+  185ns  0       1   0   0
+  190ns  0       0   0   0
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The `TopModule` is a sequential circuit with a 1-bit clock, input `a`, and outputs `p` and `q`. Based on the waveform analysis:
+
+- **Output p**: Appears to be a registered version of input `a`, but only updated on rising clock edges when certain conditions are met
+- **Output q**: Functions as a "capture" signal that latches the value of `p` on specific falling clock edges
+- **Key behavior**: 
+  - `p` follows `a` but only on rising clock edges (with some enable condition)
+  - `q` captures `p`'s value on falling clock edges, but only after `p` has been active
+  - The circuit shows stateful behavior with specific timing relationships
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+
+1. **Initial State**: The spec shows 'x' values initially, but doesn't specify reset behavior or power-on state
+2. **Enable Conditions**: The exact conditions for when `p` updates to match `a` are unclear from the limited waveform
+3. **q Behavior**: The rules for when `q` captures `p`'s value need precise definition
+4. **Timing Assumptions**: The relationship between clock edges and output updates requires clarification
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+
+1. **Reset Mechanism**: No reset input specified, making initial state undefined
+2. **Clock Domain Assumptions**: No specification of setup/hold times or clock frequency constraints
+3. **Output Timing**: Propagation delays from clock edges to output changes not specified
+4. **State Machine Definition**: The underlying state transitions are implied but not explicitly defined
+5. **Testbench Requirements**: No mention of verification methodology or test vectors
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle:**
+
+1. **Clock Glitches**: Behavior during unexpected clock pulses
+2. **Input Changes During Active Clock**: How `a` changes during clock high affect outputs
+3. **Consecutive Identical Patterns**: Response to repeated input sequences
+4. **Maximum Frequency**: Clock rate limitations
+5. **Metastability**: Handling of asynchronous input changes relative to clock
+
+## 5. Functional Correctness Prediction
+
+**Based on Waveform Analysis:**
+
+The circuit appears to implement a **two-stage sequential detector**:
+- **p** = `a` sampled on rising clock edges, but only when some enable condition is true
+- **q** = delayed version of `p`, captured on falling clock edges after `p` has been active
+
+**Predicted State Machine:**
+- State 0: Waiting for pattern (p=0, q=0)
+- State 1: Pattern detected (p=1, q=0)  
+- State 2: Pattern confirmed (p=1, q=1)
+- State 3: Reset state (p=0, q=1→0)
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+
+```systemverilog
+module TopModule (
+    input  clock,
+    input  a,
+    output reg p,
+    output reg q
+);
+
+// Add synchronous reset for deterministic initialization
+// Implement state machine with clear state definitions
+// Use rising edge for p updates, falling edge for q updates
+// Include comprehensive comments for each state transition
+
+// Recommended structure:
+// 1. Define states with meaningful names
+// 2. Implement state transition logic
+// 3. Separate output generation from state logic
+// 4. Include simulation assertions for verification
+```
+
+**Critical Implementation Notes:**
+
+1. **Add Reset**: Include a reset input for predictable initialization
+2. **State Encoding**: Use one-hot or binary encoding with clear documentation
+3. **Timing Constraints**: Add appropriate timing constraints for synthesis
+4. **Verification**: Create testbench that covers all waveform scenarios plus edge cases
+5. **Documentation**: Clearly document the state machine and timing relationships
+
+**Verification Requirements:**
+- Test all state transitions from the waveform
+- Include power-on reset scenarios
+- Verify behavior with minimum clock periods
+- Test recovery from illegal states
+
+This analysis provides a foundation for robust RTL implementation that meets the waveform requirements while ensuring synthesis-friendly and verifiable design.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

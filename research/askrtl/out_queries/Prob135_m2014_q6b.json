@@ -1,0 +1,115 @@
+{
+ "case": "Prob135_m2014_q6b",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "y",
+    3
+   ],
+   [
+    "w",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "Y1",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c5"
+   ],
+   "votes": 5,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3",
+    "c4",
+    "c7"
+   ],
+   "votes": 3,
+   "correct": [
+    false,
+    false,
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 2,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "1"
+     ],
+     [
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  y (3 bits)\n - input  w\n - output Y1\n\nThe module should implement the state machine shown below:\n\n  A (0) --0--> B\n  A (0) --1--> A\n  B (0) --0--> C\n  B (0) --1--> D\n  C (0) --0--> E\n  C (0) --1--> D\n  D (0) --0--> F\n  D (0) --1--> A\n  E (1) --0--> E\n  E (1) --1--> D\n  F (1) --0--> C\n  F (1) --1--> D\n\nThe FSM should be implemented using three flip-flops and state codes\ny = 000, 001, ..., 101 for states A, B, ..., F, respectively. Implement\njust the next-state logic for y[1]. The output Y1 is y[1].\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | y | w | A out | B out |\n|---|---|---|---|---|\n| 0 | 3'b000 | 1'b0 | Y1=1'b0 | Y1=1'b0 |\n| 1 | 3'b001 | 1'b0 | Y1=1'b1 | Y1=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "B"
+   },
+   "label": "A",
+   "ref_value": "1",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  y (3 bits)\n - input  w\n - output Y1\n\nThe module should implement the state machine shown below:\n\n  A (0) --0--> B\n  A (0) --1--> A\n  B (0) --0--> C\n  B (0) --1--> D\n  C (0) --0--> E\n  C (0) --1--> D\n  D (0) --0--> F\n  D (0) --1--> A\n  E (1) --0--> E\n  E (1) --1--> D\n  F (1) --0--> C\n  F (1) --1--> D\n\nThe FSM should be implemented using three flip-flops and state codes\ny = 000, 001, ..., 101 for states A, B, ..., F, respectively. Implement\njust the next-state logic for y[1]. The output Y1 is y[1].\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | y | w | out |\n|---|---|---|---|\n| 0 | 3'b001 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: Y1=1'b1\n- **B**: Y1=1'b0\n"
+  }
+ ]
+}

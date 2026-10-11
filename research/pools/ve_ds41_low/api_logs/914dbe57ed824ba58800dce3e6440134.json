@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-11T04:35:37.442555+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob152_lemmings3",
+  "returned_model": "deepseek-flash",
+  "id": "4361f5ca-8b10-40cf-98ee-00e7b2d972bd",
+  "usage": {
+    "prompt_tokens": 691,
+    "completion_tokens": 2411,
+    "total_tokens": 3102,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1863
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 563
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "low",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 9.27439620000223
+}

@@ -1,0 +1,204 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  bump_left
+ - input  bump_right
+ - input  ground
+ - input  dig
+ - output walk_left
+ - output walk_right
+ - output aaah
+ - output digging
+
+The game Lemmings involves critters with fairly simple brains. So simple
+that we are going to model it using a finite state machine. In the
+Lemmings' 2D world, Lemmings can be in one of two states: walking left
+(walk_left is 1) or walking right (walk_right is 1). It will switch
+directions if it hits an obstacle. In particular, if a Lemming is bumped
+on the left (by receiving a 1 on bump_left), it will walk right. If it's
+bumped on the right (by receiving a 1 on bump_right), it will walk left.
+If it's bumped on both sides at the same time, it will still switch
+directions.
+
+In addition to walking left and right and changing direction when bumped,
+when ground=0, the Lemming will fall and say "aaah!". When the ground
+reappears (ground=1), the Lemming will resume walking in the same
+direction as before the fall. Being bumped while falling does not affect
+the walking direction, and being bumped in the same cycle as ground
+disappears (but not yet falling), or when the ground reappears while
+still falling, also does not affect the walking direction.
+
+In addition to walking and falling, Lemmings can sometimes be told to do
+useful things, like dig (it starts digging when dig=1). A Lemming can dig
+if it is currently walking on ground (ground=1 and not falling), and will
+continue digging until it reaches the other side (ground=0). At that
+point, since there is no ground, it will fall (aaah!), then continue
+walking in its original direction once it hits ground again. As with
+falling, being bumped while digging has no effect, and being told to dig
+when falling or when there is no ground is ignored. (In other words, a
+walking Lemming can fall, dig, or switch directions. If more than one of
+these conditions are satisfied, fall has higher precedence than dig,
+which has higher precedence than switching directions.)
+
+Implement a Moore state machine that models this behaviour. areset is
+positive edge triggered asynchronous reseting the Lemming machine to walk
+left. Assume all sequential logic is triggered on the positive edge of
+the clock.
+
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a finite state machine for Lemming behavior with the following key states and transitions:
+
+**States**: Walking Left, Walking Right, Falling, Digging
+**Input Conditions**: 
+- `bump_left/right`: Direction change triggers
+- `ground`: Falling condition (0 = fall, 1 = ground present)
+- `dig`: Digging command (only valid when walking on ground)
+
+**Priority Order**: Fall > Dig > Bump
+**Reset**: Asynchronous reset to "Walking Left" state
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities Found:**
+
+1. **Digging Exit Condition**: "continues digging until it reaches the other side (ground=0)" - Does this mean:
+   - Digging stops immediately when ground=0 (mid-cycle)?
+   - Or does the Lemming transition to falling on the next clock cycle?
+
+2. **Simultaneous Input Handling**: When ground=0 and dig=1 occur simultaneously on a walking Lemming:
+   - Should fall take precedence immediately?
+   - Or is there a one-cycle window where digging could start?
+
+3. **Bump During State Transitions**: "being bumped in the same cycle as ground disappears" - unclear if this refers to:
+   - The cycle where ground transitions 1→0
+   - Or the first cycle of falling state
+
+## 3. Missing Critical Details
+
+**Timing & Sequencing:**
+- No specification for output behavior during state transitions
+- Undefined: What happens if ground=0 persists for multiple cycles during falling?
+- Missing: Behavior when multiple high-priority events occur across consecutive cycles
+
+**Output Definitions:**
+- `aaah` output: Should it be asserted only during falling, or also during digging exit?
+- `digging` output: Should it be combinatorial or registered?
+- Output behavior during reset not specified
+
+**Synthesis Constraints:**
+- No timing requirements (clock frequency, setup/hold times)
+- No power-up state specification beyond reset
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle:**
+
+1. **Reset Scenarios**:
+   - Reset asserted during falling/digging states
+   - Reset deassertion timing relative to clock edge
+
+2. **Input Glitches**:
+   - ground=0 for only one cycle while falling
+   - bump signals asserted during invalid states
+
+3. **Priority Conflict Resolution**:
+   - ground=0 and bump=1 simultaneously on walking state
+   - dig=1 and bump=1 simultaneously on walking state
+   - All three (ground=0, dig=1, bump=1) simultaneously
+
+4. **State Transition Boundaries**:
+   - ground reappears (0→1) during falling while bump is active
+   - dig command at the exact cycle ground disappears
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+
+1. **Priority Logic Implementation**: The fall > dig > bump priority chain must be strictly enforced. Incorrect implementation could cause:
+   - Digging to override falling
+   - Bump direction changes during invalid states
+
+2. **State Machine Complexity**: 4 states with complex transitions may lead to:
+   - Unreachable states
+   - Deadlock conditions if transition conditions overlap incorrectly
+
+3. **Output Timing**: Moore machine outputs depend only on current state, which may cause:
+   - Output glitches during state transitions
+   - Incorrect output assertions if outputs are not properly registered
+
+## 6. Actionable Guidance for RTL Generation
+
+**State Machine Architecture:**
+```systemverilog
+typedef enum logic [1:0] {
+    WALK_LEFT  = 2'b00,
+    WALK_RIGHT = 2'b01, 
+    FALLING    = 2'b10,
+    DIGGING    = 2'b11
+} state_t;
+```
+
+**Critical Implementation Rules:**
+
+1. **State Transition Priority** (must be strictly ordered):
+   ```
+   if (ground == 0) → FALLING
+   else if (dig == 1 && current_state in {WALK_LEFT, WALK_RIGHT}) → DIGGING  
+   else if (bump conditions met) → switch walking direction
+   else maintain current state
+   ```
+
+2. **Output Generation**:
+   - `walk_left` = (state == WALK_LEFT)
+   - `walk_right` = (state == WALK_RIGHT) 
+   - `aaah` = (state == FALLING)
+   - `digging` = (state == DIGGING)
+
+3. **Reset Strategy**:
+   - Asynchronous reset to WALK_LEFT state
+   - All outputs should reflect reset state immediately
+
+4. **Input Sampling**:
+   - Sample all inputs at positive clock edge
+   - Use registered inputs for state transition logic to avoid glitches
+
+**Verification Test Plan:**
+- Test all priority combinations systematically
+- Verify state transitions across multiple clock cycles
+- Check output stability during state changes
+- Validate reset functionality from all states
+
+**Recommended Module Interface:**
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic areset,
+    input  logic bump_left,
+    input  logic bump_right, 
+    input  logic ground,
+    input  logic dig,
+    output logic walk_left,
+    output logic walk_right,
+    output logic aaah,
+    output logic digging
+);
+```
+
+This analysis ensures the RTL implementation will be robust, synthesizable, and verifiable against the intended Lemming behavior.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

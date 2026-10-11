@@ -1,0 +1,155 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  ring
+ - input  vibrate_mode
+ - output ringer
+ - output motor
+
+The module should implement a circuit to control a cellphone's ringer and
+vibration motor. Whenever the phone needs to ring from an incoming call
+(input ring), your circuit must either turn on the ringer (output ringer
+= 1) or the motor (output motor = 1), but not both. If the phone is in
+vibrate mode (input vibrate_mode = 1), turn on the motor. Otherwise, turn
+on the ringer.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+Here's my comprehensive analysis of the TopModule specification:
+
+## 1. Specification Summary
+
+The module implements a cellphone alert controller with:
+- **Inputs**: `ring` (incoming call), `vibrate_mode` (operating mode)
+- **Outputs**: `ringer` (audio alert), `motor` (vibration alert)
+- **Function**: When `ring=1`, activate either ringer or motor based on `vibrate_mode`, ensuring mutual exclusion
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities Identified:**
+
+1. **Timing Behavior**: Unspecified when outputs should change relative to input changes
+   - Should outputs change immediately on ring signal?
+   - Is there any debouncing or synchronization needed?
+
+2. **Output Behavior When ring=0**: Specification only defines behavior when `ring=1`
+   - Should outputs be 0 when no incoming call?
+   - Should previous state be maintained or explicitly cleared?
+
+3. **Input Signal Characteristics**: No specification for:
+   - Clock domain or asynchronous/synchronous operation
+   - Signal stability requirements
+   - Setup/hold times if synchronous
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+
+1. **Clock and Reset**: No clock or reset signals specified
+   - Is this combinatorial or sequential logic?
+   - How should the module initialize?
+
+2. **Timing Constraints**: Missing:
+   - Output propagation delay requirements
+   - Input-to-output timing relationships
+
+3. **Power-Up State**: Unspecified initial state after reset/power-on
+
+4. **Signal Validation**: No handling for:
+   - Illegal input combinations
+   - Metastability prevention
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Address:**
+
+1. **Simultaneous Input Changes**: `ring` and `vibrate_mode` changing simultaneously
+2. **Glitch Handling**: Short pulses on `ring` input
+3. **Mode Switching During Ring**: `vibrate_mode` changes while `ring=1`
+4. **Invalid States**: Both outputs accidentally enabled (safety critical)
+5. **Meta-stability**: Asynchronous input synchronization needs
+
+## 5. Functional Correctness Prediction
+
+**Potential Failure Scenarios:**
+
+1. **Race Conditions**: Without proper synchronization, simultaneous input changes could cause:
+   - Both outputs enabled briefly (violating mutual exclusion)
+   - Output glitches
+
+2. **Timing Violations**: As currently specified, likely to have:
+   - Unpredictable output behavior during input transitions
+   - Potential for metastability in sequential implementations
+
+3. **Testability Issues**: Difficult to verify without:
+   - Clear reset behavior specification
+   - Defined timing relationships
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+
+```verilog
+// Recommended interface with critical additions
+module TopModule (
+    input  wire clk,          // ADD: Clock for synchronization
+    input  wire rst_n,        // ADD: Active-low reset
+    input  wire ring,         // Synchronize this input
+    input  wire vibrate_mode, // Synchronize this input
+    output reg  ringer,
+    output reg  motor
+);
+
+// 1. Input synchronization for metastability prevention
+reg ring_sync, vibrate_mode_sync;
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        ring_sync <= 1'b0;
+        vibrate_mode_sync <= 1'b0;
+    end else begin
+        ring_sync <= ring;
+        vibrate_mode_sync <= vibrate_mode;
+    end
+end
+
+// 2. Clear implementation with mutual exclusion guarantee
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        ringer <= 1'b0;
+        motor <= 1'b0;
+    end else begin
+        if (ring_sync) begin
+            ringer <= ~vibrate_mode_sync;  // Mutual exclusion enforced
+            motor <= vibrate_mode_sync;
+        end else begin
+            ringer <= 1'b0;  // Clear when not ringing
+            motor <= 1'b0;
+        end
+    end
+end
+```
+
+**Additional Requirements:**
+- Add assertion to verify mutual exclusion: `assert (!(ringer && motor))`
+- Specify clock frequency requirements in documentation
+- Define reset behavior: outputs disabled during reset
+- Include timing constraints for synthesis
+
+**Verification Strategy:**
+- Test all input combinations with various timing relationships
+- Verify mutual exclusion under all conditions
+- Check reset initialization behavior
+- Validate mode switching during active ring state
+
+This implementation ensures robust, glitch-free operation while maintaining the required mutual exclusion property.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,11 @@
+{
+ "case": "fsm",
+ "category": "Control",
+ "top": "fsm",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "fsm"
+ ]
+}

@@ -1,0 +1,147 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  mode
+ - input  too_cold
+ - input  too_hot
+ - input  fan_on
+ - output heater
+ - output aircon
+ - output fan
+
+The module should implement a heating/cooling thermostat controller which
+controls both a heater (during winter) and an air conditioner (during
+summer). The module should on and off the heater, air conditioning, and
+blower fan as appropriate. The thermostat can be in one of two modes:
+heating (mode = 1) and cooling (mode = 0). In heating mode, turn the
+heater on when it is too cold (too_cold = 1) but do not use the air
+conditioner. In cooling mode, turn the air conditioner on when it is too
+hot (too_hot = 1), but do not turn on the heater. When the heater or air
+conditioner are on, also turn on the fan to circulate the air. In
+addition, the user can also request the fan to turn on (fan_on = 1), even
+if the heater and air conditioner are off.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+Here's my comprehensive analysis of the thermostat controller specification:
+
+## 1. Specification Summary
+
+The `TopModule` implements a dual-mode thermostat controller with:
+- **Mode selection**: Heating (mode=1) vs Cooling (mode=0)
+- **Temperature sensing**: too_cold and too_hot inputs
+- **Actuator control**: heater, aircon, and fan outputs
+- **Manual fan override**: Independent fan control via fan_on input
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Simultaneous temperature conditions**: What happens if both `too_cold=1` and `too_hot=1` occur simultaneously?
+- **Mode transition behavior**: Should outputs be immediately updated when mode changes, or is there a settling period?
+- **Input synchronization**: Are inputs synchronized to a clock (implied but not specified)?
+- **Output precedence**: When both temperature control and manual fan request are active, is there priority?
+
+**Moderate Ambiguities:**
+- **Output default states**: What should outputs be when no conditions are met?
+- **Input glitch handling**: How should brief input transitions be handled?
+
+## 3. Missing Critical Details
+
+**Essential Missing Information:**
+- **Clock and reset**: No clock signal specified (required for synchronous design)
+- **Reset behavior**: Power-on state and reset sequence undefined
+- **Timing constraints**: Input setup/hold times and output propagation delays
+- **Clock domain**: Single clock domain assumed but not specified
+
+**Functional Gaps:**
+- **Invalid mode handling**: Behavior for mode values other than 0/1 undefined
+- **Input validation**: No specification for handling metastable inputs
+- **Power sequencing**: Startup behavior undefined
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+1. **Mode = X/Z**: Undefined mode values
+2. **too_cold=1 & too_hot=1**: Contradictory temperature conditions
+3. **Mode switching during active control**: Transition from heating to cooling while outputs are active
+4. **Simultaneous fan requests**: Manual fan_on while temperature control also requires fan
+5. **Rapid input toggling**: Potential for output oscillation
+
+**Boundary Conditions:**
+- All inputs low (idle state)
+- All inputs high (conflict resolution needed)
+- Mode changes with active temperature conditions
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+- **Race conditions**: Mode changes during temperature sensing could cause simultaneous heater/aircon activation
+- **Output conflicts**: Potential for both heater and aircon to be active simultaneously if not properly guarded
+- **Fan control logic**: Multiple fan activation sources need clear prioritization
+
+**Expected Failure Modes:**
+- Simultaneous heater/aircon activation (thermal short circuit)
+- Fan oscillation during boundary conditions
+- Metastability issues from unsynchronized inputs
+
+## 6. Actionable Guidance for RTL Generation
+
+**Architecture Recommendations:**
+```systemverilog
+module TopModule (
+    input  logic clk,          // ADD: Clock signal
+    input  logic rst_n,        // ADD: Active-low reset
+    input  logic mode,
+    input  logic too_cold,
+    input  logic too_hot,
+    input  logic fan_on,
+    output logic heater,
+    output logic aircon,
+    output logic fan
+);
+```
+
+**Key Implementation Rules:**
+1. **Mode Guarding**: Ensure heater/aircon are mutually exclusive
+2. **Fan Prioritization**: Fan = (heater | aircon | fan_on)
+3. **Conflict Resolution**: Prioritize mode over temperature conflicts
+4. **Reset Strategy**: All outputs low during reset
+
+**Specific Logic Implementation:**
+```systemverilog
+// Temperature control with mode protection
+assign heater = mode && too_cold && !too_hot;  // Heating mode only
+assign aircon = !mode && too_hot && !too_cold; // Cooling mode only
+
+// Fan control with multiple sources
+assign fan = heater || aircon || fan_on;
+
+// Add input synchronization registers
+// Add output registers for timing closure
+```
+
+**Verification Requirements:**
+- Test all mode/temperature combinations
+- Verify mode transition sequences
+- Check reset and power-on behavior
+- Validate conflict resolution logic
+- Test boundary cases (both temp sensors active)
+
+**Synthesis Considerations:**
+- Register all outputs for timing stability
+- Add input synchronizers for external signals
+- Implement clock gating if low-power required
+- Consider adding output enable for fault tolerance
+
+This analysis ensures the RTL implementation will be robust, testable, and synthesis-friendly while handling all real-world operational scenarios.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "bit ordering / endianness of q and d relative to 0x34",
+   "severity": "high",
+   "readings": [
+    "q[7:0] with q[7] as MSB, so reset value 0x34 maps to q[7]=0, q[6]=0, q[5]=1, q[4]=1, q[3]=0, q[2]=1, q[1]=0, q[0]=0; d bits map straight across.",
+    "q[0:7] with q[0] as MSB (or reversed mapping), so the bit pattern of 0x34 is placed with q[0]=0, q[1]=0, q[2]=1, q[3]=1, q[4]=0, q[5]=1, q[6]=0, q[7]=0; d/q bit correspondence also reversed."
+   ]
+  },
+  {
+   "aspect": "initial / power-up value before first reset",
+   "severity": "low",
+   "readings": [
+    "q is undefined (X in simulation, arbitrary in hardware) until the first negative clock edge with reset asserted; no initial value is specified.",
+    "q is initialized to 0x34 at power-up (e.g., via initial block or FPGA init), so it outputs 0x34 even before reset is asserted."
+   ]
+  }
+ ]
+}

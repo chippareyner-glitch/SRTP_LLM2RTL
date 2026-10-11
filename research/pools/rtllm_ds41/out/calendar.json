@@ -1,0 +1,58 @@
+{
+ "case": "calendar",
+ "n_samples": 5,
+ "n_distinct": 3,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "532103eb2e21",
+   "sources": [
+    "rtllm_ds41:s0",
+    "rtllm_ds41:s3"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\calendar\\s0.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "4043b5c309e4",
+   "sources": [
+    "rtllm_ds41:s1",
+    "rtllm_ds41:s2"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\calendar\\s1.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "3f6a5b65ec13",
+   "sources": [
+    "rtllm_ds41:s4"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\calendar\\s4.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": []
+}

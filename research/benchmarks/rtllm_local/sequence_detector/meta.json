@@ -1,0 +1,11 @@
+{
+ "case": "sequence_detector",
+ "category": "Control",
+ "top": "sequence_detector",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "sequence_detector"
+ ]
+}

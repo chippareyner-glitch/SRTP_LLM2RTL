@@ -1,0 +1,133 @@
+{
+ "case": "Prob082_lfsr32",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    32
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3",
+   "c5",
+   "c7",
+   "c8"
+  ],
+  [
+   "c4"
+  ],
+  [
+   "c6"
+  ]
+ ],
+ "ci_pairs": 14,
+ "ci_found": 14,
+ "ci_missed": [],
+ "off_pairs": 15,
+ "off_found": 15,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 3,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 4,
+   "min_len": 3,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c6"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c4",
+    "c6"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  }
+ ],
+ "status": "ok",
+ "n_live": 9
+}

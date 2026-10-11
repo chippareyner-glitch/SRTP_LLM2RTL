@@ -1,0 +1,120 @@
+{
+ "case": "square_wave",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "freq",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "wave_out",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c4",
+   "c5",
+   "c6"
+  ],
+  [
+   "c3"
+  ],
+  [
+   "c7"
+  ]
+ ],
+ "ci_pairs": 7,
+ "ci_found": 7,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 13,
+ "extra_x": 7,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 85,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 170,
+   "orig_len": 86,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c7"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c3",
+    "c7"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 8
+}

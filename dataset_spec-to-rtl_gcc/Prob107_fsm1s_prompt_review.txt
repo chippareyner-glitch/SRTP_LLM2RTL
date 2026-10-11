@@ -1,0 +1,142 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  in
+ - output out
+
+Implement the following Moore state machine with two states, one input,
+and one output. The reset state is B and reset is active-high
+synchronous.
+
+  B (out=1) --in=0--> A
+  B (out=1) --in=1--> B
+  A (out=0) --in=0--> B
+  A (out=0) --in=1--> A
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+**Module**: TopModule  
+**Interface**: 
+- `clk`: Clock input (1-bit)
+- `reset`: Synchronous active-high reset (1-bit)  
+- `in`: Data input (1-bit)
+- `out`: Data output (1-bit)
+
+**State Machine Type**: Moore machine (output depends only on current state)  
+**States**: 2 states (A and B)  
+**Reset Behavior**: Synchronous reset, active-high, reset state = B  
+**Output Values**: State B: out=1, State A: out=0
+
+**State Transitions**:
+- B → A when in=0 (out=1 → out=0)
+- B → B when in=1 (out=1 → out=1)  
+- A → B when in=0 (out=0 → out=1)
+- A → A when in=1 (out=0 → out=0)
+
+## 2. Ambiguity Analysis
+
+**State Encoding Not Specified**: The specification doesn't define how states A and B should be encoded (binary, one-hot, etc.). This is critical for RTL implementation.
+
+**State Variable Names**: While states are labeled A and B, the actual state variable names in RTL are not specified, leaving implementation choice.
+
+**Timing Requirements**: No setup/hold time requirements or clock frequency constraints are mentioned, though this is typical for high-level specifications.
+
+## 3. Missing Critical Details
+
+**State Encoding Method**: Need to specify binary encoding (e.g., A=0, B=1 or vice-versa) or one-hot encoding.
+
+**Power-Up Behavior**: While reset behavior is specified, power-on state without reset is not defined.
+
+**Output Timing**: Exact timing relationship between clock edge and output change should be specified (immediate vs. registered output).
+
+**Synthesis Constraints**: No area, timing, or power constraints provided.
+
+## 4. Edge Cases & Boundary Conditions
+
+**Reset Assertion During Normal Operation**: Need to ensure state machine correctly returns to state B when reset is asserted, regardless of current state or input.
+
+**Input Changes Near Clock Edge**: Potential metastability if `in` changes near clock edge - may require input synchronization if `in` is asynchronous.
+
+**Consecutive Identical Inputs**: Verify behavior for sequences like in=0,0,0,... and in=1,1,1,...
+
+**Reset Deassertion Timing**: Behavior when reset is deasserted on the same clock edge as input changes.
+
+## 5. Functional Correctness Prediction
+
+**State Coverage**: The 2-state machine with 2 inputs provides complete 4-case coverage (2 states × 2 inputs).
+
+**Output Stability**: Moore machine ensures outputs are stable throughout each state, changing only on state transitions.
+
+**Reset Reliability**: Synchronous reset provides predictable timing and avoids metastability issues.
+
+**Potential Issues**: Without input synchronization, asynchronous `in` signals could cause metastability in the state flip-flops.
+
+## 6. Actionable Guidance for RTL Generation
+
+**State Encoding Recommendation**:
+```systemverilog
+typedef enum logic {STATE_A = 1'b0, STATE_B = 1'b1} state_t;
+```
+**Implementation Strategy**:
+- Use enumerated types for state definitions
+- Implement synchronous always_ff block for state transitions
+- Separate combinational logic for next-state and output
+
+**Critical Implementation Details**:
+- Register all outputs for better timing
+- Consider adding input synchronizer if `in` is asynchronous
+- Include power-on reset initialization if required by target technology
+
+**Verification Points**:
+- Verify all 4 state transition cases
+- Test reset functionality from both states
+- Check output values in each state
+- Verify no glitches on output during state transitions
+
+**Example Structure**:
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic reset,
+    input  logic in,
+    output logic out
+);
+    
+    typedef enum logic {STATE_A = 1'b0, STATE_B = 1'b1} state_t;
+    state_t current_state, next_state;
+    
+    // State transition logic
+    always_ff @(posedge clk) begin
+        if (reset) current_state <= STATE_B;
+        else current_state <= next_state;
+    end
+    
+    // Next state logic
+    always_comb begin
+        case (current_state)
+            STATE_A: next_state = in ? STATE_A : STATE_B;
+            STATE_B: next_state = in ? STATE_B : STATE_A;
+            default: next_state = STATE_B;
+        endcase
+    end
+    
+    // Output logic (Moore)
+    assign out = (current_state == STATE_B);
+    
+endmodule
+```
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Non-unique minimum POS form",
+   "severity": "high",
+   "readings": [
+    "out_pos = c * (b' + d) * (a' + d)",
+    "out_pos = c * (a' + b) * (b' + d)"
+   ]
+  },
+  {
+   "aspect": "Output values for never-occurring inputs (3,8,11,12)",
+   "severity": "medium",
+   "readings": [
+    "Treat as don't cares and assign to minimize logic (e.g., out_sop(3)=1, out_pos(11)=0)",
+    "Assign to a fixed value such as 0 since the spec only defines behavior for the other 12 input combinations"
+   ]
+  },
+  {
+   "aspect": "Required equivalence of out_sop and out_pos",
+   "severity": "medium",
+   "readings": [
+    "out_sop and out_pos must be logically identical for all 16 input combinations, so don't-care assignments must be consistent",
+    "out_sop and out_pos only need to match for the 12 defined input combinations; they may differ on never-occurring inputs"
+   ]
+  },
+  {
+   "aspect": "Definition of 'minimum' in minimum SOP/POS",
+   "severity": "low",
+   "readings": [
+    "'Minimum' means minimum number of product/sum terms (e.g., SOP a'b'c + bcd is acceptable)",
+    "'Minimum' means minimum number of literals (e.g., SOP a'b'c + cd is required)"
+   ]
+  }
+ ]
+}

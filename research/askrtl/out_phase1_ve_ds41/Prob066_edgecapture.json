@@ -1,0 +1,78 @@
+{
+ "case": "Prob066_edgecapture",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    32
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    32
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1",
+   "c2",
+   "c4"
+  ],
+  [
+   "c0",
+   "c3"
+  ]
+ ],
+ "ci_pairs": 6,
+ "ci_found": 6,
+ "ci_missed": [],
+ "off_pairs": 8,
+ "off_found": 6,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     3626764237
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 2
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

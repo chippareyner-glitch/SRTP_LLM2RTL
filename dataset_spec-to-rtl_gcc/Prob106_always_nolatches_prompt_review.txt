@@ -1,0 +1,141 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  scancode (16 bits)
+ - output left
+ - output down
+ - output right
+ - output up
+
+The module should process scancodes from a PS/2 keyboard for a game.
+Given the last two bytes of scancodes received, you need to indicate
+whether one of the arrow keys on the keyboard have been pressed. This
+involves a fairly simple mapping, which can be implemented as a case
+statement (or if-elseif) with four cases.
+
+  Scancode[15:0] | Arrow key
+  16'he06b       | left arrow
+  16'he072       | down arrow
+  16'he074       | right arrow
+  16'he075       | up arrow
+  Anything else  | none
+
+Your circuit has one 16-bit input, and four outputs. Build this circuit
+that recognizes these four scancodes and asserts the correct output.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a PS/2 keyboard scancode decoder module (`TopModule`) that:
+- Takes a 16-bit `scancode` input representing the last two bytes received
+- Produces four 1-bit outputs (`left`, `down`, `right`, `up`) indicating arrow key presses
+- Maps specific 16-bit scancode values to corresponding arrow key outputs
+- Uses a simple combinational mapping (case/if-else structure)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities Identified:**
+
+1. **Output Behavior for Non-Arrow Scancodes**: The spec states "Anything else | none" but doesn't specify whether all outputs should be deasserted or if there are other conditions.
+
+2. **Simultaneous Key Presses**: The spec doesn't address whether multiple outputs can be active simultaneously. The phrase "asserts the correct output" (singular) suggests mutual exclusion, but this isn't explicit.
+
+3. **"Last Two Bytes" Interpretation**: While the interface shows a single 16-bit input, the description mentions "last two bytes of scancodes received," which could imply sequential processing, but the implementation appears purely combinational.
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+
+1. **Reset Behavior**: No reset mechanism (asynchronous/synchronous) is specified
+2. **Clock Domain**: No clock input is defined, suggesting purely combinational logic
+3. **Output Timing**: No timing constraints (propagation delay requirements)
+4. **Input Validation**: No specification for handling invalid scancode sequences
+5. **Power-On State**: Initial output values after power-up are undefined
+6. **PS/2 Protocol Details**: Break codes, make codes, or multi-byte sequence handling are not addressed
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle:**
+
+1. **All-Zeros Input**: `16'h0000` - Should deassert all outputs
+2. **Partial Scancodes**: Values like `16'h00e0` or `16'he000` that resemble but don't match full arrow codes
+3. **Break Codes**: PS/2 break codes (`0xF0` prefix) are not mentioned but are part of real keyboard protocols
+4. **Simultaneous Valid Codes**: What if the input matches multiple arrow codes? (The mapping appears mutually exclusive)
+5. **Meta-Stability**: If this interfaces with asynchronous PS/2 clock, metastability handling is needed
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Risks:**
+
+1. **Incomplete PS/2 Support**: Real PS/2 keyboards send make/break codes and multi-byte sequences. The current spec only handles the "make" codes for arrow keys.
+
+2. **Timing Issues**: Without clocking, the design may have glitches when scancode changes, potentially causing false key detection.
+
+3. **Testability Concerns**: Difficult to verify without understanding the complete PS/2 protocol context.
+
+4. **Interface Limitations**: Single 16-bit input may not be sufficient for real PS/2 keyboard integration.
+
+## 6. Actionable Guidance for RTL Generation
+
+**Recommended Implementation Approach:**
+
+```systemverilog
+module TopModule (
+    input  logic [15:0] scancode,
+    output logic left,
+    output logic down, 
+    output logic right,
+    output logic up
+);
+
+    // Combinational decoding with explicit default assignments
+    always_comb begin
+        // Default all outputs to 0
+        left = 1'b0;
+        down = 1'b0;
+        right = 1'b0;
+        up = 1'b0;
+        
+        // Priority encoding (mutually exclusive by design)
+        case (scancode)
+            16'he06b: left = 1'b1;   // Left arrow
+            16'he072: down = 1'b1;   // Down arrow  
+            16'he074: right = 1'b1;  // Right arrow
+            16'he075: up = 1'b1;     // Up arrow
+            default: ; // All outputs remain 0
+        endcase
+    end
+
+endmodule
+```
+
+**Critical Design Decisions to Document:**
+
+1. **Mutual Exclusion**: Only one output can be active at a time
+2. **Combinational Logic**: No clock or reset needed based on current spec
+3. **Default Behavior**: All outputs deasserted for non-matching scancodes
+4. **Priority**: Case statement order defines priority (left > down > right > up)
+
+**Verification Requirements:**
+- Test all four valid scancode values
+- Test at least 5 invalid scancode patterns including edge cases
+- Verify no multiple simultaneous assertions
+- Confirm all outputs deasserted for default case
+
+**Recommendations for Specification Enhancement:**
+1. Add clock and reset signals for synchronous design
+2. Clarify PS/2 protocol compliance requirements
+3. Specify output timing constraints
+4. Define behavior for multi-byte scancode sequences
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

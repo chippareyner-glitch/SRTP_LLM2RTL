@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Load enable gating",
+   "severity": "high",
+   "readings": [
+    "load has priority and is independent of ena: if load=1, q loads data regardless of ena.",
+    "ena gates all register updates: if ena=0, q holds even when load=1; load only applies when ena=1."
+   ]
+  },
+  {
+   "aspect": "Initial/reset value of q",
+   "severity": "medium",
+   "readings": [
+    "q has no specified reset and powers up to an unknown value (e.g., X in simulation, arbitrary in hardware).",
+    "q must be initialized to 0 at startup/reset, even though no reset port exists."
+   ]
+  },
+  {
+   "aspect": "Clock edge",
+   "severity": "medium",
+   "readings": [
+    "All synchronous updates occur on the rising edge of clk.",
+    "All synchronous updates occur on the falling edge of clk."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+{
+ "case": "Prob003_step_one",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "47e01a16715a",
+   "sources": [
+    "ve_ds41_low:s0"
+   ],
+   "model": "ve_ds41_low",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_low\\gen\\Prob003_step_one\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 20,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": true
+  }
+ ]
+}

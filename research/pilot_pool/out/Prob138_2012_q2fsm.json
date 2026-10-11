@@ -1,0 +1,171 @@
+{
+ "case": "Prob138_2012_q2fsm",
+ "n_samples": 10,
+ "n_distinct": 8,
+ "n_compiling": 5,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "423810933b01",
+   "sources": [
+    "deepseek_full"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob138_2012_q2fsm\\attempt_00\\module.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:22: error: This assignment requires an explicit cast.\ndut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\ndut.sv:27: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "2aeadef3eb52",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob138_2012_q2fsm\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 400
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "7d5b0f402928",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob138_2012_q2fsm\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 400
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "21fefc5f366e",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob138_2012_q2fsm\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 400
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "1d3921252ca7",
+   "sources": [
+    "tri0926:candidate_1_literal",
+    "tri0926:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob138_2012_q2fsm\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 400
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "17e02d364080",
+   "sources": [
+    "tri0926:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob138_2012_q2fsm\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:37: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "949f0b96398b",
+   "sources": [
+    "tri0927:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob138_2012_q2fsm\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 44,
+    "samples": 400
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "5ae7c1fde215",
+   "sources": [
+    "tri0927:candidate_2_contract",
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob138_2012_q2fsm\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\n6 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1",
+    "c2"
+   ],
+   "votes": 2,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c4"
+   ],
+   "votes": 2,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c6"
+   ],
+   "votes": 1,
+   "correct": false,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 9
+}

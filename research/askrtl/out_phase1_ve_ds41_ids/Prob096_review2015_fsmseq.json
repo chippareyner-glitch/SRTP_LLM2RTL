@@ -1,0 +1,91 @@
+{
+ "case": "Prob096_review2015_fsmseq",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "data",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "start_shifting",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c3"
+  ],
+  [
+   "c6"
+  ]
+ ],
+ "ci_pairs": 1,
+ "ci_found": 1,
+ "ci_missed": [],
+ "off_pairs": 1,
+ "off_found": 1,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c3",
+    "c6"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 117,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 34,
+   "orig_len": 118,
+   "min_len": 6,
+   "toggles": 5
+  }
+ ],
+ "status": "ok",
+ "n_live": 2
+}

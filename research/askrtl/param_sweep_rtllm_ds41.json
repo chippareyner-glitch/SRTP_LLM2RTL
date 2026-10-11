@@ -1,0 +1,86 @@
+[
+ {
+  "case": "fixed_point_adder",
+  "settings": [
+   {},
+   {
+    "N": "32"
+   },
+   {
+    "N": "8"
+   },
+   {
+    "Q": "16"
+   },
+   {
+    "Q": "4"
+   }
+  ],
+  "default": {
+   "ci_pairs": 4,
+   "ci_split": 4,
+   "cc_pairs": 0,
+   "cc_split": 0
+  },
+  "sweep": {
+   "ci_pairs": 4,
+   "ci_split": 4,
+   "cc_pairs": 0,
+   "cc_split": 0
+  }
+ },
+ {
+  "case": "fixed_point_substractor",
+  "settings": [
+   {},
+   {
+    "Q": "16"
+   },
+   {
+    "Q": "4"
+   },
+   {
+    "N": "32"
+   },
+   {
+    "N": "8"
+   }
+  ],
+  "default": {
+   "ci_pairs": 0,
+   "ci_split": 0,
+   "cc_pairs": 10,
+   "cc_split": 4
+  },
+  "sweep": {
+   "ci_pairs": 0,
+   "ci_split": 0,
+   "cc_pairs": 10,
+   "cc_split": 4
+  }
+ },
+ {
+  "case": "freq_divbyodd",
+  "settings": [
+   {},
+   {
+    "NUM_DIV": "10"
+   },
+   {
+    "NUM_DIV": "2"
+   }
+  ],
+  "default": {
+   "ci_pairs": 0,
+   "ci_split": 0,
+   "cc_pairs": 0,
+   "cc_split": 0
+  },
+  "sweep": {
+   "ci_pairs": 0,
+   "ci_split": 0,
+   "cc_pairs": 0,
+   "cc_split": 0
+  }
+ }
+]

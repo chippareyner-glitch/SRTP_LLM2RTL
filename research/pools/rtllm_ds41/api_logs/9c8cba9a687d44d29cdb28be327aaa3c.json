@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:41:39.073143+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "serial2parallel",
+  "returned_model": "deepseek-flash",
+  "id": "6e4df101-d4e9-4cc7-8958-ef3764e7da4b",
+  "usage": {
+    "prompt_tokens": 538,
+    "completion_tokens": 11068,
+    "total_tokens": 11606,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 10759
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 154
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 47.86537519999911
+}

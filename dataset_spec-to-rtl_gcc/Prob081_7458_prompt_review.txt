@@ -1,0 +1,123 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  p1a
+ - input  p1b
+ - input  p1c
+ - input  p1d
+ - input  p1e
+ - input  p1f
+ - input  p2a
+ - input  p2b
+ - input  p2c
+ - input  p2d
+ - output p1y
+ - output p2y
+
+The 7458 is a chip with four AND gates and two OR gates. Implement a
+module with the same functionality as the 7458 chip. It has 10 inputs and
+2 outputs. You may choose to use an `assign` statement to drive each of
+the output wires, or you may choose to declare (four) wires for use as
+intermediate signals, where each internal wire is driven by the output of
+one of the AND gates.
+
+In this circuit, p1y should be the OR of two 3-input AND gates: one that
+ANDs p1a, p1b, and p1c, and the second that ANDs p1d, p1e, and p1f. The
+output p2y is the OR of two 2-input AND gates: one that ANDs p2a and p2b,
+and the second that ANDs p2c and p2d.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+# 7458 Chip Implementation Analysis
+
+## 1. Specification Summary
+- **Module Name**: TopModule
+- **Function**: Replicate 7458 chip functionality (4 AND gates, 2 OR gates)
+- **Inputs**: 10 single-bit signals (p1a, p1b, p1c, p1d, p1e, p1f, p2a, p2b, p2c, p2d)
+- **Outputs**: 2 single-bit signals (p1y, p2y)
+- **Logic Structure**:
+  - p1y = (p1a AND p1b AND p1c) OR (p1d AND p1e AND p1f)
+  - p2y = (p2a AND p2b) OR (p2c AND p2d)
+
+## 2. Ambiguity Analysis
+- **Module Naming**: Specification mentions "TopModule" but describes 7458 chip functionality. Should the module be named "chip_7458" or similar for clarity?
+- **Port Order**: Interface lists ports but doesn't specify preferred ordering in module declaration
+- **Implementation Style**: Specification allows either direct `assign` statements or intermediate wires, but doesn't specify which approach is preferred
+
+## 3. Missing Critical Details
+- **Timing Requirements**: No clock, reset, or timing constraints specified (combinational logic implied)
+- **Propagation Delay**: No timing constraints mentioned for synthesis
+- **Power-on Behavior**: No specification for initial output state
+- **Input Validation**: No handling specified for unknown (X) or high-impedance (Z) inputs
+- **Fanout Requirements**: No drive strength specifications for outputs
+
+## 4. Edge Cases & Boundary Conditions
+- **All Zeros**: When all inputs are 0, both outputs should be 0
+- **All Ones**: When all inputs are 1, both outputs should be 1
+- **Mixed Patterns**: Various combinations where one AND term is true while others are false
+- **Metastability**: No synchronization elements, so inputs should be stable before evaluation
+- **Simulation States**: How to handle X (unknown) and Z (high-impedance) inputs in simulation
+
+## 5. Functional Correctness Prediction
+- **High Confidence**: Simple combinational logic with well-defined Boolean functions
+- **Testability**: Easy to verify with exhaustive testing (2^10 = 1024 possible input combinations)
+- **Synthesis Friendly**: Pure combinational logic with no sequential elements
+- **Potential Issues**: None identified for basic functionality
+
+## 6. Actionable Guidance for RTL Generation
+
+### Recommended Implementation:
+```systemverilog
+module chip_7458 (
+    input  logic p1a, p1b, p1c, p1d, p1e, p1f,
+    input  logic p2a, p2b, p2c, p2d,
+    output logic p1y, p2y
+);
+
+    // Intermediate wires for better readability and debugging
+    logic and1, and2, and3, and4;
+    
+    // 3-input AND gates for p1y path
+    assign and1 = p1a & p1b & p1c;
+    assign and2 = p1d & p1e & p1f;
+    
+    // 2-input AND gates for p2y path  
+    assign and3 = p2a & p2b;
+    assign and4 = p2c & p2d;
+    
+    // OR gates for final outputs
+    assign p1y = and1 | and2;
+    assign p2y = and3 | and4;
+
+endmodule
+```
+
+### Key Implementation Notes:
+1. **Use `logic` data type** for all signals (SystemVerilog best practice)
+2. **Include header comment** with truth table or functional description
+3. **Add simulation assertions** to catch invalid inputs during verification
+4. **Consider adding `/* synthesis keep */`** pragma on intermediate wires for debug visibility
+5. **Create comprehensive testbench** covering all edge cases including:
+   - All-zero inputs
+   - All-one inputs
+   - Single AND term true patterns
+   - Mixed true/false patterns
+
+### Verification Strategy:
+- Exhaustive testing for all 1024 input combinations
+- Corner case testing with timing violations
+- Formal verification to prove equivalence to specification
+- Gate-level simulation after synthesis
+
+This implementation provides clear, maintainable code that accurately reflects the 7458 chip functionality while being synthesis-friendly and easily verifiable.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,152 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  load
+ - input  ena
+ - input  amount (2 bits)
+ - input  data (64 bits)
+ - output q (64 bits)
+
+The module should implement a 64-bit arithmetic shift register, with
+synchronous load. The shifter can shift both left and right, and by 1 or
+8 bit positions, selected by "amount." Assume the right shit is an
+arithmetic right shift.
+
+Signals are defined as below:
+
+  (1) load: Loads shift register with data[63:0] instead of shifting.
+       Active high.
+  (2) ena: Chooses whether to shift. Active high.
+  (3) amount: Chooses which direction and how much to shift.
+      (a) 2'b00: shift left by 1 bit.
+      (b) 2'b01: shift left by 8 bits.
+      (c) 2'b10: shift right by 1 bit.
+      (d) 2'b11: shift right by 8 bits.
+  (4) q: The contents of the shifter.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a 64-bit arithmetic shift register with synchronous load and shift operations. Key features:
+
+- **Clock**: Synchronous operation with `clk`
+- **Control**: `load` (synchronous load), `ena` (shift enable)  
+- **Operation**: 4 shift modes via 2-bit `amount` input
+- **Data**: 64-bit `data` input, 64-bit `q` output
+- **Shift Types**: Left shifts (logical), Right shifts (arithmetic)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Arithmetic Right Shift Sign Bit**: Unclear whether the sign bit is the MSB (bit 63) or if the register is treated as signed/unsigned
+- **Shift Direction Terminology**: "Left" and "Right" should be explicitly defined as MSB-to-LSB or LSB-to-MSB orientation
+- **Simultaneous Control Signals**: Behavior when both `load` and `ena` are high is undefined
+- **Reset Strategy**: No mention of power-on state or reset mechanism
+
+**Minor Clarifications Needed:**
+- Input timing requirements relative to clock edges
+- Output timing (when does `q` update relative to clock)
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+- **Reset Mechanism**: No synchronous/asynchronous reset input
+- **Power-on Initialization**: Initial value of the shift register
+- **Priority**: Load vs. shift when both `load=1` and `ena=1`
+- **Shift Fill Behavior**: 
+  - Left shift: Fill vacated bits with 0s (assumed logical)
+  - Right shift: Sign extension policy for arithmetic shifts
+- **Timing Constraints**: Setup/hold times for inputs
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+- **Control Conflicts**: `load=1, ena=1` simultaneously
+- **Invalid Amount Codes**: Behavior if `amount` ≠ 2'b00, 2'b01, 2'b10, 2'b11
+- **Shift Boundary Conditions**:
+  - Left shift by 8: Bits [63:56] become 0, bits [7:0] shift out
+  - Right shift by 8: Bits [7:0] shift out, sign extension to bits [63:56]
+- **Disabled Operation**: `ena=0` should maintain current state regardless of other inputs
+- **Load Timing**: Data should be captured on rising clock edge when `load=1`
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Risks:**
+- **Arithmetic Shift Implementation**: Easy to implement incorrectly if sign bit handling is misunderstood
+- **Shift Amount Encoding**: Risk of misinterpreting the 2-bit encoding scheme
+- **Priority Logic**: Incorrect priority between load and shift operations could cause functional errors
+- **Bit Order Confusion**: 64-bit vector indexing (MSB:LSB convention) must be consistent
+
+**Verification Challenges:**
+- Arithmetic right shift requires thorough signed number testing
+- Boundary shift cases (8-bit shifts) need special attention
+- All control signal combinations must be verified
+
+## 6. Actionable Guidance for RTL Generation
+
+**Design Decisions to Resolve:**
+```systemverilog
+// Recommended resolutions for ambiguities:
+// 1. Priority: load > enable (when load=1, ignore ena and amount)
+// 2. Arithmetic right shift: extend MSB (bit 63) as sign bit
+// 3. Left shift: logical (fill with 0)
+// 4. Add synchronous reset with active-high polarity
+// 5. Invalid amount: default to no shift (or define safe default)
+```
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+  input  clk,
+  input  reset,        // ADD: Synchronous reset
+  input  load,
+  input  ena, 
+  input  [1:0] amount,
+  input  [63:0] data,
+  output reg [63:0] q
+);
+
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      q <= 64'b0;                    // Reset state
+    end else if (load) begin
+      q <= data;                     // Load has priority
+    end else if (ena) begin
+      case (amount)
+        2'b00: q <= {q[62:0], 1'b0};                    // Shift left by 1
+        2'b01: q <= {q[55:0], 8'b0};                    // Shift left by 8  
+        2'b10: q <= {q[63], q[63:1]};                   // Arithmetic right by 1
+        2'b11: q <= {{8{q[63]}}, q[63:8]};              // Arithmetic right by 8
+        default: q <= q;                                // Safe default
+      endcase
+    end
+  end
+
+endmodule
+```
+
+**Verification Priorities:**
+1. Test reset functionality
+2. Verify load operation priority over shift
+3. Validate arithmetic right shift with negative numbers
+4. Test all amount codes, including invalid ones
+5. Verify boundary conditions for 8-bit shifts
+6. Check disabled state (ena=0) behavior
+
+**Synthesis Considerations:**
+- The design should infer efficient shift registers in target technology
+- Consider adding output registers if timing critical
+- Ensure amount decoding doesn't create complex control logic
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

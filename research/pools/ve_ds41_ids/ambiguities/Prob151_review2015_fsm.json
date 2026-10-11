@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Pattern overlap",
+   "severity": "high",
+   "readings": [
+    "Overlapping detection: the last 1 of a 1101 match can also be the first 1 of the next match, so 1101101 contains two 1101 sequences.",
+    "Non-overlapping detection: after a 1101 match, the FSM resets its search progress and requires four entirely new bits before another match."
+   ]
+  },
+  {
+   "aspect": "Output latency / Moore vs Mealy",
+   "severity": "high",
+   "readings": [
+    "Outputs are Moore (combinational from state) and change only after the clock edge that updates the state; e.g., shift_ena is high the cycle after the fourth pattern bit is sampled, and done is high the cycle after done_counting is sampled high.",
+    "Outputs are Mealy or registered with one-cycle delay; e.g., shift_ena could be high in the same cycle the fourth pattern bit is sampled, and done could be high in the same cycle done_counting is high."
+   ]
+  },
+  {
+   "aspect": "Acknowledgment qualification",
+   "severity": "medium",
+   "readings": [
+    "The FSM must enter the done state and assert done for at least one cycle before checking ack; if ack is already high when done_counting is high, done still pulses one cycle.",
+    "If ack is already high when done_counting is high, the FSM can transition directly to search without entering the done state, so done may never be asserted."
+   ]
+  },
+  {
+   "aspect": "Bit ordering of pattern 1101",
+   "severity": "low",
+   "readings": [
+    "The pattern is matched in time order: the first incoming bit is the leftmost 1, then a 1, then a 0, then a 1.",
+    "The pattern is matched as a binary value 1101 with the first incoming bit being the LSB, i.e., the time-order sequence is 1-0-1-1."
+   ]
+  }
+ ]
+}

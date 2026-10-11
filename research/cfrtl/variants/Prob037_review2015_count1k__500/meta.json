@@ -1,0 +1,27 @@
+{
+ "id": "Prob037_review2015_count1k__500",
+ "base": "Prob037_review2015_count1k",
+ "delta": "500",
+ "category": "param",
+ "edits": [
+  [
+   "counts from 0 to 999, inclusive, with a period of 1000 cycles.",
+   "counts from 0 to 499, inclusive, with a period of 500 cycles."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 8027,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 3000,
+   "samples": 8027,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

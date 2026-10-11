@@ -1,0 +1,601 @@
+--- upstream/run_spec_card_ab.py
++++ integrated/run_spec_card_ab.py
+@@ -24,12 +24,9 @@
+ 
+ 
+ ROOT = Path(__file__).resolve().parent
+-WORKSPACE = ROOT.parent
+-DEFAULT_EXPERIMENT_ROOT = WORKSPACE / "experiments" / "prompt_understanding"
+-DEFAULT_DATASET = ROOT / "dataset_spec-to-rtl_gcc"
+-DEFAULT_IVERILOG = Path(r"C:\iverilog\bin\iverilog.exe")
+-DEFAULT_VVP = Path(r"C:\iverilog\bin\vvp.exe")
+-API_URL = "https://api.deepseek.com/chat/completions"
++WORKSPACE = ROOT
++from candidate_runtime import DEFAULT_DATASET, DEFAULT_IVERILOG, DEFAULT_VVP, call_api, as_text, ARK_MODEL
++DEFAULT_EXPERIMENT_ROOT = ROOT / "experiments" / "prompt_understanding"
+ SPEC_CARD_VERSION = "v3_observable_timing"
+ ROUTER_VERSION = "v3_flag_only_and_risk_route"
+ 
+@@ -77,7 +74,7 @@
+     p = argparse.ArgumentParser()
+     p.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
+     p.add_argument("--output", type=Path)
+-    p.add_argument("--model", default="deepseek-flash")
++    p.add_argument("--model", default=ARK_MODEL)
+     p.add_argument("--reasoning-effort", default="none")
+     p.add_argument("--max-tokens", type=int, default=8192)
+     p.add_argument("--temperature", type=float, default=0.0)
+@@ -99,47 +96,6 @@
+     tmp.replace(path)
+ 
+ 
+-def call_api(args: argparse.Namespace, system: str, user: str) -> tuple[str, dict[str, Any]]:
+-    key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
+-    if not key:
+-        raise RuntimeError("DEEPSEEK_API_KEY is not set")
+-    body: dict[str, Any] = {
+-        "model": args.model,
+-        "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+-        "stream": False,
+-        "temperature": args.temperature,
+-        "max_tokens": args.max_tokens,
+-        "reasoning_effort": args.reasoning_effort,
+-    }
+-    request = urllib.request.Request(
+-        API_URL,
+-        data=json.dumps(body).encode("utf-8"),
+-        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+-        method="POST",
+-    )
+-    started = time.monotonic()
+-    try:
+-        with urllib.request.urlopen(request, timeout=240) as response:
+-            payload = json.loads(response.read().decode("utf-8"))
+-    except urllib.error.HTTPError as exc:
+-        detail = exc.read().decode("utf-8", errors="replace")
+-        raise RuntimeError(f"API HTTP {exc.code}: {detail[:1000]}") from exc
+-    choice = payload["choices"][0]
+-    content = choice["message"].get("content") or ""
+-    if not content.strip():
+-        raise RuntimeError("API returned empty content")
+-    usage = payload.get("usage") or {}
+-    metadata = {
+-        "requested_model": args.model,
+-        "returned_model": payload.get("model"),
+-        "reasoning_effort": args.reasoning_effort,
+-        "temperature": args.temperature,
+-        "finish_reason": choice.get("finish_reason"),
+-        "usage": usage,
+-        "elapsed_seconds": round(time.monotonic() - started, 3),
+-    }
+-    return content, metadata
+-
+ 
+ def extract_sv(text: str) -> str:
+     blocks = re.findall(r"```(?:systemverilog|verilog|sv)?\s*\n(.*?)```", text, flags=re.I | re.S)
+@@ -183,10 +139,10 @@
+ 
+ def run_process(cmd: list[str], cwd: Path, timeout: int) -> tuple[int, str, str, bool]:
+     try:
+-        proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout)
++        proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout)
+         return proc.returncode, proc.stdout, proc.stderr, False
+     except subprocess.TimeoutExpired as exc:
+-        return 124, exc.stdout or "", exc.stderr or "", True
++        return 124, as_text(exc.stdout), as_text(exc.stderr), True
+ 
+ 
+ def syntax_check(sv_path: Path, log_path: Path) -> tuple[bool, str]:
+@@ -210,7 +166,7 @@
+     match = re.search(r"Mismatches:\s*(\d+)\s+in\s+(\d+)\s+samples", full, flags=re.I)
+     if timed_out:
+         status, mismatches, samples = "timeout", None, None
+-    elif match:
++    elif match and rc == 0 and int(match.group(2)) > 0:
+         mismatches, samples = int(match.group(1)), int(match.group(2))
+         status = "pass" if mismatches == 0 else "mismatch"
+     else:
+@@ -334,6 +290,8 @@
+                 raise ValueError(f"case selector {query!r} matched {len(matches)} cases")
+             selected.append(matches[0])
+         cases = selected
++    if not cases:
++        raise ValueError(f"No specification files in {dataset}")
+     return cases[:limit] if limit is not None else cases
+ 
+ 
+@@ -401,6 +359,8 @@
+ 
+ def main() -> int:
+     args = parse_args()
++    if args.max_repairs < 0 or (args.limit is not None and args.limit < 1):
++        raise ValueError("max-repairs must be nonnegative and limit positive")
+     if not DEFAULT_IVERILOG.exists() or not DEFAULT_VVP.exists():
+         raise RuntimeError("Icarus Verilog tools were not found")
+     cases = discover_cases(args.dataset, args.case, args.limit)
+@@ -411,6 +371,7 @@
+     if output.exists() and not args.resume:
+         raise FileExistsError(f"output already exists: {output}")
+     output.mkdir(parents=True, exist_ok=True)
++    args.api_log_root = output / "api_requests"
+     summary_path = output / "summary.json"
+     results: list[dict[str, Any]] = []
+     if args.resume and summary_path.exists():
+--- upstream/run_three_candidate_select.py
++++ integrated/run_three_candidate_select.py
+@@ -32,8 +32,10 @@
+ )
+ 
+ 
++from candidate_runtime import ARK_MODEL
++
+ ROOT = Path(__file__).resolve().parent
+-DEFAULT_EXPERIMENT_ROOT = ROOT.parent / "experiments" / "candidate_selection"
++DEFAULT_EXPERIMENT_ROOT = ROOT / "experiments" / "candidate_selection"
+ SELECTOR_VERSION = "v2_mandatory_edge_trace"
+ 
+ CANDIDATE_SYSTEMS = (
+@@ -69,14 +71,22 @@
+     parser = argparse.ArgumentParser()
+     parser.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
+     parser.add_argument("--output", type=Path)
+-    parser.add_argument("--model", default="deepseek-flash")
++    parser.add_argument("--model", default=ARK_MODEL)
+     parser.add_argument("--reasoning-effort", default="none")
+     parser.add_argument("--temperature", type=float, default=0.0)
+     parser.add_argument("--max-tokens", type=int, default=8192)
+     parser.add_argument("--max-repairs", type=int, default=1)
+-    parser.add_argument("--case", action="append", default=[])
++    selector = parser.add_mutually_exclusive_group(required=True)
++    selector.add_argument("--case", "--cases", action="extend", nargs="+", default=[])
++    selector.add_argument("--all", action="store_true")
++    parser.add_argument("--selection", choices=["contract", "llm"], default="contract")
++    parser.add_argument("--contract-dir", type=Path, help="Use curated saved contracts instead of generating them")
++    parser.add_argument("--skip-official", action="store_true", help="Do not access official ref/testbench files")
+     parser.add_argument("--limit", type=int)
+-    return parser.parse_args()
++    args = parser.parse_args()
++    if args.max_repairs < 0 or (args.limit is not None and args.limit < 1):
++        parser.error("max-repairs must be nonnegative and limit positive")
++    return args
+ 
+ 
+ def usage_tokens(calls: list[dict[str, Any]]) -> int:
+@@ -147,7 +157,7 @@
+     )
+ 
+ 
+-def select_candidate(
++def select_candidate_llm(
+     args: argparse.Namespace,
+     case_id: str,
+     case_out: Path,
+@@ -189,8 +199,8 @@
+             raise ValueError("candidate_checks must contain every supplied label exactly once")
+         selected_id = label_to_id[label]
+     except (ValueError, json.JSONDecodeError) as exc:
+-        status = "parse_fallback"
+-        selected_id = ordered[0]["candidate_id"]
++        status = "selector_parse_error"
++        selected_id = None
+         (selector_out / "parse_error.txt").write_text(str(exc), encoding="utf-8")
+     frozen = {
+         "status": status,
+@@ -206,15 +216,32 @@
+     return frozen
+ 
+ 
++def select_candidate(args, case_id, case_out, spec, candidates):
++    from candidate_verification import select_with_generated_contract, select_with_saved_contract
++    method = getattr(args, 'selection', 'llm')
++    if method == 'llm':
++        selection = select_candidate_llm(args, case_id, case_out, spec, candidates)
++        selection['selection_method'] = 'llm_only_comparison'
++    elif getattr(args, 'contract_dir', None):
++        selection = select_with_saved_contract(args, case_id, case_out, candidates)
++    else:
++        selection = select_with_generated_contract(args, case_id, case_out, spec, candidates)
++    atomic_json(case_out / 'frozen_selection.json', selection)
++    return selection
++
++
+ def aggregate(rows: list[dict[str, Any]], args: argparse.Namespace, cases: list[str]) -> dict[str, Any]:
+     completed = len(rows)
+-    pass1 = sum(bool((row["candidates"][0].get("official") or {}).get("pass")) for row in rows)
++    first_candidates = [next((c for c in row['candidates'] if c['candidate_id'] == 1), {}) for row in rows]
++    pass1 = sum(bool((candidate.get('official') or {}).get('pass')) for candidate in first_candidates)
+     pass3 = sum(any(bool((candidate.get("official") or {}).get("pass")) for candidate in row["candidates"]) for row in rows)
+     select3 = sum(bool((row.get("selected_official") or {}).get("pass")) for row in rows)
+-    syntax1 = sum(bool(row["candidates"][0]["first_syntax_pass"]) for row in rows)
+-    syntax3 = sum(all(bool(candidate["final_syntax_pass"]) for candidate in row["candidates"]) for row in rows)
+-    return {
+-        "evaluation": "three_candidate_blind_selection",
++    syntax1 = sum(bool(candidate.get('first_syntax_pass')) for candidate in first_candidates)
++    syntax3 = sum(len(row['candidates']) == 3 and all(bool(candidate["final_syntax_pass"]) for candidate in row["candidates"]) for row in rows)
++    result = {
++        "evaluation": "three_candidate_" + getattr(args, "selection", "llm"),
++        "official_evaluation_enabled": not getattr(args, "skip_official", False),
++        "metric_note": "pass@1 counts the first strategy after allowed syntax repairs; oracle pass@3 is not select@3",
+         "model": args.model,
+         "reasoning_effort": args.reasoning_effort,
+         "temperature": args.temperature,
+@@ -244,6 +271,29 @@
+         ),
+         "results": rows,
+     }
++    if getattr(args, 'skip_official', False):
++        for key in result['metrics']:
++            if 'syntax' not in key:
++                result['metrics'][key] = None
++    result['metrics']['contract_selected_count'] = sum(row['selection'].get('selected_id') is not None and row['selection'].get('selection_method') != 'llm_only_comparison' for row in rows)
++    result['metrics']['selected_at_3_count'] = result['metrics']['blind_select_at_3_count']
++    result['metrics']['selected_at_3_rate'] = result['metrics']['blind_select_at_3_rate']
++    result['usage_note'] = 'api_calls/total_tokens aggregate completed logical stages; failed/interrupted stages may have unknown usage. Inspect api_requests for all recorded transport attempts.'
++    return result
++
++
++def write_csv(path, rows):
++    import csv
++    with path.open('w', newline='', encoding='utf-8-sig') as stream:
++        writer = csv.writer(stream)
++        writer.writerow(['题号', '类别', '迭代次数', '语法是否通过', '功能是否通过', '报错原因', '候选编号', '规格测试通过', '选择状态'])
++        for row in rows:
++            for candidate in row['candidates']:
++                official = candidate.get('official')
++                writer.writerow([row['case_id'], candidate['strategy'], max(0, candidate['attempts']-1),
++                    candidate['final_syntax_pass'], official['pass'] if official else '未评测',
++                    row['selection'].get('error') or (official or {}).get('status', ''), candidate['candidate_id'],
++                    (candidate.get('directed') or {}).get('passed', '未评测'), row['selection']['status']])
+ 
+ 
+ def main() -> int:
+@@ -255,7 +305,14 @@
+     if output.exists():
+         raise FileExistsError(f"output already exists: {output}")
+     output.mkdir(parents=True)
++    args.api_log_root = output / "api_requests"
++    from rtl_json_pipeline.validation import environment_check
++    check = environment_check(output / 'tool_check', DEFAULT_IVERILOG, DEFAULT_VVP)
++    if not check['passed']:
++        atomic_json(output / 'summary.json', {'status': 'environment_failed', 'check': check})
++        return 1
+     rows: list[dict[str, Any]] = []
++    consecutive_api_errors = 0
+ 
+     for index, case_id in enumerate(cases, 1):
+         print(f"[{index}/{len(cases)}] {case_id}", flush=True)
+@@ -263,18 +320,27 @@
+         case_out = output / case_id
+         case_out.mkdir()
+         (case_out / "original_spec.txt").write_text(spec, encoding="utf-8")
+-        candidates = [
+-            generate_candidate(args, case_out, spec, candidate_id, strategy, system)
+-            for candidate_id, (strategy, system) in enumerate(CANDIDATE_SYSTEMS, 1)
+-        ]
+-
+-        # Freeze a blind decision before opening any official evaluation file.
+-        selection = select_candidate(args, case_id, case_out, spec, candidates)
++        candidates = []
++        try:
++            for candidate_id, (strategy, system) in enumerate(CANDIDATE_SYSTEMS, 1):
++                candidate = generate_candidate(args, case_out, spec, candidate_id, strategy, system)
++                candidates.append(candidate)
++                atomic_json(case_out / 'candidates.json', candidates)
++            selection = select_candidate(args, case_id, case_out, spec, candidates)
++        except Exception as exc:
++            selection = {'status': 'case_error', 'error': str(exc), 'selected_id': None,
++                         'api_calls': 0, 'total_tokens': 0}
++            atomic_json(case_out / 'frozen_selection.json', selection)
++        # Always preserve all attempted cases, including failures before candidate 1.
++        while len(candidates) < 3:
++            candidates.append({'candidate_id': len(candidates)+1, 'strategy': 'not_completed',
++                               'first_syntax_pass': False, 'final_syntax_pass': False,
++                               'attempts': 0, 'module_path': None, 'api_calls': 0, 'total_tokens': 0, 'official': None})
+         selected_id = selection["selected_id"]
+         test = args.dataset / f"{case_id}_test.sv"
+         ref = args.dataset / f"{case_id}_ref.sv"
+         for candidate in candidates:
+-            if candidate["final_syntax_pass"]:
++            if candidate["final_syntax_pass"] and not args.skip_official:
+                 candidate_dir = case_out / f"candidate_{candidate['candidate_id']}_{candidate['strategy']}"
+                 candidate["official"] = official_eval(
+                     case_id, Path(candidate["module_path"]), test, ref, candidate_dir
+@@ -290,10 +356,18 @@
+         }
+         rows.append(row)
+         atomic_json(case_out / "result.json", row)
+-        atomic_json(output / "summary.json", aggregate(rows, args, cases))
+-        statuses = [str((candidate.get("official") or {}).get("status", "syntax_failed")) for candidate in candidates]
++        summary = aggregate(rows, args, cases)
++        consecutive_api_errors = consecutive_api_errors + 1 if selection['status'] in {'case_error', 'contract_api_error'} else 0
++        summary['not_attempted'] = cases[index:]
++        summary['batch_status'] = 'stopped_errors' if consecutive_api_errors >= 3 else ('completed' if index == len(cases) else 'running')
++        atomic_json(output / "summary.json", summary)
++        write_csv(output / 'results.csv', rows)
++        if consecutive_api_errors >= 3:
++            print('连续三题异常，已停止并保存结果。', flush=True)
++            return 1
++        statuses = [str((candidate.get("official") or {}).get("status", "not_evaluated" if candidate["final_syntax_pass"] else "syntax_failed")) for candidate in candidates]
+         chosen_status = (row["selected_official"] or {}).get("status", "none")
+-        print(f"  candidates={statuses}; selected={selected_id}:{chosen_status}", flush=True)
++        print(f"  selection={selection['status']}; candidates={statuses}; selected={selected_id}:{chosen_status}", flush=True)
+ 
+     print(f"Results: {output}")
+     return 0
+--- upstream/reselect_existing_candidates.py
++++ integrated/reselect_existing_candidates.py
+@@ -26,17 +26,22 @@
+ from run_three_candidate_select import aggregate, select_candidate
+ 
+ 
++from candidate_runtime import ARK_MODEL
++
+ ROOT = Path(__file__).resolve().parent
+-DEFAULT_EXPERIMENT_ROOT = ROOT.parent / "experiments" / "candidate_selection"
++DEFAULT_EXPERIMENT_ROOT = ROOT / "experiments" / "candidate_selection"
+ CANDIDATE_DIR_RE = re.compile(r"^candidate_(\d+)_(.+)$")
+ 
+ 
+ def parse_args() -> argparse.Namespace:
+     parser = argparse.ArgumentParser()
++    parser.add_argument("--selection", choices=["contract", "llm"], default="contract")
++    parser.add_argument("--contract-dir", type=Path)
++    parser.add_argument("--skip-official", action="store_true")
+     parser.add_argument("--source", type=Path, required=True)
+     parser.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
+     parser.add_argument("--output", type=Path)
+-    parser.add_argument("--model", default="deepseek-flash")
++    parser.add_argument("--model", default=ARK_MODEL)
+     parser.add_argument("--reasoning-effort", default="none")
+     parser.add_argument("--temperature", type=float, default=0.0)
+     parser.add_argument("--max-tokens", type=int, default=8192)
+@@ -81,6 +86,7 @@
+     if output.exists():
+         raise FileExistsError(f"output already exists: {output}")
+     output.mkdir(parents=True)
++    args.api_log_root = output / "api_requests"
+     available = sorted(path.name for path in source.iterdir() if path.is_dir() and (path / "original_spec.txt").exists())
+     cases = []
+     for query in args.case:
+@@ -109,7 +115,7 @@
+         test = args.dataset / f"{case_id}_test.sv"
+         ref = args.dataset / f"{case_id}_ref.sv"
+         for candidate in candidates:
+-            if candidate["final_syntax_pass"]:
++            if candidate["final_syntax_pass"] and not args.skip_official:
+                 candidate_dir = Path(candidate["module_path"]).parent
+                 candidate["official"] = official_eval(case_id, Path(candidate["module_path"]), test, ref, candidate_dir)
+         selected = next((candidate for candidate in candidates if candidate["candidate_id"] == selected_id), None)
+--- upstream/select_candidates_with_contract.py
++++ integrated/select_candidates_with_contract.py
+@@ -16,8 +16,10 @@
+ from spec_directed_validator import run_contract
+ 
+ 
++from candidate_runtime import ARK_MODEL
++
+ ROOT = Path(__file__).resolve().parent
+-DEFAULT_EXPERIMENT_ROOT = ROOT.parent / "experiments" / "candidate_selection"
++DEFAULT_EXPERIMENT_ROOT = ROOT / "experiments" / "candidate_selection"
+ CANDIDATE_RE = re.compile(r"^candidate_(\d+)_(.+)$")
+ 
+ 
+@@ -26,6 +28,7 @@
+     parser.add_argument("--source-case", type=Path, required=True)
+     parser.add_argument("--contract", type=Path, required=True)
+     parser.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
++    parser.add_argument("--skip-official", action="store_true")
+     parser.add_argument("--output", type=Path)
+     return parser.parse_args()
+ 
+@@ -36,10 +39,13 @@
+     contract_path = args.contract.resolve()
+     contract = json.loads(contract_path.read_text(encoding="utf-8"))
+     case_id = str(contract["case_id"])
++    if source.name != case_id:
++        raise ValueError("Source case and contract case_id do not match")
+     output = (args.output or DEFAULT_EXPERIMENT_ROOT / f"contract_select_{datetime.now():%Y%m%d_%H%M%S}").resolve()
+     if output.exists():
+         raise FileExistsError(f"output already exists: {output}")
+     output.mkdir(parents=True)
++    args.api_log_root = output / "api_requests"
+     (output / "original_spec.txt").write_text(
+         (source / "original_spec.txt").read_text(encoding="utf-8"), encoding="utf-8"
+     )
+@@ -89,7 +95,8 @@
+     ref = args.dataset / f"{case_id}_ref.sv"
+     for candidate in candidates:
+         candidate_dir = Path(candidate["module_path"]).parent
+-        candidate["official"] = official_eval(case_id, Path(candidate["module_path"]), test, ref, candidate_dir)
++        if not args.skip_official:
++            candidate["official"] = official_eval(case_id, Path(candidate["module_path"]), test, ref, candidate_dir)
+     selected_official = selected["official"] if selected else None
+     if selected:
+         shutil.copy2(selected["module_path"], output / "selected.sv")
+--- upstream/spec_directed_validator.py
++++ integrated/spec_directed_validator.py
+@@ -11,16 +11,60 @@
+ 
+ import argparse
+ import json
++import re
+ from pathlib import Path
+ import shutil
+ import subprocess
+ from typing import Any, Dict, Iterable, List
++from candidate_runtime import DEFAULT_DATASET, DEFAULT_IVERILOG, DEFAULT_VVP, as_text
+ 
+ 
+ SCRIPT_DIR = Path(__file__).resolve().parent
+ DEFAULT_CONTRACT_DIR = SCRIPT_DIR / "verification_contracts"
+-DEFAULT_RTL_ROOT = SCRIPT_DIR / "dataset_spec-to-rtl_gcc"
+-DEFAULT_OUTPUT_DIR = SCRIPT_DIR / "spec_directed_results"
++DEFAULT_RTL_ROOT = DEFAULT_DATASET
++DEFAULT_OUTPUT_DIR = SCRIPT_DIR / "experiments" / "spec_directed_results"
++
++
++def validate_contract(contract):
++    """This small saved-contract format permits literal expectations only."""
++    identifier = re.compile(r'^[A-Za-z_][A-Za-z0-9_$]*$')
++    literal = re.compile(r"^(?:[0-9]+|[0-9]+'[sS]?[bBoOdDhH][0-9a-fA-F_]+|'[01])$")
++    ports = contract.get('ports', [])
++    names = [p.get('name', '') for p in ports]
++    if len(set(names)) != len(names) or not all(identifier.fullmatch(n) for n in names):
++        raise ValueError('Invalid or duplicate port names')
++    if any(p.get('direction') not in {'input', 'output'} or not 1 <= int(p.get('width', 1)) <= 65536 for p in ports):
++        raise ValueError('Invalid port direction/width')
++    inputs = {p['name'] for p in ports if p['direction'] == 'input'}
++    outputs = set(names) - inputs
++    clock = contract.get('clock')
++    if clock and (clock['name'] not in inputs or int(clock.get('half_period', 5)) < 1):
++        raise ValueError('Invalid clock')
++    def values(group, allowed):
++        if set(group) - allowed or not all(literal.fullmatch(str(v)) for v in group.values()):
++            raise ValueError('Signal direction mismatch or nonliteral value in saved contract')
++    values(contract.get('initial', {}), inputs)
++    tests = contract.get('tests', [])
++    if not tests or not outputs:
++        raise ValueError('Contract needs outputs and nonempty tests')
++    checked = set()
++    for test in tests:
++        count = 0
++        for step in test['steps']:
++            if set(step) - {'set', 'expect', 'delay', 'posedge', 'clock'}:
++                raise ValueError('Unknown test step field')
++            values(step.get('set', {}), inputs)
++            values(step.get('expect', {}), outputs)
++            count += len(step.get('expect', {}))
++            checked.update(step.get('expect', {}))
++            if 'delay' in step and int(step['delay']) < 1:
++                raise ValueError('delay must be positive')
++            if 'posedge' in step and (not clock or int(step['posedge']) < 1 or step.get('clock', clock['name']) != clock['name']):
++                raise ValueError('Invalid clock wait')
++        if not count:
++            raise ValueError('Every test requires an output check')
++    if checked != outputs:
++        raise ValueError('Every output requires a check')
+ 
+ 
+ def _sv_string(value: str) -> str:
+@@ -34,7 +78,10 @@
+ 
+ def build_testbench(contract: Dict[str, Any], dut_module: str | None = None) -> str:
+     """Translate a declarative directed-test contract into a self-checking TB."""
++    validate_contract(contract)
+     module_name = dut_module or contract.get("dut_module", "TopModule")
++    if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_$]*', module_name):
++        raise ValueError('Invalid DUT module name')
+     ports = contract["ports"]
+     inputs = [port for port in ports if port["direction"] == "input"]
+     outputs = [port for port in ports if port["direction"] == "output"]
+@@ -97,6 +144,8 @@
+                 count = int(step["posedge"])
+                 lines.append(f"    repeat ({count}) @(posedge {step.get('clock', clock['name'])});")
+                 lines.append("    #1;")
++            if step.get('set') and 'delay' not in step and 'posedge' not in step:
++                lines.append('    #1;')
+             for name, expected in step.get("expect", {}).items():
+                 lines.extend([
+                     "    checks = checks + 1;",
+@@ -168,11 +217,20 @@
+         report_path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
+         return result
+ 
++    try:
++        return _execute_contract(result, contract, report_path, case_output, rtl_path, tb_path, simulation_path, iverilog, vvp)
++    except (OSError, subprocess.TimeoutExpired) as exc:
++        result.update(status='infrastructure_error', reason=str(exc))
++        report_path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
++        return result
++
++
++def _execute_contract(result, contract, report_path, case_output, rtl_path, tb_path, simulation_path, iverilog, vvp):
+     compile_process = subprocess.run(
+         [iverilog, "-g2012", "-s", "spec_directed_tb", "-o", str(simulation_path), str(rtl_path), str(tb_path)],
+         cwd=case_output,
+         capture_output=True,
+-        text=True,
++        text=True, encoding="utf-8", errors="replace",
+         timeout=60,
+     )
+     result["compile_returncode"] = compile_process.returncode
+@@ -188,21 +246,22 @@
+             [vvp, str(simulation_path)],
+             cwd=case_output,
+             capture_output=True,
+-            text=True,
++            text=True, encoding="utf-8", errors="replace",
+             timeout=int(contract.get("timeout_seconds", 30)),
+         )
+     except subprocess.TimeoutExpired as exc:
+         result.update(
+             status="timeout",
+             reason="directed testbench timed out",
+-            simulation_stdout=exc.stdout or "",
+-            simulation_stderr=exc.stderr or "",
++            simulation_stdout=as_text(exc.stdout),
++            simulation_stderr=as_text(exc.stderr),
+         )
+         report_path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
+         return result
+ 
+     stdout = simulation_process.stdout
+-    summary_seen = "DIRECTED_SUMMARY|" in stdout
++    summary = re.search(r'^DIRECTED_SUMMARY\|checks=(\d+)\|failures=(\d+)\s*$', stdout, re.M)
++    summary_seen = summary is not None and int(summary[1]) > 0 and int(summary[2]) == 0
+     failure_seen = "DIRECTED_FAIL|" in stdout
+     passed = simulation_process.returncode == 0 and summary_seen and not failure_seen
+     result.update(
+@@ -281,8 +340,8 @@
+     parser.add_argument("--vvp")
+     args = parser.parse_args()
+ 
+-    iverilog = _resolve_executable(args.iverilog, "iverilog", r"C:\iverilog\bin\iverilog.exe")
+-    vvp = _resolve_executable(args.vvp, "vvp", r"C:\iverilog\bin\vvp.exe")
++    iverilog = _resolve_executable(args.iverilog, "iverilog", str(DEFAULT_IVERILOG))
++    vvp = _resolve_executable(args.vvp, "vvp", str(DEFAULT_VVP))
+     args.output.mkdir(parents=True, exist_ok=True)
+ 
+     results = []
+--- upstream/audit_candidate_pool.py
++++ integrated/audit_candidate_pool.py
+@@ -16,10 +16,8 @@
+ 
+ 
+ ROOT = Path(__file__).resolve().parent
+-WORKSPACE = ROOT.parent
+-DATASET = ROOT / "dataset_spec-to-rtl_gcc"
+-IVERILOG = Path(r"C:\iverilog\bin\iverilog.exe")
+-VVP = Path(r"C:\iverilog\bin\vvp.exe")
++WORKSPACE = ROOT / "experiments"
++from candidate_runtime import DEFAULT_DATASET as DATASET, DEFAULT_IVERILOG as IVERILOG, DEFAULT_VVP as VVP, as_text
+ CASE_RE = re.compile(r"^(Prob\d{3}_[^\\/]+)$")
+ MISMATCH_RE = re.compile(r"Mismatches:\s*(\d+)\s+in\s+(\d+)\s+samples", re.I)
+ 
+@@ -36,7 +34,7 @@
+         proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout)
+         return proc.returncode, proc.stdout, proc.stderr, False
+     except subprocess.TimeoutExpired as exc:
+-        return 124, exc.stdout or "", exc.stderr or "", True
++        return 124, as_text(exc.stdout), as_text(exc.stderr), True
+ 
+ 
+ def case_from_path(path: Path) -> str | None:
+@@ -108,7 +106,7 @@
+         match = MISMATCH_RE.search(full)
+         if timed_out:
+             status, mismatches, samples = "timeout", None, None
+-        elif match:
++        elif match and rc == 0 and int(match.group(2)) > 0:
+             mismatches, samples = int(match.group(1)), int(match.group(2))
+             status = "pass" if mismatches == 0 else "mismatch"
+         else:
+@@ -121,7 +119,7 @@
+     ns = args()
+     output = (
+         ns.output
+-        or WORKSPACE / "experiments" / "candidate_pool" / f"candidate_pool_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
++        or WORKSPACE / "candidate_pool" / f"candidate_pool_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+     ).resolve()
+     if output.exists():
+         raise FileExistsError(f"output exists: {output}")

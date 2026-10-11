@@ -1,0 +1,174 @@
+{
+ "case": "Prob133_2014_q3fsm",
+ "n_samples": 9,
+ "n_distinct": 9,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "b5f5f0cbc956",
+   "sources": [
+    "ids:i00"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\i00.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "t.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:37: error: This assignment requires an explicit cast.\ndut.sv:39: error: This assignment requires an explicit cast.\ndut.sv:40: error: This assignment requires an explicit cast.\n7 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "7f3b7cb4f618",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\i01.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:56: error: This assignment requires an explicit cast.\n1 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c2",
+   "hash": "27cbb4c989f2",
+   "sources": [
+    "ids:i10"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\i10.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "t.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:38: error: This assignment requires an explicit cast.\ndut.sv:39: error: This assignment requires an explicit cast.\n7 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c3",
+   "hash": "43f64f3ba0ee",
+   "sources": [
+    "ids:i11"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\i11.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:32: error: This assignment requires an explicit cast.\n1 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c4",
+   "hash": "f1ebb2e2d7aa",
+   "sources": [
+    "ve_ds41_ids:s0"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1414,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c5",
+   "hash": "1d4c09ac2c8d",
+   "sources": [
+    "ve_ds41_ids:s1"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\s1.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1414,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c6",
+   "hash": "13bd10ddfde8",
+   "sources": [
+    "ve_ds41_ids:s2"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\s2.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:37: error: This assignment requires an explicit cast.\ndut.sv:38: error: This assignment requires an explicit cast.\ndut.sv:39: error: This assignment requires an explicit cast.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c7",
+   "hash": "54afb13762ff",
+   "sources": [
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1414,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c8",
+   "hash": "067ba99fb510",
+   "sources": [
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob133_2014_q3fsm\\s4.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "t.\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\n7 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c4",
+    "c5",
+    "c7"
+   ],
+   "votes": 3,
+   "correct": true
+  }
+ ]
+}

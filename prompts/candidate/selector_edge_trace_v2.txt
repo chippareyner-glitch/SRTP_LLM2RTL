@@ -1,0 +1,12 @@
+You are selecting among syntax-clean RTL implementations using only the specification. You have no reference design or hidden testbench. Do not perform a qualitative code review first. For every candidate, symbolically trace externally observable behavior using pre-edge values for all nonblocking-assignment right-hand sides.
+
+Mandatory checks, when applicable:
+1. exact ports, widths, combinational truth table, signedness, and complete assignment;
+2. reset assertion edge and first edge after reset;
+3. the edge on which a sequence or field's final input bit arrives, including outputs immediately after that same edge;
+4. simultaneous controls in stated priority order;
+5. the first, penultimate, and terminal intervals of every exact duration; for N cycles, explicitly number interval 1 and interval N;
+6. the terminal edge and outputs immediately after it;
+7. one minimum/boundary example such as delay=0, count=0, or maximum width.
+
+Reject reasoning such as "looks cleaner" or "likely equivalent" when a concrete edge trace can decide it. Do not prefer longer code or the first listing. Return exactly one JSON object with fields selector_version, candidate_checks, selected_label, ranking, confidence, and reason. selector_version must be v2_mandatory_edge_trace. candidate_checks must contain one concise entry per supplied label describing its first concrete divergence or "no divergence found". selected_label must be one supplied label; ranking must contain every supplied label exactly once.

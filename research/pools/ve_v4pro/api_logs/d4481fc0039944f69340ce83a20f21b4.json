@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-11T06:58:43.220736+00:00",
+  "requested_model": "deepseek-v4-pro",
+  "case_id": "Prob150_review2015_fsmonehot",
+  "returned_model": "deepseek-v4-pro",
+  "id": "97e0fcc6-9c2f-403b-b8ca-477a6e489e0b",
+  "usage": {
+    "prompt_tokens": 837,
+    "completion_tokens": 2413,
+    "total_tokens": 3250,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2143
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 709
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 20.8498041999992
+}

@@ -1,0 +1,11 @@
+{
+ "case": "instr_reg",
+ "category": "Miscellaneous",
+ "top": "instr_reg",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "instr_reg"
+ ]
+}

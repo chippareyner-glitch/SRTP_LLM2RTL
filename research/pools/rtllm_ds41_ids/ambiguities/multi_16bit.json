@@ -1,0 +1,41 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "yout_r accumulation baseline across operations",
+   "severity": "high",
+   "readings": [
+    "yout_r is cleared to 0 when start is asserted / when i==0, so each multiplication starts from a zero product (required for correct results on back-to-back operations)",
+    "yout_r is cleared ONLY by rst_n (the spec only lists reset for areg/breg/yout_r); at i==0 nothing clears it, so a second operation accumulates on top of the previous product and yout is wrong"
+   ],
+   "concrete_effect": "yout value for the 2nd and later multiplications differs (correct product vs. sum of both products)"
+  },
+  {
+   "aspect": "done_r deassertion condition",
+   "severity": "high",
+   "readings": [
+    "done_r is cleared only when i==17 (or rst_n), so if start is deasserted before i reaches 17 the counter returns to 0 but done stays 1 indefinitely, and a one-cycle start pulse can leave done stuck at 1",
+    "done_r is cleared whenever start is inactive or whenever i is reset to 0, so done is low as soon as start is released"
+   ],
+   "concrete_effect": "done waveform after start deassertion: stuck high vs. immediately low"
+  },
+  {
+   "aspect": "start semantics (level vs. single-cycle pulse)",
+   "severity": "medium",
+   "readings": [
+    "start is a level that must remain asserted for all 17 counter steps, because '!start resets i to 0'; a one-cycle start pulse performs no accumulation and yout stays/becomes 0 while done may never assert",
+    "start is a one-cycle trigger that latches internal run/busy logic, so a single-cycle pulse completes the whole multiplication with done pulsing later"
+   ],
+   "concrete_effect": "given a 1-cycle start pulse, either no product is produced or the full product is produced"
+  },
+  {
+   "aspect": "register update gating by start",
+   "severity": "medium",
+   "readings": [
+    "areg/breg/yout_r only update while start is active (the load at i==0 is explicitly conditional on start being active), so they hold their values when start is low",
+    "areg/breg/yout_r update every clock regardless of start, so ain/bin are continuously captured into areg/breg and yout_r is re-accumulated/driven from live inputs while start is low"
+   ],
+   "concrete_effect": "values of areg/breg/yout_r (and hence yout) during cycles where start==0 differ"
+  }
+ ],
+ "concrete_effect_note": "yout/done cycle-by-cycle behaviour differs between readings"
+}

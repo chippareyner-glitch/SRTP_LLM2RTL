@@ -1,0 +1,54 @@
+{
+ "case": "multi_booth_8bit",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "a",
+    8
+   ],
+   [
+    "b",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "p",
+    16
+   ],
+   [
+    "rdy",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c3",
+   "c4"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 4
+}

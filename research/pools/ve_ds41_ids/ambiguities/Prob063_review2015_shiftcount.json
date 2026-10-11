@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial value of q (no reset)",
+   "severity": "high",
+   "readings": [
+    "q is initialized to 4'b0000 at power-up or before any clock edge.",
+    "q is undefined (X in simulation) until the first clock edge; hardware powers up to an arbitrary value."
+   ]
+  },
+  {
+   "aspect": "Shift direction / MSB-first interpretation",
+   "severity": "high",
+   "readings": [
+    "Data enters at the LSB and shifts toward the MSB (q <= {q[2:0], data}), so the first bit received ends up in the MSB after four shifts.",
+    "Data enters at the MSB and shifts toward the LSB (q <= {data, q[3:1]}), so the first bit received is placed in the MSB and moves to the LSB after four shifts."
+   ]
+  },
+  {
+   "aspect": "Decrement underflow behaviour",
+   "severity": "medium",
+   "readings": [
+    "The 4-bit value decrements modulo 16, so 4'b0000 decrements to 4'b1111.",
+    "The counter saturates at 0, so 4'b0000 remains 4'b0000 when count_ena is asserted."
+   ]
+  },
+  {
+   "aspect": "Bit ordering of output q",
+   "severity": "medium",
+   "readings": [
+    "q[3] is the most significant bit and q[0] is the least significant bit (standard [3:0] vector declaration).",
+    "q[0] is the most significant bit and q[3] is the least significant bit (i.e., a [0:3] vector declaration)."
+   ]
+  }
+ ]
+}

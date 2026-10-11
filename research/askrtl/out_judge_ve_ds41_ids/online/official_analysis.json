@@ -1,0 +1,1236 @@
+[
+ {
+  "case": "Prob018_mux256to1",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob019_m2014_q4f",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob028_m2014_q4a",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob032_vector0",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob034_dff8",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob035_count1to10",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob036_ringer",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob037_review2015_count1k",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob038_count15",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob040_count10",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob041_dff8r",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob043_vector5",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob045_edgedetect2",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "mixed",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob047_dff8ar",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob048_m2014_q4c",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob049_m2014_q4b",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "C": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob054_edgedetect",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "fail",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": "Spec does not specify initial previous input; assuming standard uninitialized x state."
+ },
+ {
+  "case": "Prob060_m2014_q4k",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob061_2014_q4a",
+  "qi": 2,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 1,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob061_2014_q4a",
+  "qi": 0,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 0.85,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob062_bugs_mux2",
+  "qi": 0,
+  "kind": "all-fail",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob063_review2015_shiftcount",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob064_vector3",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "C": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob066_edgecapture",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob067_countslow",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob068_countbcd",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "other": "pass",
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.9,
+  "spec_gap": "Specification does not explicitly state whether ena is combinational or registered; the provided table implies a registered enable."
+ },
+ {
+  "case": "Prob068_countbcd",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob068_countbcd",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob070_ece241_2013_q2",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "API_ERROR",
+  "status": {
+   "A": "pass",
+   "C": "pass",
+   "B": "fail"
+  },
+  "confidence": null,
+  "spec_gap": null
+ },
+ {
+  "case": "Prob070_ece241_2013_q2",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "ANY",
+  "status": {
+   "A": "pass",
+   "B": "pass",
+   "C": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": "Input 11 is a don't-care; minimal POS has multiple equally valid forms giving different out_pos values."
+ },
+ {
+  "case": "Prob070_ece241_2013_q2",
+  "qi": 3,
+  "kind": "informative",
+  "answer": "ANY",
+  "status": {
+   "C": "pass",
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": "Input 11 is explicitly listed as never occurring, so its output is a don't-care and not constrained by the spec."
+ },
+ {
+  "case": "Prob073_dff16e",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "C",
+  "status": {
+   "C": "pass",
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob075_counter_2bc",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob078_dualedge",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob079_fsm3onehot",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob080_timer",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob082_lfsr32",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob084_ece241_2013_q12",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob085_shift4",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "fail"
+  },
+  "confidence": 0.98,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob088_ece241_2014_q5b",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob089_ece241_2014_q5a",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.98,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob091_2012_q2b",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "ANY",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": "y=6'h03 has two state bits set, violating the one-hot assumption; the spec does not define behavior for this invalid input."
+ },
+ {
+  "case": "Prob093_ece241_2014_q3",
+  "qi": 0,
+  "kind": "all-fail",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob095_review2015_fsmshift",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob096_review2015_fsmseq",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "pass"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob098_circuit7",
+  "qi": 0,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "B": "fail",
+   "other": "mixed"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob098_circuit7",
+  "qi": 4,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "other": "fail",
+   "B": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob102_circuit3",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob104_mt2015_muxdff",
+  "qi": 0,
+  "kind": "all-fail",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": "No reset or initial value is specified for the flip-flop, so its pre-first-edge value is undefined, conventionally x."
+ },
+ {
+  "case": "Prob108_rule90",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob109_fsm1",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob112_always_case2",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.98,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob113_2012_q1g",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob115_shift18",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob116_m2014_q3",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "B": "pass",
+   "A": "fail"
+  },
+  "confidence": 0.85,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob116_m2014_q3",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "B": "pass",
+   "A": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob118_history_shift",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail",
+   "other": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob121_2014_q3bfsm",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 1,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob123_bugs_addsubz",
+  "qi": 2,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "B": "mixed",
+   "A": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob123_bugs_addsubz",
+  "qi": 1,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob124_rule110",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "B": "pass",
+   "A": "fail",
+   "other": "pass"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob128_fsm_ps2",
+  "qi": 2,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "B": "mixed",
+   "A": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob128_fsm_ps2",
+  "qi": 1,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob130_circuit5",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob132_always_if2",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "C": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob134_2014_q3c",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob134_2014_q3c",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob135_m2014_q6b",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob135_m2014_q6b",
+  "qi": 5,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob137_fsm_serial",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob137_fsm_serial",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "B": "fail",
+   "A": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob137_fsm_serial",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob141_count_clock",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob143_fsm_onehot",
+  "qi": 2,
+  "kind": "all-pass",
+  "answer": "B",
+  "status": {
+   "B": "pass",
+   "A": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob143_fsm_onehot",
+  "qi": 1,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob144_conwaylife",
+  "qi": 4,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "pass",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob145_circuit8",
+  "qi": 1,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob146_fsm_serialdata",
+  "qi": 8,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "mixed"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob146_fsm_serialdata",
+  "qi": 4,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "B": "fail",
+   "A": "mixed"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob146_fsm_serialdata",
+  "qi": 3,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "mixed"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob148_2013_q2afsm",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": "State diagram appears to have a typo: A->D should be r0=0,r1=0,r2=1->D, as implied by the arbiter description."
+ },
+ {
+  "case": "Prob149_ece241_2013_q4",
+  "qi": 5,
+  "kind": "all-fail",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob149_ece241_2013_q4",
+  "qi": 14,
+  "kind": "all-fail",
+  "answer": "ANY",
+  "status": {
+   "B": "fail",
+   "other": "fail",
+   "A": "fail"
+  },
+  "confidence": 0.8,
+  "spec_gap": "Input s=3'b110 is not a valid water-level sensor pattern under the defined levels; spec does not define behavior for this unused input combination."
+ },
+ {
+  "case": "Prob149_ece241_2013_q4",
+  "qi": 12,
+  "kind": "all-fail",
+  "answer": "ANY",
+  "status": {
+   "B": "fail",
+   "other": "fail",
+   "A": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": "The input s=3'b110 is not one of the four valid sensor patterns defined by the specification, so the spec does not specify the output for this case."
+ },
+ {
+  "case": "Prob150_review2015_fsmonehot",
+  "qi": 0,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "mixed"
+  },
+  "confidence": 0.98,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob150_review2015_fsmonehot",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "pass"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob150_review2015_fsmonehot",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "A": "fail",
+   "B": "pass"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob152_lemmings3",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob153_gshare",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "UNCLEAR",
+  "status": {
+   "B": "pass",
+   "A": "fail",
+   "other": "fail"
+  },
+  "confidence": 0.85,
+  "spec_gap": "Spec does not specify the PHT reset value (0 vs 1), which determines whether PHT[0x5B] is 1 or 2 and thus whether predict_taken is 0 or 1 at cycle 3 post."
+ },
+ {
+  "case": "Prob153_gshare",
+  "qi": 4,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob153_gshare",
+  "qi": 2,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob154_fsm_ps2data",
+  "qi": 2,
+  "kind": "informative",
+  "answer": "ANY",
+  "status": {
+   "C": "fail",
+   "A": "fail",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": "out_bytes is explicitly don't-care when done=0, so both 000000 and d8d8d8 are acceptable at cycle 3."
+ },
+ {
+  "case": "Prob154_fsm_ps2data",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "ANY",
+  "status": {
+   "B": "fail",
+   "C": "fail",
+   "A": "pass"
+  },
+  "confidence": 0.98,
+  "spec_gap": "out_bytes is don't-care when done=0; both B and C satisfy the specification."
+ },
+ {
+  "case": "Prob154_fsm_ps2data",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "ANY",
+  "status": {
+   "B": "fail",
+   "A": "fail",
+   "C": "pass"
+  },
+  "confidence": 0.97,
+  "spec_gap": "out_bytes is don't-care while done=0, so both A and C are acceptable."
+ },
+ {
+  "case": "Prob155_lemmings4",
+  "qi": 5,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "B": "mixed",
+   "A": "fail"
+  },
+  "confidence": 0.98,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob155_lemmings4",
+  "qi": 8,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "B": "mixed",
+   "A": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob155_lemmings4",
+  "qi": 2,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob156_review2015_fancytimer",
+  "qi": 1,
+  "kind": "all-fail",
+  "answer": "B",
+  "status": {
+   "B": "fail",
+   "other": "fail",
+   "A": "fail"
+  },
+  "confidence": 0.99,
+  "spec_gap": ""
+ },
+ {
+  "case": "Prob156_review2015_fancytimer",
+  "qi": 7,
+  "kind": "all-fail",
+  "answer": "A",
+  "status": {
+   "A": "fail",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ }
+]

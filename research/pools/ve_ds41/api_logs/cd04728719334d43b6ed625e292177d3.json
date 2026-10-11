@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:34:22.376863+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob128_fsm_ps2",
+  "returned_model": "deepseek-flash",
+  "id": "0bf1c478-0043-400f-917a-feb8f8a97e4f",
+  "usage": {
+    "prompt_tokens": 372,
+    "completion_tokens": 3333,
+    "total_tokens": 3705,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3108
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 244
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 15.464271099997859
+}

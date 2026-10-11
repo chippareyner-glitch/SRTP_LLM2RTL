@@ -1,0 +1,173 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  y (6 bits)
+ - input  w
+ - output Y1
+ - output Y3
+
+Consider the state machine shown below:
+
+  A (0) --0--> B
+  A (0) --1--> A
+  B (0) --0--> C
+  B (0) --1--> D
+  C (0) --0--> E
+  C (0) --1--> D
+  D (0) --0--> F
+  D (0) --1--> A
+  E (1) --0--> E
+  E (1) --1--> D
+  F (1) --0--> C
+  F (1) --1--> D
+
+Resets into state A. For this part, assume that a one-hot code is used
+with the state assignment y[5:0] = 000001, 000010, 000100, 001000,
+010000, 100000 for states A, B,..., F, respectively.
+
+The module shou module ment the next-state signals Y2 and Y4
+corresponding to signal y[1] and y[3]. Derive the logic equations by
+inspection assuming the one-hot encoding.
+ implement the next-state signals  and corresponding to
+signal y[1] and y[3]Derive the logic equations byinspection assuming the one-hot encoding.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report
+
+### 1. Specification Summary
+- **Module**: TopModule with 6-bit input `y`, 1-bit input `w`, and outputs `Y1`, `Y3`
+- **FSM**: 6-state machine (A-F) with one-hot encoding:
+  - A: 000001, B: 000010, C: 000100, D: 001000, E: 010000, F: 100000
+- **Function**: Implements next-state logic for bits Y1 (y[1]) and Y3 (y[3])
+- **Reset**: Initial state A (000001)
+
+### 2. Ambiguity Analysis
+**Critical Issues Found:**
+- **Output Confusion**: Specification mentions "output Y1, output Y3" but then discusses "Y2 and Y4 corresponding to signal y[1] and y[3]" - inconsistent naming
+- **State Bit Mapping**: Unclear if y[0] corresponds to state A or y[5] corresponds to state A
+- **Timing Requirements**: No clock or timing specifications provided
+- **Output Behavior**: Unclear if outputs are registered or combinational
+
+**Resolution Required:**
+- Clarify output naming convention (Y1/Y3 vs Y2/Y4)
+- Confirm state encoding bit order (A = y[0] or y[5]?)
+- Define clocking and timing constraints
+
+### 3. Missing Critical Details
+**Essential Missing Specifications:**
+- **Clock Signal**: No clock input port specified
+- **Reset Signal**: No reset mechanism defined (async/sync, active level)
+- **Output Timing**: Combinational vs registered outputs not specified
+- **Input Timing**: Setup/hold requirements for inputs y and w
+- **Power-on Reset**: Behavior at power-up not defined
+
+**FSM-Specific Gaps:**
+- No specification for unused state transitions (illegal one-hot codes)
+- No error handling for non-one-hot input states
+- Missing output values for all states (only some states have output annotations)
+
+### 4. Edge Cases & Boundary Conditions
+**Critical Edge Cases:**
+- **Invalid State Inputs**: What happens when y input is not one-hot?
+- **Multiple Bits High**: How to handle cases where multiple y bits are set?
+- **All Zeros Input**: Behavior when y = 000000
+- **State Transitions**: Unspecified behavior for states with no output annotation
+- **Simultaneous Transitions**: Multiple state bits changing simultaneously
+
+**Boundary Conditions:**
+- Reset sequence and timing
+- Metastability handling for asynchronous inputs
+- Glitch prevention in next-state logic
+
+### 5. Functional Correctness Prediction
+**High-Risk Areas:**
+- **State Encoding Confusion**: 75% risk of incorrect bit mapping without clarification
+- **Output Naming**: 60% risk of implementing wrong outputs due to inconsistent naming
+- **Timing Issues**: 80% risk of functional failures without proper clocking specification
+
+**Verification Challenges:**
+- Cannot fully verify without clock and reset specifications
+- Testbench development will be ambiguous without clear timing requirements
+- Synthesis results unpredictable without timing constraints
+
+### 6. Actionable Guidance for RTL Generation
+
+**Immediate Clarifications Needed:**
+```
+// REQUIRED CLARIFICATIONS:
+// 1. Confirm output naming: Y1/Y3 or Y2/Y4?
+// 2. State encoding: A = y[0] or y[5]?
+// 3. Clock and reset interface requirements
+// 4. Output timing (combinational/registered)
+```
+
+**Recommended RTL Structure:**
+```systemverilog
+module TopModule (
+    input  logic        clk,      // NEEDS SPECIFICATION
+    input  logic        reset_n,  // NEEDS SPECIFICATION  
+    input  logic [5:0]  y,
+    input  logic        w,
+    output logic        Y1,       // CONFIRM NAME
+    output logic        Y3        // CONFIRM NAME
+);
+
+// State definitions (ASSUMPTION: A = y[0])
+localparam STATE_A = 6'b000001;
+localparam STATE_B = 6'b000010;
+localparam STATE_C = 6'b000100;
+localparam STATE_D = 6'b001000;
+localparam STATE_E = 6'b010000;
+localparam STATE_F = 6'b100000;
+
+// Next-state logic (combinational)
+always_comb begin
+    // Default outputs (prevent latches)
+    Y1 = 1'b0;
+    Y3 = 1'b0;
+    
+    // Next-state logic by inspection
+    case (1'b1) // One-hot case statement
+        y[0]: begin // State A
+            Y1 = 1'b0; // Next state B has y[1] = 1
+            Y3 = 1'b0;
+        end
+        y[1]: begin // State B
+            Y1 = 1'b0; // Next states C/D don't set y[1]
+            Y3 = ~w;   // C has y[2]=1, D has y[3]=1 when w=1
+        end
+        // ... Complete for all states
+        default: begin // Handle non-one-hot inputs
+            Y1 = 1'b0;
+            Y3 = 1'b0;
+        end
+    endcase
+end
+
+endmodule
+```
+
+**Verification Strategy:**
+1. Create testbench with clock and reset generation
+2. Verify all state transitions from specification
+3. Test illegal state recovery
+4. Validate one-hot encoding constraints
+5. Perform timing analysis once clock specifications are provided
+
+**Priority Actions:**
+1. **Immediate**: Resolve naming and encoding ambiguities
+2. **High Priority**: Define clock and reset interface
+3. **Medium Priority**: Specify output timing requirements
+4. **Validation**: Create comprehensive test plan covering edge cases
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

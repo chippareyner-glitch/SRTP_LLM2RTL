@@ -1,0 +1,120 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  in
+ - output done
+
+In many (older) serial communications protocols, each data byte is sent
+along with a start bit and a stop bit, to help the receiver delimit bytes
+from the stream of bits. One common scheme is to use one start bit (0), 8
+data bits, and 1 stop bit (1). The line is also at logic 1 when nothing
+is being transmitted (idle).
+
+Implement a finite state machine that will identify when bytes have been
+correctly received when given a stream of bits. It needs to identify the
+start bit, wait for all 8 data bits, then verify that the stop bit was
+correct. If the stop bit does not appear when expected, the FSM must wait
+until it finds a stop bit before attempting to receive the next byte.
+Include a active-high synchronous reset. Note that the serial protocol
+sends the least significant bit first.
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` implements a serial byte receiver FSM that detects:
+- **Start bit**: logic 0 after idle state (logic 1)
+- **8 data bits**: LSB first transmission
+- **Stop bit**: logic 1 to validate byte completion
+- **Error handling**: Wait for stop bit if missing, then resynchronize
+- **Interface**: Single-bit input stream, active-high synchronous reset, done signal
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **`done` signal timing**: Unclear if `done` pulses for 1 cycle after valid stop bit, or remains high until next start bit
+- **`done` meaning**: Does `done` indicate valid byte reception, or just byte boundary detection (including errors)?
+- **Error handling scope**: "Wait until it finds a stop bit" - does this mean ignore subsequent start bits until stop found?
+- **Bit sampling**: No specification of when to sample `in` relative to bit boundaries (assumed every clock cycle)
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+- **Bit timing**: No baud rate or sampling clock relationship specified (assume 1 bit per clock cycle)
+- **`done` behavior**: Duration and condition for assertion
+- **Data output**: Missing 8-bit received data output port
+- **Error signaling**: No output to indicate corrupted frames (missing stop bit)
+- **Reset state**: Initial state after reset (should be IDLE waiting for start bit)
+- **Consecutive bytes**: Behavior when new start bit immediately follows stop bit
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+- **False start**: Line glitches from 1→0→1 during IDLE
+- **Missing stop bit**: Start bit followed by 8 data bits but stop bit never arrives
+- **Early start**: New start bit appears before expected stop bit in error case
+- **Reset during reception**: Reset asserted mid-byte reception
+- **Continuous transmission**: Back-to-back bytes without idle time
+- **All-zero data**: Data bits = 0x00 could be mistaken for extended start condition
+
+## 5. Functional Correctness Prediction
+
+**Potential Failure Points:**
+- **Stop bit validation**: FSM may incorrectly accept a data bit as stop bit if timing not properly controlled
+- **Re-synchronization**: Error recovery may cause missed valid start bits during recovery process
+- **Meta-stability**: No input synchronization specified for asynchronous serial input
+- **Consecutive bytes**: May fail if FSM doesn't return to IDLE quickly enough after stop bit
+
+## 6. Actionable Guidance for RTL Generation
+
+**Design Requirements:**
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic reset,    // Active-high synchronous reset
+    input  logic in,       // Serial input bitstream
+    output logic done,     // Pulse for 1 cycle when byte successfully received
+    output logic [7:0] data_out,  // ADD: Received data bits
+    output logic error     // ADD: Frame error (stop bit missing)
+);
+```
+
+**FSM States:**
+1. **IDLE**: Wait for start bit (in=0), monitor for glitches (debounce)
+2. **RECEIVE_DATA**: Shift in 8 bits LSB-first, counter-controlled
+3. **CHECK_STOP**: Verify stop bit (in=1)
+4. **ERROR_RECOVERY**: Wait for next stop bit if missing
+
+**Implementation Rules:**
+- Sample `in` on rising clock edge only
+- **`done`**: 1-cycle pulse after valid stop bit detection
+- **`error`**: Assert if in≠1 during CHECK_STOP state, remain asserted until stop bit found
+- **Glitch protection**: Require 2+ consecutive 0's to validate start bit
+- **Reset**: Return to IDLE state, clear all counters and data registers
+
+**Timing Specification:**
+- 1 clock cycle per bit period (simplified assumption)
+- Minimum 1 idle cycle between bytes (stop bit to next start bit)
+
+**Verification Requirements:**
+- Test all 256 data patterns with valid stop bits
+- Test missing stop bit scenarios
+- Test reset during each reception phase
+- Test maximum consecutive byte rate
+- Test false start bit recovery
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

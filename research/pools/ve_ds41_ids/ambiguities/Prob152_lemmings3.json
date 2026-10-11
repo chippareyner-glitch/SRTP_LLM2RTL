@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset semantics (level-sensitive vs edge-triggered asynchronous)",
+   "severity": "high",
+   "readings": [
+    "areset is a level-sensitive asynchronous reset: while areset is high, the state is forced to walk-left and outputs are immediately walk_left=1, walk_right=0, aaah=0, digging=0; the FSM cannot advance on clk edges while areset remains high.",
+    "areset is an edge-triggered asynchronous reset: only a rising edge on areset forces the walk-left state; if areset stays high, the FSM may still advance on later clk edges according to inputs, so outputs can change while areset is high."
+   ]
+  },
+  {
+   "aspect": "Output latency (registered vs combinational Moore outputs)",
+   "severity": "high",
+   "readings": [
+    "Moore outputs are combinational from state: inputs are sampled on posedge clk, state changes next cycle, and outputs change in that same next cycle. Thus when ground drops to 0, aaah remains 0 for the current cycle and becomes 1 only after the next clk edge.",
+    "Moore outputs are registered (or otherwise delayed): outputs change one cycle after the state changes, so aaah/digging/walking appear one cycle later than the state transition; e.g., ground=0 causes aaah to assert two cycles after the input condition is observed."
+   ]
+  }
+ ]
+}

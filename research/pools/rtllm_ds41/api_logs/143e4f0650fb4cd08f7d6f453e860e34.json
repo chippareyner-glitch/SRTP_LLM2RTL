@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:25:19.346534+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "calendar",
+  "returned_model": "deepseek-flash",
+  "id": "b5994a17-8a50-40e4-b26d-01707a7df356",
+  "usage": {
+    "prompt_tokens": 663,
+    "completion_tokens": 608,
+    "total_tokens": 1271,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 214
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 663
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 2.674192499998753
+}

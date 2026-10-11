@@ -1,0 +1,409 @@
+{
+ "case": "Prob127_lemmings1",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "areset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "areset",
+    1
+   ],
+   [
+    "bump_left",
+    1
+   ],
+   [
+    "bump_right",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "walk_left",
+    1
+   ],
+   [
+    "walk_right",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c1",
+   "members": [
+    "c1",
+    "c2",
+    "c3",
+    "c5",
+    "c6",
+    "c7"
+   ],
+   "votes": 8,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ]
+    ],
+    "st0": 1,
+    "outs": [
+     [
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01"
+     ],
+     [
+      "10",
+      "10",
+      "10",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "10",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  areset\n - input  bump_left\n - input  bump_right\n - output walk_left\n - output walk_right\n\nThe module should implement a simple game called Lemmings which involves\ncritters with fairly simple brains. So simple that we are going to model\nit using a finite state machine. In the Lemmings' 2D world, Lemmings can\nbe in one of two states: walking left (walk_left is 1) or walking right\n(walk_right is 1). It will switch directions if it hits an obstacle. In\nparticular, if a Lemming is bumped on the left (by receiving a 1 on\nbump_left), it will walk right. If it's bumped on the right (by receiving\na 1 on bump_right), it will walk left. If it's bumped on both sides at\nthe same time, it will still switch directions.\n\nThe module should implement a Moore state machine with two states, two\ninputs, and one output (internal to the module) that models this\nbehaviour. areset is positive edge triggered asynchronous resetting the\nLemming machine to walk left. Assume all sequential logic is triggered on\nthe positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | areset | bump_left | bump_right | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | 1'b0 | - | walk_left=1'b1, walk_right=1'b0 | - | walk_left=1'b1, walk_right=1'b0 |\n| 1 | 1'b1 | 1'b1 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 |\n| 2 | 1'b0 | 1'b0 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 3 | 1'b0 | 1'b0 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 4 | 1'b0 | 1'b0 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 5 | 1'b0 | 1'b1 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 6 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 7 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 8 | 1'b0 | 1'b0 | 1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 9 | 1'b0 | 1'b1 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 10 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 11 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 12 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 13 | 1'b0 | 1'b0 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 |\n| 14 | 1'b0 | 1'b1 | 1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 15 | 1'b0 | 1'b1 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 16 | 1'b0 | 1'b1 | 1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 17 | 1'b0 | 1'b1 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 18 | 1'b0 | 1'b0 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 |\n| 19 | 1'b0 | 1'b0 | 1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 20 | 1'b0 | 1'b1 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 21 | 1'b1 | 1'b0 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 |\n| 22 | 1'b0 | 1'b0 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 23 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 24 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 25 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 26 | 1'b0 | 1'b0 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 |\n| 27 | 1'b0 | 1'b0 | 1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 28 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 29 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n| 30 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 |\n| 31 | 1'b0 | 1'b1 | 1'b0 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b0, walk_right=1'b1 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b0, walk_right=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c4"
+   ],
+   "k": 3,
+   "len": 2,
+   "toggles": 3,
+   "stim": [
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "options": [
+    "10",
+    "01"
+   ],
+   "cluster_option": {
+    "c1": "A",
+    "c4": "B"
+   },
+   "label": "A",
+   "ref_value": "10",
+   "x_involved": false,
+   "hist": [
+    "10",
+    "10",
+    "10"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  areset\n - input  bump_left\n - input  bump_right\n - output walk_left\n - output walk_right\n\nThe module should implement a simple game called Lemmings which involves\ncritters with fairly simple brains. So simple that we are going to model\nit using a finite state machine. In the Lemmings' 2D world, Lemmings can\nbe in one of two states: walking left (walk_left is 1) or walking right\n(walk_right is 1). It will switch directions if it hits an obstacle. In\nparticular, if a Lemming is bumped on the left (by receiving a 1 on\nbump_left), it will walk right. If it's bumped on the right (by receiving\na 1 on bump_right), it will walk left. If it's bumped on both sides at\nthe same time, it will still switch directions.\n\nThe module should implement a Moore state machine with two states, two\ninputs, and one output (internal to the module) that models this\nbehaviour. areset is positive edge triggered asynchronous resetting the\nLemming machine to walk left. Assume all sequential logic is triggered on\nthe positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | areset | bump_left | bump_right | pre | post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | 1'b0 | walk_left=1'b1, walk_right=1'b0 | walk_left=1'b1, walk_right=1'b0 |\n| 1 | 1'b0 | 1'b0 | 1'b1 | walk_left=1'b1, walk_right=1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: walk_left=1'b1, walk_right=1'b0\n- **B**: walk_left=1'b0, walk_right=1'b1\n"
+  }
+ ]
+}

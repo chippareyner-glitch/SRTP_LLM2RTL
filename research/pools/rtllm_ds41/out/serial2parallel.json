@@ -1,0 +1,88 @@
+{
+ "case": "serial2parallel",
+ "n_samples": 5,
+ "n_distinct": 5,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "78658ffab795",
+   "sources": [
+    "rtllm_ds41:s0"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\serial2parallel\\s0.sv",
+   "gold": {
+    "status": "timeout",
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "46b36d3794fa",
+   "sources": [
+    "rtllm_ds41:s1"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\serial2parallel\\s1.sv",
+   "gold": {
+    "status": "timeout",
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "4a46154ca9d1",
+   "sources": [
+    "rtllm_ds41:s2"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\serial2parallel\\s2.sv",
+   "gold": {
+    "status": "timeout",
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "0370651b1718",
+   "sources": [
+    "rtllm_ds41:s3"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\serial2parallel\\s3.sv",
+   "gold": {
+    "status": "timeout",
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "ee9b72c2fc56",
+   "sources": [
+    "rtllm_ds41:s4"
+   ],
+   "model": "rtllm_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41\\gen\\serial2parallel\\s4.sv",
+   "gold": {
+    "status": "timeout",
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": []
+}

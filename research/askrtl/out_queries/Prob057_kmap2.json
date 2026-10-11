@@ -1,0 +1,350 @@
+{
+ "case": "Prob057_kmap2",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ],
+   [
+    "b",
+    1
+   ],
+   [
+    "c",
+    1
+   ],
+   [
+    "d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c3",
+    "c6"
+   ],
+   "votes": 5,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c5",
+   "members": [
+    "c5"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 13,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0
+     ],
+     [
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1",
+      "1",
+      "1",
+      "0",
+      "1",
+      "0",
+      "1",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "1",
+      "1",
+      "1",
+      "0",
+      "1",
+      "0",
+      "1",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output out\n\nThe module should implement the circuit described by the Karnaugh map\nbelow.\n\n              ab\n   cd   00  01  11  10\n   00 | 1 | 1 | 0 | 1 |\n   01 | 1 | 0 | 0 | 1 |\n   11 | 0 | 1 | 1 | 1 |\n   10 | 1 | 1 | 0 | 0 |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | A out | B out |\n|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | out=1'b1 | out=1'b1 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | out=1'b1 | out=1'b1 |\n| 2 | 1'b0 | 1'b1 | 1'b0 | 1'b0 | out=1'b1 | out=1'b1 |\n| 3 | 1'b1 | 1'b1 | 1'b0 | 1'b0 | out=1'b0 | out=1'b0 |\n| 4 | 1'b0 | 1'b0 | 1'b1 | 1'b0 | out=1'b1 | out=1'b1 |\n| 5 | 1'b1 | 1'b0 | 1'b1 | 1'b0 | out=1'b0 | out=1'b0 |\n| 6 | 1'b0 | 1'b1 | 1'b1 | 1'b0 | out=1'b1 | out=1'b1 |\n| 7 | 1'b1 | 1'b1 | 1'b1 | 1'b0 | out=1'b0 | out=1'b0 |\n| 8 | 1'b0 | 1'b0 | 1'b0 | 1'b1 | out=1'b1 | out=1'b1 |\n| 9 | 1'b1 | 1'b0 | 1'b0 | 1'b1 | out=1'b1 | out=1'b1 |\n| 10 | 1'b0 | 1'b1 | 1'b0 | 1'b1 | out=1'b0 | out=1'b0 |\n| 11 | 1'b1 | 1'b1 | 1'b0 | 1'b1 | out=1'b0 | out=1'b0 |\n| 12 | 1'b0 | 1'b0 | 1'b1 | 1'b1 | out=1'b0 | out=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     1,
+     1
+    ]
+   ],
+   "options": [
+    "0",
+    "1"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c4": "B",
+    "c5": "A"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output out\n\nThe module should implement the circuit described by the Karnaugh map\nbelow.\n\n              ab\n   cd   00  01  11  10\n   00 | 1 | 1 | 0 | 1 |\n   01 | 1 | 0 | 0 | 1 |\n   11 | 0 | 1 | 1 | 1 |\n   10 | 1 | 1 | 0 | 0 |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | out |\n|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b1 | 1'b1 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=1'b0\n- **B**: out=1'b1\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 2,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1",
+      "1"
+     ],
+     [
+      "1",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output out\n\nThe module should implement the circuit described by the Karnaugh map\nbelow.\n\n              ab\n   cd   00  01  11  10\n   00 | 1 | 1 | 0 | 1 |\n   01 | 1 | 0 | 0 | 1 |\n   11 | 0 | 1 | 1 | 1 |\n   10 | 1 | 1 | 0 | 0 |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | A out | B out |\n|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | out=1'b1 | out=1'b1 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | out=1'b1 | out=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c5"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c4": "A",
+    "c5": "B"
+   },
+   "label": "A",
+   "ref_value": "1",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output out\n\nThe module should implement the circuit described by the Karnaugh map\nbelow.\n\n              ab\n   cd   00  01  11  10\n   00 | 1 | 1 | 0 | 1 |\n   01 | 1 | 0 | 0 | 1 |\n   11 | 0 | 1 | 1 | 1 |\n   10 | 1 | 1 | 0 | 0 |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | out |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=1'b1\n- **B**: out=1'b0\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 2,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1",
+      "1"
+     ],
+     [
+      "1",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output out\n\nThe module should implement the circuit described by the Karnaugh map\nbelow.\n\n              ab\n   cd   00  01  11  10\n   00 | 1 | 1 | 0 | 1 |\n   01 | 1 | 0 | 0 | 1 |\n   11 | 0 | 1 | 1 | 1 |\n   10 | 1 | 1 | 0 | 0 |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | A out | B out |\n|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | out=1'b1 | out=1'b1 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | out=1'b1 | out=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c4",
+    "c5"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c4": "A",
+    "c5": "B"
+   },
+   "label": "A",
+   "ref_value": "1",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output out\n\nThe module should implement the circuit described by the Karnaugh map\nbelow.\n\n              ab\n   cd   00  01  11  10\n   00 | 1 | 1 | 0 | 1 |\n   01 | 1 | 0 | 0 | 1 |\n   11 | 0 | 1 | 1 | 1 |\n   10 | 1 | 1 | 0 | 0 |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | out |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=1'b1\n- **B**: out=1'b0\n"
+  }
+ ]
+}

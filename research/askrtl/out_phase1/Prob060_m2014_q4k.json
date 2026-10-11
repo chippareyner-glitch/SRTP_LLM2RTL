@@ -1,0 +1,50 @@
+{
+ "case": "Prob060_m2014_q4k",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "resetn",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "resetn",
+    1
+   ],
+   [
+    "in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3",
+   "c4",
+   "c5",
+   "c6",
+   "c7"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 8
+}

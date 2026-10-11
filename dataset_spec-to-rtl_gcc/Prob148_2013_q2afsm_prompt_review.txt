@@ -1,0 +1,180 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  resetn
+ - input  r (3 bits)
+ - output g (3 bits)
+
+The module should implement the FSM described by the state diagram shown
+below:
+
+  A        --r0=0,r1=0,r2=0--> A
+  A        -------r0=1-------> B
+  A        -----r0=0,r1=1----> C
+  A        --r0=0,r1=0,r2=0--> D
+  B (g0=1) -------r0=1-------> B
+  B (g0=1) -------r0=0-------> A
+  C (g1=1) -------r1=1-------> C
+  C (g1=1) -------r1=0-------> A
+
+Resetn is an active-low synchronous reset that resets into state A. This
+FSM acts as an arbiter circuit, which controls access to some type of
+resource by three requesting devices. Each device makes its request for
+the resource by setting a signal _r[i]_ = 1, where _r[i]_ is either
+_r[0]_, _r[1]_, or _r[2]_. Each r[i] is an input signal to the FSM, and
+represents one of the three devices. The FSM stays in state _A_ as long
+as there are no requests. When one or more request occurs, then the FSM
+decides which device receives a grant to use the resource and changes to
+a state that sets that device's _g[i]_ signal to 1. Each _g[i]_ is an
+output from the FSM. There is a priority system, in that device 0 has a
+higher priority than device 1, and device 2 has the lowest priority.
+Hence, for example, device 2 will only receive a grant if it is the only
+device making a request when the FSM is in state _A_. Once a device, _i_,
+is given a grant by the FSM, that device continues to receive the grant
+as long as its request, _r[i]_ = 1.
+
+Implement a module that represents this FSM. Use separate always blocks
+for the state table and the state flip-flops, as done in lectures.
+Describe the FSM outputs, _g[i]_, using either continuous assignment
+statement(s) or an always block (at your discretion). Assign any state
+codes that you wish to use. Assume all sequential logic is triggered on
+the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a 3-device priority arbiter FSM with the following key characteristics:
+- **Interface**: 3-bit request input (`r`), 3-bit grant output (`g`), active-low synchronous reset
+- **States**: 4 states (A, B, C, D) with A as the reset state
+- **Priority**: Device 0 > Device 1 > Device 2 (highest to lowest priority)
+- **Behavior**: Grants are maintained as long as the requesting device continues to assert its request
+- **Architecture**: Two-process FSM style (state registers + combinational logic)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **State D Definition**: The transition "A --r0=0,r1=0,r2=0--> D" is logically impossible since `r0=0,r1=0,r2=0` should keep the FSM in state A. This appears to be a specification error.
+2. **State D Behavior**: No transitions or grant assignments are defined for state D, making its purpose unclear.
+3. **Device 2 Grant Logic**: The text mentions device 2 gets grants, but the state diagram shows no state that asserts `g[2]=1`.
+
+**Minor Clarifications Needed:**
+- The transition conditions use mixed notation (`r0=1` vs `r[0]`), but intent is clear
+- Output assignments are only shown for states B and C in the diagram
+
+## 3. Missing Critical Details
+
+**Essential Missing Information:**
+1. **State D Functionality**: Complete definition of state D's purpose, transitions, and grant outputs
+2. **Device 2 Grant State**: Missing state that grants `g[2]=1` to device 2
+3. **Simultaneous Request Handling**: Behavior when multiple requests occur while in grant states B/C
+4. **Default Output Values**: Output behavior for unspecified state transitions
+5. **State Encoding**: No guidance on binary encoding for states A, B, C, D
+
+**Timing Considerations:**
+- Grant assertion timing relative to state transitions
+- Output glitch prevention during state changes
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Address:**
+1. **Multiple Requests in State A**: Priority resolution (r0 > r1 > r2)
+2. **Request Withdrawal**: Device drops request while in grant state → should return to state A
+3. **Simultaneous State Transitions**: Multiple conditions true simultaneously
+4. **Reset During Operation**: Clean transition to state A
+5. **All Requests Zero**: Should maintain current state or return to A
+6. **Invalid State Recovery**: Protection against unreachable states
+
+**Boundary Conditions:**
+- `r = 3'b000` in any state (should return to A if not in grant maintenance)
+- `r = 3'b111` in state A (should prioritize device 0)
+- Mixed requests during grant maintenance
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **State D Implementation**: Current spec suggests D may be redundant or incorrectly specified
+2. **Priority Logic**: Missing device 2 grant mechanism violates the priority description
+3. **Output Glitches**: Combinational grants may have timing issues during state transitions
+
+**Expected Behavior Issues:**
+- The specification contradicts itself regarding device 2 access
+- State D appears to serve no functional purpose in the described arbitration scheme
+
+## 6. Actionable Guidance for RTL Generation
+
+**Recommended Specification Resolution:**
+```
+Assumption: State D should grant g[2]=1 and handle device 2 requests
+Add missing transitions:
+  D (g2=1) -------r2=1-------> D
+  D (g2=1) -------r2=0-------> A
+```
+
+**RTL Implementation Strategy:**
+
+**State Encoding:**
+```systemverilog
+typedef enum logic [1:0] {
+    STATE_A = 2'b00,
+    STATE_B = 2'b01, 
+    STATE_C = 2'b10,
+    STATE_D = 2'b11
+} state_t;
+```
+
+**Two-Process FSM Structure:**
+```systemverilog
+// State registers
+always_ff @(posedge clk or negedge resetn) begin
+    if (!resetn) state <= STATE_A;
+    else state <= next_state;
+end
+
+// Next state logic
+always_comb begin
+    next_state = state;
+    case (state)
+        STATE_A: begin
+            if (r[0]) next_state = STATE_B;
+            else if (r[1]) next_state = STATE_C;
+            else if (r[2]) next_state = STATE_D;
+        end
+        STATE_B: next_state = r[0] ? STATE_B : STATE_A;
+        STATE_C: next_state = r[1] ? STATE_C : STATE_A;
+        STATE_D: next_state = r[2] ? STATE_D : STATE_A;
+    endcase
+end
+```
+
+**Output Logic (Combinational):**
+```systemverilog
+assign g[0] = (state == STATE_B);
+assign g[1] = (state == STATE_C);
+assign g[2] = (state == STATE_D);
+```
+
+**Validation Requirements:**
+- Verify priority order: r0 > r1 > r2 in state A
+- Test grant maintenance during continuous requests
+- Validate clean state transitions on request withdrawal
+- Check reset functionality and power-up state
+- Verify no grant conflicts (only one g[i] active at a time)
+
+**Synthesis Considerations:**
+- Use explicit state encoding for predictable implementation
+- Ensure outputs are registered if timing critical
+- Add safety circuit for unreachable state recovery
+- Consider adding output enable validation
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

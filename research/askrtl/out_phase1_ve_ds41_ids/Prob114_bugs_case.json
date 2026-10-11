@@ -1,0 +1,46 @@
+{
+ "case": "Prob114_bugs_case",
+ "excluded_iface": [
+  "c1"
+ ],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "code",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    4
+   ],
+   [
+    "valid",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c2"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 2
+}

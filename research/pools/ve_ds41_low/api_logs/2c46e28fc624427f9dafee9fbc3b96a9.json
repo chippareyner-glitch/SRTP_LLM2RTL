@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-11T04:35:21.295034+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob140_fsm_hdlc",
+  "returned_model": "deepseek-flash",
+  "id": "9e3c475a-ba0f-4693-87d6-783b4ab14c7f",
+  "usage": {
+    "prompt_tokens": 441,
+    "completion_tokens": 4267,
+    "total_tokens": 4708,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 3789
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 313
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "low",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 17.782719999995606
+}

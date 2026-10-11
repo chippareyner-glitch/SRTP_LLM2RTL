@@ -1,0 +1,869 @@
+{
+ "case": "square_wave",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "freq",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "wave_out",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c4",
+    "c5",
+    "c6"
+   ],
+   "votes": 7,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c7",
+   "members": [
+    "c7"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 54,
+    "stim": [
+     [
+      156
+     ],
+     [
+      163
+     ],
+     [
+      233
+     ],
+     [
+      52
+     ],
+     [
+      247
+     ],
+     [
+      141
+     ],
+     [
+      122
+     ],
+     [
+      113
+     ],
+     [
+      221
+     ],
+     [
+      133
+     ],
+     [
+      66
+     ],
+     [
+      15
+     ],
+     [
+      206
+     ],
+     [
+      235
+     ],
+     [
+      140
+     ],
+     [
+      234
+     ],
+     [
+      3
+     ],
+     [
+      23
+     ],
+     [
+      184
+     ],
+     [
+      215
+     ],
+     [
+      102
+     ],
+     [
+      181
+     ],
+     [
+      211
+     ],
+     [
+      200
+     ],
+     [
+      171
+     ],
+     [
+      160
+     ],
+     [
+      0
+     ],
+     [
+      156
+     ],
+     [
+      126
+     ],
+     [
+      211
+     ],
+     [
+      222
+     ],
+     [
+      85
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nThe module is a simple yet effective generator designed to produce square wave signals with variable frequency. It takes an input clock signal and a frequency value, and outputs a square wave signal toggling at the specified frequency.\n\nModule name:  \n    square_wave \n                 \nInput ports:\n    clk: Clock signal that drives the module.\n    [7:0]freq: Frequency control, specifying how often the square wave toggles.\n\nOutput ports:\n    wave_out: Square wave output signal.\n\nInternal Registers:\n    count (reg [7:0]): Counter register used to track cycles between wave toggles.\n    \nImplementation:\nCounter Operation:\n    The count register increments on each rising edge of the clk.\n    When count reaches (freq - 1), the count is reset to 0 and wave_out is toggled (i.e., flipped from 0 to 1 or from 1 to 0).\n    If count has not reached freq, it simply increments by one on the next clock cycle.\nSquare Wave Generation:\n    The module produces a square wave by flipping the wave_out signal at the rate determined by freq.\n    The higher the freq value, the slower the square wave toggles (i.e., the lower the output frequency), and vice versa.\n    \nGive me the complete code.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | freq | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| ... | *cycles 0-53 omitted (54 cycles; both traces were identical there)* |\n| 54 | 8'h9c | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 55 | 8'ha3 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 56 | 8'he9 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 57 | 8'h34 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 58 | 8'hf7 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 59 | 8'h8d | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 60 | 8'h7a | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 61 | 8'h71 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 62 | 8'hdd | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 63 | 8'h85 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 64 | 8'h42 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 65 | 8'h0f | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 66 | 8'hce | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 67 | 8'heb | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 68 | 8'h8c | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 69 | 8'hea | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 70 | 8'h03 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 71 | 8'h17 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 72 | 8'hb8 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 73 | 8'hd7 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 74 | 8'h66 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 75 | 8'hb5 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 76 | 8'hd3 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 77 | 8'hc8 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 78 | 8'hab | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 79 | 8'ha0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 80 | 8'h00 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 81 | 8'h9c | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 82 | 8'h7e | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 83 | 8'hd3 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 84 | 8'hde | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 |\n| 85 | 8'h55 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "1"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "B",
+    "c7": "other"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [
+    "0"
+   ],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nThe module is a simple yet effective generator designed to produce square wave signals with variable frequency. It takes an input clock signal and a frequency value, and outputs a square wave signal toggling at the specified frequency.\n\nModule name:  \n    square_wave \n                 \nInput ports:\n    clk: Clock signal that drives the module.\n    [7:0]freq: Frequency control, specifying how often the square wave toggles.\n\nOutput ports:\n    wave_out: Square wave output signal.\n\nInternal Registers:\n    count (reg [7:0]): Counter register used to track cycles between wave toggles.\n    \nImplementation:\nCounter Operation:\n    The count register increments on each rising edge of the clk.\n    When count reaches (freq - 1), the count is reset to 0 and wave_out is toggled (i.e., flipped from 0 to 1 or from 1 to 0).\n    If count has not reached freq, it simply increments by one on the next clock cycle.\nSquare Wave Generation:\n    The module produces a square wave by flipping the wave_out signal at the rate determined by freq.\n    The higher the freq value, the slower the square wave toggles (i.e., the lower the output frequency), and vice versa.\n    \nGive me the complete code.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | freq | pre | post |\n|---|---|---|---|\n| 0 | 8'h00 | wave_out=1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: wave_out=1'b0\n- **B**: wave_out=1'b1\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      216
+     ],
+     [
+      98
+     ],
+     [
+      194
+     ],
+     [
+      227
+     ],
+     [
+      107
+     ],
+     [
+      10
+     ],
+     [
+      66
+     ],
+     [
+      247
+     ],
+     [
+      130
+     ],
+     [
+      124
+     ],
+     [
+      103
+     ],
+     [
+      235
+     ],
+     [
+      200
+     ],
+     [
+      212
+     ],
+     [
+      77
+     ],
+     [
+      247
+     ],
+     [
+      122
+     ],
+     [
+      91
+     ],
+     [
+      149
+     ],
+     [
+      228
+     ],
+     [
+      232
+     ],
+     [
+      55
+     ],
+     [
+      129
+     ],
+     [
+      35
+     ],
+     [
+      72
+     ],
+     [
+      35
+     ],
+     [
+      193
+     ],
+     [
+      24
+     ],
+     [
+      158
+     ],
+     [
+      204
+     ],
+     [
+      64
+     ],
+     [
+      252
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nThe module is a simple yet effective generator designed to produce square wave signals with variable frequency. It takes an input clock signal and a frequency value, and outputs a square wave signal toggling at the specified frequency.\n\nModule name:  \n    square_wave \n                 \nInput ports:\n    clk: Clock signal that drives the module.\n    [7:0]freq: Frequency control, specifying how often the square wave toggles.\n\nOutput ports:\n    wave_out: Square wave output signal.\n\nInternal Registers:\n    count (reg [7:0]): Counter register used to track cycles between wave toggles.\n    \nImplementation:\nCounter Operation:\n    The count register increments on each rising edge of the clk.\n    When count reaches (freq - 1), the count is reset to 0 and wave_out is toggled (i.e., flipped from 0 to 1 or from 1 to 0).\n    If count has not reached freq, it simply increments by one on the next clock cycle.\nSquare Wave Generation:\n    The module produces a square wave by flipping the wave_out signal at the rate determined by freq.\n    The higher the freq value, the slower the square wave toggles (i.e., the lower the output frequency), and vice versa.\n    \nGive me the complete code.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | freq | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 8'hd8 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 1 | 8'h62 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 2 | 8'hc2 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 3 | 8'he3 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 4 | 8'h6b | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 5 | 8'h0a | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 6 | 8'h42 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 7 | 8'hf7 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 8 | 8'h82 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 9 | 8'h7c | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 10 | 8'h67 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 11 | 8'heb | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 12 | 8'hc8 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 13 | 8'hd4 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 14 | 8'h4d | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 15 | 8'hf7 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 16 | 8'h7a | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 17 | 8'h5b | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 18 | 8'h95 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 19 | 8'he4 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 20 | 8'he8 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 21 | 8'h37 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 22 | 8'h81 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 23 | 8'h23 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 24 | 8'h48 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 25 | 8'h23 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 26 | 8'hc1 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 27 | 8'h18 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 28 | 8'h9e | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 29 | 8'hcc | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 30 | 8'h40 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 31 | 8'hfc | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c7"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "x"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "A",
+    "c7": "B"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nThe module is a simple yet effective generator designed to produce square wave signals with variable frequency. It takes an input clock signal and a frequency value, and outputs a square wave signal toggling at the specified frequency.\n\nModule name:  \n    square_wave \n                 \nInput ports:\n    clk: Clock signal that drives the module.\n    [7:0]freq: Frequency control, specifying how often the square wave toggles.\n\nOutput ports:\n    wave_out: Square wave output signal.\n\nInternal Registers:\n    count (reg [7:0]): Counter register used to track cycles between wave toggles.\n    \nImplementation:\nCounter Operation:\n    The count register increments on each rising edge of the clk.\n    When count reaches (freq - 1), the count is reset to 0 and wave_out is toggled (i.e., flipped from 0 to 1 or from 1 to 0).\n    If count has not reached freq, it simply increments by one on the next clock cycle.\nSquare Wave Generation:\n    The module produces a square wave by flipping the wave_out signal at the rate determined by freq.\n    The higher the freq value, the slower the square wave toggles (i.e., the lower the output frequency), and vice versa.\n    \nGive me the complete code.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | freq | pre | post |\n|---|---|---|---|\n| 0 | 8'h00 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: wave_out=1'b0\n- **B**: wave_out=1'bx\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      216
+     ],
+     [
+      98
+     ],
+     [
+      194
+     ],
+     [
+      227
+     ],
+     [
+      107
+     ],
+     [
+      10
+     ],
+     [
+      66
+     ],
+     [
+      247
+     ],
+     [
+      130
+     ],
+     [
+      124
+     ],
+     [
+      103
+     ],
+     [
+      235
+     ],
+     [
+      200
+     ],
+     [
+      212
+     ],
+     [
+      77
+     ],
+     [
+      247
+     ],
+     [
+      122
+     ],
+     [
+      91
+     ],
+     [
+      149
+     ],
+     [
+      228
+     ],
+     [
+      232
+     ],
+     [
+      55
+     ],
+     [
+      129
+     ],
+     [
+      35
+     ],
+     [
+      72
+     ],
+     [
+      35
+     ],
+     [
+      193
+     ],
+     [
+      24
+     ],
+     [
+      158
+     ],
+     [
+      204
+     ],
+     [
+      64
+     ],
+     [
+      252
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nThe module is a simple yet effective generator designed to produce square wave signals with variable frequency. It takes an input clock signal and a frequency value, and outputs a square wave signal toggling at the specified frequency.\n\nModule name:  \n    square_wave \n                 \nInput ports:\n    clk: Clock signal that drives the module.\n    [7:0]freq: Frequency control, specifying how often the square wave toggles.\n\nOutput ports:\n    wave_out: Square wave output signal.\n\nInternal Registers:\n    count (reg [7:0]): Counter register used to track cycles between wave toggles.\n    \nImplementation:\nCounter Operation:\n    The count register increments on each rising edge of the clk.\n    When count reaches (freq - 1), the count is reset to 0 and wave_out is toggled (i.e., flipped from 0 to 1 or from 1 to 0).\n    If count has not reached freq, it simply increments by one on the next clock cycle.\nSquare Wave Generation:\n    The module produces a square wave by flipping the wave_out signal at the rate determined by freq.\n    The higher the freq value, the slower the square wave toggles (i.e., the lower the output frequency), and vice versa.\n    \nGive me the complete code.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | freq | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 8'hd8 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 1 | 8'h62 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 2 | 8'hc2 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 3 | 8'he3 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 4 | 8'h6b | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 5 | 8'h0a | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 6 | 8'h42 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 7 | 8'hf7 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 8 | 8'h82 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 9 | 8'h7c | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 10 | 8'h67 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 11 | 8'heb | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 12 | 8'hc8 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 13 | 8'hd4 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 14 | 8'h4d | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 15 | 8'hf7 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 16 | 8'h7a | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 17 | 8'h5b | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 18 | 8'h95 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 19 | 8'he4 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 20 | 8'he8 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 21 | 8'h37 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 22 | 8'h81 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 23 | 8'h23 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 24 | 8'h48 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 25 | 8'h23 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 26 | 8'hc1 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 27 | 8'h18 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 28 | 8'h9e | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 29 | 8'hcc | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 30 | 8'h40 | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n| 31 | 8'hfc | wave_out=1'b0 | wave_out=1'b0 | wave_out=1'bx | wave_out=1'bx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c3",
+    "c7"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "x"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "A",
+    "c7": "B"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nThe module is a simple yet effective generator designed to produce square wave signals with variable frequency. It takes an input clock signal and a frequency value, and outputs a square wave signal toggling at the specified frequency.\n\nModule name:  \n    square_wave \n                 \nInput ports:\n    clk: Clock signal that drives the module.\n    [7:0]freq: Frequency control, specifying how often the square wave toggles.\n\nOutput ports:\n    wave_out: Square wave output signal.\n\nInternal Registers:\n    count (reg [7:0]): Counter register used to track cycles between wave toggles.\n    \nImplementation:\nCounter Operation:\n    The count register increments on each rising edge of the clk.\n    When count reaches (freq - 1), the count is reset to 0 and wave_out is toggled (i.e., flipped from 0 to 1 or from 1 to 0).\n    If count has not reached freq, it simply increments by one on the next clock cycle.\nSquare Wave Generation:\n    The module produces a square wave by flipping the wave_out signal at the rate determined by freq.\n    The higher the freq value, the slower the square wave toggles (i.e., the lower the output frequency), and vice versa.\n    \nGive me the complete code.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | freq | pre | post |\n|---|---|---|---|\n| 0 | 8'h00 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: wave_out=1'b0\n- **B**: wave_out=1'bx\n"
+  }
+ ]
+}

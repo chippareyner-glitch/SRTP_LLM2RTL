@@ -1,0 +1,28 @@
+{
+ "case": "Prob138_2012_q2fsm",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "w",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "z",
+    1
+   ]
+  ]
+ },
+ "status": "single_candidate",
+ "n_live": 1
+}

@@ -1,0 +1,111 @@
+{
+ "case": "Prob140_fsm_hdlc",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "disc",
+    1
+   ],
+   [
+    "flag",
+    1
+   ],
+   [
+    "err",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1"
+  ],
+  [
+   "c2"
+  ]
+ ],
+ "ci_pairs": 1,
+ "ci_found": 1,
+ "ci_missed": [],
+ "off_pairs": 1,
+ "off_found": 1,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 126,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 35,
+   "orig_len": 127,
+   "min_len": 9,
+   "toggles": 2
+  }
+ ],
+ "status": "ok",
+ "n_live": 2
+}

@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T16:35:07.048823+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob100_fsm3comb",
+  "returned_model": "deepseek-flash",
+  "id": "c7057e47-bc0d-458c-abc5-746a830c75d5",
+  "usage": {
+    "prompt_tokens": 476,
+    "completion_tokens": 830,
+    "total_tokens": 1306,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 823
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 220
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 4.162392000000182
+}

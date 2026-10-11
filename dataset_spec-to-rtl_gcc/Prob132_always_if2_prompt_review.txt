@@ -1,0 +1,149 @@
+[ORIGINAL SPECIFICATION]
+
+Consider the following adder-subtractor with a zero flag:
+
+  module TopModule (
+      input      cpu_overheated,
+      output reg shut_off_computer,
+      input      arrived,
+      input      gas_tank_empty,
+      output reg keep_driving
+  );
+
+      always @(*) begin
+          if (cpu_overheated)
+             shut_off_computer = 1;
+      end
+
+      always @(*) begin
+          if (~arrived)
+             keep_driving = ~gas_tank_empty;
+      end
+
+  endmodule
+
+Unfortunately, this module has a bug. Implement a new version of this
+module that fixes the bug.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+The provided module implements a simple control system with two independent combinational logic blocks:
+- **CPU Overheat Protection**: Sets `shut_off_computer` when `cpu_overheated` is high
+- **Driving Control**: Sets `keep_driving` based on `arrived` and `gas_tank_empty` status
+
+The specification indicates the module contains a bug that needs to be fixed in a new implementation.
+
+## 2. Ambiguity Analysis
+- **Unspecified default behavior**: The original code uses incomplete conditional statements without `else` clauses, leaving output values undefined when conditions are false
+- **Register initialization**: No specification on initial/reset values for the output registers
+- **Timing requirements**: No mention of clock domains or timing constraints
+- **Signal semantics**: "arrived" and "gas_tank_empty" polarity interpretation is clear, but no specification of signal timing relationships
+
+## 3. Missing Critical Details
+- **Reset strategy**: No specification of synchronous/asynchronous reset or power-on initialization
+- **Output persistence**: Unclear if outputs should maintain state or be purely combinational
+- **Clock requirements**: Module uses `always @(*)` but doesn't specify if clocked behavior is expected
+- **Input timing constraints**: No setup/hold time requirements specified
+- **Output drive characteristics**: No specification of output strength or fanout requirements
+
+## 4. Edge Cases & Boundary Conditions
+- **All inputs low**: Both outputs become undefined in original implementation
+- **Conflicting conditions**: What if `arrived=1` and `gas_tank_empty=1` simultaneously?
+- **Simultaneous events**: CPU overheating while driving logic is active
+- **Power-up state**: Output behavior during initialization not specified
+- **Metastability**: No handling for asynchronous input transitions
+
+## 5. Functional Correctness Prediction
+**The primary bug is incomplete assignment in combinational logic.** The original code violates fundamental combinational logic design principles:
+
+- **shut_off_computer**: Only assigned when `cpu_overheated=1`, remains undefined (latches previous value) otherwise
+- **keep_driving**: Only assigned when `~arrived=1`, remains undefined when `arrived=1`
+
+**This creates implicit latches** instead of pure combinational logic, which is almost certainly the intended bug.
+
+## 6. Actionable Guidance for RTL Generation
+
+### Critical Fixes Required:
+```systemverilog
+// Fix 1: Complete combinational assignments
+always @(*) begin
+    if (cpu_overheated)
+        shut_off_computer = 1;
+    else
+        shut_off_computer = 0; // Explicit default
+end
+
+// Fix 2: Complete combinational assignments  
+always @(*) begin
+    if (~arrived)
+        keep_driving = ~gas_tank_empty;
+    else
+        keep_driving = 0; // Explicit default when arrived
+end
+```
+
+### Enhanced Implementation Recommendations:
+
+**Option A: Pure Combinational (Recommended)**
+```systemverilog
+module TopModule (
+    input  cpu_overheated,
+    input  arrived,
+    input  gas_tank_empty,
+    output shut_off_computer,
+    output keep_driving
+);
+    
+    // Complete combinational assignments
+    assign shut_off_computer = cpu_overheated;
+    assign keep_driving = ~arrived & ~gas_tank_empty;
+    
+endmodule
+```
+
+**Option B: Registered Outputs with Reset**
+```systemverilog
+module TopModule (
+    input  clk,
+    input  reset_n,
+    input  cpu_overheated,
+    input  arrived,
+    input  gas_tank_empty,
+    output reg shut_off_computer,
+    output reg keep_driving
+);
+    
+    always @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            shut_off_computer <= 0;
+            keep_driving <= 0;
+        end else begin
+            shut_off_computer <= cpu_overheated;
+            keep_driving <= ~arrived & ~gas_tank_empty;
+        end
+    end
+    
+endmodule
+```
+
+### Verification Requirements:
+- Test all 8 input combinations to ensure no undefined outputs
+- Verify no latch inference in synthesis reports
+- Check timing closure for critical paths
+- Validate reset functionality if implemented
+- Verify output behavior matches specified truth table
+
+### Synthesis Constraints:
+- Ensure `always_comb` or complete `if-else` to prevent latch inference
+- Specify don't-care optimization where appropriate
+- Define clock constraints if using synchronous design
+- Set input delay constraints for real-world timing
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

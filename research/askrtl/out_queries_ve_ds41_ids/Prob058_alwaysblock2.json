@@ -1,0 +1,365 @@
+{
+ "case": "Prob058_alwaysblock2",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ],
+   [
+    "b",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out_assign",
+    1
+   ],
+   [
+    "out_always_comb",
+    1
+   ],
+   [
+    "out_always_ff",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+   ],
+   "votes": 5,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "11x",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "110",
+      "111",
+      "111",
+      "111",
+      "111",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "110",
+      "111",
+      "111",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "111",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000"
+     ],
+     [
+      "110",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "110",
+      "111",
+      "111",
+      "111",
+      "111",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "110",
+      "111",
+      "111",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "110",
+      "111",
+      "111",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "110",
+      "111",
+      "001",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - input  b\n - output out_assign\n - output out_always_comb\n - output out_always_ff\n\nThe module should implement an XOR gate three ways, using an assign\nstatement (output out_assign), a combinational always block (output\nout_always_comb), and a clocked always block (output out_always_ff). Note\nthat the clocked always block produces a different circuit from the other\ntwo: There is a flip- flop so the output is delayed. Assume all\nsequential logic is triggered on the positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | a | b | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'bx | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 1 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 2 | 1'b0 | 1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 3 | 1'b0 | 1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 4 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 5 | 1'b0 | 1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 6 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 7 | 1'b0 | 1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 8 | 1'b0 | 1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 9 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 10 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 11 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 12 | 1'b0 | 1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 13 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 14 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 15 | 1'b0 | 1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 16 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 17 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 18 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 19 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 20 | 1'b0 | 1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 21 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 22 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 23 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 24 | 1'b0 | 1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 25 | 1'b0 | 1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 26 | 1'b0 | 1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 27 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 28 | 1'b1 | 1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b0 | out_assign=1'b1, out_always_comb=1'b1, out_always_ff=1'b1 |\n| 29 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 30 | 1'b0 | 1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n| 31 | 1'b1 | 1'b1 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 | out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "00x",
+    "000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "00x",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - input  b\n - output out_assign\n - output out_always_comb\n - output out_always_ff\n\nThe module should implement an XOR gate three ways, using an assign\nstatement (output out_assign), a combinational always block (output\nout_always_comb), and a clocked always block (output out_always_ff). Note\nthat the clocked always block produces a different circuit from the other\ntwo: There is a flip- flop so the output is delayed. Assume all\nsequential logic is triggered on the positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | a | b | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'bx\n- **B**: out_assign=1'b0, out_always_comb=1'b0, out_always_ff=1'b0\n"
+  }
+ ]
+}

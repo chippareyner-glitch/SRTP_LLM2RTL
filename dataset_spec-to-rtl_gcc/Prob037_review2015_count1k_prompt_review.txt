@@ -1,0 +1,141 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - output q (10 bits)
+
+The module should implement a counter that counts from 0 to 999,
+inclusive, with a period of 1000 cycles. Assume all sequential logic is
+triggered on the positive edge of the clock. The reset input is active
+high synchronous, and should reset the counter to 0.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+**Module**: TopModule  
+**Function**: 10-bit counter that counts from 0 to 999 (inclusive) with 1000-cycle period  
+**Ports**: 
+- `clk` (1-bit input) - positive edge-triggered clock
+- `reset` (1-bit input) - active high synchronous reset
+- `q` (10-bit output) - counter value
+
+**Behavior**: Counter increments on each clock cycle, wraps from 999 to 0, synchronous reset to 0.
+
+## 2. Ambiguity Analysis
+
+**Counter Direction**: The specification states "counts from 0 to 999" but doesn't explicitly specify the counting direction. However, the context implies **incrementing** behavior.
+
+**Reset Timing**: "Synchronous reset" is clear, but the exact behavior during reset assertion needs clarification:
+- Should the counter reset immediately on the clock edge when reset is high?
+- What happens if reset is deasserted simultaneously with the counter reaching 999?
+
+**Output Behavior**: The output `q` behavior during reset is implied but not explicitly stated (should output 0 during reset).
+
+## 3. Missing Critical Details
+
+**Counter Behavior at Maximum Value**:
+- What happens after reaching 999? The specification implies wrap-around to 0, but this should be explicit.
+- Should the counter hold at 999 or immediately wrap to 0 on the next cycle?
+
+**Power-on Initialization**:
+- What is the initial state of the counter after power-on (before first clock edge)?
+- Should the counter start counting immediately or wait for a specific condition?
+
+**Output Timing**:
+- When exactly does the output update relative to the clock edge?
+- Is the output registered or combinatorial?
+
+**Reset Recovery**:
+- Behavior when reset is deasserted at boundary conditions (e.g., during transition from 999 to 0)
+
+## 4. Edge Cases & Boundary Conditions
+
+**Boundary Transition (999 → 0)**:
+- Critical timing path: The counter must correctly transition from 3E7h (999) to 000h (0)
+- Potential glitch generation if not properly registered
+
+**Reset Assertion at Maximum Count**:
+- What if reset is asserted exactly when counter = 999?
+- Should reset take precedence over normal counting?
+
+**Simultaneous Events**:
+- Reset asserted and counter at 999 on the same clock edge
+- Multiple reset assertions during operation
+
+**Counter Value 0**:
+- Is 0 considered a valid count value or only a reset state?
+- Should the counter spend one cycle at 0 during normal operation?
+
+## 5. Functional Correctness Prediction
+
+**Expected Behavior**:
+- Counter increments: 0→1→2...→999→0 (repeat)
+- Reset synchronously forces output to 0
+- 1000 unique states, perfect periodicity
+
+**Potential Issues**:
+- **Rollover Logic**: 999→0 transition must be glitch-free and synchronous
+- **Reset Priority**: Reset should override normal counting behavior
+- **Output Stability**: Output should not have transient values during transitions
+
+**Verification Points**:
+- Reset functionality at various counter values
+- Boundary condition: 999→0 transition without reset
+- Continuous operation for multiple periods
+- Reset assertion/deassertion timing
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy**:
+```systemverilog
+// Use registered output for clean timing
+logic [9:0] counter_reg;
+assign q = counter_reg;
+
+always_ff @(posedge clk) begin
+    if (reset) begin
+        counter_reg <= 10'b0;
+    end else begin
+        if (counter_reg == 10'd999) begin
+            counter_reg <= 10'b0;
+        end else begin
+            counter_reg <= counter_reg + 10'b1;
+        end
+    end
+end
+```
+
+**Critical Design Decisions**:
+1. **Registered Output**: Prevents glitches, ensures clean timing
+2. **Reset Priority**: Reset takes precedence over counting logic
+3. **Explicit Rollover**: Clear boundary condition handling
+4. **Synchronous Design**: All logic clocked by posedge clk
+
+**Verification Requirements**:
+- Test reset at counter values: 0, 500, 999
+- Verify full period: 1000 cycles without reset
+- Check reset recovery at boundary conditions
+- Validate output timing meets setup/hold requirements
+
+**Synthesis Considerations**:
+- 10-bit counter is efficiently implemented in modern FPGAs/ASICs
+- Synchronous reset for better timing closure
+- No asynchronous paths except clock
+
+**Additional Recommendations**:
+- Add simulation assertions to verify periodicity
+- Include coverage points for all state transitions
+- Consider adding a "rollover" signal for external monitoring if needed in future revisions
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

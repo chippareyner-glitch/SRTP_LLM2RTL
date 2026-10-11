@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial value of q",
+   "severity": "medium",
+   "readings": [
+    "q is undefined (e.g., X in simulation) until the first positive clock edge with reset=1",
+    "q is initialized to 1 at power-on or at reset assertion even before any clock edge"
+   ]
+  }
+ ]
+}

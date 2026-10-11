@@ -1,0 +1,13 @@
+module TopModule (
+    input  logic a,
+    input  logic b,
+    input  logic c,
+    input  logic d,
+    output logic out_sop,
+    output logic out_pos
+);
+
+    assign out_sop = (c & d) | (~a & ~b & c);
+    assign out_pos = c & (~a | d) & (~b | d);
+
+endmodule

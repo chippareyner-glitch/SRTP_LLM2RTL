@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "extreme-value hold duration",
+   "severity": "high",
+   "readings": [
+    "The condition wave==31 (or wave==0) is evaluated on the current register value, so wave stays at 31 and 0 for two consecutive clock cycles each.",
+    "The condition is evaluated on the next incremented/decremented value, so wave stays at 31 and 0 for only one clock cycle each."
+   ]
+  },
+  {
+   "aspect": "initial zero hold after reset",
+   "severity": "high",
+   "readings": [
+    "After reset deasserts, state=0 and wave=0, so the first clock edge increments wave to 1; the initial 0 lasts only for the reset cycle.",
+    "After reset deasserts, the module must hold wave at 0 for one extra clock cycle before incrementing, matching the steady-state two-cycle hold at 0."
+   ]
+  }
+ ]
+}

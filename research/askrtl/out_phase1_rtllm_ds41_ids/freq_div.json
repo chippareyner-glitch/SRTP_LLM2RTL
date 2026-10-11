@@ -1,0 +1,131 @@
+{
+ "case": "freq_div",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "CLK_in",
+  "reset": "RST",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "RST",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "CLK_50",
+    1
+   ],
+   [
+    "CLK_10",
+    1
+   ],
+   [
+    "CLK_1",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c2",
+   "c4",
+   "c5",
+   "c6",
+   "c7"
+  ],
+  [
+   "c1"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 12,
+ "ci_found": 12,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 13,
+ "extra_x": 13,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 1,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 1,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  }
+ ],
+ "status": "ok",
+ "n_live": 8
+}

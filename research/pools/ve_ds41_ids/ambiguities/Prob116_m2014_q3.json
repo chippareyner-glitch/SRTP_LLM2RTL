@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Bit ordering / indexing of x[1..4]",
+   "severity": "high",
+   "readings": [
+    "x[1] is the most significant bit (MSB) and x[4] is the least significant bit (LSB); i.e., x = {x[1], x[2], x[3], x[4]}",
+    "x[1] is the least significant bit (LSB) and x[4] is the most significant bit (MSB); i.e., x = {x[4], x[3], x[2], x[1]}"
+   ]
+  }
+ ]
+}

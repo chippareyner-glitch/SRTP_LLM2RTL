@@ -1,0 +1,12 @@
+{
+ "case": "adder_8bit",
+ "category": "Arithmetic",
+ "top": "adder_8bit",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "adder_8bit",
+  "full_adder"
+ ]
+}

@@ -1,0 +1,34 @@
+{
+ "case": "Prob121_2014_q3bfsm",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "9b00d238af6e",
+   "sources": [
+    "ve_ds41_low:s0"
+   ],
+   "model": "ve_ds41_low",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_low\\gen\\Prob121_2014_q3bfsm\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 1006,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": true
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "done assertion timing and duration",
+   "severity": "high",
+   "readings": [
+    "done is a one-cycle pulse asserted combinationally during the same clock cycle in which the stop bit (1) is sampled.",
+    "done is a one-cycle pulse registered and asserted on the clock cycle after the stop bit is sampled.",
+    "done is a level signal that goes high after a correct stop bit and remains high until a new start bit is detected."
+   ]
+  },
+  {
+   "aspect": "back-to-back byte separation after correct stop",
+   "severity": "high",
+   "readings": [
+    "After a correct stop bit, the next bit may be a start bit (0) and is immediately recognized as the start of the next byte; no idle bit is required.",
+    "After a correct stop bit, the FSM requires at least one idle (1) bit before a 0 can be recognized as a start bit."
+   ]
+  },
+  {
+   "aspect": "first start bit after reset",
+   "severity": "medium",
+   "readings": [
+    "After reset, the FSM accepts a 0 as a start bit immediately, even if no idle (1) bit was seen.",
+    "After reset, the FSM requires an idle (1) bit before accepting a 0 as a start bit."
+   ]
+  },
+  {
+   "aspect": "recovery from missing stop bit",
+   "severity": "medium",
+   "readings": [
+    "After a missing stop bit, once any 1 is seen, the FSM considers a stop bit found and the next 0 can be a start bit on the following cycle.",
+    "After a missing stop bit, the FSM must see a 1 and then at least one additional idle 1 before a 0 can be a start bit."
+   ]
+  }
+ ]
+}

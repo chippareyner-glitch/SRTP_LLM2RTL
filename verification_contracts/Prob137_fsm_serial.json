@@ -1,0 +1,38 @@
+{
+  "case_id": "Prob137_fsm_serial",
+  "rtl_file": "Prob137_fsm_serial_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob137_fsm_serial_prompt.txt",
+  "ports": [
+    {"name": "clk", "direction": "input", "width": 1},
+    {"name": "reset", "direction": "input", "width": 1},
+    {"name": "in", "direction": "input", "width": 1},
+    {"name": "done", "direction": "output", "width": 1}
+  ],
+  "clock": {"name": "clk", "half_period": 5},
+  "initial": {"reset": "1", "in": "1"},
+  "tests": [
+    {
+      "id": "valid_frame",
+      "requirement": "done pulses after sampling start, eight data bits, and a valid stop bit",
+      "steps": [
+        {"posedge": 1, "expect": {"done": "0"}},
+        {"set": {"reset": "0", "in": "0"}, "posedge": 1, "expect": {"done": "0"}},
+        {"set": {"in": "0"}, "posedge": 8, "expect": {"done": "0"}},
+        {"set": {"in": "1"}, "posedge": 1, "expect": {"done": "1"}},
+        {"posedge": 1, "expect": {"done": "0"}}
+      ]
+    },
+    {
+      "id": "invalid_stop_waits",
+      "requirement": "an invalid stop bit produces no done pulse and receiver waits for a stop bit",
+      "steps": [
+        {"set": {"in": "0"}, "posedge": 1, "expect": {"done": "0"}},
+        {"posedge": 8, "expect": {"done": "0"}},
+        {"posedge": 1, "expect": {"done": "0"}},
+        {"posedge": 2, "expect": {"done": "0"}},
+        {"set": {"in": "1"}, "posedge": 1, "expect": {"done": "0"}}
+      ]
+    }
+  ]
+}

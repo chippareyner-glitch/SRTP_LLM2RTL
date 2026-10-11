@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "shut_off_computer value when cpu_overheated == 0",
+   "severity": "high",
+   "readings": [
+    "The block is an incomplete combinational assignment, so shut_off_computer holds its previous value (implicit latch / level-sensitive storage) when cpu_overheated is low",
+    "shut_off_computer must be explicitly 0 whenever cpu_overheated is low, i.e. an else branch sets it to 0 and the output is purely combinational"
+   ]
+  },
+  {
+   "aspect": "keep_driving value when arrived == 1",
+   "severity": "high",
+   "readings": [
+    "keep_driving retains its previously driven value when arrived is high (implicit latch, no assignment executed)",
+    "keep_driving must be 0 when arrived is high, i.e. an else branch drives 0 so the output is a pure function of arrived and gas_tank_empty"
+   ]
+  },
+  {
+   "aspect": "latch vs. combinational intent of the always @(*) blocks",
+   "severity": "medium",
+   "readings": [
+    "The always @(*) blocks are meant to be combinational logic, so the unassigned paths are the bug and both outputs must be assigned on every evaluation",
+    "The unassigned paths are intentional storage behaviour, so the outputs are latches that legitimately hold their last value"
+   ]
+  },
+  {
+   "aspect": "initial / power-up value of the two outputs",
+   "severity": "medium",
+   "readings": [
+    "No reset or initial value is specified, so at time 0 both outputs are X/undefined and only become defined after the first evaluation of their inputs",
+    "The outputs are expected to start at a defined value (e.g. 0, meaning shut_off_computer = 0 and keep_driving = 0) immediately after power-up"
+   ]
+  }
+ ]
+}

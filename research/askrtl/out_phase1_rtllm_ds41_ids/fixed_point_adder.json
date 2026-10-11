@@ -1,0 +1,202 @@
+{
+ "case": "fixed_point_adder",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    32
+   ],
+   [
+    "b",
+    32
+   ]
+  ],
+  "outputs": [
+   [
+    "c",
+    32
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1",
+   "c5",
+   "c6",
+   "c8"
+  ],
+  [
+   "c0",
+   "c2"
+  ],
+  [
+   "c3",
+   "c4"
+  ],
+  [
+   "c7"
+  ]
+ ],
+ "ci_pairs": 20,
+ "ci_found": 20,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 28,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     3626764237,
+     1654615998
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     3626764237,
+     1654615998
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c1",
+    "c7"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     3626764237,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 8,
+   "suite": "uniform0",
+   "stim": [
+    [
+     2046968324,
+     1537810351
+    ]
+   ],
+   "ok": true,
+   "calls": 5,
+   "orig_len": 9,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c7"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     3626764237,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c3",
+    "c7"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     3626764237,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 9
+}

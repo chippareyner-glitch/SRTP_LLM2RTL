@@ -1,0 +1,24 @@
+﻿90 repair generations pending over 15 tasks; ~82K input tokens + reasoning
+ERR Prob098_circuit7 e0 Incomplete completion: 'length'; inspect API logs.
+ERR Prob098_circuit7 e1 Incomplete completion: 'length'; inspect API logs.
+ERR Prob098_circuit7 e2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob116_m2014_q3 e0 Incomplete completion: 'length'; inspect API logs.
+ERR Prob116_m2014_q3 e2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob135_m2014_q6b r2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob137_fsm_serial e0 Incomplete completion: 'length'; inspect API logs.
+ERR Prob137_fsm_serial e1 Incomplete completion: 'length'; inspect API logs.
+ERR Prob137_fsm_serial e2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob145_circuit8 e0 Incomplete completion: 'length'; inspect API logs.
+ERR Prob145_circuit8 e2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob146_fsm_serialdata e0 Incomplete completion: 'length'; inspect API logs.
+ERR Prob149_ece241_2013_q4 e1 Incomplete completion: 'length'; inspect API logs.
+ERR Prob149_ece241_2013_q4 e0 Incomplete completion: 'length'; inspect API logs.
+ERR Prob149_ece241_2013_q4 e2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob150_review2015_fsmonehot r2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob150_review2015_fsmonehot e2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob153_gshare e0 Incomplete completion: 'length'; inspect API logs.
+ERR Prob153_gshare e1 Incomplete completion: 'length'; inspect API logs.
+ERR Prob153_gshare e2 Incomplete completion: 'length'; inspect API logs.
+ERR Prob155_lemmings4 e1 Incomplete completion: 'length'; inspect API logs.
+ERR Prob155_lemmings4 e2 Incomplete completion: 'length'; inspect API logs.
+done

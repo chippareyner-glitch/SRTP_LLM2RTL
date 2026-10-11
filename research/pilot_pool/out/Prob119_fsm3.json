@@ -1,0 +1,146 @@
+{
+ "case": "Prob119_fsm3",
+ "n_samples": 10,
+ "n_distinct": 8,
+ "n_compiling": 3,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "da6f1043819a",
+   "sources": [
+    "deepseek_full"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob119_fsm3\\attempt_00\\module.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:28: error: This assignment requires an explicit cast.\ndut.sv:29: error: This assignment requires an explicit cast.\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "a9baf8525c9b",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob119_fsm3\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "9169c2a70c21",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob119_fsm3\\module.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c3",
+   "hash": "de43e22523cb",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob119_fsm3\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "2fd69e58fcc0",
+   "sources": [
+    "tri0926:candidate_1_literal",
+    "tri0927:candidate_1_literal",
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob119_fsm3\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:20: error: This assignment requires an explicit cast.\ndut.sv:21: error: This assignment requires an explicit cast.\ndut.sv:22: error: This assignment requires an explicit cast.\ndut.sv:23: error: This assignment requires an explicit cast.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c5",
+   "hash": "5e79c0886e42",
+   "sources": [
+    "tri0926:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob119_fsm3\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:20: error: This assignment requires an explicit cast.\ndut.sv:21: error: This assignment requires an explicit cast.\ndut.sv:22: error: This assignment requires an explicit cast.\ndut.sv:23: error: This assignment requires an explicit cast.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "ff511487dfcc",
+   "sources": [
+    "tri0926:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob119_fsm3\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 230
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c7",
+   "hash": "3eb7f870821e",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob119_fsm3\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:24: error: This assignment requires an explicit cast.\ndut.sv:25: error: This assignment requires an explicit cast.\ndut.sv:26: error: This assignment requires an explicit cast.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1",
+    "c3",
+    "c6"
+   ],
+   "votes": 3,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 0
+}

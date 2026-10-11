@@ -1,0 +1,316 @@
+{
+ "case": "Prob102_circuit3",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ],
+   [
+    "b",
+    1
+   ],
+   [
+    "c",
+    1
+   ],
+   [
+    "d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c5"
+   ],
+   "votes": 7,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 2,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 4,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "0",
+      "0",
+      "0",
+      "1"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output q\n\nThe module should implement a combinational circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time  a  b  c  d  q\n  0ns   0  0  0  0  0\n  5ns   0  0  0  0  0\n  10ns  0  0  0  0  0\n  15ns  0  0  0  0  0\n  20ns  0  0  0  1  0\n  25ns  0  0  1  0  0\n  30ns  0  0  1  1  0\n  35ns  0  1  0  0  0\n  40ns  0  1  0  1  1\n  45ns  0  1  1  0  1\n  50ns  0  1  1  1  1\n  55ns  1  0  0  0  0\n  60ns  1  0  0  1  1\n  65ns  1  0  1  0  1\n  70ns  1  0  1  1  1\n  75ns  1  1  0  0  0\n  80ns  1  1  0  1  1\n  85ns  1  1  1  0  1\n  90ns  1  1  1  1  1\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | A out | B out |\n|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 2 | 1'b0 | 1'b1 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 3 | 1'b1 | 1'b1 | 1'b0 | 1'b0 | q=1'b0 | q=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     1,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "1"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "B",
+    "c4": "A"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output q\n\nThe module should implement a combinational circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time  a  b  c  d  q\n  0ns   0  0  0  0  0\n  5ns   0  0  0  0  0\n  10ns  0  0  0  0  0\n  15ns  0  0  0  0  0\n  20ns  0  0  0  1  0\n  25ns  0  0  1  0  0\n  30ns  0  0  1  1  0\n  35ns  0  1  0  0  0\n  40ns  0  1  0  1  1\n  45ns  0  1  1  0  1\n  50ns  0  1  1  1  1\n  55ns  1  0  0  0  0\n  60ns  1  0  0  1  1\n  65ns  1  0  1  0  1\n  70ns  1  0  1  1  1\n  75ns  1  1  0  0  0\n  80ns  1  1  0  1  1\n  85ns  1  1  1  0  1\n  90ns  1  1  1  1  1\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | out |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=1'b0\n- **B**: q=1'b1\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 5,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "0",
+      "0",
+      "0",
+      "0",
+      "1"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output q\n\nThe module should implement a combinational circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time  a  b  c  d  q\n  0ns   0  0  0  0  0\n  5ns   0  0  0  0  0\n  10ns  0  0  0  0  0\n  15ns  0  0  0  0  0\n  20ns  0  0  0  1  0\n  25ns  0  0  1  0  0\n  30ns  0  0  1  1  0\n  35ns  0  1  0  0  0\n  40ns  0  1  0  1  1\n  45ns  0  1  1  0  1\n  50ns  0  1  1  1  1\n  55ns  1  0  0  0  0\n  60ns  1  0  0  1  1\n  65ns  1  0  1  0  1\n  70ns  1  0  1  1  1\n  75ns  1  1  0  0  0\n  80ns  1  1  0  1  1\n  85ns  1  1  1  0  1\n  90ns  1  1  1  1  1\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | A out | B out |\n|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 2 | 1'b0 | 1'b1 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 3 | 1'b1 | 1'b1 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 4 | 1'b0 | 1'b0 | 1'b1 | 1'b0 | q=1'b0 | q=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     1,
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "1"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "A",
+    "c4": "B"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output q\n\nThe module should implement a combinational circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time  a  b  c  d  q\n  0ns   0  0  0  0  0\n  5ns   0  0  0  0  0\n  10ns  0  0  0  0  0\n  15ns  0  0  0  0  0\n  20ns  0  0  0  1  0\n  25ns  0  0  1  0  0\n  30ns  0  0  1  1  0\n  35ns  0  1  0  0  0\n  40ns  0  1  0  1  1\n  45ns  0  1  1  0  1\n  50ns  0  1  1  1  1\n  55ns  1  0  0  0  0\n  60ns  1  0  0  1  1\n  65ns  1  0  1  0  1\n  70ns  1  0  1  1  1\n  75ns  1  1  0  0  0\n  80ns  1  1  0  1  1\n  85ns  1  1  1  0  1\n  90ns  1  1  1  1  1\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | out |\n|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b1 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=1'b0\n- **B**: q=1'b1\n"
+  },
+  {
+   "long": {
+    "label": "B",
+    "cycles": 4,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "0",
+      "1"
+     ],
+     [
+      "0",
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output q\n\nThe module should implement a combinational circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time  a  b  c  d  q\n  0ns   0  0  0  0  0\n  5ns   0  0  0  0  0\n  10ns  0  0  0  0  0\n  15ns  0  0  0  0  0\n  20ns  0  0  0  1  0\n  25ns  0  0  1  0  0\n  30ns  0  0  1  1  0\n  35ns  0  1  0  0  0\n  40ns  0  1  0  1  1\n  45ns  0  1  1  0  1\n  50ns  0  1  1  1  1\n  55ns  1  0  0  0  0\n  60ns  1  0  0  1  1\n  65ns  1  0  1  0  1\n  70ns  1  0  1  1  1\n  75ns  1  1  0  0  0\n  80ns  1  1  0  1  1\n  85ns  1  1  1  0  1\n  90ns  1  1  1  1  1\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | A out | B out |\n|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 2 | 1'b0 | 1'b1 | 1'b0 | 1'b0 | q=1'b0 | q=1'b0 |\n| 3 | 1'b1 | 1'b1 | 1'b0 | 1'b0 | q=1'b1 | q=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c3",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     1,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c0": "B",
+    "c3": "A",
+    "c4": "B"
+   },
+   "label": "B",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a\n - input  b\n - input  c\n - input  d\n - output q\n\nThe module should implement a combinational circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time  a  b  c  d  q\n  0ns   0  0  0  0  0\n  5ns   0  0  0  0  0\n  10ns  0  0  0  0  0\n  15ns  0  0  0  0  0\n  20ns  0  0  0  1  0\n  25ns  0  0  1  0  0\n  30ns  0  0  1  1  0\n  35ns  0  1  0  0  0\n  40ns  0  1  0  1  1\n  45ns  0  1  1  0  1\n  50ns  0  1  1  1  1\n  55ns  1  0  0  0  0\n  60ns  1  0  0  1  1\n  65ns  1  0  1  0  1\n  70ns  1  0  1  1  1\n  75ns  1  1  0  0  0\n  80ns  1  1  0  1  1\n  85ns  1  1  1  0  1\n  90ns  1  1  1  1  1\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | out |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=1'b1\n- **B**: q=1'b0\n"
+  }
+ ]
+}

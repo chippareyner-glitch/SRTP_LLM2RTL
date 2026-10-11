@@ -1,0 +1,27 @@
+{
+ "id": "Prob041_dff8r__resetA5",
+ "base": "Prob041_dff8r",
+ "delta": "resetA5",
+ "category": "param",
+ "edits": [
+  [
+   "reset setting the output to zero.",
+   "reset setting the output to 8'hA5."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 432,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 46,
+   "samples": 432,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "output latency (combinational vs registered)",
+   "severity": "low",
+   "readings": [
+    "out/valid are purely combinational, so they reflect the current code value in the same cycle (no clock/reset port exists in the interface)",
+    "out/valid are registered outputs updated on an implicit clock edge, so they appear one cycle after code is presented"
+   ]
+  }
+ ]
+}

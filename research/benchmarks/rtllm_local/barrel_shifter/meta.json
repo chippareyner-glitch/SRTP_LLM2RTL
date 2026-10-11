@@ -1,0 +1,12 @@
+{
+ "case": "barrel_shifter",
+ "category": "Memory",
+ "top": "barrel_shifter",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "barrel_shifter",
+  "mux2X1"
+ ]
+}

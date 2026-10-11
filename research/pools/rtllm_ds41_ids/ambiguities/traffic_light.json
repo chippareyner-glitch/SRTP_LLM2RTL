@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Timer durations, transition threshold, and reload values",
+   "severity": "high",
+   "readings": [
+    "Normal timing: green lasts 60 cycles, yellow 5, red 10, each state exits when cnt reaches 0, and the next phase loads its own duration (green->yellow loads 5, yellow->red loads 10, red->green loads 60).",
+    "Literal state-machine text: every state waits for a count of 3; literal counter reload text: green ending loads cnt=60, yellow ending loads cnt=5, red ending loads cnt=10, which is inconsistent with the green/yellow/red sequence."
+   ]
+  },
+  {
+   "aspect": "pass_request semantics",
+   "severity": "high",
+   "readings": [
+    "pass_request is edge-triggered; only if remaining green cnt > 10 is cnt loaded with 10 once, and if cnt is already <= 10 the green time is left unchanged.",
+    "pass_request is level-sensitive; while high during green, cnt is forced to 10 every clock, so remaining green < 10 is extended to 10 and a held request can keep green from expiring."
+   ]
+  },
+  {
+   "aspect": "Reset/initial state values",
+   "severity": "high",
+   "readings": [
+    "rst_n low asynchronously resets cnt to 10, state to idle, and p_red/p_yellow/p_green to 0, giving a defined idle first cycle before moving to s1_red.",
+    "rst_n only resets cnt to 10; state and p_red/p_yellow/p_green have no defined reset/initial value, so the first state and initial light outputs after reset are unspecified."
+   ]
+  },
+  {
+   "aspect": "Output latency and registration",
+   "severity": "high",
+   "readings": [
+    "p_red/p_yellow/p_green are next-state values and red/yellow/green are registered copies, so light outputs change one clock after the corresponding state transition.",
+    "p_red/p_yellow/p_green are previous values as stated for the final always block, and red/yellow/green directly reflect the current state, so light outputs change in the same clock as the state transition."
+   ]
+  }
+ ]
+}

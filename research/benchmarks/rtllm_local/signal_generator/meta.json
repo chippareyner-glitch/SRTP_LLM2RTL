@@ -1,0 +1,11 @@
+{
+ "case": "signal_generator",
+ "category": "Miscellaneous",
+ "top": "signal_generator",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "signal_generator"
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "case": "Prob140_fsm_hdlc",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "38f2a7366e7a",
+   "sources": [
+    "ve_v4pro:s0"
+   ],
+   "model": "ve_v4pro",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_v4pro\\gen\\Prob140_fsm_hdlc\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:39: error: This assignment requires an explicit cast.\ndut.sv:40: error: This assignment requires an explicit cast.\ndut.sv:41: error: This assignment requires an explicit cast.\ndut.sv:42: error: This assignment requires an explicit cast.\ndut.sv:43: error: This assignment requires an explicit cast.\ndut.sv:44: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

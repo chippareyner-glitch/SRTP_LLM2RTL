@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output latency / state machine type",
+   "severity": "high",
+   "readings": [
+    "Outputs are registered (Moore machine): a change in s is captured on the clock edge, and fr2/fr1/fr0/dfr update on the following cycle.",
+    "Outputs are combinational (Mealy machine): fr2/fr1/fr0/dfr respond to s in the same cycle, with no additional register delay."
+   ]
+  },
+  {
+   "aspect": "Dfr assertion duration",
+   "severity": "high",
+   "readings": [
+    "The previous-level register updates only when s changes, so dfr stays asserted while the level remains in a higher middle interval until the next sensor change.",
+    "The previous-level register updates every clock, so dfr is asserted only for the one cycle immediately following a rising transition and deasserts on the next cycle even if s is unchanged."
+   ]
+  },
+  {
+   "aspect": "Invalid sensor patterns",
+   "severity": "medium",
+   "readings": [
+    "Invalid s values (e.g., 010, 100, 101, 110) are treated as don't cares; the FSM holds its current state and outputs.",
+    "Invalid s values are decoded as the nearest valid level (e.g., 010 as between s[1] and s[0]) or cause a transition to the reset state, changing outputs."
+   ]
+  }
+ ]
+}

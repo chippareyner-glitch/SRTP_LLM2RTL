@@ -1,0 +1,12 @@
+﻿prompt=which: 11 questions, 0 done, 11 to call
+  Prob034_dff8                             -> A (3001 tok, total 3001)
+  Prob062_bugs_mux2                        -> A (1183 tok, total 4184)
+  Prob053_m2014_q4d                        -> A (4452 tok, total 8636)
+  Prob093_ece241_2014_q3                   -> A (2013 tok, total 10649)
+  Prob136_m2014_q6                         -> B (2594 tok, total 13243)
+  Prob104_mt2015_muxdff                    -> A (6082 tok, total 19325)
+  Prob149_ece241_2013_q4                   -> A (2507 tok, total 21832)
+  Prob146_fsm_serialdata                   -> B (7510 tok, total 29342)
+  pulse_detect                             -> A (5130 tok, total 34472)
+  serial2parallel                          -> B (5819 tok, total 40291)
+  freq_divbyodd                            -> B (19943 tok, total 60234)

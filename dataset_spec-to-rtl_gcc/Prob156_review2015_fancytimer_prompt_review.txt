@@ -1,0 +1,164 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  data
+ - output count (4 bits)
+ - output counting
+ - output done
+ - input  ack
+
+The module should implement a timer with one input that:
+
+  (1) is started when a particular input pattern (1101) is detected,
+  (2) shifts in 4 more bits to determine the duration to delay,
+  (3) waits for the counters to finish counting, and
+  (4) notifies the user and waits for the user to acknowledge the timer.
+
+The serial data is available on the data input pin. When the pattern 1101
+is received, the circuit must then shift in the next 4 bits,
+most-significant-bit first. These 4 bits determine the duration of the
+timer delay, referred to as delay[3:0]. After that, the state machine
+asserts its counting output to indicate it is counting. Once the 1101 and
+delay[3:0] have been read, the circuit no longer looks at the data input
+until it resumes searching after everything else is done.
+
+The state machine must count for exactly (delay[3:0] + 1) * 1000 clock
+cycles. e.g., delay=0 means count 1000 cycles, and delay=5 means count
+6000 cycles. Also output the current remaining time. This should be equal
+to delay for 1000 cycles, then delay-1 for 1000 cycles, and so on until
+it is 0 for 1000 cycles.
+
+When the circuit isn't counting, the count[3:0] output is don't-care
+(whatever value is convenient for you to implement). At that point, the
+circuit must assert done to notify the user the timer has timed out, and
+waits until input ack is 1 before being reset to look for the next
+occurrence of the start sequence (1101).
+
+The circuit should reset into a state where it begins searching for the
+input sequence 1101. The reset signal is active high synchronous. Assume
+all sequential logic is triggered on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a serial pattern detector and programmable timer with the following operational sequence:
+- **Reset State**: Searches for start pattern "1101" on serial `data` input
+- **Configuration Phase**: After pattern detection, reads 4-bit delay value MSB-first
+- **Counting Phase**: Counts for (delay + 1) × 1000 clock cycles, outputs remaining time
+- **Completion Phase**: Asserts `done`, waits for `ack` before returning to search state
+
+Key timing: Counting duration = (delay[3:0] + 1) × 1000 cycles
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Pattern Detection Overlap**: Unclear if "1101" detection allows overlapping sequences (e.g., data stream "1101101" - should this trigger once or twice?)
+- **Bit Alignment**: After detecting "1101", does the next clock cycle contain the first delay bit, or is there any gap?
+- **Output Behavior During Configuration**: What should `count` and `counting` show while reading the 4 delay bits?
+- **`done` Assertion Timing**: Does `done` assert immediately after counting completes, or on the next cycle?
+
+**Minor Ambiguities:**
+- **`count` Output During Search**: "don't-care" should be explicitly defined (recommend all zeros or previous value)
+- **`ack` Behavior**: Should `ack` be level-sensitive or edge-sensitive? (Spec implies level-sensitive)
+
+## 3. Missing Critical Details
+
+**Essential Missing Information:**
+- **Input Sampling**: Should `data` be sampled at clock edges? (Implied but not explicit)
+- **Output Timing**: Exact cycle when outputs (`counting`, `done`, `count`) change relative to state transitions
+- **Error Handling**: What happens if reset occurs during counting? Immediate abort or complete cycle?
+- **Power-on State**: Initial values for all outputs after reset deassertion
+
+**Implementation Details Needed:**
+- **Counter Size**: Maximum count = 16 × 1000 = 16000 cycles → requires 14-bit counter
+- **State Encoding**: No guidance on state machine implementation style (binary, one-hot)
+- **Timing Constraints**: No maximum operating frequency requirements
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+- **delay = 15 (0b1111)**: Maximum count period = 16,000 cycles (verify counter doesn't overflow)
+- **delay = 0**: Minimum count period = 1,000 cycles
+- **Reset During Operations**:
+  - During pattern detection: Should reset pattern matching
+  - During delay reading: Should abort and return to search
+  - During counting: Should abort counting immediately
+  - During done state: Should return to search immediately
+- **Back-to-back Operations**: Rapid `ack` assertion after `done` - ensure clean state transition
+- **Glitch Handling**: `data` changes near clock edge - setup/hold time assumptions needed
+
+**Data Stream Edge Cases:**
+- **False Pattern Start**: "110" followed by "0" should not trigger detection
+- **Pattern in Delay Bits**: If delay bits happen to be "1101", this should not affect operation
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+- **Pattern Detection FSM**: Risk of incorrect state transitions with overlapping patterns
+- **Counter Timing**: Critical to match (delay + 1) × 1000 exactly - off-by-one errors likely
+- **Output Synchronization**: `count` value changes must align with counter decrement points
+
+**Verification Challenges:**
+- **Long Simulation Times**: 16,000 cycles maximum requires efficient test strategies
+- **Corner Case Coverage**: Need comprehensive pattern sequence testing
+- **Timing Verification**: Must ensure outputs meet timing requirements
+
+## 6. Actionable Guidance for RTL Generation
+
+**Module Interface Definition:**
+```systemverilog
+module TopModule (
+    input  logic       clk,
+    input  logic       reset,    // Synchronous active-high
+    input  logic       data,     // Serial input
+    output logic [3:0] count,    // Current count value
+    output logic       counting, // Active during counting phase
+    output logic       done,     // Asserted when timer completes
+    input  logic       ack       // Acknowledge from user
+);
+```
+
+**Recommended FSM States:**
+1. **SEARCH**: Looking for "1101" pattern
+2. **READ_DELAY**: Reading 4 delay bits MSB-first  
+3. **COUNTING**: Active counting phase
+4. **DONE**: Waiting for acknowledgment
+
+**Implementation Strategy:**
+- **Pattern Detection**: Use shift register with combinatorial detection
+- **Delay Counter**: 14-bit counter with compare logic: target = (delay + 1) × 1000
+- **Count Output**: Decrement every 1000 cycles using a separate 10-bit counter
+- **Synchronous Resets**: All state machines and counters reset synchronously
+
+**Critical Design Decisions to Document:**
+- Pattern detection: Non-overlapping (recommended for simplicity)
+- `count` output: Set to 0 during SEARCH/READ_DELAY states
+- `ack` treatment: Level-sensitive, sampled at clock edge
+- Output timing: All outputs registered for clean timing
+
+**Verification Plan:**
+1. Test pattern detection with various data sequences
+2. Verify all delay values (0-15) produce correct timing
+3. Test reset functionality at each operational phase
+4. Validate handshake protocol with `ack` signal
+5. Check boundary conditions and error scenarios
+
+**Synthesis Considerations:**
+- Use explicit reset values for all registers
+- Ensure counter sizes are appropriate for timing constraints
+- Consider adding scan chain support for testability
+- Document clock domain assumptions (single synchronous clock)
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

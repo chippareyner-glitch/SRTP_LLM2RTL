@@ -1,0 +1,11 @@
+{
+ "case": "accu",
+ "category": "Arithmetic",
+ "top": "accu",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "accu"
+ ]
+}

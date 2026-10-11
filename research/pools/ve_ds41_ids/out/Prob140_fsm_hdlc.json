@@ -1,0 +1,161 @@
+{
+ "case": "Prob140_fsm_hdlc",
+ "n_samples": 9,
+ "n_distinct": 9,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "e7e6b7c68e95",
+   "sources": [
+    "ids:i00"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\i00.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "a346aa2efcb1",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\i01.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:29: error: This assignment requires an explicit cast.\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c2",
+   "hash": "9217c0b88ca2",
+   "sources": [
+    "ids:i10"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\i10.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:37: error: This assignment requires an explicit cast.\n11 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c3",
+   "hash": "2253872fa19b",
+   "sources": [
+    "ids:i11"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\i11.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:40: error: This assignment requires an explicit cast.\ndut.sv:41: error: This assignment requires an explicit cast.\ndut.sv:42: error: This assignment requires an explicit cast.\ndut.sv:43: error: This assignment requires an explicit cast.\ndut.sv:44: error: This assignment requires an explicit cast.\ndut.sv:45: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c4",
+   "hash": "e441bf30e493",
+   "sources": [
+    "ve_ds41_ids:s0"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:38: error: This assignment requires an explicit cast.\ndut.sv:42: error: This assignment requires an explicit cast.\ndut.sv:46: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c5",
+   "hash": "84fa07569c4d",
+   "sources": [
+    "ve_ds41_ids:s1"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\s1.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:37: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "5fc3347027be",
+   "sources": [
+    "ve_ds41_ids:s2"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\s2.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "t.\ndut.sv:26: error: This assignment requires an explicit cast.\ndut.sv:27: error: This assignment requires an explicit cast.\ndut.sv:28: error: This assignment requires an explicit cast.\ndut.sv:29: error: This assignment requires an explicit cast.\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\n9 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c7",
+   "hash": "31fec872473a",
+   "sources": [
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\s3.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c8",
+   "hash": "85baa39e5dbb",
+   "sources": [
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob140_fsm_hdlc\\s4.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": ".\ndut.sv:40: error: This assignment requires an explicit cast.\ndut.sv:41: error: This assignment requires an explicit cast.\ndut.sv:42: error: This assignment requires an explicit cast.\ndut.sv:43: error: This assignment requires an explicit cast.\ndut.sv:44: error: This assignment requires an explicit cast.\ndut.sv:45: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

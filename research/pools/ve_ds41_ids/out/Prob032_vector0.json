@@ -1,0 +1,82 @@
+{
+ "case": "Prob032_vector0",
+ "n_samples": 7,
+ "n_distinct": 3,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "9b446e2e88cf",
+   "sources": [
+    "ids:i00",
+    "ve_ds41_ids:s0",
+    "ve_ds41_ids:s1",
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob032_vector0\\i00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 21,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "7e5032bf1177",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob032_vector0\\i01.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 8,
+    "samples": 21,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "8fc0eaeefe1d",
+   "sources": [
+    "ve_ds41_ids:s2",
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob032_vector0\\s2.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 21,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c2"
+   ],
+   "votes": 6,
+   "correct": true
+  },
+  {
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": false
+  }
+ ]
+}

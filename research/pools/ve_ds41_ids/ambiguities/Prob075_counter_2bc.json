@@ -1,0 +1,37 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "reset timing/type (asynchronous vs edge-triggered)",
+   "severity": "high",
+   "readings": [
+    "areset is an asynchronous active-high reset: state immediately becomes 2'b01 while areset=1, independent of clk.",
+    "areset is sampled on the positive clk edge (synchronous reset), so state only changes at a clk posedge despite the word asynchronous.",
+    "areset resets asynchronously only on the positive edge of areset itself."
+   ]
+  },
+  {
+   "aspect": "priority between areset and training",
+   "severity": "medium",
+   "readings": [
+    "Reset dominates: if areset=1 while train_valid=1, state is forced to 2'b01 regardless of train_taken.",
+    "Training dominates or takes precedence: when train_valid=1, state increments/decrements according to train_taken even if areset=1."
+   ]
+  },
+  {
+   "aspect": "output state latency",
+   "severity": "medium",
+   "readings": [
+    "state is the registered counter output, so train inputs sampled at a clk edge affect state only in the next cycle.",
+    "state is the combinational next-state/counter value, so it reflects the updated counter in the same cycle the train inputs are valid."
+   ]
+  },
+  {
+   "aspect": "initial state without reset assertion",
+   "severity": "low",
+   "readings": [
+    "state is undefined/X until areset is asserted.",
+    "state powers up at 2'b01 (weakly not-taken) even if areset is never asserted."
+   ]
+  }
+ ]
+}

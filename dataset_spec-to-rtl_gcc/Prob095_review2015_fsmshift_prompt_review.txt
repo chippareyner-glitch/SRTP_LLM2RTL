@@ -1,0 +1,128 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - output shift_ena
+
+This module is a part of the FSM for controlling a shift register, we
+want the ability to enable the shift register for exactly 4 clock cycles
+whenever the proper bit pattern is detected. Whenever the FSM is reset,
+assert shift_ena for 4 cycles, then 0 forever (until reset). Reset should
+be active high synchronous.
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` is a finite state machine controller that generates a 4-cycle enable pulse (`shift_ena`) for a shift register. Key requirements:
+- **Interface**: Single-bit ports (clk, reset, shift_ena)
+- **Reset Behavior**: Active-high synchronous reset, asserts `shift_ena` for exactly 4 cycles after reset
+- **Normal Operation**: After initial 4-cycle pulse, `shift_ena` remains low indefinitely
+- **Clock**: Positive-edge triggered sequential logic
+- **Pattern Detection**: Mentioned but not specified - requires external pattern detection logic
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **"Proper bit pattern" detection**: The specification mentions pattern detection but provides no details about:
+   - What constitutes the "proper bit pattern"
+   - How/when the pattern is presented to the module
+   - Input ports for receiving the pattern data
+   - Relationship between pattern detection and `shift_ena` generation
+
+2. **Operational Scope**: Unclear if the 4-cycle pulse should only occur after reset, or also after pattern detection during normal operation.
+
+3. **Reset Timing**: Ambiguous whether reset should be held for a minimum duration or can be pulsed.
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+1. **Pattern Detection Interface**: No input ports defined for pattern data or pattern detection trigger
+2. **Pattern Characteristics**: Missing specification of:
+   - Pattern length and value
+   - Input data width and timing
+   - Detection method (serial/parallel)
+3. **Multiple Activations**: Unclear if module should support multiple 4-cycle pulses (after reset and pattern detection)
+4. **Reset Duration**: Minimum reset pulse width not specified
+5. **Output Timing**: Exact alignment of `shift_ena` relative to clock edges not defined
+6. **Power-on State**: Behavior at power-up without explicit reset not specified
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+1. **Reset During Active Pulse**: Behavior when reset is asserted while `shift_ena` is active
+2. **Back-to-Back Resets**: Consecutive reset pulses with minimal separation
+3. **Pattern Detection During Active Pulse**: How to handle new pattern detection while 4-cycle pulse is ongoing
+4. **Clock Glitches**: Resilience to clock anomalies (though typically handled by physical design)
+5. **Metastability**: No input synchronization specified for potential async signals
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **Pattern Detection Logic**: Missing specification makes correct implementation impossible
+2. **State Machine Design**: Without clear operational requirements, state transitions cannot be properly defined
+3. **Timing Violations**: Potential setup/hold time issues if pattern inputs are asynchronous
+4. **Testability**: Limited observability with single-bit output makes verification challenging
+
+**Expected Failure Modes:**
+- Module will likely implement only reset behavior correctly
+- Pattern detection functionality will be either omitted or incorrectly implemented
+- Verification will be unable to validate pattern detection aspects
+
+## 6. Actionable Guidance for RTL Generation
+
+**Immediate Clarifications Needed:**
+1. **Pattern Detection Specification**:
+   - Add input ports: `pattern_data[N-1:0]`, `pattern_valid` (or similar)
+   - Specify pattern value, length, and detection timing
+   - Define relationship between pattern detection and enable generation
+
+2. **Operational Behavior**:
+   - Clarify if 4-cycle pulses occur only after reset or also after pattern detection
+   - Specify behavior for multiple detection events
+
+**Recommended RTL Implementation Strategy:**
+
+```systemverilog
+// Suggested interface expansion:
+module TopModule (
+    input  clk,
+    input  reset,           // Active-high synchronous reset
+    input  pattern_detect,  // Pattern detection signal (needs specification)
+    output shift_ena        // 4-cycle enable pulse
+);
+
+// Implementation approach:
+// 1. Use a 2-bit counter to count 4 cycles
+// 2. FSM states: IDLE, ACTIVE (4 cycles)
+// 3. Reset immediately transitions to ACTIVE state
+// 4. Pattern detection (if implemented) also triggers ACTIVE state
+```
+
+**Critical Design Decisions:**
+- Implement a simple state machine with counter
+- Use registered outputs for better timing
+- Add parameter for pulse width to allow flexibility
+- Include proper reset synchronization if external signals are asynchronous
+
+**Verification Strategy:**
+- Create testbench to verify 4-cycle pulse accuracy after reset
+- Develop pattern detection test scenarios once specified
+- Verify proper behavior for edge cases (reset during active pulse, etc.)
+
+**Priority**: The specification requires significant clarification before meaningful RTL implementation can proceed. Pattern detection requirements must be fully specified.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

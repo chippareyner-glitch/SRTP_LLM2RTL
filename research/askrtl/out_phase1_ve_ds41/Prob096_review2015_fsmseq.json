@@ -1,0 +1,28 @@
+{
+ "case": "Prob096_review2015_fsmseq",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "data",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "start_shifting",
+    1
+   ]
+  ]
+ },
+ "status": "single_candidate",
+ "n_live": 1
+}

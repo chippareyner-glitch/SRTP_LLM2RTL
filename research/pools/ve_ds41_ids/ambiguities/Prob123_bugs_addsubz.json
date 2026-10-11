@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "result_is_zero when out is nonzero",
+   "severity": "high",
+   "readings": [
+    "result_is_zero must be explicitly assigned 0 when out != 0 (proper combinational zero flag).",
+    "result_is_zero retains its previous value when out != 0 (inferred latch / don't-care)."
+   ]
+  },
+  {
+   "aspect": "zero flag for overflow",
+   "severity": "medium",
+   "readings": [
+    "result_is_zero = 1 iff the 8-bit out == 0 (e.g., 8'hFF + 8'h01 yields out=0 and flag=1).",
+    "result_is_zero = 1 iff the full-precision sum/difference is 0 (so 8'hFF + 8'h01 yields flag=0 because carry is set)."
+   ]
+  },
+  {
+   "aspect": "behavior for do_sub not 0 or 1",
+   "severity": "low",
+   "readings": [
+    "out and result_is_zero retain previous values when do_sub is x/z (case without default).",
+    "out and result_is_zero are assigned default values (e.g., 0) for any other do_sub value."
+   ]
+  }
+ ]
+}

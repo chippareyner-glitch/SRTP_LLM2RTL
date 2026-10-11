@@ -1,0 +1,95 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in     (16 bits)
+ - output out_hi ( 8 bits)
+ - output out_lo ( 8 bits)
+
+The module should implement a combinational circuit that splits an input
+half-word (16 bits, [15:0] ) into lower [7:0] and upper [15:8] bytes.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+# Analysis Report: TopModule Specification
+
+## 1. Specification Summary
+The module implements a simple 16-bit to dual 8-bit splitter:
+- **Input**: 16-bit signal `in[15:0]`
+- **Outputs**: 
+  - `out_hi[7:0]` = upper byte (bits [15:8] of input)
+  - `out_lo[7:0]` = lower byte (bits [7:0] of input)
+- **Type**: Combinational logic (no clock, no sequential elements)
+
+## 2. Ambiguity Analysis
+- **Bit numbering clarity**: Specification explicitly defines [15:0] for input and [7:0] for outputs, resolving potential endianness ambiguity
+- **Port direction**: Clearly specified as input/output
+- **Timing**: Explicitly stated as combinational (no clock, no registers)
+- **No functional ambiguity**: Simple bit-slicing operation is well-defined
+
+## 3. Missing Critical Details
+- **Reset behavior**: Not applicable for combinational logic
+- **Timing constraints**: No propagation delay requirements specified
+- **Output drive strength**: No specification for output drive capability
+- **Power constraints**: No low-power requirements mentioned
+- **Testability features**: No scan chain or test mode requirements
+
+## 4. Edge Cases & Boundary Conditions
+- **All zeros input**: `in = 16'h0000` → `out_hi = 8'h00`, `out_lo = 8'h00`
+- **All ones input**: `in = 16'hFFFF` → `out_hi = 8'hFF`, `out_lo = 8'hFF`
+- **Byte boundaries**: 
+  - `in = 16'hFF00` → `out_hi = 8'hFF`, `out_lo = 8'h00`
+  - `in = 16'h00FF` → `out_hi = 8'h00`, `out_lo = 8'hFF`
+- **No metastability concerns**: Pure combinational logic
+
+## 5. Functional Correctness Prediction
+- **High confidence**: Simple bit-slicing operation is straightforward to implement
+- **No complex logic**: Minimal risk of functional errors
+- **Deterministic behavior**: Outputs depend solely on current inputs
+- **Test coverage**: 100% functional coverage achievable with 2-3 test vectors
+
+## 6. Actionable Guidance for RTL Generation
+
+### Recommended Implementation:
+```systemverilog
+module TopModule (
+    input  logic [15:0] in,
+    output logic [7:0]  out_hi,
+    output logic [7:0]  out_lo
+);
+
+    // Direct bit slicing - most efficient implementation
+    assign out_hi = in[15:8];
+    assign out_lo = in[7:0];
+
+endmodule
+```
+
+### Critical Implementation Notes:
+1. **Use continuous assignments** (`assign`) for combinational behavior
+2. **Maintain consistent bit ordering** as specified
+3. **No sequential elements** (flip-flops, latches) should be used
+4. **Avoid unnecessary logic** - direct wiring is sufficient
+5. **Consider adding `logic` keyword** for clarity in SystemVerilog
+
+### Verification Strategy:
+- Create testbench with corner cases (all 0s, all 1s, byte boundaries)
+- Verify all 65,536 input combinations if exhaustive testing is required
+- Use assertion checks to validate bit correspondence
+
+### Synthesis Considerations:
+- Module will synthesize to pure wiring (no gates)
+- Ensure synthesis tool doesn't optimize away the module
+- Consider adding `(* keep = "true" *)` attribute if preservation is needed
+
+This specification is complete and unambiguous for a straightforward combinational implementation.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

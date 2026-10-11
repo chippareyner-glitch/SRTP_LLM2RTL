@@ -1,0 +1,11 @@
+{
+ "case": "float_multi",
+ "category": "Arithmetic",
+ "top": "float_multi",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "float_multi"
+ ]
+}

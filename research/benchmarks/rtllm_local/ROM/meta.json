@@ -1,0 +1,11 @@
+{
+ "case": "ROM",
+ "category": "Miscellaneous",
+ "top": "ROM",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "ROM"
+ ]
+}

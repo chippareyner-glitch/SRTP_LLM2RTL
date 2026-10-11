@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Priority between load and shift when L=1 and E=1",
+   "severity": "high",
+   "readings": [
+    "Load has priority: on the positive clock edge Q <= R",
+    "Shift has priority: on the positive clock edge Q <= w"
+   ]
+  },
+  {
+   "aspect": "Whether E gates load when L=1 and E=0",
+   "severity": "medium",
+   "readings": [
+    "L alone causes a load: Q <= R even when E=0",
+    "E is a global stage enable: when E=0, Q holds even if L=1"
+   ]
+  },
+  {
+   "aspect": "Initial value of Q with no reset input",
+   "severity": "medium",
+   "readings": [
+    "Q has no defined power-on value; before the first clock it is X/unknown",
+    "Q is assumed to start at 0, e.g. via implicit initial value or power-on reset"
+   ]
+  }
+ ]
+}

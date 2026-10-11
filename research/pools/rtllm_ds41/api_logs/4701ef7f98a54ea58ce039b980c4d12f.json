@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:40:03.259728+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "pulse_detect",
+  "returned_model": "deepseek-flash",
+  "id": "6fbdfdd4-b820-480b-9dd3-d679f9d28e79",
+  "usage": {
+    "prompt_tokens": 509,
+    "completion_tokens": 4771,
+    "total_tokens": 5280,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4434
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 253
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 20.284338999998
+}

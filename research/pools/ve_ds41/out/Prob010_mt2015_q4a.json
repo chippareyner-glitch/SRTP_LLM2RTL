@@ -1,0 +1,56 @@
+{
+ "case": "Prob010_mt2015_q4a",
+ "n_samples": 5,
+ "n_distinct": 2,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "08ab6630e900",
+   "sources": [
+    "ve_ds41:s0"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob010_mt2015_q4a\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 202,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "074f394597a1",
+   "sources": [
+    "ve_ds41:s1",
+    "ve_ds41:s2",
+    "ve_ds41:s3",
+    "ve_ds41:s4"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob010_mt2015_q4a\\s1.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 202,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1"
+   ],
+   "votes": 5,
+   "correct": true
+  }
+ ]
+}

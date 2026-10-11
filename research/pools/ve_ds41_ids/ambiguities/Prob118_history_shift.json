@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset type (asynchronous vs synchronous)",
+   "severity": "high",
+   "readings": [
+    "areset is asynchronous: asserting areset immediately clears predict_history to 0, independent of clk (always @(posedge clk or posedge areset)).",
+    "areset is synchronous: predict_history clears to 0 only on the next posedge clk when areset is high, because all sequential logic is triggered on the positive edge of clk."
+   ]
+  },
+  {
+   "aspect": "Rollback load truncation/bit ordering",
+   "severity": "high",
+   "readings": [
+    "New history = {train_history[30:0], train_taken} (shift train_history left, insert train_taken at LSB, discard oldest bit train_history[31]).",
+    "New history = {train_history[31:1], train_taken} (discard train_history[0], so the branch immediately before the mispredicted branch is lost and the remaining bits are shifted right)."
+   ]
+  },
+  {
+   "aspect": "Priority between reset and other inputs",
+   "severity": "medium",
+   "readings": [
+    "Reset has highest priority: if areset=1, predict_history <= 0 regardless of predict_valid or train_mispredicted.",
+    "train_mispredicted (or predict_valid) takes priority over reset: if areset=1 and train_mispredicted=1, predict_history <= {train_history[30:0], train_taken}."
+   ]
+  },
+  {
+   "aspect": "train_history bit ordering",
+   "severity": "low",
+   "readings": [
+    "train_history uses the same convention as predict_history: bit 0 is the youngest branch.",
+    "train_history's bit ordering is unspecified or opposite: bit 31 is the youngest branch, which changes the concatenation order in the rollback load."
+   ]
+  }
+ ]
+}

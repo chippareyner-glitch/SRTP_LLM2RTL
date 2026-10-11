@@ -1,0 +1,11 @@
+{
+ "case": "square_wave",
+ "category": "Miscellaneous",
+ "top": "square_wave",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "square_wave"
+ ]
+}

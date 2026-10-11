@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Priority between load and Rule 90 advance",
+   "severity": "high",
+   "readings": [
+    "On a clock edge with load=1, q is synchronously loaded with data and the Rule 90 update is suppressed, so q_next = data.",
+    "On a clock edge with load=1, the system is loaded with data and then immediately advanced by one Rule 90 step, so q_next = rule90(data)."
+   ]
+  },
+  {
+   "aspect": "Initial/reset state of q",
+   "severity": "medium",
+   "readings": [
+    "No reset or initial value is specified, so q is unknown/X before the first load and stays X if load is never asserted.",
+    "q is implicitly initialized to all zeros at power-up or before the first clock edge, so it evolves from the all-zero state if load is never asserted."
+   ]
+  }
+ ]
+}

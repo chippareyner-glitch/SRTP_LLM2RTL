@@ -1,0 +1,21 @@
+{
+  "case_id": "Prob098_circuit7",
+  "rtl_file": "Prob098_circuit7_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob098_circuit7_prompt.txt",
+  "normalization_notes": [
+    "The waveform implies a single positive-edge register whose next value is NOT a; stimulus is made stable before the sampled edge."
+  ],
+  "ports": [
+    {"name": "clk", "direction": "input", "width": 1},
+    {"name": "a", "direction": "input", "width": 1},
+    {"name": "q", "direction": "output", "width": 1}
+  ],
+  "clock": {"name": "clk", "half_period": 5},
+  "initial": {"a": "1'b0"},
+  "tests": [
+    {"id": "capture_inverted_zero", "requirement": "q captures NOT a on the positive edge", "steps": [{"set": {"a": "0"}, "posedge": 1, "expect": {"q": "1"}}]},
+    {"id": "capture_inverted_one", "requirement": "q captures NOT a on the positive edge", "steps": [{"set": {"a": "1"}, "posedge": 1, "expect": {"q": "0"}}]},
+    {"id": "capture_again", "requirement": "the circuit has one cycle, not two cycles, of storage", "steps": [{"set": {"a": "0"}, "posedge": 1, "expect": {"q": "1"}}]}
+  ]
+}

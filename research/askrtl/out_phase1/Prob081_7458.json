@@ -1,0 +1,82 @@
+{
+ "case": "Prob081_7458",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "p1a",
+    1
+   ],
+   [
+    "p1b",
+    1
+   ],
+   [
+    "p1c",
+    1
+   ],
+   [
+    "p1d",
+    1
+   ],
+   [
+    "p1e",
+    1
+   ],
+   [
+    "p1f",
+    1
+   ],
+   [
+    "p2a",
+    1
+   ],
+   [
+    "p2b",
+    1
+   ],
+   [
+    "p2c",
+    1
+   ],
+   [
+    "p2d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "p1y",
+    1
+   ],
+   [
+    "p2y",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 4
+}

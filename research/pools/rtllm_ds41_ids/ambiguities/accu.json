@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "output latency (same cycle vs registered)",
+   "severity": "high",
+   "readings": [
+    "data_out and valid_out are combinational/wire outputs that become valid in the SAME clock cycle in which the 4th valid_in is accepted (valid_out aligned with the 4th input sample)",
+    "data_out and valid_out are registered and therefore appear one clock cycle AFTER the 4th accepted data_in (valid_out pulses on the cycle following the 4th input)"
+   ]
+  },
+  {
+   "aspect": "handling of gaps in valid_in / meaning of valid_in",
+   "severity": "high",
+   "readings": [
+    "valid_in is a level that must be high for 4 consecutive cycles to complete a group; if it deasserts mid-accumulation the partial sum/counter are cleared or the group is abandoned",
+    "valid_in may be high only on the cycles where a new data byte is present; the partial sum and counter are retained across cycles where valid_in=0 and accumulation resumes at the next valid_in=1 with no data loss"
+   ]
+  },
+  {
+   "aspect": "reset values and reset behaviour of registers",
+   "severity": "medium",
+   "readings": [
+    "rst_n low asynchronously clears counter, running sum, data_out and valid_out to 0, and valid_out can never be high during or immediately out of reset",
+    "reset only clears the counter/sum; data_out and valid_out keep their previous (possibly non-zero / high) values until overwritten, so valid_out may remain high for a cycle after reset deassertion"
+   ]
+  },
+  {
+   "aspect": "state after a completed group / back-to-back groups",
+   "severity": "medium",
+   "readings": [
+    "after the 4th input the counter and accumulator are cleared immediately, so if valid_in stays high the very next clock starts a new group and outputs appear every 4 valid_in cycles with no dead cycle",
+    "after output the module requires valid_in to drop and re-assert (or a fixed inter-group gap) before the next group is counted; data_out/valid_out also hold their value until the next group finishes"
+   ]
+  }
+ ]
+}

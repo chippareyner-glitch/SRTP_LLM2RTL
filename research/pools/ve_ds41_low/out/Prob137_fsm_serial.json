@@ -1,0 +1,34 @@
+{
+ "case": "Prob137_fsm_serial",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "b63b4b003a0e",
+   "sources": [
+    "ve_ds41_low:s0"
+   ],
+   "model": "ve_ds41_low",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_low\\gen\\Prob137_fsm_serial\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 72,
+    "samples": 905,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": false
+  }
+ ]
+}

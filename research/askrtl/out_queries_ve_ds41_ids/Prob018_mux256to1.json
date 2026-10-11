@@ -1,0 +1,107 @@
+{
+ "case": "Prob018_mux256to1",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    256
+   ],
+   [
+    "sel",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2"
+   ],
+   "votes": 6,
+   "correct": [
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 2,
+    "first_cycle": 0,
+    "stim": [
+     [
+      111793196543967404139194827996419963236210979610743141064269745943111491389389,
+      130
+     ],
+     [
+      55186156870478567193644641351382124067713781048612400765092754877653207859685,
+      91
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1",
+      "1"
+     ],
+     [
+      "1",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (256 bits)\n - input  sel (  8 bits)\n - output out\n\nThe module should implement a 1-bit wide, 256-to-1 multiplexer. The 256\ninputs are all packed into a single 256-bit input vector. sel=0 should\nselect in[0], sel=1 selects bits in[1], sel=2 selects bits in[2], etc.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | in | sel | A out | B out |\n|---|---|---|---|---|\n| 0 | 256'hf728b4fa42485e3a0a5d2f346baa9455e3e70682c2094cac629f6fbed82c07cd | 8'h82 | out=1'b1 | out=1'b1 |\n| 1 | 256'h7a024204f7c1bd874da5e709d4713d60c8a70639eb1167b367a9c3787c65c1e5 | 8'h5b | out=1'b1 | out=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     55186156870478567193644641351382124067713781048612400765092754877653207859685,
+     0
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "1",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (256 bits)\n - input  sel (  8 bits)\n - output out\n\nThe module should implement a 1-bit wide, 256-to-1 multiplexer. The 256\ninputs are all packed into a single 256-bit input vector. sel=0 should\nselect in[0], sel=1 selects bits in[1], sel=2 selects bits in[2], etc.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | in | sel | out |\n|---|---|---|---|\n| 0 | 256'h7a024204f7c1bd874da5e709d4713d60c8a70639eb1167b367a9c3787c65c1e5 | 8'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=1'b1\n- **B**: out=1'b0\n"
+  }
+ ]
+}

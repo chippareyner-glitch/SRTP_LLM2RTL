@@ -1,0 +1,25 @@
+﻿  live: Prob149_ece241_2013_q4 q18 label=B -> ANY
+  live: Prob149_ece241_2013_q4 q16 label=B -> ANY
+  live: Prob149_ece241_2013_q4 q15 label=D -> ANY
+  live: Prob150_review2015_fsmonehot q9 label=B -> C
+  live: Prob150_review2015_fsmonehot q7 label=C -> ANY
+  live: Prob150_review2015_fsmonehot q2 label=A -> C
+  live: Prob151_review2015_fsm q0 label=A -> A
+  live: Prob151_review2015_fsm q5 label=A -> A
+  live: Prob152_lemmings3 q14 label=A -> A
+  live: Prob152_lemmings3 q3 label=A -> A
+  live: Prob153_gshare q3 label=C -> A
+  live: Prob154_fsm_ps2data q4 label=A -> ANY
+  live: Prob154_fsm_ps2data q2 label=C -> ANY
+  live: Prob154_fsm_ps2data q0 label=A -> ANY
+  live: Prob155_lemmings4 q0 label=A -> A
+  live: Prob155_lemmings4 q4 label=A -> A
+  live: Prob155_lemmings4 q3 label=A -> A
+  live: Prob156_review2015_fancytimer q2 label=C -> C
+
+benchmark accuracy over 156 problems:
+  majority vote (per sample)       0.885
+  majority vote (per config)       0.907
+  AskRTL online (B=3, p=0.8)      0.929   questions asked=74 (1.37/divergent problem)
+  live calls=18 tokens~170258 blocked-by-guard=0
+  divergent problems not solved: ['Prob062_bugs_mux2', 'Prob093_ece241_2014_q3', 'Prob149_ece241_2013_q4', 'Prob150_review2015_fsmonehot', 'Prob153_gshare', 'Prob154_fsm_ps2data', 'Prob156_review2015_fancytimer']

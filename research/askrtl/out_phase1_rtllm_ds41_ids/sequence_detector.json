@@ -1,0 +1,100 @@
+{
+ "case": "sequence_detector",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "rst_n",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "rst_n",
+    1
+   ],
+   [
+    "data_in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "sequence_detected",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c3"
+  ],
+  [
+   "c2"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 2,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 40,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 33,
+   "orig_len": 41,
+   "min_len": 8,
+   "toggles": 5
+  }
+ ],
+ "status": "ok",
+ "n_live": 3
+}

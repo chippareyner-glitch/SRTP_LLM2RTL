@@ -1,0 +1,27 @@
+{
+ "id": "Prob030_popcount255__zeros",
+ "base": "Prob030_popcount255",
+ "delta": "zeros",
+ "category": "rule",
+ "edits": [
+  [
+   "A \"population count\" circuit counts the number of '1's in an input vector. The module should implement a population count circuit for a 255-bit input vector.",
+   "A \"zero count\" circuit counts the number of '0's in an input vector. The module should implement a zero count circuit for a 255-bit input vector."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 215,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 215,
+   "samples": 215,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

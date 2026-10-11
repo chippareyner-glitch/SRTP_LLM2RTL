@@ -1,0 +1,76 @@
+{
+ "case": "Prob099_m2014_q6c",
+ "n_samples": 10,
+ "n_distinct": 4,
+ "n_compiling": 0,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "cbb5d3ea294f",
+   "sources": [
+    "deepseek_full",
+    "direct_batch",
+    "json_ir"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob099_m2014_q6c\\attempt_00\\module.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "tb.sv:71: error: port ``Y2'' is not a port of good1.\ntb.sv:71: error: port ``Y4'' is not a port of good1.\ntb.sv:77: error: port ``Y2'' is not a port of top_module1.\ntb.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "d807771ef097",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob099_m2014_q6c\\module_initial.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "tb.sv:71: error: port ``Y2'' is not a port of good1.\ntb.sv:71: error: port ``Y4'' is not a port of good1.\ntb.sv:77: error: port ``Y2'' is not a port of top_module1.\ntb.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c2",
+   "hash": "eb27fc458911",
+   "sources": [
+    "tri0926:candidate_1_literal",
+    "tri0926:candidate_2_contract",
+    "tri0926:candidate_3_counterexample",
+    "tri0927:candidate_1_literal",
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob099_m2014_q6c\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "tb.sv:71: error: port ``Y2'' is not a port of good1.\ntb.sv:71: error: port ``Y4'' is not a port of good1.\ntb.sv:77: error: port ``Y2'' is not a port of top_module1.\ntb.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c3",
+   "hash": "7420cd60c0fc",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob099_m2014_q6c\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "tb.sv:71: error: port ``Y2'' is not a port of good1.\ntb.sv:71: error: port ``Y4'' is not a port of good1.\ntb.sv:77: error: port ``Y2'' is not a port of top_module1.\ntb.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": [],
+ "nontransitive_pairs": 0
+}

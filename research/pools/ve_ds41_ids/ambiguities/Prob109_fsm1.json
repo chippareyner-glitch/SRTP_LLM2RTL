@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output latency (combinational vs registered)",
+   "severity": "high",
+   "readings": [
+    "out is a combinational function of the current state (out=1 in B, out=0 in A), so it changes immediately when the state changes, including during asynchronous reset.",
+    "out is a registered signal updated on the clock edge, so it is delayed by one clock cycle relative to the state and may not change immediately during reset unless explicitly reset."
+   ]
+  },
+  {
+   "aspect": "Output value during asynchronous reset",
+   "severity": "high",
+   "readings": [
+    "During areset=1, state is forced to B, so out becomes 1 asynchronously (if combinational) or is asynchronously reset to 1.",
+    "During areset=1, out is not affected by the reset (if registered without reset), so it holds its previous value or 0, and only updates on the next clock edge."
+   ]
+  },
+  {
+   "aspect": "Clock edge polarity",
+   "severity": "medium",
+   "readings": [
+    "State updates on the rising edge of clk (posedge).",
+    "State updates on the falling edge of clk (negedge)."
+   ]
+  },
+  {
+   "aspect": "Initial state without reset",
+   "severity": "medium",
+   "readings": [
+    "If areset is never asserted, the initial state at power-up is undefined (e.g., X in simulation, unpredictable in hardware).",
+    "If areset is never asserted, the initial state is assumed to be B (out=1)."
+   ]
+  }
+ ]
+}

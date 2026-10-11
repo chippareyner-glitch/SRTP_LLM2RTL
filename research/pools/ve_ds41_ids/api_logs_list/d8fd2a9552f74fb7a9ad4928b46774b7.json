@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T16:29:18.247032+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob011_norgate",
+  "returned_model": "deepseek-flash",
+  "id": "54fd49e2-9b30-49f2-94f8-df5c3db96abb",
+  "usage": {
+    "prompt_tokens": 302,
+    "completion_tokens": 167,
+    "total_tokens": 469,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 160
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 174
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 1.5448541000005207
+}

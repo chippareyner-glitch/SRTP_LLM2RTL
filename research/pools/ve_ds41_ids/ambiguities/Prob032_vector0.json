@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Bit ordering / vector index convention",
+   "severity": "high",
+   "readings": [
+    "vec is declared as [2:0] (LSB is position 0), so o0 = vec[0] (LSB), o1 = vec[1], o2 = vec[2] (MSB), and outv = vec.",
+    "vec is declared as [0:2] (MSB is position 0), so o0 = vec[0] (MSB), o1 = vec[1], o2 = vec[2] (LSB), and outv = vec."
+   ]
+  }
+ ]
+}

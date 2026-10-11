@@ -1,0 +1,34 @@
+{
+ "case": "Prob149_ece241_2013_q4",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "58b10fd24ac0",
+   "sources": [
+    "ve_v4pro:s0"
+   ],
+   "model": "ve_v4pro",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_v4pro\\gen\\Prob149_ece241_2013_q4\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1171,
+    "samples": 2040,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": false
+  }
+ ]
+}

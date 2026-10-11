@@ -1,0 +1,167 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  bump_left
+ - input  bump_right
+ - output walk_left
+ - output walk_right
+
+The module should implement a simple game called Lemmings which involves
+critters with fairly simple brains. So simple that we are going to model
+it using a finite state machine. In the Lemmings' 2D world, Lemmings can
+be in one of two states: walking left (walk_left is 1) or walking right
+(walk_right is 1). It will switch directions if it hits an obstacle. In
+particular, if a Lemming is bumped on the left (by receiving a 1 on
+bump_left), it will walk right. If it's bumped on the right (by receiving
+a 1 on bump_right), it will walk left. If it's bumped on both sides at
+the same time, it will still switch directions.
+
+The module should implement a Moore state machine with two states, two
+inputs, and one output (internal to the module) that models this
+behaviour. areset is positive edge triggered asynchronous resetting the
+Lemming machine to walk left. Assume all sequential logic is triggered on
+the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a Lemmings game controller with a 2-state FSM:
+- **States**: WALK_LEFT (default after reset) and WALK_RIGHT
+- **Inputs**: 
+  - `clk`: Positive-edge clock
+  - `areset`: Positive-edge triggered asynchronous reset (active high)
+  - `bump_left`: Obstacle detection on left side
+  - `bump_right`: Obstacle detection on right side
+- **Outputs**:
+  - `walk_left`: Active when moving left (mutually exclusive with walk_right)
+  - `walk_right`: Active when moving right (mutually exclusive with walk_left)
+
+**Core Behavior**: Lemming changes direction when hitting obstacles - left bump → right walk, right bump → left walk. Simultaneous bumps cause direction change.
+
+## 2. Ambiguity Analysis
+
+**Critical Clarifications Needed:**
+
+1. **"Positive edge triggered asynchronous reset"**: This is contradictory terminology. Asynchronous reset doesn't require a clock edge. Should be clarified as either:
+   - Asynchronous reset (immediate effect) OR
+   - Synchronous reset (triggered by clock edge)
+
+2. **Bump input behavior timing**: Unclear when bump inputs are sampled:
+   - Should bumps be evaluated only on clock edges?
+   - Are bumps level-sensitive or edge-sensitive?
+
+3. **Simultaneous bump handling**: "Will still switch directions" is ambiguous:
+   - Does it toggle direction regardless of current state?
+   - Or does it follow a specific priority?
+
+4. **Output behavior during reset**: Are outputs defined during reset?
+
+## 3. Missing Critical Details
+
+**Essential Additions for Robust Implementation:**
+
+1. **Reset Polarity Clarification**: Explicitly state reset active level
+2. **Input Timing Constraints**: Define setup/hold times for bump inputs
+3. **Output Behavior Specification**:
+   - Output values during reset
+   - Glitch prevention requirements
+4. **State Encoding**: Specify binary encoding for the two states
+5. **Power-up State**: Default state if reset is never asserted
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Scenarios to Handle:**
+
+1. **Simultaneous Bumps + Reset**: Reset should have highest priority
+2. **Bumps During Reset**: Bump inputs should be ignored during reset
+3. **No Bump Condition**: Maintain current direction when no bumps detected
+4. **Rapid Successive Bumps**: Ensure single direction change per clock cycle
+5. **Metastability**: Consider synchronization if bumps are asynchronous
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Issues:**
+
+1. **Priority Logic**: Without clear priority rules, simultaneous bumps may cause:
+   - Race conditions in combinational logic
+   - Unpredictable state transitions
+
+2. **Output Glitches**: Direct state-to-output mapping needed for Moore machine
+3. **Reset Recovery**: Ensure clean state exit from reset condition
+4. **State Machine Stability**: Must prevent undefined states
+
+**Expected Behavior Table:**
+```
+Current State | bump_left | bump_right | Next State | walk_left | walk_right
+----------------------------------------------------------------------------
+WALK_LEFT     |     0     |     0      | WALK_LEFT  |     1     |     0
+WALK_LEFT     |     0     |     1      | WALK_RIGHT |     1     |     0
+WALK_LEFT     |     1     |     0      | WALK_RIGHT |     1     |     0
+WALK_LEFT     |     1     |     1      | WALK_RIGHT |     1     |     0
+WALK_RIGHT    |     0     |     0      | WALK_RIGHT |     0     |     1
+WALK_RIGHT    |     0     |     1      | WALK_LEFT  |     0     |     1
+WALK_RIGHT    |     1     |     0      | WALK_LEFT  |     0     |     1
+WALK_RIGHT    |     1     |     1      | WALK_LEFT  |     0     |     1
+RESET         |     X     |     X      | WALK_LEFT  |     1     |     0
+```
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+
+1. **Clarify Specification First**:
+   ```systemverilog
+   // Recommended parameter clarification
+   parameter STATE_LEFT = 1'b0;
+   parameter STATE_RIGHT = 1'b1;
+   ```
+
+2. **Robust FSM Structure**:
+   ```systemverilog
+   typedef enum logic {WALK_LEFT, WALK_RIGHT} state_t;
+   state_t current_state, next_state;
+   
+   // Sequential logic with async reset
+   always_ff @(posedge clk or posedge areset) begin
+     if (areset) current_state <= WALK_LEFT;
+     else current_state <= next_state;
+   end
+   ```
+
+3. **Next State Logic**:
+   ```systemverilog
+   always_comb begin
+     case (current_state)
+       WALK_LEFT:  next_state = (bump_left | bump_right) ? WALK_RIGHT : WALK_LEFT;
+       WALK_RIGHT: next_state = (bump_left | bump_right) ? WALK_LEFT : WALK_RIGHT;
+       default:    next_state = WALK_LEFT;
+     endcase
+   end
+   ```
+
+4. **Output Logic (Moore Machine)**:
+   ```systemverilog
+   assign walk_left = (current_state == WALK_LEFT);
+   assign walk_right = (current_state == WALK_RIGHT);
+   ```
+
+5. **Verification Hooks**:
+   - Add assertion for mutually exclusive outputs
+   - Verify reset behavior covers all edge cases
+   - Test simultaneous bump scenarios extensively
+
+**Final Recommendation**: The specification is fundamentally sound but requires clarification on reset behavior and input timing. The FSM implementation should be straightforward once these ambiguities are resolved.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

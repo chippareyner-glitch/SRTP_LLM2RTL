@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "reset/initial values of count and wave_out",
+   "severity": "high",
+   "readings": [
+    "No reset or power-up value is specified: count may start at 0 and wave_out at 0, giving a defined first half-period and initial polarity.",
+    "count and wave_out may be unknown until first toggle, or may use other initial values, changing the first toggle edge and output phase/polarity."
+   ]
+  },
+  {
+   "aspect": "toggle threshold: freq-1 vs freq",
+   "severity": "high",
+   "readings": [
+    "Toggle when count == freq - 1, as stated in 'When count reaches (freq - 1)'; half-period length is freq clk cycles.",
+    "Toggle when count == freq, as implied by 'If count has not reached freq'; half-period length is freq+1 clk cycles."
+   ]
+  },
+  {
+   "aspect": "freq = 0 behavior",
+   "severity": "high",
+   "readings": [
+    "Treat freq=0 as invalid: no toggling, hold wave_out, or undefined behavior.",
+    "8-bit freq-1 underflows to 255, so count reaches 255 and toggles every 256 clk cycles; or if comparing to freq, count==0 toggles every clk cycle."
+   ]
+  },
+  {
+   "aspect": "freq changes during counting",
+   "severity": "medium",
+   "readings": [
+    "Compare count against the current freq each clk, so a mid-period change can shorten/lengthen the current half-period or prevent equality until counter wrap.",
+    "Latch freq at the start of each half-period (or only apply new freq after next toggle), so the current half-period completes at the old rate."
+   ]
+  }
+ ]
+}

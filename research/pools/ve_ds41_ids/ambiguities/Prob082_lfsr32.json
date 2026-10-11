@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Tap position numbering",
+   "severity": "high",
+   "readings": [
+    "Positions are 1-indexed (standard LFSR notation): taps at q[31], q[21], q[1], q[0] (mask 0x80200003).",
+    "Positions are 0-indexed: position 32 is invalid, so map 32 to q[31] and use q[22], q[2], q[1] (mask 0x80400006)."
+   ]
+  },
+  {
+   "aspect": "Order of XOR and shift in Galois update",
+   "severity": "high",
+   "readings": [
+    "Standard: next_q[i] = q[i+1] XOR (q[0] & tap[i]) for i<31, next_q[31] = q[0] & tap[31].",
+    "Alternative: XOR is applied to the current bit at the tapped position before shifting, so next_q[i] = q[i+1] XOR (q[0] & tap[i+1]) (tap mask effectively shifted by one)."
+   ]
+  },
+  {
+   "aspect": "Initial state without reset assertion",
+   "severity": "low",
+   "readings": [
+    "q is initialized to 32'h1 at power-up even if reset is never asserted.",
+    "q is undefined until reset is asserted; only reset defines the initial state."
+   ]
+  }
+ ]
+}

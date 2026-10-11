@@ -1,0 +1,127 @@
+{
+ "case": "Prob091_2012_q2b",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "y",
+    6
+   ],
+   [
+    "w",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "Y1",
+    1
+   ],
+   [
+    "Y3",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3",
+    "c4"
+   ],
+   "votes": 6,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 4,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00",
+      "00",
+      "01",
+      "01"
+     ],
+     [
+      "00",
+      "00",
+      "01",
+      "00"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  y (6 bits)\n - input  w\n - output Y1\n - output Y3\n\nConsider the following finite-state machine:\n\n  A (0) --1--> B\n  A (0) --0--> A\n  B (0) --1--> C\n  B (0) --0--> D\n  C (0) --1--> E\n  C (0) --0--> D\n  D (0) --1--> F\n  D (0) --0--> A\n  E (1) --1--> E\n  E (1) --0--> D\n  F (1) --1--> C\n  F (1) --0--> D\n\nAssume that a one-hot code is used with the state assignment y[5:0] =\n000001(A), 000010(B), 000100(C), 001000(D), 010000(E), 100000(F)\n\nThe module should implement the state output logic for this finite-state\nmachine. The output signal Y1 should be the input of state flip-flop\ny[1]. The output signal Y3 should be the input of state flip-flop y[3].\nDerive the implementation by inspection assuming the above one-hot\nencoding.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | y | w | A out | B out |\n|---|---|---|---|---|\n| 0 | 6'h00 | 1'b0 | Y1=1'b0, Y3=1'b0 | Y1=1'b0, Y3=1'b0 |\n| 1 | 6'h01 | 1'b0 | Y1=1'b0, Y3=1'b0 | Y1=1'b0, Y3=1'b0 |\n| 2 | 6'h02 | 1'b0 | Y1=1'b0, Y3=1'b1 | Y1=1'b0, Y3=1'b1 |\n| 3 | 6'h03 | 1'b0 | Y1=1'b0, Y3=1'b1 | Y1=1'b0, Y3=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     3,
+     0
+    ]
+   ],
+   "options": [
+    "01",
+    "00"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "01",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  y (6 bits)\n - input  w\n - output Y1\n - output Y3\n\nConsider the following finite-state machine:\n\n  A (0) --1--> B\n  A (0) --0--> A\n  B (0) --1--> C\n  B (0) --0--> D\n  C (0) --1--> E\n  C (0) --0--> D\n  D (0) --1--> F\n  D (0) --0--> A\n  E (1) --1--> E\n  E (1) --0--> D\n  F (1) --1--> C\n  F (1) --0--> D\n\nAssume that a one-hot code is used with the state assignment y[5:0] =\n000001(A), 000010(B), 000100(C), 001000(D), 010000(E), 100000(F)\n\nThe module should implement the state output logic for this finite-state\nmachine. The output signal Y1 should be the input of state flip-flop\ny[1]. The output signal Y3 should be the input of state flip-flop y[3].\nDerive the implementation by inspection assuming the above one-hot\nencoding.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | y | w | out |\n|---|---|---|---|\n| 0 | 6'h03 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: Y1=1'b0, Y3=1'b1\n- **B**: Y1=1'b0, Y3=1'b0\n"
+  }
+ ]
+}

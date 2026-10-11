@@ -1,0 +1,93 @@
+{
+ "case": "LIFObuffer",
+ "excluded_iface": [
+  "c1",
+  "c4"
+ ],
+ "iface": {
+  "sequential": true,
+  "clock": "Clk",
+  "reset": "Rst",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "dataIn",
+    4
+   ],
+   [
+    "RW",
+    1
+   ],
+   [
+    "EN",
+    1
+   ],
+   [
+    "Rst",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "EMPTY",
+    1
+   ],
+   [
+    "FULL",
+    1
+   ],
+   [
+    "dataOut",
+    4
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c2",
+   "c3"
+  ],
+  [
+   "c0"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 2,
+ "extra_x": 2,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     13,
+     0,
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 1,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 3
+}

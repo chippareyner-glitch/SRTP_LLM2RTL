@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Pattern-detection input missing",
+   "severity": "high",
+   "readings": [
+    "The interface has no data input, so the 'proper bit pattern' cannot be detected; implement only the reset-triggered 4-cycle shift_ena and ignore pattern detection.",
+    "Assume an external pattern-detect signal exists but is omitted from the interface, so the module's behavior depends on an unseen signal."
+   ]
+  },
+  {
+   "aspect": "Reset-cycle timing and inclusion",
+   "severity": "high",
+   "readings": [
+    "shift_ena is asserted for 4 cycles starting immediately after the clock edge where reset is sampled, and if reset stays high, shift_ena remains high (or restarts) beyond 4 cycles.",
+    "shift_ena is asserted for exactly 4 cycles beginning the cycle after reset is deasserted; during reset assertion shift_ena is 0 (or don't care) and does not count toward the 4."
+   ]
+  },
+  {
+   "aspect": "Post-reset pattern detection",
+   "severity": "high",
+   "readings": [
+    "After the reset-initiated 4-cycle sequence, shift_ena stays 0 forever regardless of any pattern; the word 'whenever' is contradictory or only refers to reset.",
+    "After the reset-initiated sequence, detection of the proper pattern can trigger additional 4-cycle shift_ena sequences without reset."
+   ]
+  },
+  {
+   "aspect": "Pattern value / detection criteria",
+   "severity": "medium",
+   "readings": [
+    "The 'proper bit pattern' is a specific sequence (e.g., 1101) defined elsewhere; the implementer must guess it.",
+    "The 'proper bit pattern' is any pattern matching a condition; without a defined input or pattern, detection is undefined and may be omitted."
+   ]
+  }
+ ]
+}

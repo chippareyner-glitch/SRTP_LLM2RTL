@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "done during search/reset",
+   "severity": "high",
+   "readings": [
+    "done is asserted whenever the FSM is not counting, so it is 1 during the initial search state and during reset until 1101 is detected.",
+    "done is asserted only after the timer has timed out and is waiting for ack; it is 0 during search, reset, and counting."
+   ]
+  },
+  {
+   "aspect": "output latency (registered vs combinational)",
+   "severity": "high",
+   "readings": [
+    "counting, count, and done are combinational Moore outputs that change immediately after each clock edge according to the current state.",
+    "counting, count, and done are registered outputs that are delayed by one clock cycle relative to the state transition."
+   ]
+  },
+  {
+   "aspect": "counting start offset",
+   "severity": "high",
+   "readings": [
+    "counting asserts and count becomes delay in the clock cycle immediately following the sampling of the last delay bit.",
+    "there is an extra load/wait cycle after the last delay bit before counting asserts, so counting starts one or more cycles later and count may be valid during that extra cycle."
+   ]
+  },
+  {
+   "aspect": "counting-to-done transition",
+   "severity": "medium",
+   "readings": [
+    "on the clock edge after the last counting cycle, counting deasserts and done asserts simultaneously in the next cycle.",
+    "counting deasserts one cycle before done asserts, leaving one cycle where counting=0 and done=0."
+   ]
+  }
+ ]
+}

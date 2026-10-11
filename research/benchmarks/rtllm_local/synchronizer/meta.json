@@ -1,0 +1,11 @@
+{
+ "case": "synchronizer",
+ "category": "Miscellaneous",
+ "top": "synchronizer",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "synchronizer"
+ ]
+}

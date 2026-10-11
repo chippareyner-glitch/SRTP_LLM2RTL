@@ -1,0 +1,110 @@
+{
+ "case": "Prob137_fsm_serial",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1",
+   "c2",
+   "c3",
+   "c4"
+  ],
+  [
+   "c0"
+  ]
+ ],
+ "ci_pairs": 4,
+ "ci_found": 4,
+ "ci_missed": [],
+ "off_pairs": 4,
+ "off_found": 4,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 10,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 32,
+   "orig_len": 11,
+   "min_len": 10,
+   "toggles": 3
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

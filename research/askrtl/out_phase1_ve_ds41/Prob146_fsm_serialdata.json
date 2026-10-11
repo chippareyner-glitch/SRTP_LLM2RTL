@@ -1,0 +1,179 @@
+{
+ "case": "Prob146_fsm_serialdata",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    1
+   ],
+   [
+    "reset",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out_byte",
+    8
+   ],
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c2",
+   "c3"
+  ],
+  [
+   "c0"
+  ],
+  [
+   "c4"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 5,
+ "off_found": 5,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 6,
+   "orig_len": 5,
+   "min_len": 3,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c2",
+    "c4"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 11,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 27,
+   "orig_len": 12,
+   "min_len": 10,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 6,
+   "orig_len": 5,
+   "min_len": 3,
+   "toggles": 3
+  }
+ ],
+ "status": "ok",
+ "n_live": 4
+}

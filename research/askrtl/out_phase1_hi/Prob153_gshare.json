@@ -1,0 +1,376 @@
+{
+ "case": "Prob153_gshare",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "areset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "areset",
+    1
+   ],
+   [
+    "predict_valid",
+    1
+   ],
+   [
+    "predict_pc",
+    7
+   ],
+   [
+    "train_valid",
+    1
+   ],
+   [
+    "train_taken",
+    1
+   ],
+   [
+    "train_mispredicted",
+    1
+   ],
+   [
+    "train_history",
+    7
+   ],
+   [
+    "train_pc",
+    7
+   ]
+  ],
+  "outputs": [
+   [
+    "predict_taken",
+    1
+   ],
+   [
+    "predict_history",
+    7
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c5",
+   "c6",
+   "c7",
+   "c8"
+  ],
+  [
+   "c0",
+   "c1",
+   "c2"
+  ],
+  [
+   "c3"
+  ],
+  [
+   "c4"
+  ]
+ ],
+ "ci_pairs": 20,
+ "ci_found": 20,
+ "ci_missed": [],
+ "off_pairs": 27,
+ "off_found": 27,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c5"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 7,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     27,
+     64
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     1,
+     26,
+     64
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     26,
+     64
+    ]
+   ],
+   "ok": true,
+   "calls": 31,
+   "orig_len": 8,
+   "min_len": 4,
+   "toggles": 6
+  },
+  {
+   "pair": [
+    "c3",
+    "c5"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 19,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     1,
+     5,
+     33
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ]
+   ],
+   "ok": true,
+   "calls": 16,
+   "orig_len": 20,
+   "min_len": 3,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c4",
+    "c5"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 5,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ]
+   ],
+   "ok": true,
+   "calls": 7,
+   "orig_len": 6,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 7,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     27,
+     64
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     1,
+     26,
+     64
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     26,
+     64
+    ]
+   ],
+   "ok": true,
+   "calls": 31,
+   "orig_len": 8,
+   "min_len": 4,
+   "toggles": 6
+  },
+  {
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 5,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ]
+   ],
+   "ok": true,
+   "calls": 7,
+   "orig_len": 6,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c3",
+    "c4"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 5,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ],
+    [
+     0,
+     1,
+     49,
+     1,
+     1,
+     0,
+     5,
+     33
+    ]
+   ],
+   "ok": true,
+   "calls": 7,
+   "orig_len": 6,
+   "min_len": 2,
+   "toggles": 1
+  }
+ ],
+ "status": "ok",
+ "n_live": 9
+}

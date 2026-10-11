@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Non-load next-state data source",
+   "severity": "high",
+   "readings": [
+    "q_in is the D-input to the flip-flop when L=0, so Q <= L ? r_in : q_in on posedge clk (the external shift/XOR logic drives q_in).",
+    "q_in is the current-state feedback (tied to Q), so the non-load behavior is a hold: Q <= L ? r_in : Q, or the submodule internally computes some function of Q and q_in."
+   ]
+  },
+  {
+   "aspect": "Output Q latency (registered vs combinational)",
+   "severity": "high",
+   "readings": [
+    "Q is the registered output of the flip-flop; it updates one clock cycle after L, r_in, and q_in change.",
+    "Q is the combinational output of the 2:1 multiplexer; it reflects L, r_in, and q_in immediately in the same cycle."
+   ]
+  },
+  {
+   "aspect": "Placement of the XOR term for q[2]",
+   "severity": "high",
+   "readings": [
+    "The XOR q[1]^q[2] is outside TopModule; the submodule only contains the mux and flip-flop, and q_in for bit 2 is wired to the already-computed XOR result.",
+    "The XOR is inside TopModule (e.g., using q_in and Q), which would make the submodule specific to bit 2 and incompatible with the three identical instantiations required for bits 0 and 1."
+   ]
+  },
+  {
+   "aspect": "Reset/initial value",
+   "severity": "low",
+   "readings": [
+    "No reset or initial value is specified; Q is undefined at power-up (X in simulation).",
+    "Q is assumed to initialize to 0 at power-up (e.g., via an initial block or implicit FPGA power-up state)."
+   ]
+  }
+ ]
+}

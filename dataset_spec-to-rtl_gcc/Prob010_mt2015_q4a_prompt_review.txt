@@ -1,0 +1,118 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  x
+ - input  y
+ - output z
+
+The module should implement the boolean function z = (x^y) & x.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+The module implements a simple combinational logic function where:
+- **z = (x XOR y) AND x**
+- This can be simplified to: **z = x AND (NOT y)** since (x XOR y) AND x = x AND (NOT y)
+- All signals are single-bit (Boolean logic)
+- Pure combinational logic with no clocks, resets, or sequential elements
+
+## 2. Ambiguity Analysis
+The specification is **largely unambiguous** due to its simplicity:
+- Boolean operations are clearly defined using standard operators (^ = XOR, & = AND)
+- No timing ambiguity since it's purely combinational
+- Port directions and widths are explicitly specified
+- No confusion about signal types or protocols
+
+## 3. Missing Critical Details
+**Minimal missing details** for this simple function:
+- **Timing constraints**: No propagation delay requirements specified
+- **Input timing**: No setup/hold requirements (relevant for physical implementation)
+- **Output loading**: No fanout constraints mentioned
+- **Power constraints**: No specific low-power requirements
+- **I/O standards**: No voltage levels or drive strength specifications
+
+*Note: For this simple combinational block, these omissions are acceptable for RTL implementation.*
+
+## 4. Edge Cases & Boundary Conditions
+All possible input combinations covered:
+
+| x | y | z = (x^y)&x | Notes |
+|---|---|------------|-------|
+| 0 | 0 | 0 | x=0 case - output always 0 |
+| 0 | 1 | 0 | x=0 case - output always 0 |
+| 1 | 0 | 1 | Normal operation |
+| 1 | 1 | 0 | x=1, y=1 case |
+
+**Key observations:**
+- Output is only high when x=1 AND y=0
+- Function is equivalent to "x AND NOT y"
+- No undefined states or illegal input combinations
+- No metastability concerns (combinational only)
+
+## 5. Functional Correctness Prediction
+**High confidence** in functional correctness:
+- Boolean algebra is straightforward and verifiable
+- Truth table is complete and unambiguous
+- No sequential elements to introduce timing hazards
+- Simple gate-level implementation: z = x ∧ ¬y
+
+**Potential implementation risks:**
+- **Glitch generation**: If inputs change asynchronously, momentary glitches may occur
+- **Static timing analysis**: Required for physical implementation but not RTL concern
+
+## 6. Actionable Guidance for RTL Generation
+
+### Recommended SystemVerilog Implementation:
+```systemverilog
+module TopModule (
+    input  logic x,
+    input  logic y, 
+    output logic z
+);
+
+    // Direct implementation - clear and readable
+    assign z = (x ^ y) & x;
+    
+    // Alternative equivalent implementation (optimized)
+    // assign z = x & ~y;
+
+endmodule
+```
+
+### Implementation Guidelines:
+1. **Use continuous assignment** (`assign`) for pure combinational logic
+2. **Avoid sequential elements** - no clocks or resets needed
+3. **Include header comments** explaining the boolean function
+4. **Consider both implementations**:
+   - `(x ^ y) & x` matches specification exactly
+   - `x & ~y` is optimized and functionally equivalent
+
+### Verification Strategy:
+```systemverilog
+// Testbench should cover all 4 input combinations
+initial begin
+    // Test all input combinations
+    {x, y} = 2'b00; #10; assert(z === 1'b0);
+    {x, y} = 2'b01; #10; assert(z === 1'b0);
+    {x, y} = 2'b10; #10; assert(z === 1'b1);
+    {x, y} = 2'b11; #10; assert(z === 1'b0);
+end
+```
+
+### Synthesis Considerations:
+- Module will synthesize to a simple AND gate with inverted y input
+- No timing paths to constrain beyond basic combinational constraints
+- Area-optimized implementation should yield minimal gate count (1 AND + 1 NOT gate)
+
+This specification represents a well-defined, easily implementable combinational logic block with minimal implementation risks.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,119 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - output q (4 bits)
+
+The module should implement a decade counter that counts from 0 through
+9, inclusive, with a period of 10. Assume all sequential logic is
+triggered on the positive edge of the clock. The reset input is active
+high synchronous, and should reset the counter to 0.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+**RTL Implementation Analysis Report: Decade Counter Module**
+
+## 1. Specification Summary
+- **Module**: TopModule
+- **Function**: Decade counter (0-9) with period of 10 clock cycles
+- **Clock**: Positive edge-triggered
+- **Reset**: Synchronous active-high (resets to 0)
+- **Output**: 4-bit count value `q`
+- **Range**: 0 → 1 → 2 → ... → 9 → 0 (cyclic)
+
+## 2. Ambiguity Analysis
+**No significant ambiguities identified.** The specification is clear about:
+- Counting sequence (0 through 9)
+- Reset behavior (synchronous, active-high, resets to 0)
+- Clocking methodology (positive edge-triggered)
+- Output width (4 bits sufficient for 0-9 range)
+
+## 3. Missing Critical Details
+**Critical omissions requiring clarification:**
+
+1. **Initial Power-on State**: Unspecified behavior at power-up before first reset
+2. **Count Enable Control**: No enable signal specified - counter always increments every cycle
+3. **Output Timing**: Relationship between count value and clock edge not specified
+4. **Reset Timing**: Exact cycle when reset takes effect relative to clock edge
+5. **Rollover Behavior**: Clear that 9→0, but timing of this transition unspecified
+
+## 4. Edge Cases & Boundary Conditions
+**Key edge cases to handle:**
+
+1. **Count Rollover**: 9 → 0 transition must occur on next positive clock edge
+2. **Reset During Count**: Reset should override normal counting when asserted
+3. **Reset Deassertion**: Behavior when reset goes low during active counting
+4. **Maximum Count Detection**: Need to detect count value 9 for rollover logic
+5. **Simultaneous Events**: Reset and count increment on same clock edge priority
+
+## 5. Functional Correctness Prediction
+**High confidence with proper implementation:**
+
+- **Simplicity**: Basic counter design with well-defined state transitions
+- **Synchronous Design**: Eliminates most timing hazards
+- **Clear State Machine**: Only 10 states with deterministic transitions
+- **Testability**: Easy to verify through simulation (observe 10-cycle period)
+
+**Potential Risks:**
+- No illegal state protection if counter glitches
+- No specified behavior for out-of-reset initialization
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  logic       clk,
+    input  logic       reset,
+    output logic [3:0] q
+);
+
+// Use registered output for clean timing
+logic [3:0] count;
+
+always_ff @(posedge clk) begin
+    if (reset) begin
+        count <= 4'b0000;  // Synchronous reset to 0
+    end else begin
+        if (count == 4'b1001) begin  // Detect count = 9
+            count <= 4'b0000;        // Roll over to 0
+        end else begin
+            count <= count + 4'b0001; // Increment normally
+        end
+    end
+end
+
+assign q = count;  // Continuous output assignment
+
+endmodule
+```
+
+**Critical Implementation Details:**
+1. **Use `always_ff`** for sequential logic with explicit sensitivity
+2. **Reset takes priority** over counting logic in conditional structure
+3. **Explicit rollover detection** at count = 9 (4'b1001)
+4. **Registered output** for predictable timing
+5. **Binary coding** for efficient implementation
+
+**Verification Requirements:**
+- Test reset functionality at various count values
+- Verify complete 0→9 sequence and rollover
+- Check behavior when reset asserted/deasserted at boundary conditions
+- Confirm 10-cycle period through waveform analysis
+
+**Synthesis Considerations:**
+- 4-bit counter utilizes minimal FPGA/ASIC resources
+- Synchronous design ensures timing closure
+- No complex combinational paths for high-frequency operation
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

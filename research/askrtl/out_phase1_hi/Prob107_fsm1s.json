@@ -1,0 +1,77 @@
+{
+ "case": "Prob107_fsm1s",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c2",
+   "c3",
+   "c4",
+   "c7",
+   "c8"
+  ],
+  [
+   "c1",
+   "c6"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 10,
+ "extra_x": 10,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform_hi",
+   "stim": [
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 0,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": null,
+   "hi_phase": true
+  }
+ ],
+ "status": "ok",
+ "n_live": 7
+}

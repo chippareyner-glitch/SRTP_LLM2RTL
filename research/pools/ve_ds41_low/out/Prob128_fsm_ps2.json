@@ -1,0 +1,25 @@
+{
+ "case": "Prob128_fsm_ps2",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "2c2503b23ec7",
+   "sources": [
+    "ve_ds41_low:s0"
+   ],
+   "model": "ve_ds41_low",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_low\\gen\\Prob128_fsm_ps2\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:20: error: This assignment requires an explicit cast.\ndut.sv:23: error: This assignment requires an explicit cast.\ndut.sv:18: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\n2 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

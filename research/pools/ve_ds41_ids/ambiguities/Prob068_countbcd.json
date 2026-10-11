@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "enable signal semantics (carry chain vs per-digit 9 detect)",
+   "severity": "high",
+   "readings": [
+    "ena[i] is high only when all lower digits are 9, i.e., a carry chain condition (e.g., ena[1] = (q[7:4]==9 && q[3:0]==9))",
+    "ena[i] is high whenever the corresponding digit itself is 9, independent of lower digits (e.g., ena[1] = (q[7:4]==9))"
+   ]
+  },
+  {
+   "aspect": "enable signal timing (combinational vs registered)",
+   "severity": "high",
+   "readings": [
+    "ena is combinational from current q; it is high in the same cycle the digit is about to increment (e.g., ena[0]=1 when q[3:0]==9 before the clock edge)",
+    "ena is registered and updates on the clock edge, so it is high in the cycle after the digit incremented (e.g., ena[0]=1 one cycle after q[3:0] was 9)"
+   ]
+  },
+  {
+   "aspect": "enable bit-to-digit mapping",
+   "severity": "medium",
+   "readings": [
+    "ena[0] corresponds to tens digit (digit 1), ena[1] to hundreds, ena[2] to thousands",
+    "ena[0] corresponds to thousands digit (digit 3), ena[1] to hundreds, ena[2] to tens"
+   ]
+  },
+  {
+   "aspect": "reset value and reset behavior of ena",
+   "severity": "medium",
+   "readings": [
+    "Synchronous reset clears q to 0 and also clears ena to 0; ena is registered and has a reset term",
+    "Reset only affects q (q=0); ena is combinational and therefore may be nonzero during the reset cycle if the pre-reset q had a 9 in the relevant digit"
+   ]
+  }
+ ]
+}

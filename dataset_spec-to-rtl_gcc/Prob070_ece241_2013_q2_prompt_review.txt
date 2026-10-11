@@ -1,0 +1,151 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+  - input  a
+  - input  b
+  - input  c
+  - input  d
+  - output out_sop
+  - output out_pos
+
+The module should implement a digital system with four inputs (a,b,c,d)
+that generates a logic-1 when 2, 7, or 15 appears on the inputs, and a
+logic-0 when 0, 1, 4, 5, 6, 9, 10, 13, or 14 appears. The input
+conditions for the numbers 3, 8, 11, and 12 never occur in this system.
+For example, 7 corresponds to a,b,c,d being set to 0,1,1,1, respectively.
+Determine the output out_sop in minimum sum-of-products form, and the
+output out_pos in minimum product-of-sums form.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The TopModule implements a 4-input (a,b,c,d) combinational logic function where:
+- **Output = 1** when input represents decimal 2, 7, or 15
+- **Output = 0** when input represents decimal 0, 1, 4, 5, 6, 9, 10, 13, or 14
+- **Don't care** for inputs representing 3, 8, 11, 12 (never occur)
+
+Input mapping: a=MSB (d4), b=d3, c=d2, d=LSB (d1) based on the example (7 = 0111 = a=0,b=1,c=1,d=1)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity Resolved:**
+- Bit ordering clarified by the example: 7 = 0111 = a=0,b=1,c=1,d=1
+- This establishes: a=MSB (2³), b=2², c=2¹, d=LSB (2⁰)
+
+**Remaining Ambiguities:**
+- None significant - the specification is mathematically precise once bit ordering is established
+
+## 3. Missing Critical Details
+
+**Critical Missing Information:**
+- **Timing requirements**: No clock or timing constraints specified (purely combinational implied)
+- **Reset behavior**: No reset mechanism defined (combinational logic doesn't need reset)
+- **Propagation delay**: No timing constraints for synthesis
+- **Input stability requirements**: No setup/hold times specified
+
+**Synthesis Considerations:**
+- No area/power/timing constraints for optimization
+- No target technology specified
+
+## 4. Edge Cases & Boundary Conditions
+
+**Defined Behavior:**
+- Valid inputs: 0,1,2,4,5,6,7,9,10,13,14,15 → deterministic output
+- Don't care inputs: 3,8,11,12 → optimization freedom
+
+**Potential Issues:**
+- **X-propagation**: Undefined behavior for non-binary inputs (X,Z states)
+- **Metastability**: No synchronization for asynchronous inputs
+- **Power-on state**: Output state at power-up is undefined
+
+## 5. Functional Correctness Prediction
+
+**Truth Table Analysis:**
+```
+abcd | dec | out
+0000 | 0   | 0
+0001 | 1   | 0
+0010 | 2   | 1
+0011 | 3   | X (don't care)
+0100 | 4   | 0
+0101 | 5   | 0
+0110 | 6   | 0
+0111 | 7   | 1
+1000 | 8   | X (don't care)
+1001 | 9   | 0
+1010 | 10  | 0
+1011 | 11  | X (don't care)
+1100 | 12  | X (don't care)
+1101 | 13  | 0
+1110 | 14  | 0
+1111 | 15  | 1
+```
+
+**Boolean Function Derivation:**
+- SOP: out_sop = a'b'cd' + a'bcd + abcd (2,7,15)
+- POS: out_pos = (a+b+c+d)(a+b'+c+d)(a'+b+c+d')... [to be minimized]
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+  input  logic a, b, c, d,
+  output logic out_sop,
+  output logic out_pos
+);
+
+  // Sum-of-products implementation (K-map minimized)
+  assign out_sop = (~a & ~b & c & ~d) |  // 2: 0010
+                   (~a & b & c & d) |    // 7: 0111  
+                   (a & b & c & d);      // 15: 1111
+
+  // Product-of-sums implementation (K-map minimized)
+  assign out_pos = (a | b | c | d) & 
+                   (a | b | c | ~d) &
+                   (a | b | ~c | d) &
+                   // ... [complete POS expression based on minimization]
+                   (~a | b | c | d);
+  
+endmodule
+```
+
+**Verification Requirements:**
+- Test all 16 input combinations
+- Verify SOP and POS produce identical results
+- Confirm don't care conditions don't affect specified outputs
+- Add assertions for valid input range
+
+**Synthesis Recommendations:**
+- Use `assign` statements for pure combinational logic
+- Add `unique case` or `priority` directives if case statements used
+- Consider adding `(* optimize_power *)` if low power is important
+
+**Additional Enhancements:**
+```systemverilog
+// Optional: Add assertions for verification
+assert property (@(posedge clk) !$isunknown({a,b,c,d})) 
+  else $error("Unknown input detected");
+
+// Optional: Add coverage points
+covergroup input_cg;
+  coverpoint {a,b,c,d} {
+    bins valid[] = {0,1,2,4,5,6,7,9,10,13,14,15};
+    bins dont_care[] = {3,8,11,12};
+  }
+endgroup
+```
+
+The implementation should prioritize clarity and correctness over optimization, with the understanding that synthesis tools will perform further optimization.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

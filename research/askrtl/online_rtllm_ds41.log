@@ -1,0 +1,23 @@
+﻿  live: adder_bcd q0 label=A -> ANY
+  live: alu q4 label=B -> A
+  live: div_16bit q5 label=A -> API_ERROR
+  live: div_16bit q3 label=B -> C
+  live: div_16bit q2 label=A -> A
+  live: fixed_point_adder q0 label=A -> B
+  live: fixed_point_adder q2 label=A -> B
+  live: fixed_point_adder q1 label=A -> B
+  live: fixed_point_substractor q0 label=B -> A
+  live: LIFObuffer q0 label=B -> A
+  live: multi_16bit q0 label=A -> A
+  live: parallel2serial q0 label=A -> A
+  live: square_wave q0 label=A -> ANY
+  live: traffic_light q1 label=A -> A
+  live: traffic_light q2 label=B -> B
+  live: traffic_light q0 label=A -> A
+
+benchmark accuracy over 42 problems:
+  majority vote (per sample)       0.841
+  majority vote (per config)       0.841
+  AskRTL online (B=3, p=0.8)      0.857   questions asked=16 (1.45/divergent problem)
+  live calls=16 tokens~207121 blocked-by-guard=0
+  divergent problems not solved: ['fixed_point_adder']

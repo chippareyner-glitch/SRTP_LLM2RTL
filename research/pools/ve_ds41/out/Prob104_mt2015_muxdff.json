@@ -1,0 +1,92 @@
+{
+ "case": "Prob104_mt2015_muxdff",
+ "n_samples": 5,
+ "n_distinct": 4,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "cfe0609311b2",
+   "sources": [
+    "ve_ds41:s0"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob104_mt2015_muxdff\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 199,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "6a51c7205ed9",
+   "sources": [
+    "ve_ds41:s1",
+    "ve_ds41:s4"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob104_mt2015_muxdff\\s1.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 199,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "f98cb2aed63f",
+   "sources": [
+    "ve_ds41:s2"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob104_mt2015_muxdff\\s2.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 199,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "54b1f3be146a",
+   "sources": [
+    "ve_ds41:s3"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob104_mt2015_muxdff\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 199,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c3"
+   ],
+   "votes": 5,
+   "correct": false
+  }
+ ]
+}

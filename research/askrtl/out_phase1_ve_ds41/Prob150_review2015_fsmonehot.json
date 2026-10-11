@@ -1,0 +1,166 @@
+{
+ "case": "Prob150_review2015_fsmonehot",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "d",
+    1
+   ],
+   [
+    "done_counting",
+    1
+   ],
+   [
+    "ack",
+    1
+   ],
+   [
+    "state",
+    10
+   ]
+  ],
+  "outputs": [
+   [
+    "B3_next",
+    1
+   ],
+   [
+    "S_next",
+    1
+   ],
+   [
+    "S1_next",
+    1
+   ],
+   [
+    "Count_next",
+    1
+   ],
+   [
+    "Wait_next",
+    1
+   ],
+   [
+    "done",
+    1
+   ],
+   [
+    "counting",
+    1
+   ],
+   [
+    "shift_ena",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1"
+  ],
+  [
+   "c2",
+   "c4"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 4,
+ "ci_found": 4,
+ "ci_missed": [],
+ "off_pairs": 8,
+ "off_found": 8,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 28,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     298
+    ]
+   ],
+   "ok": true,
+   "calls": 5,
+   "orig_len": 29,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     988
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     988
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

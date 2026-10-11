@@ -1,0 +1,276 @@
+{
+ "case": "adder_bcd",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "A",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "Cin",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "Sum",
+    4
+   ],
+   [
+    "Cout",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2"
+   ],
+   "votes": 3,
+   "correct": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3",
+    "c4"
+   ],
+   "votes": 2,
+   "correct": [
+    true,
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 24,
+    "first_cycle": 168,
+    "stim": [
+     [
+      8,
+      10,
+      0
+     ],
+     [
+      9,
+      10,
+      0
+     ],
+     [
+      10,
+      10,
+      0
+     ],
+     [
+      11,
+      10,
+      0
+     ],
+     [
+      12,
+      10,
+      0
+     ],
+     [
+      13,
+      10,
+      0
+     ],
+     [
+      14,
+      10,
+      0
+     ],
+     [
+      15,
+      10,
+      0
+     ],
+     [
+      0,
+      11,
+      0
+     ],
+     [
+      1,
+      11,
+      0
+     ],
+     [
+      2,
+      11,
+      0
+     ],
+     [
+      3,
+      11,
+      0
+     ],
+     [
+      4,
+      11,
+      0
+     ],
+     [
+      5,
+      11,
+      0
+     ],
+     [
+      6,
+      11,
+      0
+     ],
+     [
+      7,
+      11,
+      0
+     ],
+     [
+      8,
+      11,
+      0
+     ],
+     [
+      9,
+      11,
+      0
+     ],
+     [
+      10,
+      11,
+      0
+     ],
+     [
+      11,
+      11,
+      0
+     ],
+     [
+      12,
+      11,
+      0
+     ],
+     [
+      13,
+      11,
+      0
+     ],
+     [
+      14,
+      11,
+      0
+     ],
+     [
+      15,
+      11,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "10001",
+      "10011",
+      "10101",
+      "10111",
+      "11001",
+      "11011",
+      "11101",
+      "11111",
+      "00011",
+      "00101",
+      "00111",
+      "01001",
+      "01011",
+      "01101",
+      "01111",
+      "10001",
+      "10011",
+      "10101",
+      "10111",
+      "11001",
+      "11011",
+      "11101",
+      "11111",
+      "00001"
+     ],
+     [
+      "10001",
+      "10011",
+      "10101",
+      "10111",
+      "11001",
+      "11011",
+      "11101",
+      "11111",
+      "00011",
+      "00101",
+      "00111",
+      "01001",
+      "01011",
+      "01101",
+      "01111",
+      "10001",
+      "10011",
+      "10101",
+      "10111",
+      "11001",
+      "11011",
+      "11101",
+      "11111",
+      "00000"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a module of a 4-bit BCD adder for decimal arithmetic operations. \n\nModule name:  \n    adder_bcd               \nInput ports:\n    A [3:0]: First BCD input (4-bit, representing a decimal digit from 0 to 9).\n    B [3:0]: Second BCD input (4-bit, representing a decimal digit from 0 to 9).\n    Cin: Carry-in input (1-bit).\nOutput ports:\n    Sum [3:0]: 4-bit output representing the sum of the two BCD inputs, corrected to be a valid BCD digit (0\u20139).\n    Cout: Carry-out output (1-bit), used when the sum exceeds the decimal value of 9.\n\nImplementation:\nAddition: The module performs binary addition of A, B, and Cin.\nBCD Correction: If the sum exceeds 9 (binary 1001), a correction of 6 (binary 0110) is added to the sum. This correction ensures that the result is within the BCD range.\nCarry Generation: If the result of the addition exceeds 9, a carry-out (Cout) is generated, signaling that the BCD sum exceeds a single decimal digit.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | A | B | Cin | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 4'b1000 | 4'b1010 | 1'b0 | Sum=4'b1000, Cout=1'b1 | Sum=4'b1000, Cout=1'b1 |\n| 1 | 4'b1001 | 4'b1010 | 1'b0 | Sum=4'b1001, Cout=1'b1 | Sum=4'b1001, Cout=1'b1 |\n| 2 | 4'b1010 | 4'b1010 | 1'b0 | Sum=4'b1010, Cout=1'b1 | Sum=4'b1010, Cout=1'b1 |\n| 3 | 4'b1011 | 4'b1010 | 1'b0 | Sum=4'b1011, Cout=1'b1 | Sum=4'b1011, Cout=1'b1 |\n| 4 | 4'b1100 | 4'b1010 | 1'b0 | Sum=4'b1100, Cout=1'b1 | Sum=4'b1100, Cout=1'b1 |\n| 5 | 4'b1101 | 4'b1010 | 1'b0 | Sum=4'b1101, Cout=1'b1 | Sum=4'b1101, Cout=1'b1 |\n| 6 | 4'b1110 | 4'b1010 | 1'b0 | Sum=4'b1110, Cout=1'b1 | Sum=4'b1110, Cout=1'b1 |\n| 7 | 4'b1111 | 4'b1010 | 1'b0 | Sum=4'b1111, Cout=1'b1 | Sum=4'b1111, Cout=1'b1 |\n| 8 | 4'b0000 | 4'b1011 | 1'b0 | Sum=4'b0001, Cout=1'b1 | Sum=4'b0001, Cout=1'b1 |\n| 9 | 4'b0001 | 4'b1011 | 1'b0 | Sum=4'b0010, Cout=1'b1 | Sum=4'b0010, Cout=1'b1 |\n| 10 | 4'b0010 | 4'b1011 | 1'b0 | Sum=4'b0011, Cout=1'b1 | Sum=4'b0011, Cout=1'b1 |\n| 11 | 4'b0011 | 4'b1011 | 1'b0 | Sum=4'b0100, Cout=1'b1 | Sum=4'b0100, Cout=1'b1 |\n| 12 | 4'b0100 | 4'b1011 | 1'b0 | Sum=4'b0101, Cout=1'b1 | Sum=4'b0101, Cout=1'b1 |\n| 13 | 4'b0101 | 4'b1011 | 1'b0 | Sum=4'b0110, Cout=1'b1 | Sum=4'b0110, Cout=1'b1 |\n| 14 | 4'b0110 | 4'b1011 | 1'b0 | Sum=4'b0111, Cout=1'b1 | Sum=4'b0111, Cout=1'b1 |\n| 15 | 4'b0111 | 4'b1011 | 1'b0 | Sum=4'b1000, Cout=1'b1 | Sum=4'b1000, Cout=1'b1 |\n| 16 | 4'b1000 | 4'b1011 | 1'b0 | Sum=4'b1001, Cout=1'b1 | Sum=4'b1001, Cout=1'b1 |\n| 17 | 4'b1001 | 4'b1011 | 1'b0 | Sum=4'b1010, Cout=1'b1 | Sum=4'b1010, Cout=1'b1 |\n| 18 | 4'b1010 | 4'b1011 | 1'b0 | Sum=4'b1011, Cout=1'b1 | Sum=4'b1011, Cout=1'b1 |\n| 19 | 4'b1011 | 4'b1011 | 1'b0 | Sum=4'b1100, Cout=1'b1 | Sum=4'b1100, Cout=1'b1 |\n| 20 | 4'b1100 | 4'b1011 | 1'b0 | Sum=4'b1101, Cout=1'b1 | Sum=4'b1101, Cout=1'b1 |\n| 21 | 4'b1101 | 4'b1011 | 1'b0 | Sum=4'b1110, Cout=1'b1 | Sum=4'b1110, Cout=1'b1 |\n| 22 | 4'b1110 | 4'b1011 | 1'b0 | Sum=4'b1111, Cout=1'b1 | Sum=4'b1111, Cout=1'b1 |\n| 23 | 4'b1111 | 4'b1011 | 1'b0 | Sum=4'b0000, Cout=1'b1 | Sum=4'b0000, Cout=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     15,
+     11,
+     0
+    ]
+   ],
+   "options": [
+    "00001",
+    "00000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "B"
+   },
+   "label": "A",
+   "ref_value": "00001",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a module of a 4-bit BCD adder for decimal arithmetic operations. \n\nModule name:  \n    adder_bcd               \nInput ports:\n    A [3:0]: First BCD input (4-bit, representing a decimal digit from 0 to 9).\n    B [3:0]: Second BCD input (4-bit, representing a decimal digit from 0 to 9).\n    Cin: Carry-in input (1-bit).\nOutput ports:\n    Sum [3:0]: 4-bit output representing the sum of the two BCD inputs, corrected to be a valid BCD digit (0\u20139).\n    Cout: Carry-out output (1-bit), used when the sum exceeds the decimal value of 9.\n\nImplementation:\nAddition: The module performs binary addition of A, B, and Cin.\nBCD Correction: If the sum exceeds 9 (binary 1001), a correction of 6 (binary 0110) is added to the sum. This correction ensures that the result is within the BCD range.\nCarry Generation: If the result of the addition exceeds 9, a carry-out (Cout) is generated, signaling that the BCD sum exceeds a single decimal digit.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | A | B | Cin | out |\n|---|---|---|---|---|\n| 0 | 4'b1111 | 4'b1011 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: Sum=4'b0000, Cout=1'b1\n- **B**: Sum=4'b0000, Cout=1'b0\n"
+  }
+ ]
+}

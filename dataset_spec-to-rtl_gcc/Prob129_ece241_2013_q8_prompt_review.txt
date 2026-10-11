@@ -1,0 +1,154 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  aresetn
+ - input  x
+ - output z
+
+The module should implement a Mealy-type finite state machine that
+recognizes the sequence "101" on an input signal named x. Your FSM should
+have an output signal, z, that is asserted to logic-1 when the "101"
+sequence is detected. Your FSM should also have a negative edge triggered
+asynchronous reset. You may only have 3 states in your state machine.
+Your FSM should recognize overlapping sequences. Assume all sequential
+logic is triggered on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+**Module**: TopModule  
+**FSM Type**: Mealy machine (output depends on current state AND current input)  
+**Sequence Detection**: "101" with overlapping sequences allowed  
+**State Limit**: Maximum 3 states  
+**Reset**: Negative-edge triggered asynchronous reset (active low)  
+**Clock**: Positive-edge triggered sequential logic  
+**I/O**: 
+- Inputs: clk, aresetn, x (1-bit each)
+- Output: z (1-bit)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities Found:**
+
+1. **Reset State Behavior**: The spec doesn't specify what state the FSM should enter after reset. For sequence detection, the FSM should typically start in an "idle" or "no-match" state.
+
+2. **Output Timing**: The exact timing of output assertion is ambiguous. When "101" is detected, should `z` be asserted:
+   - Immediately on the same clock cycle when the final '1' is received?
+   - On the next clock cycle?
+   - (Mealy machines typically assert immediately with the input)
+
+3. **Overlapping Sequence Definition**: While "overlapping sequences allowed" is mentioned, the exact behavior needs clarification:
+   - Input "10101" - should it detect "101" at positions 1-3 AND "101" at positions 3-5?
+   - What about "101101" - how many detections?
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+
+1. **State Encoding**: No specification of state encoding (binary, one-hot, gray code)
+2. **Output Behavior During Reset**: Should `z` be deasserted during reset?
+3. **Initial Power-on State**: Behavior before first reset is unspecified
+4. **Input Timing Constraints**: Setup/hold times for input `x` relative to clock
+5. **Output Registering**: Is `z` combinational or registered? (Mealy suggests combinational)
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle:**
+
+1. **Reset During Sequence Detection**: What if reset occurs mid-sequence "10"?
+2. **Back-to-Back Sequences**: "10101" input pattern detection behavior
+3. **Immediate Reset After Detection**: Reset asserted immediately after sequence detection
+4. **Input Glitches**: How to handle rapid x changes between clock edges
+5. **Sequence at Reset Release**: First input after reset deassertion
+6. **All-Zero/All-One Inputs**: Extended periods without pattern matches
+
+**Boundary Conditions:**
+- Minimum sequence: "101" (exactly 3 bits)
+- Maximum detection rate: Every 2 clock cycles for overlapping patterns
+- State transitions at clock boundaries only
+
+## 5. Functional Correctness Prediction
+
+**Potential Issues Identified:**
+
+1. **Mealy Machine Glitches**: Since `z` is combinational and depends on both state and current input, there's risk of glitches if state and input change simultaneously.
+
+2. **Overlapping Sequence Complexity**: With only 3 states, handling overlapping sequences requires careful state design to avoid missing detections.
+
+3. **Reset Synchronization**: Asynchronous reset crossing clock domains could cause metastability if not properly handled.
+
+4. **Timing Violations**: Input `x` changing near clock edge could cause setup/hold violations.
+
+**Expected State Machine Design:**
+- State 0: No bits matched (initial/reset state)
+- State 1: First '1' detected
+- State 2: "10" detected
+- Detection occurs in State 2 when input x='1'
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+
+1. **State Machine Design**:
+```systemverilog
+typedef enum logic [1:0] {
+    STATE_IDLE = 2'b00,    // No match
+    STATE_GOT1 = 2'b01,    // Received first '1'
+    STATE_GOT10 = 2'b10    // Received "10"
+} state_t;
+```
+
+2. **Reset Handling**:
+```systemverilog
+always_ff @(posedge clk or negedge aresetn) begin
+    if (!aresetn) begin
+        state <= STATE_IDLE;
+    end else begin
+        // State transitions
+    end
+end
+```
+
+3. **Output Generation**:
+```systemverilog
+assign z = (state == STATE_GOT10) && (x == 1'b1);
+```
+
+4. **Critical Constraints to Add**:
+```systemverilog
+// Timing constraints
+set_false_path -from [get_ports x] -to [get_ports z]
+set_input_delay -clock clk 2 [get_ports x]
+
+// Synthesis directives
+(* fsm_encoding = "sequential" *)
+(* async_reg = "true" *) // For reset synchronization if needed
+```
+
+5. **Verification Test Cases**:
+- Reset sequence: Verify state returns to IDLE
+- Basic sequence: "101" → z=1 on third bit
+- Overlapping: "10101" → z=1 on bits 3 and 5
+- False sequences: "1001", "1111" → no detection
+- Reset during sequence: Interrupt "10" with reset
+
+6. **Synthesis Considerations**:
+- Use sequential FSM encoding for 3 states
+- Ensure `z` is purely combinational (Mealy)
+- Add don't-touch constraints on state registers
+- Consider adding synchronizer if reset comes from different clock domain
+
+This guidance ensures a robust, testable implementation that handles all specified requirements and edge cases.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

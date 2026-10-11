@@ -1,0 +1,27 @@
+{
+ "id": "Prob124_rule110__wrap",
+ "base": "Prob124_rule110",
+ "delta": "wrap",
+ "category": "rule",
+ "edits": [
+  [
+   "Assume the boundaries (q[-1] and q[512], if they existed) are both zero (off).",
+   "The boundaries wrap around: the left neighbour of q[511] is q[0], and the right neighbour of q[0] is q[511] (a circular array)."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 6283,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 3522,
+   "samples": 6283,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

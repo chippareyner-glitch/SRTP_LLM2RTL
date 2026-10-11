@@ -1,0 +1,356 @@
+{
+ "case": "Prob150_review2015_fsmonehot",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "d",
+    1
+   ],
+   [
+    "done_counting",
+    1
+   ],
+   [
+    "ack",
+    1
+   ],
+   [
+    "state",
+    10
+   ]
+  ],
+  "outputs": [
+   [
+    "B3_next",
+    1
+   ],
+   [
+    "S_next",
+    1
+   ],
+   [
+    "S1_next",
+    1
+   ],
+   [
+    "Count_next",
+    1
+   ],
+   [
+    "Wait_next",
+    1
+   ],
+   [
+    "done",
+    1
+   ],
+   [
+    "counting",
+    1
+   ],
+   [
+    "shift_ena",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c4"
+  ],
+  [
+   "c3",
+   "c5"
+  ],
+  [
+   "c6"
+  ],
+  [
+   "c7"
+  ],
+  [
+   "c8"
+  ]
+ ],
+ "ci_pairs": 20,
+ "ci_found": 20,
+ "ci_missed": [],
+ "off_pairs": 25,
+ "off_found": 25,
+ "extra_splits": 4,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     988
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c6"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     988
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c7"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     911
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c8"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 5,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     0,
+     0,
+     142
+    ]
+   ],
+   "ok": true,
+   "calls": 7,
+   "orig_len": 6,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c3",
+    "c6"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 28,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     298
+    ]
+   ],
+   "ok": true,
+   "calls": 5,
+   "orig_len": 29,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c3",
+    "c7"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     911
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c3",
+    "c8"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     988
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c6",
+    "c7"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     911
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c6",
+    "c8"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     988
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c7",
+    "c8"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     911
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 9
+}

@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:20:25.235456+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob005_notgate",
+  "returned_model": "deepseek-flash",
+  "id": "efff8b80-db3a-49e8-9c2e-c51c650fbfca",
+  "usage": {
+    "prompt_tokens": 168,
+    "completion_tokens": 31,
+    "total_tokens": 199,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 168
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 0.5644471000014164
+}

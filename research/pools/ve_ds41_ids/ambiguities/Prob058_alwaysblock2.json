@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "initial value of out_always_ff",
+   "severity": "high",
+   "readings": [
+    "out_always_ff is uninitialized and therefore X (or unknown) before the first posedge clk",
+    "out_always_ff is initialized to 0 (e.g., via FPGA power-up or an initial statement) before the first posedge clk"
+   ]
+  }
+ ]
+}

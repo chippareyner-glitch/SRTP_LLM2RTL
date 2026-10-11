@@ -1,0 +1,87 @@
+{
+ "case": "fsm",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "CLK",
+  "reset": "RST",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "IN",
+    1
+   ],
+   [
+    "RST",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "MATCH",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1"
+  ],
+  [
+   "c2"
+  ]
+ ],
+ "ci_pairs": 1,
+ "ci_found": 1,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 1,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 8,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 10,
+   "orig_len": 9,
+   "min_len": 5,
+   "toggles": 3
+  }
+ ],
+ "status": "ok",
+ "n_live": 2
+}

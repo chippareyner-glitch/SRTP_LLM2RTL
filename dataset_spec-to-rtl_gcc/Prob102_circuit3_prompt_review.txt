@@ -1,0 +1,131 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a
+ - input  b
+ - input  c
+ - input  d
+ - output q
+
+The module should implement a combinational circuit. Read the simulation
+waveforms to determine what the circuit does, then implement it.
+
+  time  a  b  c  d  q
+  0ns   0  0  0  0  0
+  5ns   0  0  0  0  0
+  10ns  0  0  0  0  0
+  15ns  0  0  0  0  0
+  20ns  0  0  0  1  0
+  25ns  0  0  1  0  0
+  30ns  0  0  1  1  0
+  35ns  0  1  0  0  0
+  40ns  0  1  0  1  1
+  45ns  0  1  1  0  1
+  50ns  0  1  1  1  1
+  55ns  1  0  0  0  0
+  60ns  1  0  0  1  1
+  65ns  1  0  1  0  1
+  70ns  1  0  1  1  1
+  75ns  1  1  0  0  0
+  80ns  1  1  0  1  1
+  85ns  1  1  1  0  1
+  90ns  1  1  1  1  1
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report: TopModule
+
+### 1. Specification Summary
+- **Module**: TopModule with 4 single-bit inputs (a, b, c, d) and 1 single-bit output (q)
+- **Type**: Combinational logic circuit (no clocks, resets, or sequential elements)
+- **Function**: Logic function determined from provided truth table (16 possible input combinations)
+- **Key Observation**: Output q appears to be active when certain input conditions are met
+
+### 2. Ambiguity Analysis
+- **Primary Ambiguity**: The specification relies solely on waveform interpretation without explicit functional description
+- **Timing Ambiguity**: The "time" column suggests simulation timestamps but doesn't indicate if these represent actual timing constraints
+- **Behavioral Intent**: No clear statement about what the circuit should accomplish functionally
+- **Input Priority**: No indication if certain inputs have priority or special significance
+
+### 3. Missing Critical Details
+- **Functional Description**: Missing explicit Boolean expression or truth table description
+- **Propagation Delay**: No specification for maximum combinational path delay
+- **Input Constraints**: No information about input timing relationships or glitch handling
+- **Output Drive Strength**: Missing output drive characteristics (standard cell drive strength)
+- **Power Considerations**: No power constraints or optimization goals
+- **Verification Requirements**: Missing formal specification for testbench development
+
+### 4. Edge Cases & Boundary Conditions
+- **All Input Combinations**: The provided table covers all 16 possible input combinations (good)
+- **Input Transitions**: No specification for handling simultaneous input changes
+- **Metastability**: No guidance on handling potentially metastable input conditions
+- **Unspecified States**: All states are covered in the provided table
+- **X-propagation**: No requirements for handling unknown (X) states in simulation
+
+### 5. Functional Correctness Prediction
+**Boolean Function Analysis:**
+From the truth table, the output q can be expressed as:
+```
+q = (b & (c | d)) | (a & (c | d))
+```
+Which simplifies to:
+```
+q = (a | b) & (c | d)
+```
+
+**Truth Table Verification:**
+- q=1 when: (a=0,b=1,c=0,d=1), (a=0,b=1,c=1,d=0), (a=0,b=1,c=1,d=1)
+- q=1 when: (a=1,b=0,c=0,d=1), (a=1,b=0,c=1,d=0), (a=1,b=0,c=1,d=1)
+- q=1 when: (a=1,b=1,c=0,d=1), (a=1,b=1,c=1,d=0), (a=1,b=1,c=1,d=1)
+- q=0 in all other cases
+
+**Predicted Function**: q = (a OR b) AND (c OR d)
+
+### 6. Actionable Guidance for RTL Generation
+
+**Recommended Implementation:**
+```systemverilog
+module TopModule (
+    input  logic a,
+    input  logic b, 
+    input  logic c,
+    input  logic d,
+    output logic q
+);
+
+    // Direct implementation of derived Boolean function
+    assign q = (a | b) & (c | d);
+
+endmodule
+```
+
+**Implementation Considerations:**
+1. **Combinational Only**: Ensure no sequential elements (flip-flops, latches)
+2. **Continuous Assignment**: Use `assign` statements for pure combinational logic
+3. **Synthesis-Friendly**: The expression maps efficiently to standard cell libraries
+4. **Timing Optimization**: Consider input arrival times if timing constraints exist
+
+**Verification Strategy:**
+1. **Exhaustive Testing**: Test all 16 input combinations
+2. **Corner Cases**: Verify transitions between all states
+3. **Formal Verification**: Use property checking to validate against truth table
+4. **Timing Analysis**: Perform static timing analysis for critical paths
+
+**Additional Recommendations:**
+- Add assertion checks for unknown inputs in simulation
+- Consider adding `unique case` or `priority` directives if expanding functionality
+- Document the derived Boolean function in module header comments
+- Verify with multiple implementation styles (gate-level, behavioral) for consistency
+
+The implementation should be straightforward given the complete truth table specification. The main risk is misinterpretation of the waveform data, but the pattern is clear and consistent across all input combinations.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Bit ordering / MSB vs LSB of the 25-bit output vector",
+   "severity": "high",
+   "readings": [
+    "out is declared as [24:0] (out[24] is the MSB), so out[24] = ~a^a is the leftmost bit and out[0] = ~e^e is the rightmost bit",
+    "out is declared as [0:24] (out[24] is the LSB), so out[24] = ~a^a is the rightmost bit and out[0] = ~e^e is the leftmost bit, reversing the physical pin order of the comparisons"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "case": "Prob058_alwaysblock2",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "138eecc1f34c",
+   "sources": [
+    "ve_ds41_low:s0"
+   ],
+   "model": "ve_ds41_low",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_low\\gen\\Prob058_alwaysblock2\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ndut.sv:13: error: out_always_comb is not a valid l-value in tb.top_module1.\ndut.sv:6:      : out_always_comb is declared here as wire.\ndut.sv:17: error: out_always_ff is not a valid l-value in tb.top_module1.\ndut.sv:7:      : out_always_ff is declared here as wire.\n2 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

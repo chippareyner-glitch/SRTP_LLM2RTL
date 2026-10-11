@@ -1,0 +1,19 @@
+{
+  "case_id": "Prob001_zero",
+  "rtl_file": "Prob001_zero_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob001_zero_prompt.txt",
+  "ports": [
+    {"name": "zero", "direction": "output", "width": 1}
+  ],
+  "tests": [
+    {
+      "id": "constant_low",
+      "requirement": "zero must always be low",
+      "steps": [
+        {"delay": 1, "expect": {"zero": "1'b0"}},
+        {"delay": 9, "expect": {"zero": "1'b0"}}
+      ]
+    }
+  ]
+}

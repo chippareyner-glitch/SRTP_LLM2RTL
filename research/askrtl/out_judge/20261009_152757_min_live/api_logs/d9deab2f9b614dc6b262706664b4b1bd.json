@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T08:27:36.853333+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob147_circuit10",
+  "returned_model": "deepseek-flash",
+  "id": "3ef724a7-87bf-483f-9c7c-7f2205d537f6",
+  "usage": {
+    "prompt_tokens": 1178,
+    "completion_tokens": 17600,
+    "total_tokens": 18778,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 17492
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 1050
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 72.79985449999913
+}

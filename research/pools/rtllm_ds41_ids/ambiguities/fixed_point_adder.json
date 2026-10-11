@@ -1,0 +1,38 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Signed representation of operands and result (two's complement vs sign-magnitude)",
+   "severity": "high",
+   "readings": [
+    "a and b are two's-complement values and c = a + b truncated to N bits; the 'MSB' is just the natural sign bit and the absolute-value add/subtract description is only an implementation hint",
+    "a and b are sign-magnitude values (MSB = sign, lower N-1 bits = magnitude, fractional bits = Q) and c is also sign-magnitude, so a negative result must be encoded as {1'b1, |a-b| magnitude}, giving entirely different output bits than two's-complement arithmetic"
+   ],
+   "severity_note": ""
+  },
+  {
+   "aspect": "Overflow/carry behaviour when the sum exceeds N bits",
+   "severity": "high",
+   "readings": [
+    "Result wraps/truncates to N bits (carry-out discarded, sign bit taken from bit N-1 of the N-bit result), per 'MSB of the result is set to match the MSBs of a and b'",
+    "Result saturates to the most positive (N-1'h7FFF... / sign-magnitude max) or most negative value when overflow is detected by comparing sign bits of inputs and sum",
+    "Result keeps full N+1 bits internally and is shifted right by Q / rescaled before truncation, changing the numeric value of c"
+   ]
+  },
+  {
+   "aspect": "Output latency of c relative to a/b (registered vs combinational) and reset value of res",
+   "severity": "medium",
+   "readings": [
+    "c is a purely combinational function of a and b; res is only a named wire/alias and there is no clock, so c changes in the same cycle as a/b",
+    "c is the registered output res, updated one clock edge after a/b, with res power-up/reset value unspecified (0 vs X) so c is undefined for the first cycle after reset"
+   ]
+  },
+  {
+   "aspect": "Sign of the result and basis of comparison in the mixed-sign (and equal-magnitude) case",
+   "severity": "medium",
+   "readings": [
+    "Compare absolute values: if |a| > |b| take a-b with MSB forced to 0; if |b| > |a| take b-a with MSB=1; if |a| == |b| output +0 (all zeros)",
+    "Compare the signed values directly (a > b, b > a): for a == -b the phrase 'MSB set according to whether the result is zero or negative' permits emitting negative zero (MSB=1, magnitude 0), and the tie case is not specified at all"
+   ]
+  }
+ ]
+}

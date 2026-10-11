@@ -1,0 +1,394 @@
+{
+ "case": "Prob104_mt2015_muxdff",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "L",
+    1
+   ],
+   [
+    "q_in",
+    1
+   ],
+   [
+    "r_in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "Q",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3",
+    "c4",
+    "c5"
+   ],
+   "votes": 8,
+   "correct": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      1
+     ],
+     [
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "x",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  L\n - input  q_in\n - input  r_in\n - output Q\n\nConsider this Verilog module \"full_module\":\n\n  module full_module (\n      input [2:0] r,\n      input L,\n      input clk,\n      output reg [2:0] q);\n\n    always @(posedge clk) begin\n      if (L) begin\n        q <= r;\n      end else begin\n        q <= {q[1] ^ q[2], q[0], q[2]};\n      end\n    end\n\n  endmodule\n\nNote that q[2:0] is three bits wide, representing three flip-flops that can be\nloaded from r when L is asserted. You want to factor full_module into a hierarchical\ndesign, flipflop and 2:1 multiplexer are in a submodule \"TopModule\", and that submodule\nwill be instantiated three times in full_module code. Create the submodule called \"TopModule\".\nYou do not have to provide the revised full_module.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | L | q_in | r_in | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | 1'b1 | Q=1'bx | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 2 | 1'b0 | 1'b1 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 3 | 1'b0 | 1'b0 | 1'b1 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 4 | 1'b1 | 1'b1 | 1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 5 | 1'b1 | 1'b0 | 1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 6 | 1'b1 | 1'b1 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 7 | 1'b0 | 1'b1 | 1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 8 | 1'b0 | 1'b0 | 1'b1 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 9 | 1'b0 | 1'b1 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 10 | 1'b0 | 1'b1 | 1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 11 | 1'b1 | 1'b1 | 1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 12 | 1'b1 | 1'b1 | 1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 13 | 1'b0 | 1'b0 | 1'b0 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 14 | 1'b1 | 1'b0 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 15 | 1'b1 | 1'b1 | 1'b0 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 16 | 1'b0 | 1'b1 | 1'b0 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 17 | 1'b0 | 1'b0 | 1'b0 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 18 | 1'b1 | 1'b1 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 19 | 1'b0 | 1'b1 | 1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 20 | 1'b0 | 1'b0 | 1'b1 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 21 | 1'b1 | 1'b0 | 1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 22 | 1'b1 | 1'b1 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 23 | 1'b1 | 1'b0 | 1'b0 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 24 | 1'b1 | 1'b1 | 1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 25 | 1'b1 | 1'b1 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 26 | 1'b1 | 1'b1 | 1'b0 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 27 | 1'b1 | 1'b0 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 28 | 1'b1 | 1'b0 | 1'b0 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 29 | 1'b1 | 1'b0 | 1'b1 | Q=1'b0 | Q=1'b1 | Q=1'b1 | Q=1'b1 |\n| 30 | 1'b1 | 1'b0 | 1'b0 | Q=1'b1 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n| 31 | 1'b1 | 1'b1 | 1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 | Q=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "x",
+    "0"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "B",
+   "ref_value": "0",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  L\n - input  q_in\n - input  r_in\n - output Q\n\nConsider this Verilog module \"full_module\":\n\n  module full_module (\n      input [2:0] r,\n      input L,\n      input clk,\n      output reg [2:0] q);\n\n    always @(posedge clk) begin\n      if (L) begin\n        q <= r;\n      end else begin\n        q <= {q[1] ^ q[2], q[0], q[2]};\n      end\n    end\n\n  endmodule\n\nNote that q[2:0] is three bits wide, representing three flip-flops that can be\nloaded from r when L is asserted. You want to factor full_module into a hierarchical\ndesign, flipflop and 2:1 multiplexer are in a submodule \"TopModule\", and that submodule\nwill be instantiated three times in full_module code. Create the submodule called \"TopModule\".\nYou do not have to provide the revised full_module.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | L | q_in | r_in | pre | post |\n|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: Q=1'bx\n- **B**: Q=1'b0\n"
+  }
+ ]
+}

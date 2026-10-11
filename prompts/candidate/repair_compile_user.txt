@@ -1,0 +1,9 @@
+ORIGINAL SPECIFICATION:
+{spec}
+
+CURRENT RTL:
+```systemverilog
+{code}```
+
+COMPILER ERRORS:
+{compiler_error}

@@ -1,0 +1,139 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  resetn
+ - input  x
+ - input  y
+ - output f
+ - output g
+
+Consider a finite state machine that is used to control some type of
+motor. The FSM has inputs x and y, which come from the motor, and
+produces outputs f and g, which control the motor. There is also a clock
+input called clk and a reset input (synchronous, active low) called
+resetn. The FSM has to work as follows. As long as the reset input is
+asserted, the FSM stays in a beginning state, called state A. When the
+reset signal is de-asserted, then after the next clock edge the FSM has
+to set the output f to 1 for one clock cycle. Then, the FSM has to
+monitor the x input. When x has produced the values 1, 0, 1 in three
+successive clock cycles, then g should be set to 1 on the following clock
+cycle. While maintaining g = 1 the FSM has to monitor the y input. If y
+has the value 1 within at most two clock cycles, then the FSM should
+maintain g = 1 permanently (that is, until reset). But if y does not
+become 1 within two clock cycles, then the FSM should set g = 0
+permanently (until reset). Assume all sequential logic is triggered on
+the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a finite state machine (FSM) for motor control with the following key behaviors:
+
+- **Reset Behavior**: Synchronous active-low reset (`resetn`) forces FSM to state A
+- **Initialization**: After reset deassertion, output `f=1` for exactly one clock cycle
+- **Sequence Detection**: Monitor `x` for pattern `1→0→1` across three consecutive cycles
+- **g Activation**: When pattern detected, set `g=1` on next cycle
+- **y Monitoring**: After `g=1`, monitor `y` for value `1` within max 2 cycles
+- **Final States**: 
+  - If `y=1` within 2 cycles: `g=1` permanently (until reset)
+  - If `y≠1` within 2 cycles: `g=0` permanently (until reset)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **State A Behavior**: Unclear what happens in state A regarding outputs `f` and `g` when not in reset
+2. **Pattern Detection Overlap**: Can the `1→0→1` sequence overlap with previous detection attempts?
+3. **"Within at most two clock cycles"**: Does this mean 2 cycles after `g=1` is set, or including the cycle when `g=1` is first asserted?
+4. **"Permanently"**: Clarify if this means outputs are latched until reset, or if FSM continues operating
+
+**Minor Ambiguities:**
+1. Timing relationship between pattern detection and `g` assertion
+2. Behavior if reset occurs during pattern detection or y-monitoring phase
+
+## 3. Missing Critical Details
+
+**Essential Missing Information:**
+1. **Output Values in Each State**: Complete truth table for `f` and `g` in all states
+2. **State Transitions**: Full state diagram beyond the described sequence
+3. **Concurrent Operations**: What happens to pattern detection while monitoring `y`?
+4. **Reset Recovery**: Behavior when reset is reasserted after partial operation
+
+**Implementation Details:**
+1. Number of states required (minimum 5-6 states based on description)
+2. Output encoding type (Mealy vs Moore) - appears to be Moore based on description
+3. Power-up state assumption
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+1. **Reset During Pattern Detection**: Reset asserted mid-sequence `1→0→?`
+2. **Reset During y-Monitoring**: Reset during the 2-cycle y observation window
+3. **Back-to-Back Patterns**: New `1→0→1` sequence starting immediately after previous detection
+4. **Input Glitches**: x/y changing on clock edges
+5. **Simultaneous Events**: y=1 occurring on the same cycle g becomes 1
+
+**Boundary Conditions:**
+1. Maximum clock frequency constraints (none specified)
+2. Input setup/hold times (assume synchronous to clk)
+3. Output propagation delay requirements
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **State Machine Complexity**: The combination of sequence detection + timed observation window creates non-trivial state transitions
+2. **Timing Validation**: The "within 2 cycles" requirement needs careful cycle counting
+3. **Reset Integration**: Ensuring clean state initialization across all scenarios
+
+**Verification Challenges:**
+1. Testing all sequence permutations of x and y inputs
+2. Covering reset scenarios at every possible state transition point
+3. Validating the "permanent" output behavior until reset
+
+## 6. Actionable Guidance for RTL Generation
+
+**Architecture Recommendations:**
+```
+Suggested State Encoding:
+- STATE_A: Reset/initial state
+- STATE_F_PULSE: f=1 for one cycle after reset release
+- STATE_MONITOR_X: Monitoring x for 1→0→1 pattern
+- STATE_G_ACTIVE: g=1, monitoring y (cycle 1)
+- STATE_G_WAIT: g=1, monitoring y (cycle 2)  
+- STATE_G_PERM_ON: Permanent g=1 state
+- STATE_G_PERM_OFF: Permanent g=0 state
+```
+
+**Implementation Guidelines:**
+1. **Use Moore Machine**: Outputs depend only on current state
+2. **Synchronous Reset**: Ensure all flops reset to STATE_A
+3. **Sequence Detection**: Implement 3-bit shift register for x pattern matching
+4. **Cycle Counter**: 2-bit counter for y observation window
+5. **Output Registers**: Register f and g outputs for clean timing
+
+**Critical Design Decisions to Document:**
+1. Pattern detection is non-overlapping (fresh start after each detection)
+2. y observation window starts the cycle AFTER g is asserted
+3. "Permanent" means FSM remains in final states until reset
+4. All state transitions occur on rising clock edge
+
+**Verification Strategy:**
+1. Create test cases for all state transition paths
+2. Include corner cases for reset timing
+3. Verify pattern detection with various input sequences
+4. Validate the 2-cycle observation window behavior
+5. Test power-on reset and soft reset scenarios
+
+This analysis provides a foundation for robust RTL implementation that addresses the specification's requirements while handling edge cases and ambiguities systematically.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

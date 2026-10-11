@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset type (level-sensitive vs edge-triggered)",
+   "severity": "high",
+   "readings": [
+    "aresetn is an active-low level-sensitive asynchronous reset: while aresetn=0, the state is asynchronously held in the reset state; when aresetn returns to 1, the FSM resumes on the next posedge clk.",
+    "Reset is triggered only on the falling edge of aresetn: a 1->0 transition on aresetn forces the state to the reset state once, but the state is not held in reset while aresetn remains 0; if aresetn is already 0 at power-up, no reset occurs without a new falling edge."
+   ]
+  },
+  {
+   "aspect": "Reset state value",
+   "severity": "high",
+   "readings": [
+    "On reset, the FSM enters the idle state S0 (no bits of '101' seen so far); z=0 during reset and until the sequence is detected.",
+    "On reset, the FSM enters an unspecified state (e.g., S1 or S2, meaning '1' or '10' already seen); z may assert incorrectly immediately after reset for certain x values."
+   ]
+  },
+  {
+   "aspect": "Output z during reset assertion",
+   "severity": "medium",
+   "readings": [
+    "During reset (aresetn=0), z is forced to 0 asynchronously.",
+    "During reset, z is not forced; it remains the combinational Mealy function of the reset state and current x (e.g., if the reset state were S2, z could be 1 for x=1)."
+   ]
+  },
+  {
+   "aspect": "Output z timing relative to sequence detection",
+   "severity": "medium",
+   "readings": [
+    "z is a Mealy output and is asserted in the same clock cycle in which the final 1 of '101' is sampled on x.",
+    "z is registered and is asserted on the next posedge clk after the final 1 of '101' is sampled."
+   ]
+  }
+ ]
+}

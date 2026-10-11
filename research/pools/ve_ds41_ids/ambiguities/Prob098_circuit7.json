@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Incomplete functional specification",
+   "severity": "high",
+   "readings": [
+    "Circuit is a two-stage shift register of ~a: q(n) = ~a(n-1).",
+    "Circuit is a set/hold/reset latch: q=1 if a=0 for two consecutive cycles, q=0 if a=1 for two consecutive cycles, else hold previous value."
+   ]
+  },
+  {
+   "aspect": "Initial state / reset value",
+   "severity": "high",
+   "readings": [
+    "Registers are uninitialized, so q is x until a known value propagates (matches waveform at t=0,5,10).",
+    "Registers are initialized to 0 (or 1), so q starts at 0 (or 1) instead of x."
+   ]
+  },
+  {
+   "aspect": "Output latency / number of pipeline stages",
+   "severity": "medium",
+   "readings": [
+    "q updates one clock cycle after the input change (q(n) = ~a(n-1)), requiring two registers.",
+    "q updates on the same clock edge as the input change (q(n) = ~a(n)), requiring one register."
+   ]
+  }
+ ]
+}

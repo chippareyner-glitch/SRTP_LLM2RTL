@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset active level",
+   "severity": "high",
+   "readings": [
+    "areset is active high: the FSM is reset to state A when areset=1 (and released when areset=0).",
+    "areset is active low: the FSM is reset to state A when areset=0 (and released when areset=1)."
+   ]
+  },
+  {
+   "aspect": "Reset synchrony and priority",
+   "severity": "high",
+   "readings": [
+    "The reset is asynchronous: asserting areset forces state A immediately, independent of clk; reset overrides any clock edge.",
+    "The reset is synchronous positive-edge triggered: state becomes A only on the next rising clk edge while areset is asserted; areset does not affect state between edges."
+   ]
+  },
+  {
+   "aspect": "Output latency",
+   "severity": "high",
+   "readings": [
+    "out is a combinational Moore output computed from the current state, so it changes in the same cycle as the state register update.",
+    "out is a registered Moore output delayed by one clock cycle relative to the state, i.e., it reflects the previous state's output."
+   ]
+  },
+  {
+   "aspect": "Output value during reset / initial state",
+   "severity": "medium",
+   "readings": [
+    "Because state A has output 0, out is forced to 0 whenever the FSM is reset (immediately for asynchronous reset or on the reset edge).",
+    "If out is implemented as a separate register, its reset behavior is unspecified: it may not be cleared by areset and may hold its previous value or unknown until a clock edge."
+   ]
+  }
+ ]
+}

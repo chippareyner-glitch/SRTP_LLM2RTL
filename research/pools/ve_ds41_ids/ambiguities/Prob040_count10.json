@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Bit ordering of q",
+   "severity": "high",
+   "readings": [
+    "q[3] is the most significant bit (count 1 -> q=4'b0001, count 9 -> q=4'b1001)",
+    "q[0] is the most significant bit (count 1 -> q=4'b1000, count 9 -> q=4'b1001)"
+   ]
+  },
+  {
+   "aspect": "Initial state before reset",
+   "severity": "medium",
+   "readings": [
+    "q is initialized to 0 at power-up (e.g., via initial block or FPGA default)",
+    "q is unknown/X at power-up and remains so until reset is asserted"
+   ]
+  },
+  {
+   "aspect": "Behavior on unused states 10-15",
+   "severity": "medium",
+   "readings": [
+    "If q becomes 10-15, it wraps to 0 on the next clock (treats as modulo-10)",
+    "If q becomes 10-15, it continues binary counting (e.g., 10->11) until reset"
+   ]
+  },
+  {
+   "aspect": "Counting after reset deassertion",
+   "severity": "low",
+   "readings": [
+    "Counter increments on the first clock edge after reset goes low (q=1 immediately after that edge)",
+    "Counter holds at 0 for one extra cycle after reset goes low (q remains 0 on first edge, then increments)"
+   ]
+  }
+ ]
+}

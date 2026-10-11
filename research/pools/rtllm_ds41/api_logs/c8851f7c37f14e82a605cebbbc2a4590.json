@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:22:07.548235+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "JC_counter",
+  "returned_model": "deepseek-flash",
+  "id": "bda87677-9225-4461-bd3f-6d1fde36d5c6",
+  "usage": {
+    "prompt_tokens": 452,
+    "completion_tokens": 557,
+    "total_tokens": 1009,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 462
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 196
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 2.4251699000014924
+}

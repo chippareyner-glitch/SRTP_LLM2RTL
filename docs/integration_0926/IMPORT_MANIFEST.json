@@ -1,0 +1,57 @@
+{
+  "source_archives": [
+    "script_gcc_test_modular_9.26.zip",
+    "script_gcc_test_modular_9.25 (1).zip"
+  ],
+  "compared_source_and_document_count": 96,
+  "compared_files_identical": true,
+  "imported_files": [
+    "run_spec_card_ab.py",
+    "run_three_candidate_select.py",
+    "reselect_existing_candidates.py",
+    "select_candidates_with_contract.py",
+    "spec_directed_validator.py",
+    "audit_candidate_pool.py",
+    "THREE_CANDIDATE_EXPERIMENT.md",
+    "verification_contracts/Prob001_zero.json",
+    "verification_contracts/Prob005_notgate.json",
+    "verification_contracts/Prob017_mux2to1v.json",
+    "verification_contracts/Prob027_fadd.json",
+    "verification_contracts/Prob031_dff.json",
+    "verification_contracts/Prob035_count1to10.json",
+    "verification_contracts/Prob062_bugs_mux2.json",
+    "verification_contracts/Prob093_ece241_2014_q3.json",
+    "verification_contracts/Prob098_circuit7.json",
+    "verification_contracts/Prob137_fsm_serial.json",
+    "verification_contracts/Prob149_ece241_2013_q4.json",
+    "verification_contracts/Prob153_gshare.json",
+    "verification_contracts/Prob156_review2015_fancytimer.json"
+  ],
+  "excluded": [
+    ".env",
+    "historical experiment outputs",
+    "duplicate legacy pipeline code",
+    "datasets and reference RTL"
+  ],
+  "upstream_sha256": {
+    "run_spec_card_ab.py": "c0b90c128ee752c702c6d9b8f0524aa600897c6752a720657a107b1eb52dfdc5",
+    "run_three_candidate_select.py": "b72d58d0c21d843e8d01282b0c5813f062ebefffb70badb8b037e0bd1aa314b9",
+    "reselect_existing_candidates.py": "9d713e7a0a31521d2242e2e515b9d674e88ff730bfaed4bb40e04ee6e8be17bb",
+    "select_candidates_with_contract.py": "c87dde5d339ad13641e14f4be95763f1414de1d2d5a9f47ec4e3c9bcf7a78dbf",
+    "spec_directed_validator.py": "08f0de957e937fc37afcb743c88e6ba76de59d434567319d1e5ce72db4ef07a1",
+    "audit_candidate_pool.py": "7b721eca5b902eebc4ba23209089193ef4ab7950608a0397bfb10b922c80c598",
+    "THREE_CANDIDATE_EXPERIMENT.md": "f167c1ded5e90d72aa7525af51eaeb6672606a5c0afe6a7ee9d0ede290c87ac6"
+  },
+  "added_integration_modules": [
+    "candidate_runtime.py",
+    "candidate_verification.py"
+  ],
+  "modified_shared_module": "llm_client.py (backward-compatible optional parameters)",
+  "local_validation": {
+    "tests": 30,
+    "passed": 30,
+    "paid_api_calls": 0,
+    "actual_icarus_simulation": true,
+    "actual_official_fixture": "Prob005_notgate (correct and incorrect RTL)"
+  }
+}

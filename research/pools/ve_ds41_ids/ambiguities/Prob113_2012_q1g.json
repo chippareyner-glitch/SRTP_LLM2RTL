@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "input bit ordering",
+   "severity": "high",
+   "readings": [
+    "x is declared as [3:0], so x[0] is the least-significant bit; the K-map column code is (x[0], x[1]) with x[0] as the left bit.",
+    "x is declared as [0:3], so x[0] is the most-significant bit; the K-map column code is (x[0], x[1]) with x[0] as the left bit."
+   ]
+  }
+ ]
+}

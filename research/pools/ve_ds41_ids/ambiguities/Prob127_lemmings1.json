@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "areset semantics",
+   "severity": "high",
+   "readings": [
+    "areset is a level-sensitive asynchronous reset, active high: while areset=1, the state is forced to walk left regardless of clk and bump inputs.",
+    "areset is a positive-edge-triggered reset: the state resets to walk left only on the rising edge of areset; holding areset high does not continuously reset the FSM."
+   ]
+  },
+  {
+   "aspect": "outputs during reset",
+   "severity": "medium",
+   "readings": [
+    "During asynchronous reset, the state is walk left, so walk_left=1 and walk_right=0 immediately (combinational Moore outputs).",
+    "During reset, both outputs are forced to 0 until reset is deasserted and a clock edge occurs."
+   ]
+  },
+  {
+   "aspect": "output latency",
+   "severity": "medium",
+   "readings": [
+    "walk_left and walk_right are combinational functions of the current state, so they change in the same cycle as the state update after a clock edge.",
+    "walk_left and walk_right are registered outputs, so they change one clock cycle after the state update."
+   ]
+  },
+  {
+   "aspect": "initial state without reset",
+   "severity": "low",
+   "readings": [
+    "The FSM has an undefined initial state if areset is never asserted; it must be reset before use.",
+    "The FSM powers up in the walk left state even without areset."
+   ]
+  }
+ ]
+}

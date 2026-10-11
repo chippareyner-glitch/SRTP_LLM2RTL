@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T16:56:11.199215+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob124_rule110",
+  "returned_model": "deepseek-flash",
+  "id": "8d80324a-21be-4132-9b86-79f95c93ff05",
+  "usage": {
+    "prompt_tokens": 551,
+    "completion_tokens": 2819,
+    "total_tokens": 3370,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2618
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 167
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 10.9614289000001
+}

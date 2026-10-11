@@ -1,0 +1,223 @@
+{
+ "case": "Prob070_ece241_2013_q2",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ],
+   [
+    "b",
+    1
+   ],
+   [
+    "c",
+    1
+   ],
+   [
+    "d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "out_sop",
+    1
+   ],
+   [
+    "out_pos",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2"
+   ],
+   "votes": 4,
+   "correct": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 14,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0
+     ],
+     [
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1
+     ],
+     [
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      1,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      1,
+      0,
+      1,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00",
+      "00",
+      "00",
+      "00",
+      "11",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "11",
+      "11"
+     ],
+     [
+      "00",
+      "00",
+      "00",
+      "00",
+      "11",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "11",
+      "10"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n  - input  a\n  - input  b\n  - input  c\n  - input  d\n  - output out_sop\n  - output out_pos\n\nThe module should implement a digital system with four inputs (a,b,c,d)\nthat generates a logic-1 when 2, 7, or 15 appears on the inputs, and a\nlogic-0 when 0, 1, 4, 5, 6, 9, 10, 13, or 14 appears. The input\nconditions for the numbers 3, 8, 11, and 12 never occur in this system.\nFor example, 7 corresponds to a,b,c,d being set to 0,1,1,1, respectively.\nDetermine the output out_sop in minimum sum-of-products form, and the\noutput out_pos in minimum product-of-sums form.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | A out | B out |\n|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | 1'b0 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | 1'b0 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 2 | 1'b0 | 1'b1 | 1'b0 | 1'b0 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 3 | 1'b1 | 1'b1 | 1'b0 | 1'b0 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 4 | 1'b0 | 1'b0 | 1'b1 | 1'b0 | out_sop=1'b1, out_pos=1'b1 | out_sop=1'b1, out_pos=1'b1 |\n| 5 | 1'b1 | 1'b0 | 1'b1 | 1'b0 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 6 | 1'b0 | 1'b1 | 1'b1 | 1'b0 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 7 | 1'b1 | 1'b1 | 1'b1 | 1'b0 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 8 | 1'b0 | 1'b0 | 1'b0 | 1'b1 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 9 | 1'b1 | 1'b0 | 1'b0 | 1'b1 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 10 | 1'b0 | 1'b1 | 1'b0 | 1'b1 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 11 | 1'b1 | 1'b1 | 1'b0 | 1'b1 | out_sop=1'b0, out_pos=1'b0 | out_sop=1'b0, out_pos=1'b0 |\n| 12 | 1'b0 | 1'b0 | 1'b1 | 1'b1 | out_sop=1'b1, out_pos=1'b1 | out_sop=1'b1, out_pos=1'b1 |\n| 13 | 1'b1 | 1'b0 | 1'b1 | 1'b1 | out_sop=1'b1, out_pos=1'b1 | out_sop=1'b1, out_pos=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0,
+     1,
+     1
+    ]
+   ],
+   "options": [
+    "11",
+    "10"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "1x",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n  - input  a\n  - input  b\n  - input  c\n  - input  d\n  - output out_sop\n  - output out_pos\n\nThe module should implement a digital system with four inputs (a,b,c,d)\nthat generates a logic-1 when 2, 7, or 15 appears on the inputs, and a\nlogic-0 when 0, 1, 4, 5, 6, 9, 10, 13, or 14 appears. The input\nconditions for the numbers 3, 8, 11, and 12 never occur in this system.\nFor example, 7 corresponds to a,b,c,d being set to 0,1,1,1, respectively.\nDetermine the output out_sop in minimum sum-of-products form, and the\noutput out_pos in minimum product-of-sums form.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | out |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | 1'b1 | 1'b1 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out_sop=1'b1, out_pos=1'b1\n- **B**: out_sop=1'b1, out_pos=1'b0\n"
+  }
+ ]
+}

@@ -1,0 +1,121 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  d
+ - output q
+
+A dual-edge triggered flip-flop is triggered on both edges of the clock.
+However, FPGAs don't have dual-edge triggered flip-flops, and using an
+always @(posedge clk or negedge clk) is not accepted as a legal
+sensitivity list. Build a circuit that functionally behaves like a
+dual-edge triggered flip-flop.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+# Dual-Edge Triggered Flip-Flop Specification Analysis
+
+## 1. Specification Summary
+The specification requires implementing a dual-edge triggered flip-flop module named `TopModule` with:
+- **Inputs**: `clk` (1-bit clock), `d` (1-bit data input)
+- **Output**: `q` (1-bit data output)
+- **Key Constraint**: Must function as dual-edge triggered flip-flop (captures data on both rising and falling clock edges) while being FPGA-compatible (cannot use `always @(posedge clk or negedge clk)`)
+
+## 2. Ambiguity Analysis
+- **Clock Domain Assumptions**: No specification of clock frequency or timing constraints
+- **Reset Behavior**: Critical ambiguity - no reset mechanism specified (synchronous/asynchronous, initial state)
+- **Timing Requirements**: No setup/hold time specifications mentioned
+- **Output Behavior**: Unclear what happens during simultaneous clock and data transitions
+
+## 3. Missing Critical Details
+- **Reset Strategy**: Essential for real hardware implementation
+- **Initial State**: Required for predictable startup behavior
+- **Timing Constraints**: Setup/hold times for reliable operation
+- **Clock Gating/Stopping**: Behavior when clock is static
+- **Synthesis Directives**: Guidance for FPGA tool compatibility
+- **Power-On State**: Critical for system initialization
+
+## 4. Edge Cases & Boundary Conditions
+- **Clock Start/Stop**: Behavior when clock begins after being static
+- **Metastability**: Handling of timing violations near clock edges
+- **Concurrent Transitions**: Data changing exactly at clock edges
+- **Clock Jitter**: Tolerance to non-ideal clock signals
+- **Frequency Extremes**: Operation at very high/low clock frequencies
+
+## 5. Functional Correctness Prediction
+**High Risk Areas:**
+- **Metastability**: Dual-edge sampling doubles vulnerability to timing violations
+- **FPGA Resource Utilization**: Will require approximately 2× resources of single-edge FF
+- **Timing Closure**: More challenging due to tighter timing constraints
+- **Clock Skew Sensitivity**: More susceptible to clock distribution issues
+
+**Expected Implementation Approach:**
+- Use two single-edge flip-flops (positive and negative edge triggered)
+- Combine outputs with multiplexing logic
+- Requires careful timing analysis to avoid glitches
+
+## 6. Actionable Guidance for RTL Generation
+
+### Implementation Strategy:
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic d, 
+    output logic q
+);
+    
+    // Add reset for practical implementation
+    input logic rst_n,  // Recommended addition
+    input logic async_rst_n  // Optional asynchronous reset
+    
+    logic q_rise, q_fall;
+    
+    // Positive edge triggered FF
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) q_rise <= 1'b0;
+        else        q_rise <= d;
+    end
+    
+    // Negative edge triggered FF  
+    always_ff @(negedge clk or negedge rst_n) begin
+        if (!rst_n) q_fall <= 1'b0;
+        else        q_fall <= d;
+    end
+    
+    // Output selection - capture latest sampled value
+    assign q = clk ? q_rise : q_fall;
+    
+endmodule
+```
+
+### Critical Implementation Notes:
+1. **Reset Integration**: Add synchronous or asynchronous reset for determinism
+2. **Timing Constraints**: Apply multicycle paths if necessary for timing closure
+3. **Glitch Prevention**: Ensure mux select (clk) is stable when data transitions
+4. **Synthesis Directives**: Use `(* keep = "true" *)` to preserve hierarchy
+5. **Clock Domain**: Treat as single clock domain with careful timing analysis
+
+### Verification Requirements:
+- Test both rising and falling edge sampling independently
+- Verify reset functionality under all conditions
+- Stress test with timing violations near both clock edges
+- Validate at maximum expected operating frequency
+
+### FPGA-Specific Considerations:
+- Use device-specific primitives if available
+- Check for dedicated routing resources
+- Consider using vendor-specific attributes for timing guidance
+- Validate resource utilization against project constraints
+
+This implementation provides the dual-edge functionality while maintaining FPGA compatibility and synthesis-friendly design practices.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

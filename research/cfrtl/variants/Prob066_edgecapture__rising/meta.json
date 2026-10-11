@@ -1,0 +1,27 @@
+{
+ "id": "Prob066_edgecapture__rising",
+ "base": "Prob066_edgecapture",
+ "delta": "rising",
+ "category": "rule",
+ "edits": [
+  [
+   "capture when the input signal changes from 1 in one clock cycle to 0 the next.",
+   "capture when the input signal changes from 0 in one clock cycle to 1 the next."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 266,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 119,
+   "samples": 266,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

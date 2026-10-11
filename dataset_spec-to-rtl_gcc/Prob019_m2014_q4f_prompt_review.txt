@@ -1,0 +1,94 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in1
+ - input  in2
+ - output out
+
+The module should implement the following circuit in Verilog. Two inputs
+(in1 and in2) go to an AND gate, but the in2 input to the AND gate has a
+bubble. The output of the AND gate is connected to 'out'.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+- **Module Name**: TopModule
+- **Interface**: 
+  - Inputs: `in1` (1-bit), `in2` (1-bit)
+  - Output: `out` (1-bit)
+- **Function**: AND gate where `in2` has an inversion bubble (logical NOT before AND)
+- **Logical Expression**: `out = in1 AND (NOT in2)`
+
+## 2. Ambiguity Analysis
+- **Bubble Interpretation**: The specification clearly indicates "in2 input to the AND gate has a bubble," which unambiguously means `in2` should be inverted before the AND operation.
+- **Timing**: No timing constraints specified (propagation delay, setup/hold times), but this is typical for combinational logic at this level.
+- **Signal Polarity**: No explicit mention of active-high/low conventions, but the bubble notation is standard for active-low inputs.
+
+## 3. Missing Critical Details
+- **Reset Behavior**: No reset mechanism specified. Since this is combinational logic, no reset is required.
+- **Glitch Handling**: No specification for glitch prevention or filtering.
+- **Output Drive Strength**: No drive strength specification (default assumed).
+- **Power-on State**: No explicit power-on initialization requirement.
+- **Timing Constraints**: No setup/hold times or maximum frequency specified.
+
+## 4. Edge Cases & Boundary Conditions
+- **All Input Combinations**:
+  - `in1=0, in2=0`: `out = 0 AND 1 = 0`
+  - `in1=0, in2=1`: `out = 0 AND 0 = 0`
+  - `in1=1, in2=0`: `out = 1 AND 1 = 1`
+  - `in1=1, in2=1`: `out = 1 AND 0 = 0`
+- **Metastability**: Not applicable for pure combinational logic.
+- **Floating Inputs**: No protection against undefined inputs specified.
+- **Simultaneous Switching**: No specific requirements for input transition timing.
+
+## 5. Functional Correctness Prediction
+- **Truth Table Verification**: The circuit implements the NAND-like function `out = in1 & ~in2`
+- **Simulation Coverage**: 100% testable with 4 input combinations
+- **Synthesis Compatibility**: Straightforward combinational logic, will synthesize efficiently
+- **Potential Issues**: None identified for basic functionality
+
+## 6. Actionable Guidance for RTL Generation
+
+### Recommended Implementation:
+```verilog
+module TopModule (
+    input  in1,
+    input  in2,
+    output out
+);
+    // Direct implementation: AND gate with inverted in2
+    assign out = in1 & ~in2;
+    
+endmodule
+```
+
+### Verification Requirements:
+```verilog
+// Testbench stimulus should cover all 4 input combinations:
+// 1. in1=0, in2=0 → out=0
+// 2. in1=0, in2=1 → out=0  
+// 3. in1=1, in2=0 → out=1
+// 4. in1=1, in2=1 → out=0
+```
+
+### Synthesis Considerations:
+- Use `assign` statement for clear combinational logic
+- No sequential elements needed (no clocks, no resets)
+- Gate-level equivalent: AND gate with inverter on in2 input
+- Area-optimized implementation matches specification exactly
+
+### Additional Recommendations:
+- Add `// synopsys translate_off`/`on` directives if using simulation-specific constructs
+- Consider adding `/* synthesis parallel_case */` if expanding to case statements in future revisions
+- Document the logical function: `// out = in1 AND NOT in2`
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

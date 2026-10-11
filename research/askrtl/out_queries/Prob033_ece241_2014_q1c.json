@@ -1,0 +1,111 @@
+{
+ "case": "Prob033_ece241_2014_q1c",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    8
+   ],
+   [
+    "b",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "s",
+    8
+   ],
+   [
+    "overflow",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c4",
+    "c5"
+   ],
+   "votes": 8,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      216,
+      98
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "001110100"
+     ],
+     [
+      "001110101"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (8 bits)\n - input  b (8 bits)\n - output s (8 bits)\n - output overflow\n\nAssume that you have two 8-bit 2's complement numbers, a[7:0] and b[7:0].\nThe module should add these numbers to produce s[7:0]. Also compute\nwhether a (signed) overflow has occurred.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | A out | B out |\n|---|---|---|---|---|\n| 0 | 8'hd8 | 8'h62 | s=8'h3a, overflow=1'b0 | s=8'h3a, overflow=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     216,
+     0
+    ]
+   ],
+   "options": [
+    "110110000",
+    "110110001"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "B"
+   },
+   "label": "A",
+   "ref_value": "110110000",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (8 bits)\n - input  b (8 bits)\n - output s (8 bits)\n - output overflow\n\nAssume that you have two 8-bit 2's complement numbers, a[7:0] and b[7:0].\nThe module should add these numbers to produce s[7:0]. Also compute\nwhether a (signed) overflow has occurred.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | out |\n|---|---|---|---|\n| 0 | 8'hd8 | 8'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: s=8'hd8, overflow=1'b0\n- **B**: s=8'hd8, overflow=1'b1\n"
+  }
+ ]
+}

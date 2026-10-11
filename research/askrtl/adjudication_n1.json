@@ -1,0 +1,186 @@
+{
+  "_doc": "Hand adjudication (2026-10-11) of every OVER/UNDER question flagged by alignment.py. One entry per unique question; 'also' lists identical questions in other pools. verdict: genuine = real test-spec misalignment (UNDER: the official tests accept a design that violates an explicit spec statement; OVER: the tests reject a reading the spec allows); valid_gated = disputed outputs are data while a valid/done/start-type output is low (don't-care by convention); protocol_dontcare = behaviour under input that violates the interface protocol; spec_silent = the spec does not decide, the judge was overconfident; ambiguous = the spec admits several readings or contradicts itself; spec_defect = the spec is wrong or contradicts the reference; judge_wrong = the spec decides and the judge said otherwise; partial_any = judge's ANY covered only some options and the test rejects exactly the excluded one (actually aligned); attribution = the failing cluster fails the official tests for another reason; artifact = harness/stimulus artifact. 'expected' (genuine UNDER only) is the canonical option letter the spec requires. uncertain = ground truth not determinable from the spec text (excluded from scoring).",
+  "items": [
+    {
+      "cell": "OVER",
+      "tag": "ve_ds41_ids",
+      "case": "Prob070_ece241_2013_q2",
+      "qi": 0,
+      "also": [
+        "ve_ds41_ids:q3"
+      ],
+      "verdict": "partial_any",
+      "note": "Minimal SOP fixes out_sop=1 at the never-occurring input 11; judge's ANY covers A/C only; the test rejects exactly B."
+    },
+    {
+      "cell": "OVER",
+      "tag": "ve_ds41_ids",
+      "case": "Prob091_2012_q2b",
+      "qi": 0,
+      "also": [],
+      "verdict": "judge_wrong",
+      "note": "Multi-hot y; spec says derive 'by inspection', which defines the output; reference = inspection equations. Debatable."
+    },
+    {
+      "cell": "OVER",
+      "tag": "ve_ds41",
+      "case": "Prob150_review2015_fsmonehot",
+      "qi": 2,
+      "also": [],
+      "verdict": "judge_wrong",
+      "note": "Same as 091 (multi-hot state, by-inspection equations). Judge is inconsistent: it applies by-inspection on 079 but says ANY here. Debatable."
+    },
+    {
+      "cell": "OVER",
+      "tag": "ve_ds41_ids",
+      "case": "Prob153_gshare",
+      "qi": 0,
+      "also": [],
+      "verdict": "genuine",
+      "note": "PHT reset value unspecified; the reference (and so the test) fixes one value."
+    },
+    {
+      "cell": "OVER",
+      "tag": "ve_ds41",
+      "case": "Prob154_fsm_ps2data",
+      "qi": 2,
+      "also": [
+        "ve_ds41:q1",
+        "ve_ds41:q0",
+        "ve_ds41_ids:q2",
+        "ve_ds41_ids:q1",
+        "ve_ds41_ids:q0"
+      ],
+      "verdict": "judge_wrong",
+      "note": "Judge ignored option C (done=1); third byte is sampled at cycle 3, so done=1 post-edge as in the spec waveform."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "ve_ds41",
+      "case": "Prob145_circuit8",
+      "qi": 0,
+      "also": [
+        "ve_ds41_ids:q1"
+      ],
+      "verdict": "artifact",
+      "note": "Latch design; next-cycle input change coincides with the falling clock edge in the harness."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "ve_ds41_ids",
+      "case": "Prob079_fsm3onehot",
+      "qi": 0,
+      "also": [],
+      "verdict": "genuine",
+      "expected": "A",
+      "note": "By-inspection one-hot equations on a multi-hot state; reference agrees; one passing design returns 0000."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "ve_ds41_ids",
+      "case": "Prob143_fsm_onehot",
+      "qi": 1,
+      "also": [],
+      "verdict": "genuine",
+      "expected": "A",
+      "note": "Spec explicitly requires multi-hot states to be handled (S0+S7 -> out2=1); reference agrees."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "ve_ds41_ids",
+      "case": "Prob143_fsm_onehot",
+      "qi": 2,
+      "also": [],
+      "verdict": "genuine",
+      "expected": "B",
+      "note": "S0+S1 with in=1 -> next_state S1|S2 = 0x006; reference agrees."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41_ids",
+      "case": "JC_counter",
+      "qi": 0,
+      "also": [],
+      "verdict": "genuine",
+      "expected": "A",
+      "note": "Spec: update on rising clk OR falling rst_n (asynchronous reset); one passing design resets synchronously. Reference agrees."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41",
+      "case": "LIFObuffer",
+      "qi": 0,
+      "also": [],
+      "verdict": "spec_silent",
+      "note": "dataOut on reset not specified (X involved)."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41",
+      "case": "alu",
+      "qi": 4,
+      "also": [],
+      "verdict": "spec_defect",
+      "note": "flag defined two contradictory ways (known defect)."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41",
+      "case": "fixed_point_substractor",
+      "qi": 0,
+      "also": [
+        "rtllm_ds41_ids:q0"
+      ],
+      "verdict": "spec_defect",
+      "note": "Spec describes sign-magnitude rules that are wrong for 0-b; judge answered two's complement, which the spec does not describe."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41_ids",
+      "case": "freq_divbyfrac",
+      "qi": 0,
+      "also": [],
+      "verdict": "artifact",
+      "note": "Reset release coincides with a falling clock edge in the harness (negedge logic races)."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41_ids",
+      "case": "instr_reg",
+      "qi": 0,
+      "also": [],
+      "verdict": "spec_defect",
+      "note": "Spec: synchronous reset; reference: asynchronous (known defect)."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41",
+      "case": "multi_16bit",
+      "qi": 0,
+      "also": [
+        "rtllm_ds41_ids:q2",
+        "rtllm_ds41_ids:q0"
+      ],
+      "verdict": "valid_gated",
+      "note": "yout while done=0."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41_ids",
+      "case": "multi_booth_8bit",
+      "qi": 0,
+      "also": [],
+      "verdict": "valid_gated",
+      "note": "p while rdy=0 (one design implements true radix-4 recoding)."
+    },
+    {
+      "cell": "UNDER",
+      "tag": "rtllm_ds41_ids",
+      "case": "multi_booth_8bit",
+      "qi": 2,
+      "also": [],
+      "verdict": "valid_gated",
+      "note": "p while rdy=0."
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  a
+ - output q (3 bits)
+
+The module implements a sequential circuit. Read the simulation waveforms
+to determine what the circuit does, then implement it.
+
+  time  clk a   q
+  0ns   0   1   x
+  5ns   1   1   4
+  10ns  0   1   4
+  15ns  1   1   4
+  20ns  0   1   4
+  25ns  1   1   4
+  30ns  0   1   4
+  35ns  1   1   4
+  40ns  0   1   4
+  45ns  1   0   4
+  50ns  0   0   4
+  55ns  1   0   5
+  60ns  0   0   5
+  65ns  1   0   6
+  70ns  0   0   6
+  75ns  1   0   0
+  80ns  0   0   0
+  85ns  1   0   1
+  90ns  0   0   1
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` is a sequential circuit with:
+- **Clock**: `clk` (1-bit)
+- **Input**: `a` (1-bit) 
+- **Output**: `q` (3-bit) - represents values 0-7
+
+From waveform analysis:
+- **When `a = 1`**: `q` holds constant value `4` (binary 100)
+- **When `a = 0`**: `q` increments by 1 each clock cycle: 4→5→6→0→1
+- **Reset behavior**: Initial value appears to be `4` (first observed value)
+- **Clock sensitivity**: Changes occur on rising edge of `clk`
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Reset mechanism unspecified**: No explicit reset port, but initial value must be established
+- **Initialization timing**: First clock edge behavior not clearly defined
+- **Counter wrap-around**: Behavior after reaching maximum value (7) is undefined
+- **Input sampling**: Exact setup/hold requirements for `a` relative to clock not specified
+
+**Resolution Required:**
+- Need to choose between power-on reset or explicit reset port
+- Must define counter behavior through full range (0-7)
+
+## 3. Missing Critical Details
+
+**Essential Missing Information:**
+- **Reset strategy**: No reset port provided, but initial state must be controlled
+- **Counter width justification**: Why 3 bits? Maximum expected count value?
+- **Input validation**: What happens if `a` changes during clock edges?
+- **Timing constraints**: Setup/hold times for input `a`
+- **Power-up behavior**: Initial state at time 0ns is undefined in waveform
+
+**Synthesis Considerations:**
+- Target technology/performance constraints
+- Clock frequency requirements
+- Area/power optimization goals
+
+## 4. Edge Cases & Boundary Conditions
+
+**Identified Edge Cases:**
+1. **Counter overflow**: 6→0 is shown, but 7→? behavior undefined
+2. **Input glitches**: `a` changing near clock edges
+3. **Power-on state**: Initial value before first clock edge
+4. **Maximum count**: What happens at count = 7 when `a=0`?
+5. **Input stability**: Minimum pulse width for `a`
+
+**Boundary Conditions to Test:**
+- Transition from `a=0` to `a=1` at various count values
+- Continuous counting from 0 through 7 and beyond
+- Rapid toggling of `a` input
+
+## 5. Functional Correctness Prediction
+
+**Expected Behavior:**
+```systemverilog
+// Pseudocode behavior
+always_ff @(posedge clk) begin
+    if (a == 1'b1) begin
+        q <= 3'b100;  // Hold at 4 when a=1
+    end else begin
+        q <= q + 1;   // Increment when a=0
+    end
+end
+```
+
+**Potential Issues:**
+- No reset mechanism for predictable initialization
+- Counter rollover from 7 to 0 (not 8) due to 3-bit width
+- Input metastability risk not addressed
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+
+```systemverilog
+module TopModule (
+    input  logic       clk,
+    input  logic       a,
+    output logic [2:0] q
+);
+
+// Add reset for predictable behavior (recommended enhancement)
+logic [2:0] count;
+
+always_ff @(posedge clk) begin
+    if (a) begin
+        count <= 3'b100;  // Hold value 4 when a=1
+    end else begin
+        count <= count + 1;  // Increment when a=0
+    end
+end
+
+assign q = count;
+
+endmodule
+```
+
+**Critical Implementation Decisions:**
+1. **Add reset port** (strongly recommended) for testability and reliability
+2. **Use synchronous design** for better timing closure
+3. **Implement input synchronization** if `a` is asynchronous
+4. **Define clear reset policy**: synchronous vs asynchronous, active level
+
+**Verification Strategy:**
+- Test all counter values (0-7) with both `a=0` and `a=1`
+- Verify reset functionality (if added)
+- Check boundary conditions and rollover behavior
+- Validate timing constraints through STA
+
+**Additional Considerations:**
+- Document assumption that counter wraps from 7 to 0
+- Consider adding parameter for initial value for flexibility
+- Include assertions for functional coverage
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

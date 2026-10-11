@@ -1,0 +1,91 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  p1a
+ - input  p1b
+ - input  p1c
+ - input  p1d
+ - input  p2a
+ - input  p2b
+ - input  p2c
+ - input  p2d
+ - output p1y
+ - output p2y
+
+The 7400-series integrated circuits are a series of digital chips with a
+few gates each. The 7420 is a chip with two 4-input NAND gates. The
+module should implement the same functionality as the 7420 chip.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+The specification requires implementing a SystemVerilog module `TopModule` that replicates the functionality of a 7420 IC, which contains two independent 4-input NAND gates. The interface consists of eight 1-bit inputs (p1a, p1b, p1c, p1d, p2a, p2b, p2c, p2d) and two 1-bit outputs (p1y, p2y), where each output corresponds to the NAND operation of its respective four inputs.
+
+## 2. Ambiguity Analysis
+- **Input-Output Mapping**: The specification clearly indicates that p1a-p1d map to p1y, and p2a-p2d map to p2y, but the exact bit ordering or significance is not specified. Since NAND is commutative, this is acceptable.
+- **Timing Behavior**: No timing constraints (propagation delays, setup/hold times) are specified. This implies purely combinational behavior with zero-delay for RTL simulation.
+- **Unknown State Handling**: The behavior when inputs are in high-impedance ('z') or unknown ('x') states is not defined, which is typical for gate-level modeling but should be clarified for robust RTL.
+
+## 3. Missing Critical Details
+- **Reset/Power-on Behavior**: No reset mechanism is specified. For a combinational circuit, outputs should depend solely on current inputs, making reset unnecessary.
+- **Propagation Delay**: While not needed for functional RTL, real 7420 chips have specified propagation delays (typically 10-15ns). If timing simulation is required, this should be noted.
+- **Load Characteristics**: Output drive strength and fan-out capabilities are not specified, which are important for real hardware but not for RTL functionality.
+- **Power Pins**: Real ICs have VCC and GND pins, but these are implicit in RTL and not needed as ports.
+
+## 4. Edge Cases & Boundary Conditions
+- **All Inputs Low**: p1y = NAND(0,0,0,0) = 1, p2y = 1
+- **All Inputs High**: p1y = NAND(1,1,1,1) = 0, p2y = 0
+- **Mixed Input Patterns**: All 16 possible input combinations for each gate should produce correct NAND outputs
+- **Meta-values**: How should the design handle X (unknown) and Z (high-impedance) inputs? Standard practice is to propagate X for any unknown input.
+- **Simultaneous Switching**: All inputs can change simultaneously without sequencing requirements (combinational logic).
+
+## 5. Functional Correctness Prediction
+- **High Confidence**: The 7420 functionality is well-documented and simple. The implementation should be straightforward with near-certain correctness.
+- **Verification Points**: Need to verify all 256 possible input combinations (8 inputs = 2^8 patterns) to ensure both NAND gates operate independently and correctly.
+- **Potential Issues**: Only likely issues would be incorrect port mapping or misunderstanding of NAND gate functionality, both easily avoidable.
+
+## 6. Actionable Guidance for RTL Generation
+
+```systemverilog
+module TopModule (
+    input  logic p1a, p1b, p1c, p1d,  // First 4-input NAND gate inputs
+    input  logic p2a, p2b, p2c, p2d,  // Second 4-input NAND gate inputs
+    output logic p1y, p2y              // Corresponding NAND gate outputs
+);
+
+    // Continuous assignments for combinational logic
+    assign p1y = ~(p1a & p1b & p1c & p1d);  // First 4-input NAND gate
+    assign p2y = ~(p2a & p2b & p2c & p2d);  // Second 4-input NAND gate
+
+endmodule
+```
+
+**Additional Implementation Notes:**
+- Use `logic` data type for all ports as specified in SystemVerilog best practices
+- The design is purely combinational - no clocks or resets needed
+- Ensure independent operation of the two gates (no shared resources)
+- Include comprehensive testbench covering:
+  - All-zero and all-one inputs for both gates
+  - Single input variation patterns
+  - Random input patterns for coverage
+  - X-propagation tests if required by verification plan
+- For synthesis: The module should map efficiently to standard cell libraries as 4-input NAND gates are commonly available
+- Consider adding `default_nettype none to prevent implicit wire declarations
+
+**Verification Checklist:**
+- [ ] Verify p1y = 0 only when all p1a-p1d = 1
+- [ ] Verify p2y = 0 only when all p2a-p2d = 1  
+- [ ] Verify outputs are 1 for all other input combinations
+- [ ] Confirm gate independence (p1 inputs don't affect p2y, and vice versa)
+- [ ] Test with timing delays if back-annotation required
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

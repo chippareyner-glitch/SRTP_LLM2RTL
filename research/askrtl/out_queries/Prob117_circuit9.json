@@ -1,0 +1,1695 @@
+{
+ "case": "Prob117_circuit9",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    3
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c2",
+   "members": [
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+   ],
+   "votes": 6,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1"
+   ],
+   "votes": 2,
+   "correct": [
+    false,
+    false
+   ]
+  },
+  {
+   "rep": "c7",
+   "members": [
+    "c7"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c8",
+   "members": [
+    "c8"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxx",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100"
+     ],
+     [
+      "xxx",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | a | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=3'bxxx | q=3'b100 | q=3'bxxx | q=3'b100 |\n| 1 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 2 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b100 |\n| 3 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 4 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 5 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b101 | q=3'b110 |\n| 6 | 1'b0 | q=3'b101 | q=3'b110 | q=3'b110 | q=3'b000 |\n| 7 | 1'b1 | q=3'b110 | q=3'b100 | q=3'b000 | q=3'b100 |\n| 8 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 9 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 10 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b101 | q=3'b110 |\n| 11 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b110 | q=3'b100 |\n| 12 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 13 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 14 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 15 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b100 |\n| 16 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 17 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b101 | q=3'b110 |\n| 18 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b110 | q=3'b100 |\n| 19 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 20 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 21 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 22 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b100 |\n| 23 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 24 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b101 | q=3'b110 |\n| 25 | 1'b0 | q=3'b101 | q=3'b110 | q=3'b110 | q=3'b000 |\n| 26 | 1'b1 | q=3'b110 | q=3'b100 | q=3'b000 | q=3'b100 |\n| 27 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 28 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b100 |\n| 29 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 30 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 31 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b100 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "k": 3,
+   "len": 2,
+   "toggles": 1,
+   "stim": [
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "options": [
+    "100",
+    "101"
+   ],
+   "cluster_option": {
+    "c2": "B",
+    "c0": "A",
+    "c7": "other",
+    "c8": "other"
+   },
+   "label": "B",
+   "ref_value": "101",
+   "x_involved": false,
+   "hist": [
+    "xxx",
+    "100",
+    "100"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | a | pre | post |\n|---|---|---|---|\n| 0 | 1'b1 | q=3'bxxx | q=3'b100 |\n| 1 | 1'b0 | q=3'b100 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=3'b100\n- **B**: q=3'b101\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxx",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100"
+     ],
+     [
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "101",
+      "101",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "010",
+      "010",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "000",
+      "000",
+      "000",
+      "000",
+      "001",
+      "001",
+      "010",
+      "010",
+      "011",
+      "011",
+      "011",
+      "011",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "101"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | a | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=3'bxxx | q=3'b100 | q=3'b100 | q=3'b100 |\n| 1 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b100 | q=3'b101 |\n| 2 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b101 | q=3'b101 |\n| 3 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b101 |\n| 4 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b101 | q=3'b110 |\n| 5 | 1'b0 | q=3'b101 | q=3'b110 | q=3'b110 | q=3'b000 |\n| 6 | 1'b0 | q=3'b110 | q=3'b000 | q=3'b000 | q=3'b001 |\n| 7 | 1'b1 | q=3'b000 | q=3'b100 | q=3'b001 | q=3'b001 |\n| 8 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b001 | q=3'b001 |\n| 9 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b001 | q=3'b010 |\n| 10 | 1'b0 | q=3'b101 | q=3'b110 | q=3'b010 | q=3'b011 |\n| 11 | 1'b1 | q=3'b110 | q=3'b100 | q=3'b011 | q=3'b011 |\n| 12 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b011 | q=3'b011 |\n| 13 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b011 | q=3'b011 |\n| 14 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b011 | q=3'b100 |\n| 15 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 16 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b100 | q=3'b101 |\n| 17 | 1'b0 | q=3'b101 | q=3'b110 | q=3'b101 | q=3'b110 |\n| 18 | 1'b1 | q=3'b110 | q=3'b100 | q=3'b110 | q=3'b110 |\n| 19 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b110 | q=3'b110 |\n| 20 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b110 | q=3'b110 |\n| 21 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b110 | q=3'b000 |\n| 22 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b000 | q=3'b000 |\n| 23 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b000 | q=3'b001 |\n| 24 | 1'b0 | q=3'b101 | q=3'b110 | q=3'b001 | q=3'b010 |\n| 25 | 1'b0 | q=3'b110 | q=3'b000 | q=3'b010 | q=3'b011 |\n| 26 | 1'b1 | q=3'b000 | q=3'b100 | q=3'b011 | q=3'b011 |\n| 27 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b011 | q=3'b100 |\n| 28 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 29 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 30 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b100 | q=3'b101 |\n| 31 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b101 | q=3'b101 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c7"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "xxx",
+    "100"
+   ],
+   "cluster_option": {
+    "c2": "A",
+    "c0": "A",
+    "c7": "B",
+    "c8": "A"
+   },
+   "label": "ANY:AB",
+   "ref_value": "xxx",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | a | pre | post |\n|---|---|---|---|\n| 0 | 1'b0 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=3'bxxx\n- **B**: q=3'b100\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxx",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100"
+     ],
+     [
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | a | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=3'bxxx | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 1 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 2 | 1'b1 | q=3'b101 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 3 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 4 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 5 | 1'b0 | q=3'b101 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 6 | 1'b0 | q=3'b110 | q=3'b000 | q=3'bxxx | q=3'bxxx |\n| 7 | 1'b1 | q=3'b000 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 8 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 9 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 10 | 1'b0 | q=3'b101 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 11 | 1'b1 | q=3'b110 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 12 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 13 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 14 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 15 | 1'b1 | q=3'b101 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 16 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 17 | 1'b0 | q=3'b101 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 18 | 1'b1 | q=3'b110 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 19 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 20 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 21 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 22 | 1'b1 | q=3'b101 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 23 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 24 | 1'b0 | q=3'b101 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 25 | 1'b0 | q=3'b110 | q=3'b000 | q=3'bxxx | q=3'bxxx |\n| 26 | 1'b1 | q=3'b000 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 27 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 28 | 1'b1 | q=3'b101 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 29 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 30 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 31 | 1'b1 | q=3'b101 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c8"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "options": [
+    "100",
+    "xxx"
+   ],
+   "cluster_option": {
+    "c2": "A",
+    "c0": "A",
+    "c7": "other",
+    "c8": "B"
+   },
+   "label": "A",
+   "ref_value": "100",
+   "x_involved": true,
+   "hist": [
+    "xxx"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | a | pre | post |\n|---|---|---|---|\n| 0 | 1'b1 | q=3'bxxx | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=3'b100\n- **B**: q=3'bxxx\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxx",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100"
+     ],
+     [
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "101",
+      "101",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "010",
+      "010",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "000",
+      "000",
+      "000",
+      "000",
+      "001",
+      "001",
+      "010",
+      "010",
+      "011",
+      "011",
+      "011",
+      "011",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "101"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | a | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=3'bxxx | q=3'b100 | q=3'b100 | q=3'b100 |\n| 1 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 2 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b101 |\n| 3 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b101 |\n| 4 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b110 |\n| 5 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b110 | q=3'b000 |\n| 6 | 1'b0 | q=3'b101 | q=3'b110 | q=3'b000 | q=3'b001 |\n| 7 | 1'b1 | q=3'b110 | q=3'b100 | q=3'b001 | q=3'b001 |\n| 8 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b001 | q=3'b001 |\n| 9 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b001 | q=3'b010 |\n| 10 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b010 | q=3'b011 |\n| 11 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b011 | q=3'b011 |\n| 12 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b011 | q=3'b011 |\n| 13 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b011 | q=3'b011 |\n| 14 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b011 | q=3'b100 |\n| 15 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 16 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 17 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b101 | q=3'b110 |\n| 18 | 1'b1 | q=3'b101 | q=3'b100 | q=3'b110 | q=3'b110 |\n| 19 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b110 | q=3'b110 |\n| 20 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b110 | q=3'b110 |\n| 21 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b110 | q=3'b000 |\n| 22 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b000 | q=3'b000 |\n| 23 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b000 | q=3'b001 |\n| 24 | 1'b0 | q=3'b100 | q=3'b101 | q=3'b001 | q=3'b010 |\n| 25 | 1'b0 | q=3'b101 | q=3'b110 | q=3'b010 | q=3'b011 |\n| 26 | 1'b1 | q=3'b110 | q=3'b100 | q=3'b011 | q=3'b011 |\n| 27 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b011 | q=3'b100 |\n| 28 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 29 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b100 |\n| 30 | 1'b0 | q=3'b100 | q=3'b100 | q=3'b100 | q=3'b101 |\n| 31 | 1'b1 | q=3'b100 | q=3'b100 | q=3'b101 | q=3'b101 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c7"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "xxx",
+    "100"
+   ],
+   "cluster_option": {
+    "c2": "A",
+    "c0": "A",
+    "c7": "B",
+    "c8": "A"
+   },
+   "label": "ANY:AB",
+   "ref_value": "xxx",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | a | pre | post |\n|---|---|---|---|\n| 0 | 1'b0 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=3'bxxx\n- **B**: q=3'b100\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxx",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100"
+     ],
+     [
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | a | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=3'bxxx | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 1 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 2 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 3 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 4 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 5 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 6 | 1'b0 | q=3'b101 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 7 | 1'b1 | q=3'b110 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 8 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 9 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 10 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 11 | 1'b1 | q=3'b101 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 12 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 13 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 14 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 15 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 16 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 17 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 18 | 1'b1 | q=3'b101 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 19 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 20 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 21 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 22 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 23 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 24 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 25 | 1'b0 | q=3'b101 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 26 | 1'b1 | q=3'b110 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 27 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 28 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 29 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 30 | 1'b0 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 31 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c8"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "options": [
+    "100",
+    "xxx"
+   ],
+   "cluster_option": {
+    "c2": "A",
+    "c0": "A",
+    "c7": "other",
+    "c8": "B"
+   },
+   "label": "A",
+   "ref_value": "100",
+   "x_involved": true,
+   "hist": [
+    "xxx"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | a | pre | post |\n|---|---|---|---|\n| 0 | 1'b1 | q=3'bxxx | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=3'b100\n- **B**: q=3'bxxx\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "101",
+      "101",
+      "101",
+      "101",
+      "110",
+      "110",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "010",
+      "010",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "011",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "110",
+      "000",
+      "000",
+      "000",
+      "000",
+      "001",
+      "001",
+      "010",
+      "010",
+      "011",
+      "011",
+      "011",
+      "011",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "100",
+      "101",
+      "101",
+      "101"
+     ],
+     [
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx",
+      "xxx"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | a | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 1 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 2 | 1'b1 | q=3'b101 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 3 | 1'b1 | q=3'b101 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 4 | 1'b0 | q=3'b101 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 5 | 1'b0 | q=3'b110 | q=3'b000 | q=3'bxxx | q=3'bxxx |\n| 6 | 1'b0 | q=3'b000 | q=3'b001 | q=3'bxxx | q=3'bxxx |\n| 7 | 1'b1 | q=3'b001 | q=3'b001 | q=3'bxxx | q=3'bxxx |\n| 8 | 1'b1 | q=3'b001 | q=3'b001 | q=3'bxxx | q=3'bxxx |\n| 9 | 1'b0 | q=3'b001 | q=3'b010 | q=3'bxxx | q=3'bxxx |\n| 10 | 1'b0 | q=3'b010 | q=3'b011 | q=3'bxxx | q=3'bxxx |\n| 11 | 1'b1 | q=3'b011 | q=3'b011 | q=3'bxxx | q=3'bxxx |\n| 12 | 1'b1 | q=3'b011 | q=3'b011 | q=3'bxxx | q=3'bxxx |\n| 13 | 1'b1 | q=3'b011 | q=3'b011 | q=3'bxxx | q=3'bxxx |\n| 14 | 1'b0 | q=3'b011 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 15 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 16 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 17 | 1'b0 | q=3'b101 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 18 | 1'b1 | q=3'b110 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 19 | 1'b1 | q=3'b110 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 20 | 1'b1 | q=3'b110 | q=3'b110 | q=3'bxxx | q=3'bxxx |\n| 21 | 1'b0 | q=3'b110 | q=3'b000 | q=3'bxxx | q=3'bxxx |\n| 22 | 1'b1 | q=3'b000 | q=3'b000 | q=3'bxxx | q=3'bxxx |\n| 23 | 1'b0 | q=3'b000 | q=3'b001 | q=3'bxxx | q=3'bxxx |\n| 24 | 1'b0 | q=3'b001 | q=3'b010 | q=3'bxxx | q=3'bxxx |\n| 25 | 1'b0 | q=3'b010 | q=3'b011 | q=3'bxxx | q=3'bxxx |\n| 26 | 1'b1 | q=3'b011 | q=3'b011 | q=3'bxxx | q=3'bxxx |\n| 27 | 1'b0 | q=3'b011 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 28 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 29 | 1'b1 | q=3'b100 | q=3'b100 | q=3'bxxx | q=3'bxxx |\n| 30 | 1'b0 | q=3'b100 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n| 31 | 1'b1 | q=3'b101 | q=3'b101 | q=3'bxxx | q=3'bxxx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c7",
+    "c8"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "100",
+    "xxx"
+   ],
+   "cluster_option": {
+    "c2": "B",
+    "c0": "B",
+    "c7": "A",
+    "c8": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "xxx",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  a\n - output q (3 bits)\n\nThe module implements a sequential circuit. Read the simulation waveforms\nto determine what the circuit does, then implement it.\n\n  time  clk a   q\n  0ns   0   1   x\n  5ns   1   1   4\n  10ns  0   1   4\n  15ns  1   1   4\n  20ns  0   1   4\n  25ns  1   1   4\n  30ns  0   1   4\n  35ns  1   1   4\n  40ns  0   1   4\n  45ns  1   0   4\n  50ns  0   0   4\n  55ns  1   0   5\n  60ns  0   0   5\n  65ns  1   0   6\n  70ns  0   0   6\n  75ns  1   0   0\n  80ns  0   0   0\n  85ns  1   0   1\n  90ns  0   0   1\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | a | pre | post |\n|---|---|---|---|\n| 0 | 1'b0 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=3'b100\n- **B**: q=3'bxxx\n"
+  }
+ ]
+}

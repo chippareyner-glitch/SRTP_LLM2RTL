@@ -1,0 +1,76 @@
+{
+ "case": "Prob034_dff8",
+ "n_samples": 10,
+ "n_distinct": 3,
+ "n_compiling": 3,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "b81a28ee52c3",
+   "sources": [
+    "deepseek_full"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob034_dff8\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 41
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "96dcc63959e0",
+   "sources": [
+    "legacy_v2",
+    "direct_batch",
+    "tri0926:candidate_1_literal",
+    "tri0926:candidate_2_contract",
+    "tri0926:candidate_3_counterexample",
+    "tri0927:candidate_1_literal",
+    "tri0927:candidate_2_contract",
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob034_dff8\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 41
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "d4a91c7d9100",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob034_dff8\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 41
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1",
+    "c2"
+   ],
+   "votes": 10,
+   "correct": false,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 0
+}

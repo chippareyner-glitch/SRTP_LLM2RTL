@@ -1,0 +1,146 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in
+ - input  state (2 bits)
+ - output next_state (2 bits)
+ - output out
+
+The module should implement the following is the state transition table
+for a Moore state machine with one input, one output, and four states.
+Use the following state encoding: A=2'b00, B=2'b01, C=2'b10,
+D=2'b11.Implement only the state transition logic and output logic (the
+combinational logic portion) for this state machine. Given the current
+state (state), compute the next_state and output (out) based on the state
+transition table.
+
+  State | Next state in=0, Next state in=1 | Output
+  A     | A, B                             | 0
+  B     | C, B                             | 0
+  C     | A, D                             | 0
+  D     | C, B                             | 1
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a combinational Moore state machine implementation with:
+- **Inputs**: `in` (1-bit), `state` (2-bit current state)
+- **Outputs**: `next_state` (2-bit next state), `out` (1-bit Moore output)
+- **State Encoding**: A=00, B=01, C=10, D=11
+- **Function**: Pure combinational logic implementing state transitions and output generation
+- **Type**: Moore machine (output depends only on current state)
+
+## 2. Ambiguity Analysis
+
+**No significant ambiguities detected.** The specification is clear about:
+- State encoding mapping (explicit binary values provided)
+- Transition table format (well-structured with clear input conditions)
+- Output behavior (Moore-type, state-dependent)
+- Module interface (port names and sizes clearly defined)
+
+**Minor clarification point**: The table format "Next state in=0, Next state in=1" is unambiguous but could be misinterpreted. Confirmed interpretation: First column is next state when in=0, second when in=1.
+
+## 3. Missing Critical Details
+
+**Critical omissions identified:**
+
+1. **Reset/Initialization Strategy**: No specification for initial state behavior
+2. **Unspecified State Handling**: No guidance for invalid state inputs (e.g., state=2'bxx, 2'bzz)
+3. **Timing Requirements**: No setup/hold time constraints mentioned
+4. **Output Behavior for Invalid States**: Undefined what `out` should be for non-encoded states
+5. **Synthesis Directives**: No guidance on optimization constraints (area vs. speed)
+
+## 4. Edge Cases & Boundary Conditions
+
+**Edge cases requiring explicit handling:**
+
+1. **Invalid Current States**: What if `state` input is 2'b11 but not state D? (All states specified)
+2. **Metastable Inputs**: How to handle `state=2'bxx` or `2'bzz`?
+3. **Power-on State**: No initial state specified for first clock cycle
+4. **Input Glitches**: Specification assumes stable inputs during evaluation
+5. **Unreachable States**: From given transitions, all states are reachable
+
+**Note**: Since this is combinational logic only, no clock-related timing issues exist.
+
+## 5. Functional Correctness Prediction
+
+**High confidence in correctness** due to:
+- Complete state transition coverage (all 4 states × 2 input conditions)
+- Deterministic behavior (no ambiguous transitions)
+- Simple Moore output logic (direct state-to-output mapping)
+- Explicit state encoding removes interpretation ambiguity
+
+**Potential implementation risks:**
+- Invalid state handling could cause simulation/synthesis mismatch
+- No specification for what happens during simultaneous input changes
+
+## 6. Actionable Guidance for RTL Generation
+
+### Implementation Strategy:
+```systemverilog
+module TopModule (
+    input in,
+    input [1:0] state,
+    output logic [1:0] next_state,
+    output logic out
+);
+    // Use explicit state definitions for readability
+    localparam STATE_A = 2'b00;
+    localparam STATE_B = 2'b01;
+    localparam STATE_C = 2'b10;
+    localparam STATE_D = 2'b11;
+    
+    // State transition logic
+    always_comb begin
+        case (state)
+            STATE_A: next_state = in ? STATE_B : STATE_A;
+            STATE_B: next_state = in ? STATE_B : STATE_C;
+            STATE_C: next_state = in ? STATE_D : STATE_A;
+            STATE_D: next_state = in ? STATE_B : STATE_C;
+            default: next_state = STATE_A; // Safe default for invalid states
+        endcase
+    end
+    
+    // Moore output logic (state-dependent only)
+    always_comb begin
+        case (state)
+            STATE_D: out = 1'b1;
+            default: out = 1'b0; // STATES A, B, C
+        endcase
+    end
+endmodule
+```
+
+### Critical Implementation Notes:
+
+1. **Add `default` cases** for robustness against invalid state inputs
+2. **Use `always_comb`** for explicit combinational logic intent
+3. **Include `logic` data types** for SystemVerilog compliance
+4. **Consider adding assertions** for invalid state detection:
+   ```systemverilog
+   assert property (@(state) state inside {STATE_A, STATE_B, STATE_C, STATE_D})
+   else $error("Invalid state detected: %b", state);
+   ```
+
+### Verification Recommendations:
+- Create testbench covering all 8 transition cases (4 states × 2 inputs)
+- Add tests for invalid state inputs to verify default behavior
+- Verify output is purely combinatorial (no state history dependence)
+- Check that next_state updates immediately with input changes
+
+### Synthesis Considerations:
+- The logic should map efficiently to 4-input LUTs
+- No sequential elements required (combinational only)
+- Consider adding don't-care optimization hints if performance critical
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

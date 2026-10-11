@@ -1,0 +1,173 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  a
+ - output q
+
+This is a sequential circuit. Read the simulation waveforms to determine
+what the circuit does, then implement it.
+
+  time  clk a   q
+  0ns   0   x   x
+  5ns   1   0   x
+  10ns  0   0   x
+  15ns  1   0   1
+  20ns  0   0   1
+  25ns  1   0   1
+  30ns  0   0   1
+  35ns  1   1   1
+  40ns  0   1   1
+  45ns  1   1   0
+  50ns  0   1   0
+  55ns  1   1   0
+  60ns  0   1   0
+  65ns  1   1   0
+  70ns  0   1   0
+  75ns  1   1   0
+  80ns  0   1   0
+  85ns  1   1   0
+  90ns  0   1   0
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+**Module**: TopModule  
+**Type**: Sequential circuit (positive-edge triggered)  
+**Interface**:
+- `clk`: Clock input
+- `a`: 1-bit data input
+- `q`: 1-bit output
+
+**Key Observations from Waveform**:
+- Output `q` changes only on positive clock edges
+- `q` starts at unknown (x) and becomes 1 at 15ns (first posedge after reset-like behavior)
+- `q` toggles from 1 to 0 when `a=1` is detected for **two consecutive positive edges**
+- Once `q` becomes 0, it remains 0 regardless of `a` changes
+- Circuit appears to have a "latch" behavior where `q` can only transition from 1→0, not 0→1
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities Identified**:
+
+1. **Reset Behavior**: The waveform shows initial unknown (x) state, but no explicit reset signal. Real hardware requires deterministic initialization.
+
+2. **Initial State**: The transition from x→1 at 15ns suggests either:
+   - Implicit power-on reset to q=1
+   - First sample after initialization
+   - Missing reset specification
+
+3. **One-Way Transition**: The specification implies `q` can only go 1→0, but it's unclear if this is permanent or if there's a way to reset to 1.
+
+4. **Input Sampling**: While edge-triggered is specified, the exact relationship between `a` sampling and `q` update needs clarification.
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications**:
+
+1. **Reset Mechanism**: No reset port or reset behavior specification
+2. **Initial Power-on State**: What should `q` be after power-up?
+3. **State Recovery**: How to return to q=1 after it transitions to 0?
+4. **Input Timing Constraints**: Setup/hold times for input `a` relative to `clk`
+5. **Output Timing**: Propagation delay requirements for `q`
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle**:
+
+1. **Power-on Reset**: q initial value (should be 1 based on waveform)
+2. **Consecutive a=1 Patterns**: 
+   - a=1 for exactly 2 cycles → q toggles 1→0
+   - a=1 for >2 cycles → q remains 0
+   - a=1 for 1 cycle → no effect
+3. **Input Glitches**: a changing between clock edges
+4. **Clock Gating**: Behavior if clock stops
+5. **Metastability**: a changing near clock edge
+
+## 5. Functional Correctness Prediction
+
+**Predicted State Machine Behavior**:
+
+```
+States: q=1 (initial), q=0 (final)
+Transition Condition: q=1 → q=0 when (a=1 for 2 consecutive posedges)
+```
+
+**Expected Truth Table**:
+```
+Time  a@posedge  q_before  q_after  Notes
+t0    x          x         1        Initialization
+t1    0          1         1        No change
+t2    0          1         1        No change  
+t3    1          1         1        First a=1 detected
+t4    1          1         0        Second consecutive a=1 → toggle
+t5+   x          0         0        Permanent 0 state
+```
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy**:
+
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic a, 
+    output logic q
+);
+
+    // Add explicit reset for determinism
+    logic reset_n = 1'b0; // Would normally be a port
+    
+    // State machine with counter for a=1 detection
+    logic [1:0] a_detect;
+    logic q_next;
+    
+    always_ff @(posedge clk) begin
+        if (!reset_n) begin
+            q <= 1'b1;  // Initial state per waveform
+            a_detect <= 2'b00;
+        end else begin
+            // Shift register to detect 2 consecutive a=1
+            a_detect <= {a_detect[0], a};
+            
+            // State transition logic
+            if (q && (a_detect == 2'b11)) begin
+                q <= 1'b0;  // Transition 1→0 on two consecutive a=1
+            end
+            // q remains unchanged otherwise
+        end
+    end
+
+endmodule
+```
+
+**Verification Requirements**:
+1. Test power-on reset to q=1
+2. Test a=0 patterns (q should remain 1)
+3. Test single a=1 pulse (q should remain 1) 
+4. Test two consecutive a=1 (q should toggle 1→0)
+5. Test a=1 patterns after q=0 (q should remain 0)
+6. Test timing constraints with a changing near clock edges
+
+**Synthesis Considerations**:
+- Use synchronous reset for better timing
+- Ensure all state transitions are clock-gated
+- Add timing constraints for input `a`
+- Consider adding a proper reset port for real implementation
+
+This implementation captures the waveform behavior while adding necessary robustness for real hardware deployment.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

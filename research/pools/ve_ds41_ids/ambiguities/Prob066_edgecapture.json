@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "previous-input register update while reset is high",
+   "severity": "high",
+   "readings": [
+    "The previous-input register is held at its reset value while reset is high, so a 1->0 transition that spans reset is not detected.",
+    "The previous-input register continues to sample in on every rising edge even when reset is high, so a bit that is 1 during reset and 0 after reset sets out."
+   ]
+  },
+  {
+   "aspect": "reset value of the previous-input register",
+   "severity": "high",
+   "readings": [
+    "Reset forces the previous-input register to 0, so after reset the first 0 sample cannot set out.",
+    "Reset does not affect the previous-input register (or initializes it to 1/unknown), so a 0 after reset can set out immediately if the pre-reset or initial value was 1."
+   ]
+  },
+  {
+   "aspect": "priority between reset and falling-edge capture on the same rising edge",
+   "severity": "medium",
+   "readings": [
+    "Reset dominates: if reset=1, out clears to 0 and any simultaneous 1->0 transition is ignored.",
+    "Capture dominates: if a bit falls on the same edge that reset=1, out[bit] is set to 1 and remains 1 until a later reset."
+   ]
+  },
+  {
+   "aspect": "output latency from the sampled 0 to out=1",
+   "severity": "medium",
+   "readings": [
+    "out[bit] updates to 1 on the same rising edge that samples in[bit]=0 after it was previously 1; the new value is visible immediately after that edge.",
+    "out[bit] updates to 1 one rising edge later than the edge that samples the 0, as if the falling-edge detect is registered before setting out."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+ "case": "counter_12",
+ "category": "Control",
+ "top": "counter_12",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "counter_12"
+ ]
+}

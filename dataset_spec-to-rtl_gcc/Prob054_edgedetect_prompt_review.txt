@@ -1,0 +1,110 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  in    (8 bits)
+ - output pedge (8 bits)
+
+The module should examine each bit in an 8-bit vector and detect when the
+input signal changes from 0 in one clock cycle to 1 the next (similar to
+positive edge detection). The output bit should be set the cycle after a
+0 to 1 transition occurs.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` performs positive edge detection on an 8-bit input vector. For each bit position, it detects when the input transitions from 0 to 1 between consecutive clock cycles and outputs a pulse on the corresponding output bit in the cycle following the transition.
+
+**Key Requirements:**
+- Clock-synchronous operation (all registers triggered by `clk`)
+- 8-bit input `in` and 8-bit output `pedge`
+- Positive edge detection: `pedge[i] = 1` when `in[i]` was 0 at cycle N-1 and 1 at cycle N
+- Output appears one cycle after the transition detection
+
+## 2. Ambiguity Analysis
+
+**Clarification Needed:**
+- **Reset behavior**: The spec doesn't specify initial conditions or reset. Should the module have a reset input? What should `pedge` be after reset/power-on?
+- **Output persistence**: Is `pedge` a single-cycle pulse or does it remain high until cleared? (Implied to be single-cycle pulse based on "similar to positive edge detection")
+- **Input stability**: Are there timing constraints on when `in` can change relative to `clk`? (Standard practice: assume inputs meet setup/hold times)
+
+## 3. Missing Critical Details
+
+**Critical Omissions:**
+1. **Reset strategy**: No reset port specified, making initial state undefined
+2. **Timing parameters**: No clock frequency or timing constraints mentioned
+3. **Input validation**: No specification for handling metastability or asynchronous inputs
+4. **Output behavior for multiple transitions**: What happens if input toggles 0→1→0 rapidly?
+5. **Power-on initialization**: Behavior at startup is undefined
+
+## 4. Edge Cases & Boundary Conditions
+
+**Problematic Scenarios:**
+- **Simultaneous multi-bit transitions**: All 8 bits changing 0→1 simultaneously
+- **Rapid back-to-back transitions**: 0→1→0 in consecutive cycles
+- **Continuous high input**: Input stays at 1 for multiple cycles (should not generate continuous pulses)
+- **All zeros at startup**: Initial condition where previous state is unknown
+- **Metastable inputs**: When `in` changes near clock edge
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Issues:**
+- **False positives**: Without proper reset, garbage in previous state register may cause incorrect edge detection
+- **Missed edges**: If input changes too close to clock edge without synchronization
+- **Multi-cycle pulses**: Improper implementation might keep `pedge` high for multiple cycles
+- **Bit misalignment**: Each bit should be processed independently; crosstalk between bits would be incorrect
+
+## 6. Actionable Guidance for RTL Generation
+
+**Essential Implementation Requirements:**
+
+```systemverilog
+module TopModule (
+    input  logic        clk,
+    input  logic [7:0]  in,
+    output logic [7:0]  pedge
+);
+
+// Recommended implementation approach:
+// 1. Add synchronous reset for deterministic behavior
+// 2. Use 8-bit register to store previous input state
+// 3. Implement edge detection: pedge = in & ~in_prev
+
+logic [7:0] in_prev;
+
+always_ff @(posedge clk) begin
+    in_prev <= in;  // Store previous cycle's input
+    pedge <= in & ~in_prev;  // Positive edge detection
+end
+
+endmodule
+```
+
+**Critical Design Decisions:**
+1. **Add reset capability**: Include `input logic rst_n` and clear `in_prev` on reset
+2. **Input synchronization**: If `in` is asynchronous, add 2-stage synchronizers per bit
+3. **Timing constraints**: Add SDC constraints for clock and input delays
+4. **Verification strategy**: Create testbench to verify:
+   - Single-bit transitions
+   - Multi-bit simultaneous transitions  
+   - Reset behavior
+   - Continuous high/low inputs
+   - Rapid toggling scenarios
+
+**Synthesis Considerations:**
+- Each bit's detection logic should be independent
+- Register all outputs for better timing
+- Consider adding input delay constraints if external timing is critical
+- Ensure clock gating doesn't interfere with edge detection logic
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

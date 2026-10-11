@@ -1,0 +1,117 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in
+ - output out
+
+The module should behave like a wire.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Analysis Report: TopModule Specification
+
+### 1. Specification Summary
+- **Module Name**: TopModule
+- **Interface**: 
+  - Input: `in` (1-bit)
+  - Output: `out` (1-bit)
+- **Function**: Behaves like a wire (direct connection between input and output)
+- **Key Constraint**: All ports are 1-bit unless otherwise specified
+
+### 2. Ambiguity Analysis
+- **"Behaves like a wire"**: This is fundamentally ambiguous for hardware design:
+  - Does it imply zero-delay combinatorial logic?
+  - Should it include any timing constraints or propagation delay?
+  - Is there any clock domain consideration?
+  - Does "wire-like" imply no storage elements (flip-flops)?
+
+- **Port Direction Timing**: No specification of when outputs should be valid relative to inputs
+- **Synchronization**: No mention of clock or reset requirements
+
+### 3. Missing Critical Details
+- **Timing Requirements**:
+  - No clock signal specified
+  - No setup/hold time requirements
+  - No output delay constraints
+
+- **Reset Behavior**: Missing reset strategy (asynchronous/synchronous, active high/low)
+- **Power-On State**: Undefined initial state for output
+- **Timing Exceptions**: No specification for timing exceptions or false paths
+- **Load/Drive Characteristics**: Missing output drive strength and input load specifications
+
+### 4. Edge Cases & Boundary Conditions
+- **Power-Up Conditions**: Output state when power is applied
+- **Metastability**: No handling for potential metastability if used across clock domains
+- **Glitch Propagation**: Whether glitches on input should propagate to output
+- **High-Impedance Input**: Behavior when input is high-Z (if applicable)
+- **Multiple Driver Scenarios**: Not specified if this module can handle bus contention
+
+### 5. Functional Correctness Prediction
+- **High Risk**: The specification is too vague for reliable implementation
+- **Testability Issues**: Without timing constraints, verification is challenging
+- **Synthesis Uncertainty**: Different synthesis tools may interpret "wire-like" differently
+- **Integration Risk**: May cause timing violations when integrated with other modules
+
+### 6. Actionable Guidance for RTL Generation
+
+**Immediate Clarifications Needed**:
+```
+1. Is this combinatorial or sequential logic?
+2. Is there a clock? If yes, provide clock port and timing requirements
+3. Reset requirements? (type, polarity, behavior)
+4. Any timing constraints (max delay, min period)?
+```
+
+**Recommended Implementation Approaches**:
+
+**Option A: Pure Combinatorial (if truly wire-like)**
+```systemverilog
+module TopModule (
+    input  logic in,
+    output logic out
+);
+    assign out = in;
+endmodule
+```
+
+**Option B: Registered Output (if timing control needed)**
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic rst_n,
+    input  logic in,
+    output logic out
+);
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) out <= 1'b0;
+        else        out <= in;
+    end
+endmodule
+```
+
+**Critical Constraints to Add**:
+- Add `(* dont_touch = "true" *)` to prevent optimization if this is a critical path
+- Specify timing constraints in SDC file:
+  ```
+  set_max_delay 0.5 -from [get_ports in] -to [get_ports out]
+  ```
+- Add simulation assertions for verification
+
+**Verification Strategy**:
+- Create testbench with timing checks
+- Verify propagation delay meets requirements
+- Test reset functionality (if applicable)
+- Verify glitch handling behavior
+
+**Recommendation**: Request clarification on timing requirements before implementation to avoid potential integration issues.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

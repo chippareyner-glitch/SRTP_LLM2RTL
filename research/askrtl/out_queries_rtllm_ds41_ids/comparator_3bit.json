@@ -1,0 +1,135 @@
+{
+ "case": "comparator_3bit",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "A",
+    3
+   ],
+   [
+    "B",
+    3
+   ]
+  ],
+  "outputs": [
+   [
+    "A_greater",
+    1
+   ],
+   [
+    "A_equal",
+    1
+   ],
+   [
+    "A_less",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3"
+   ],
+   "votes": 8,
+   "correct": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 5,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "010",
+      "100",
+      "100",
+      "100",
+      "100"
+     ],
+     [
+      "010",
+      "100",
+      "100",
+      "100",
+      "001"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a 3-bit comparator for comparing binary numbers.\n\nModule name:  \n    comparator_3bit               \nInput ports:\n    A [2:0]: First 3-bit input operand (the first binary number to compare).\n    B [2:0]: Second 3-bit input operand (the second binary number to compare).\nOutput ports:\n    A_greater: 1-bit output indicating if A is greater than B.\n    A_equal: 1-bit output indicating if A is equal to B.\n    A_less: 1-bit output indicating if A is less than B.\n\nImplementation:\nComparison Logic: The module compares the two 3-bit binary numbers A and B using combinational logic.\n- The outputs A_greater, A_equal, and A_less are determined based on the comparison of A and B.\n- A_greater is set to 1 if A > B, A_equal is set to 1 if A == B, and A_less is set to 1 if A < B.\n\nOutput Encoding: The outputs are mutually exclusive, meaning only one of the three outputs will be high (1) at any given time, based on the comparison results.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | A | B | A out | B out |\n|---|---|---|---|---|\n| 0 | 3'b000 | 3'b000 | A_greater=1'b0, A_equal=1'b1, A_less=1'b0 | A_greater=1'b0, A_equal=1'b1, A_less=1'b0 |\n| 1 | 3'b001 | 3'b000 | A_greater=1'b1, A_equal=1'b0, A_less=1'b0 | A_greater=1'b1, A_equal=1'b0, A_less=1'b0 |\n| 2 | 3'b010 | 3'b000 | A_greater=1'b1, A_equal=1'b0, A_less=1'b0 | A_greater=1'b1, A_equal=1'b0, A_less=1'b0 |\n| 3 | 3'b011 | 3'b000 | A_greater=1'b1, A_equal=1'b0, A_less=1'b0 | A_greater=1'b1, A_equal=1'b0, A_less=1'b0 |\n| 4 | 3'b100 | 3'b000 | A_greater=1'b1, A_equal=1'b0, A_less=1'b0 | A_greater=1'b0, A_equal=1'b0, A_less=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     4,
+     0
+    ]
+   ],
+   "options": [
+    "100",
+    "001"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a 3-bit comparator for comparing binary numbers.\n\nModule name:  \n    comparator_3bit               \nInput ports:\n    A [2:0]: First 3-bit input operand (the first binary number to compare).\n    B [2:0]: Second 3-bit input operand (the second binary number to compare).\nOutput ports:\n    A_greater: 1-bit output indicating if A is greater than B.\n    A_equal: 1-bit output indicating if A is equal to B.\n    A_less: 1-bit output indicating if A is less than B.\n\nImplementation:\nComparison Logic: The module compares the two 3-bit binary numbers A and B using combinational logic.\n- The outputs A_greater, A_equal, and A_less are determined based on the comparison of A and B.\n- A_greater is set to 1 if A > B, A_equal is set to 1 if A == B, and A_less is set to 1 if A < B.\n\nOutput Encoding: The outputs are mutually exclusive, meaning only one of the three outputs will be high (1) at any given time, based on the comparison results.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | A | B | out |\n|---|---|---|---|\n| 0 | 3'b100 | 3'b000 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: A_greater=1'b1, A_equal=1'b0, A_less=1'b0\n- **B**: A_greater=1'b0, A_equal=1'b0, A_less=1'b1\n"
+  }
+ ]
+}

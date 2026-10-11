@@ -1,0 +1,40 @@
+{
+  "case_id": "Prob031_dff",
+  "rtl_file": "Prob031_dff_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob031_dff_prompt.txt",
+  "normalization_notes": [
+    "The prompt lists q as an input, but the stated D flip-flop behavior requires q to be an output. The contract records this correction explicitly."
+  ],
+  "ports": [
+    {"name": "clk", "direction": "input", "width": 1},
+    {"name": "d", "direction": "input", "width": 1},
+    {"name": "q", "direction": "output", "width": 1}
+  ],
+  "clock": {"name": "clk", "half_period": 5},
+  "initial": {"d": "1'b0"},
+  "tests": [
+    {
+      "id": "capture_zero",
+      "requirement": "q captures d on each positive clock edge",
+      "steps": [
+        {"set": {"d": "1'b0"}, "posedge": 1, "expect": {"q": "1'b0"}}
+      ]
+    },
+    {
+      "id": "capture_one",
+      "requirement": "q captures d on each positive clock edge",
+      "steps": [
+        {"set": {"d": "1'b1"}, "posedge": 1, "expect": {"q": "1'b1"}}
+      ]
+    },
+    {
+      "id": "hold_between_edges",
+      "requirement": "q changes only as a result of a positive clock edge",
+      "steps": [
+        {"set": {"d": "1'b0"}, "delay": 2, "expect": {"q": "1'b1"}},
+        {"posedge": 1, "expect": {"q": "1'b0"}}
+      ]
+    }
+  ]
+}

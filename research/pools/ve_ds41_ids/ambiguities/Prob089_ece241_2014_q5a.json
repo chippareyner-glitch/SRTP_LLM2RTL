@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output latency / Moore vs Mealy",
+   "severity": "high",
+   "readings": [
+    "z is registered (Moore): the output bit corresponding to x_i appears one clock cycle after x_i is sampled; an initial/reset output 0 is present before the first valid bit.",
+    "z is combinational (Mealy-like): the output bit corresponding to x_i appears in the same clock cycle as x_i, requiring z to depend on the current input x as well as the state."
+   ]
+  },
+  {
+   "aspect": "Reset timing/synchrony",
+   "severity": "high",
+   "readings": [
+    "areset is asynchronous and level-sensitive: asserting areset immediately forces state (and possibly z) to the reset value, regardless of clk.",
+    "areset is sampled on the positive edge of clk (synchronous): state/z change only at a clk rising edge while areset is asserted, so reset takes effect on the next clock edge."
+   ]
+  },
+  {
+   "aspect": "Output value during reset",
+   "severity": "medium",
+   "readings": [
+    "During areset assertion, z is forced to 0 (initial state output or reset value of an output register).",
+    "During areset assertion, z holds its previous value (conversion stopped/hold), and only the internal state is reset."
+   ]
+  },
+  {
+   "aspect": "Reset polarity",
+   "severity": "medium",
+   "readings": [
+    "areset is active high: reset is asserted when areset=1, and conversion begins when areset goes to 0.",
+    "areset is active low: reset is asserted when areset=0, and conversion begins when areset goes to 1."
+   ]
+  }
+ ]
+}

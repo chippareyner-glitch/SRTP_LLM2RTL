@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Neighbor index mapping (left/right orientation)",
+   "severity": "high",
+   "readings": [
+    "Left neighbor of cell i is q[i+1] and right neighbor is q[i-1], as stated in the table header 'Left[i+1] | Center[i] | Right[i-1]'.",
+    "Left neighbor is q[i-1] and right neighbor is q[i+1], following the usual convention and treating the table header as a typo."
+   ]
+  },
+  {
+   "aspect": "Initial state / reset value",
+   "severity": "medium",
+   "readings": [
+    "q is initialized to 0 (or some known value) at power-up before the first load.",
+    "q is uninitialized/undefined until the first load, leaving its output unspecified before load is asserted."
+   ]
+  }
+ ]
+}

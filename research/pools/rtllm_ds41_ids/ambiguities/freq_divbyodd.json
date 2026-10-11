@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "high-interval threshold for odd NUM_DIV",
+   "severity": "high",
+   "readings": [
+    "clk_div1/clk_div2 are high for cnt < NUM_DIV/2 (floor), e.g. NUM_DIV=5 high for counts 0 and 1 only",
+    "clk_div1/clk_div2 are high for cnt <= NUM_DIV/2 (ceil), e.g. NUM_DIV=5 high for counts 0, 1 and 2"
+   ]
+  },
+  {
+   "aspect": "clk_div output latency/type",
+   "severity": "high",
+   "readings": [
+    "clk_div is a combinational OR of the current clk_div1 and clk_div2, changing in the same cycle as those signals",
+    "clk_div is registered on clk (or otherwise delayed), so clk_div1|clk_div2 appears on clk_div one active edge later"
+   ]
+  },
+  {
+   "aspect": "reset assertion semantics",
+   "severity": "medium",
+   "readings": [
+    "rst_n low asynchronously forces and holds cnt1=cnt2=0 and clk_div1=clk_div2=1; clocked updates are blocked while rst_n is low",
+    "rst_n only asynchronously initializes the registers to those values, and normal clocked counting may continue while rst_n remains low"
+   ]
+  },
+  {
+   "aspect": "NUM_DIV=1 edge case",
+   "severity": "medium",
+   "readings": [
+    "With NUM_DIV=1, the truncated half is 0, so clk_div1 and clk_div2 are always low and clk_div is always low",
+    "With NUM_DIV=1, the wrap-to-0 high interval occurs every edge, so clk_div1 and clk_div2 are always high (or clk_div follows clk)"
+   ]
+  }
+ ]
+}

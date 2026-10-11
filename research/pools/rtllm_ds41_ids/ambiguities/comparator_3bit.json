@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "signed vs unsigned interpretation of A and B",
+   "severity": "high",
+   "readings": [
+    "Treat A and B as unsigned 3-bit values (000=0 .. 111=7); e.g. A=111, B=001 => A_greater=1",
+    "Treat A and B as two's-complement signed 3-bit values (100=-4 .. 011=3); e.g. A=111, B=001 => A_less=1"
+   ]
+  },
+  {
+   "aspect": "output latency / registered vs combinational",
+   "severity": "low",
+   "readings": [
+    "Outputs are purely combinational and reflect A/B in the same cycle",
+    "Outputs are registered (e.g. on a clock) and appear one cycle after A/B change; the spec names no clock, so this reading is unlikely but not excluded"
+   ]
+  },
+  {
+   "aspect": "behaviour for non-2-state input values",
+   "severity": "low",
+   "readings": [
+    "X/Z on any input propagates X to all three outputs (standard continuous-assignment semantics)",
+    "Undefined/never-occurring inputs may be optimised (e.g. don't-care) and outputs may resolve to 0 for those bits"
+   ]
+  },
+  {
+   "aspect": "bit significance ordering of the vector indices",
+   "severity": "low",
+   "readings": [
+    "A[2] and B[2] are the MSBs (standard descending-range convention)",
+    "Index ordering is unspecified; an implementer could treat A[0]/B[0] as the MSB"
+   ]
+  }
+ ]
+}

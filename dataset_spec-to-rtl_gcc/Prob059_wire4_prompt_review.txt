@@ -1,0 +1,109 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a
+ - input  b
+ - input  c
+ - output w
+ - output x
+ - output y
+ - output z
+
+The module should behave like wires that makes these connections:
+
+  a -> w
+  b -> x
+  b -> y
+  c -> z
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+The specification describes a simple wire connection module called `TopModule` with:
+- **Inputs**: 1-bit signals `a`, `b`, `c`
+- **Outputs**: 1-bit signals `w`, `x`, `y`, `z`
+- **Functionality**: Direct wire connections where:
+  - `a` connects to `w`
+  - `b` connects to `x` and `y` (fanout)
+  - `c` connects to `z`
+
+## 2. Ambiguity Analysis
+- **Timing ambiguity**: No specification of combinational vs registered behavior
+- **Reset behavior**: No reset strategy specified (asynchronous/synchronous, active-high/low)
+- **Propagation delay**: No timing constraints mentioned (zero-delay assumption)
+- **Input/output timing relationships**: No setup/hold requirements specified
+
+## 3. Missing Critical Details
+- **Clock signal**: No clock port specified, implying combinational logic
+- **Reset mechanism**: No reset input port or reset behavior defined
+- **Timing constraints**: No maximum propagation delay requirements
+- **Power-on behavior**: No specification of initial output states
+- **Load characteristics**: No fanout constraints for the `b` signal driving two outputs
+
+## 4. Edge Cases & Boundary Conditions
+- **Power-up state**: Output values when module first powers on
+- **Signal contention**: No risk since pure combinational connections
+- **Metastability**: Not applicable for this simple wire connection
+- **High-impedance states**: No tri-state behavior specified
+- **Simultaneous switching**: No special handling needed for input changes
+
+## 5. Functional Correctness Prediction
+- **High correctness likelihood**: Simple wire mapping is trivial to implement
+- **Simulation verification**: Can be fully verified with basic testbench
+- **Synthesis compatibility**: Will synthesize to direct routing with no logic gates
+- **Formal verification**: Can be proven equivalent to specification using formal methods
+
+## 6. Actionable Guidance for RTL Generation
+
+### Recommended Module Interface:
+```systemverilog
+module TopModule (
+    input  logic a,    // Input signal a
+    input  logic b,    // Input signal b (fans out to x and y)
+    input  logic c,    // Input signal c
+    output logic w,    // Output connected to a
+    output logic x,    // Output connected to b
+    output logic y,    // Output connected to b
+    output logic z     // Output connected to c
+);
+```
+
+### Implementation Strategy:
+```systemverilog
+// Pure combinational implementation
+assign w = a;
+assign x = b;
+assign y = b;
+assign z = c;
+```
+
+### Critical Design Decisions:
+1. **Combinational implementation** (no clock needed)
+2. **No reset required** for wire connections
+3. **Zero-delay model** unless timing constraints specified
+4. **Direct continuous assignments** for optimal synthesis
+
+### Verification Requirements:
+- Create testbench with all input combinations (2³ = 8 test cases)
+- Verify output relationships match specification
+- No need for timing checks beyond functional correctness
+- Consider adding assertion checks for formal verification
+
+### Synthesis Considerations:
+- Will generate minimal hardware (direct routing)
+- Fanout of signal `b` should be handled by synthesis tool
+- No sequential elements required
+- No area or power optimization needed for this simple function
+
+This specification represents a straightforward implementation that should have 100% functional correctness when implemented as described.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

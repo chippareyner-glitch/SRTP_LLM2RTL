@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "output latency (combinational vs registered)",
+   "severity": "medium",
+   "readings": [
+    "out is driven purely combinationally, so out reflects the reversed in in the same cycle (out[i] = in[99-i] continuously)",
+    "out is updated one cycle after in changes, i.e. the reversal is captured in a register and only visible on the next clock edge"
+   ]
+  }
+ ]
+}

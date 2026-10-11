@@ -1,0 +1,11 @@
+{
+ "case": "multi_booth_8bit",
+ "category": "Arithmetic",
+ "top": "multi_booth_8bit",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "multi_booth_8bit"
+ ]
+}

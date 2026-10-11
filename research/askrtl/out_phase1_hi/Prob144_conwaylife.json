@@ -1,0 +1,132 @@
+{
+ "case": "Prob144_conwaylife",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "load",
+    1
+   ],
+   [
+    "data",
+    256
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    256
+   ]
+  ]
+ },
+ "sims_failed": 1,
+ "clusters": [
+  [
+   "c2",
+   "c4",
+   "c5",
+   "c7",
+   "c9"
+  ],
+  [
+   "c0",
+   "c1",
+   "c3"
+  ],
+  [
+   "c8"
+  ]
+ ],
+ "ci_pairs": 8,
+ "ci_found": 8,
+ "ci_missed": [],
+ "off_pairs": 8,
+ "off_found": 8,
+ "extra_splits": 15,
+ "extra_x": 15,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform2",
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 2,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c2",
+    "c8"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     59201567822227962464907260346325059896365849361230024239926084201477828472766
+    ],
+    [
+     0,
+     59201567822227962464907260346325059896365849361230024239926084201477828472766
+    ]
+   ],
+   "ok": true,
+   "calls": 6,
+   "orig_len": 2,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c8"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 9
+}

@@ -1,0 +1,199 @@
+[
+ {
+  "case": "adder_bcd",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "ANY",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.85,
+  "spec_gap": "Inputs A=15 and B=11 are outside the specified BCD range 0-9; behavior for invalid BCD inputs is not defined."
+ },
+ {
+  "case": "alu",
+  "qi": 4,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.8,
+  "spec_gap": "The top-level description says flag is the comparison result, but the detailed implementation says flag=1 for SLT/SLTU regardless of result; I followed the detailed implementation."
+ },
+ {
+  "case": "div_16bit",
+  "qi": 5,
+  "kind": "mixed",
+  "answer": "API_ERROR",
+  "status": {
+   "A": "mixed",
+   "C": "pass",
+   "B": "pass"
+  },
+  "confidence": null,
+  "spec_gap": null
+ },
+ {
+  "case": "div_16bit",
+  "qi": 3,
+  "kind": "mixed",
+  "answer": "C",
+  "status": {
+   "B": "mixed",
+   "A": "pass",
+   "C": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "div_16bit",
+  "qi": 2,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "C": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.9,
+  "spec_gap": "Division by zero (B=0) is not explicitly defined in the spec. The standard restoring-division implementation with a 16-bit remainder register yields quotient=0xFFFF and remainder=0xC167."
+ },
+ {
+  "case": "LIFObuffer",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "B": "pass",
+   "A": "pass"
+  },
+  "confidence": 0.85,
+  "spec_gap": ""
+ },
+ {
+  "case": "multi_16bit",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "A",
+  "status": {
+   "B": "pass",
+   "A": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "parallel2serial",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "square_wave",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "ANY",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": "No reset or initial value is specified for wave_out/count, so the pre-cycle-0 output is unconstrained."
+ },
+ {
+  "case": "traffic_light",
+  "qi": 1,
+  "kind": "informative",
+  "answer": "A",
+  "status": {
+   "A": "pass",
+   "other": "fail",
+   "B": "fail"
+  },
+  "confidence": 1.0,
+  "spec_gap": ""
+ },
+ {
+  "case": "traffic_light",
+  "qi": 2,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "B": "mixed",
+   "A": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "traffic_light",
+  "qi": 0,
+  "kind": "mixed",
+  "answer": "A",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ },
+ {
+  "case": "fixed_point_adder",
+  "qi": 0,
+  "kind": "informative",
+  "answer": "B",
+  "status": {
+   "B": "fail",
+   "A": "pass",
+   "C": "fail"
+  },
+  "confidence": 0.85,
+  "spec_gap": "Spec describes sign-magnitude absolute-value arithmetic; if two's complement were intended, B would be correct."
+ },
+ {
+  "case": "fixed_point_adder",
+  "qi": 2,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 0.9,
+  "spec_gap": ""
+ },
+ {
+  "case": "fixed_point_adder",
+  "qi": 1,
+  "kind": "mixed",
+  "answer": "B",
+  "status": {
+   "A": "mixed",
+   "B": "fail"
+  },
+  "confidence": 0.75,
+  "spec_gap": "The spec's sign handling for different-sign operands is unusual/possibly incorrect for true sign-magnitude addition, but its literal rule says to set MSB=0 when a is the larger magnitude."
+ },
+ {
+  "case": "fixed_point_substractor",
+  "qi": 0,
+  "kind": "all-pass",
+  "answer": "B",
+  "status": {
+   "A": "pass",
+   "B": "pass"
+  },
+  "confidence": 0.95,
+  "spec_gap": ""
+ }
+]

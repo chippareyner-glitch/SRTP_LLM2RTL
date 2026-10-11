@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "y monitoring window start/end",
+   "severity": "high",
+   "readings": [
+    "The two-cycle window includes the first cycle in which g=1: the FSM checks y in cycles T and T+1, and if y is not 1 in either, g goes to 0 at the next edge (so g is 1 for exactly two cycles).",
+    "The two-cycle window starts after g first becomes 1: the FSM checks y in cycles T+1 and T+2, and if y is not 1 in either, g goes to 0 at the next edge (so g is 1 for three cycles)."
+   ]
+  },
+  {
+   "aspect": "x monitoring start relative to f cycle",
+   "severity": "high",
+   "readings": [
+    "The FSM ignores x during the single cycle when f=1; the 1,0,1 sequence detection begins on the clock cycle after f returns to 0.",
+    "The FSM monitors x during the f=1 cycle as well; an x=1 in that cycle can serve as the first 1 of the 1,0,1 sequence."
+   ]
+  },
+  {
+   "aspect": "reset assertion timing and output values during reset",
+   "severity": "medium",
+   "readings": [
+    "Reset is synchronous: state becomes A and f/g become 0 only at the next rising clock edge after resetn goes low; before that edge, state and outputs may still reflect the previous state.",
+    "Reset is effectively asynchronous: as soon as resetn goes low, the FSM is forced to state A and f/g become 0 immediately, independent of the clock edge."
+   ]
+  },
+  {
+   "aspect": "f assertion latency after reset deassertion",
+   "severity": "low",
+   "readings": [
+    "At the first rising clock edge after resetn goes high, the FSM transitions to the state where f=1, so f is 1 during the immediately following cycle.",
+    "The FSM remains in state A for the first rising edge after resetn goes high, and then sets f=1 one clock cycle later (f is 1 in the second cycle after resetn goes high)."
+   ]
+  }
+ ]
+}

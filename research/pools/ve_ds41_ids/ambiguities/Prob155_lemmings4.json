@@ -1,0 +1,30 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset type: asynchronous vs synchronous",
+   "severity": "high",
+   "readings": [
+    "Asynchronous reset: areset immediately forces the state to walk-left and updates outputs without waiting for a clock edge.",
+    "Synchronous reset: areset is sampled on the rising clock edge, so state and outputs update only at the next clock edge after areset=1."
+   ]
+  },
+  {
+   "aspect": "Splatter fall-duration threshold and cycle counting",
+   "severity": "high",
+   "readings": [
+    "Splatter occurs when the Lemming is in a fall state for 21 or more clock cycles before ground=1 (e.g., counter starts at 1 on entering fall, or condition is counter >= 20).",
+    "Splatter occurs only when the Lemming is in a fall state for 22 or more clock cycles before ground=1 (e.g., counter starts at 0 and condition is counter > 20).",
+    "The clock cycle in which ground=1 is sampled while still in a fall state counts toward the fall duration.",
+    "The clock cycle in which ground=1 is sampled does not count toward the fall duration."
+   ]
+  },
+  {
+   "aspect": "Moore output registration (combinational vs registered)",
+   "severity": "medium",
+   "readings": [
+    "Outputs are combinational functions of the current state, changing in the same cycle as the state register updates on the clock edge.",
+    "Outputs are registered, so they change one clock cycle after the state register updates."
+   ]
+  }
+ ]
+}

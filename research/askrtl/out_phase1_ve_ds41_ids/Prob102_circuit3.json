@@ -1,0 +1,83 @@
+{
+ "case": "Prob102_circuit3",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ],
+   [
+    "b",
+    1
+   ],
+   [
+    "c",
+    1
+   ],
+   [
+    "d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 3,
+ "ci_found": 3,
+ "ci_missed": [],
+ "off_pairs": 3,
+ "off_found": 3,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 5,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1,
+     0,
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 6,
+   "orig_len": 6,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 4
+}

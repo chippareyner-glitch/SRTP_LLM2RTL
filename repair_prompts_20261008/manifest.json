@@ -1,0 +1,210 @@
+[
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob034_dff8",
+    "category": "初态约定缺失",
+    "prompt": "deepseek_full_20260920__Prob034_dff8.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob034_dff8",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob053_m2014_q4d",
+    "category": "初态约定缺失",
+    "prompt": "deepseek_full_20260920__Prob053_m2014_q4d.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob053_m2014_q4d",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob062_bugs_mux2",
+    "category": "规格与基准冲突",
+    "prompt": "deepseek_full_20260920__Prob062_bugs_mux2.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob062_bugs_mux2",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob082_lfsr32",
+    "category": "测试超时待诊断",
+    "prompt": "deepseek_full_20260920__Prob082_lfsr32.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob082_lfsr32",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob089_ece241_2014_q5a",
+    "category": "API生成中断",
+    "prompt": "deepseek_full_20260920__Prob089_ece241_2014_q5a.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob089_ece241_2014_q5a",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob093_ece241_2014_q3",
+    "category": "规格与基准冲突",
+    "prompt": "deepseek_full_20260920__Prob093_ece241_2014_q3.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob093_ece241_2014_q3",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob098_circuit7",
+    "category": "时序延迟疑点",
+    "prompt": "deepseek_full_20260920__Prob098_circuit7.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob098_circuit7",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob099_m2014_q6c",
+    "category": "测试接口冲突",
+    "prompt": "deepseek_full_20260920__Prob099_m2014_q6c.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob099_m2014_q6c",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob104_mt2015_muxdff",
+    "category": "初态约定缺失",
+    "prompt": "deepseek_full_20260920__Prob104_mt2015_muxdff.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob104_mt2015_muxdff",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob107_fsm1s",
+    "category": "枚举类型编译错误",
+    "prompt": "deepseek_full_20260920__Prob107_fsm1s.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob107_fsm1s",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob117_circuit9",
+    "category": "多余历史输入状态",
+    "prompt": "deepseek_full_20260920__Prob117_circuit9.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob117_circuit9",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob119_fsm3",
+    "category": "枚举类型编译错误",
+    "prompt": "deepseek_full_20260920__Prob119_fsm3.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob119_fsm3",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob127_lemmings1",
+    "category": "枚举类型编译错误",
+    "prompt": "deepseek_full_20260920__Prob127_lemmings1.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob127_lemmings1",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob133_2014_q3fsm",
+    "category": "API生成中断",
+    "prompt": "deepseek_full_20260920__Prob133_2014_q3fsm.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob133_2014_q3fsm",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob136_m2014_q6",
+    "category": "枚举类型编译错误",
+    "prompt": "deepseek_full_20260920__Prob136_m2014_q6.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob136_m2014_q6",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob137_fsm_serial",
+    "category": "完成信号提前及组合依赖",
+    "prompt": "deepseek_full_20260920__Prob137_fsm_serial.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob137_fsm_serial",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob138_2012_q2fsm",
+    "category": "枚举类型编译错误",
+    "prompt": "deepseek_full_20260920__Prob138_2012_q2fsm.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob138_2012_q2fsm",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob139_2013_q2bfsm",
+    "category": "API生成中断",
+    "prompt": "deepseek_full_20260920__Prob139_2013_q2bfsm.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob139_2013_q2bfsm",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob140_fsm_hdlc",
+    "category": "API连接中断",
+    "prompt": "deepseek_full_20260920__Prob140_fsm_hdlc.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob140_fsm_hdlc",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob141_count_clock",
+    "category": "测试超时待诊断",
+    "prompt": "deepseek_full_20260920__Prob141_count_clock.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob141_count_clock",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob146_fsm_serialdata",
+    "category": "枚举类型编译错误",
+    "prompt": "deepseek_full_20260920__Prob146_fsm_serialdata.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob146_fsm_serialdata",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob149_ece241_2013_q4",
+    "category": "规格与基准冲突",
+    "prompt": "deepseek_full_20260920__Prob149_ece241_2013_q4.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob149_ece241_2013_q4",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob153_gshare",
+    "category": "复位约定缺失",
+    "prompt": "deepseek_full_20260920__Prob153_gshare.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob153_gshare",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob155_lemmings4",
+    "category": "枚举编译及边界检查",
+    "prompt": "deepseek_full_20260920__Prob155_lemmings4.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob155_lemmings4",
+    "verified_repair": false
+  },
+  {
+    "batch": "deepseek_full_20260920",
+    "case_id": "Prob156_review2015_fancytimer",
+    "category": "API生成中断",
+    "prompt": "deepseek_full_20260920__Prob156_review2015_fancytimer.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\Prob156_review2015_fancytimer",
+    "verified_repair": false
+  },
+  {
+    "batch": "legacy_v2_20260922_103933_419294",
+    "case_id": "Prob154_fsm_ps2data",
+    "category": "功能错位且Reviewer中断",
+    "prompt": "legacy_v2_20260922_103933_419294__Prob154_fsm_ps2data.md",
+    "source": "C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260922_103933_419294\\Prob154_fsm_ps2data",
+    "verified_repair": false
+  }
+]

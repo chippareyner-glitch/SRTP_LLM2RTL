@@ -1,0 +1,60 @@
+{
+ "case": "Prob151_review2015_fsm",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "data",
+    1
+   ],
+   [
+    "done_counting",
+    1
+   ],
+   [
+    "ack",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "shift_ena",
+    1
+   ],
+   [
+    "counting",
+    1
+   ],
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c2"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 1,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 2
+}

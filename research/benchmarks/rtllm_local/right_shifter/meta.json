@@ -1,0 +1,11 @@
+{
+ "case": "right_shifter",
+ "category": "Memory",
+ "top": "right_shifter",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "right_shifter"
+ ]
+}

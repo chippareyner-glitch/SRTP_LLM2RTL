@@ -1,0 +1,799 @@
+{
+ "case": "div_16bit",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "A",
+    16
+   ],
+   [
+    "B",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "result",
+    16
+   ],
+   [
+    "odd",
+    16
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1"
+   ],
+   "votes": 2,
+   "correct": [
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c2",
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 24,
+    "first_cycle": 183,
+    "stim": [
+     [
+      25429,
+      191
+     ],
+     [
+      27159,
+      212
+     ],
+     [
+      42652,
+      20
+     ],
+     [
+      99,
+      152
+     ],
+     [
+      12603,
+      178
+     ],
+     [
+      21915,
+      40
+     ],
+     [
+      15690,
+      57
+     ],
+     [
+      41772,
+      114
+     ],
+     [
+      24815,
+      181
+     ],
+     [
+      57371,
+      172
+     ],
+     [
+      37234,
+      223
+     ],
+     [
+      27158,
+      8
+     ],
+     [
+      26362,
+      223
+     ],
+     [
+      45995,
+      145
+     ],
+     [
+      27408,
+      197
+     ],
+     [
+      43397,
+      181
+     ],
+     [
+      3065,
+      42
+     ],
+     [
+      29186,
+      16
+     ],
+     [
+      16988,
+      179
+     ],
+     [
+      10334,
+      114
+     ],
+     [
+      34575,
+      226
+     ],
+     [
+      31933,
+      232
+     ],
+     [
+      36792,
+      154
+     ],
+     [
+      49511,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00000000100001010000000000011010",
+      "00000000100000000000000000010111",
+      "00001000010101000000000000001100",
+      "00000000000000000000000001100011",
+      "00000000010001100000000010001111",
+      "00000010001000110000000000100011",
+      "00000001000100110000000000001111",
+      "00000001011011100000000000110000",
+      "00000000100010010000000000010010",
+      "00000001010011010000000001011111",
+      "00000000101001100000000011011000",
+      "00001101010000100000000000000110",
+      "00000000011101100000000000110000",
+      "00000001001111010000000000011110",
+      "00000000100010110000000000011001",
+      "00000000111011110000000010001010",
+      "00000000010010000000000000101001",
+      "00000111001000000000000000000010",
+      "00000000010111100000000010100010",
+      "00000000010110100000000001001010",
+      "00000000100110000000000011011111",
+      "00000000100010010000000010010101",
+      "00000000111011100000000010001100",
+      "11111111111111111100000101100111"
+     ],
+     [
+      "00000000100001010000000000011010",
+      "00000000100000000000000000010111",
+      "00001000010101000000000000001100",
+      "00000000000000000000000001100011",
+      "00000000010001100000000010001111",
+      "00000010001000110000000000100011",
+      "00000001000100110000000000001111",
+      "00000001011011100000000000110000",
+      "00000000100010010000000000010010",
+      "00000001010011010000000001011111",
+      "00000000101001100000000011011000",
+      "00001101010000100000000000000110",
+      "00000000011101100000000000110000",
+      "00000001001111010000000000011110",
+      "00000000100010110000000000011001",
+      "00000000111011110000000010001010",
+      "00000000010010000000000000101001",
+      "00000111001000000000000000000010",
+      "00000000010111100000000010100010",
+      "00000000010110100000000001001010",
+      "00000000100110000000000011011111",
+      "00000000100010010000000010010101",
+      "00000000111011100000000010001100",
+      "11111111111111110000000011111111"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | A | B | A out | B out |\n|---|---|---|---|---|\n| 0 | 16'h6355 | 8'hbf | result=16'h0085, odd=16'h001a | result=16'h0085, odd=16'h001a |\n| 1 | 16'h6a17 | 8'hd4 | result=16'h0080, odd=16'h0017 | result=16'h0080, odd=16'h0017 |\n| 2 | 16'ha69c | 8'h14 | result=16'h0854, odd=16'h000c | result=16'h0854, odd=16'h000c |\n| 3 | 16'h0063 | 8'h98 | result=16'h0000, odd=16'h0063 | result=16'h0000, odd=16'h0063 |\n| 4 | 16'h313b | 8'hb2 | result=16'h0046, odd=16'h008f | result=16'h0046, odd=16'h008f |\n| 5 | 16'h559b | 8'h28 | result=16'h0223, odd=16'h0023 | result=16'h0223, odd=16'h0023 |\n| 6 | 16'h3d4a | 8'h39 | result=16'h0113, odd=16'h000f | result=16'h0113, odd=16'h000f |\n| 7 | 16'ha32c | 8'h72 | result=16'h016e, odd=16'h0030 | result=16'h016e, odd=16'h0030 |\n| 8 | 16'h60ef | 8'hb5 | result=16'h0089, odd=16'h0012 | result=16'h0089, odd=16'h0012 |\n| 9 | 16'he01b | 8'hac | result=16'h014d, odd=16'h005f | result=16'h014d, odd=16'h005f |\n| 10 | 16'h9172 | 8'hdf | result=16'h00a6, odd=16'h00d8 | result=16'h00a6, odd=16'h00d8 |\n| 11 | 16'h6a16 | 8'h08 | result=16'h0d42, odd=16'h0006 | result=16'h0d42, odd=16'h0006 |\n| 12 | 16'h66fa | 8'hdf | result=16'h0076, odd=16'h0030 | result=16'h0076, odd=16'h0030 |\n| 13 | 16'hb3ab | 8'h91 | result=16'h013d, odd=16'h001e | result=16'h013d, odd=16'h001e |\n| 14 | 16'h6b10 | 8'hc5 | result=16'h008b, odd=16'h0019 | result=16'h008b, odd=16'h0019 |\n| 15 | 16'ha985 | 8'hb5 | result=16'h00ef, odd=16'h008a | result=16'h00ef, odd=16'h008a |\n| 16 | 16'h0bf9 | 8'h2a | result=16'h0048, odd=16'h0029 | result=16'h0048, odd=16'h0029 |\n| 17 | 16'h7202 | 8'h10 | result=16'h0720, odd=16'h0002 | result=16'h0720, odd=16'h0002 |\n| 18 | 16'h425c | 8'hb3 | result=16'h005e, odd=16'h00a2 | result=16'h005e, odd=16'h00a2 |\n| 19 | 16'h285e | 8'h72 | result=16'h005a, odd=16'h004a | result=16'h005a, odd=16'h004a |\n| 20 | 16'h870f | 8'he2 | result=16'h0098, odd=16'h00df | result=16'h0098, odd=16'h00df |\n| 21 | 16'h7cbd | 8'he8 | result=16'h0089, odd=16'h0095 | result=16'h0089, odd=16'h0095 |\n| 22 | 16'h8fb8 | 8'h9a | result=16'h00ee, odd=16'h008c | result=16'h00ee, odd=16'h008c |\n| 23 | 16'hc167 | 8'h00 | result=16'hffff, odd=16'hc167 | result=16'hffff, odd=16'h00ff |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "11111111111111110000000000000000",
+    "11111111111111110000000011111111"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c2": "B",
+    "c3": "A",
+    "c4": "A"
+   },
+   "label": "A",
+   "ref_value": "11111111111111110000000000000000",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | A | B | out |\n|---|---|---|---|\n| 0 | 16'h0000 | 8'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: result=16'hffff, odd=16'h0000\n- **B**: result=16'hffff, odd=16'h00ff\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      55340,
+      98
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00000010001101000000000001000100"
+     ],
+     [
+      "00000000000000100001010000101100"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | A | B | A out | B out |\n|---|---|---|---|---|\n| 0 | 16'hd82c | 8'h62 | result=16'h0234, odd=16'h0044 | result=16'h0002, odd=16'h142c |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     55340,
+     98
+    ]
+   ],
+   "options": [
+    "00000010001101000000000001000100",
+    "00000000000000100001010000101100"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c2": "A",
+    "c3": "B",
+    "c4": "A"
+   },
+   "label": "A",
+   "ref_value": "00000010001101000000000001000100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | A | B | out |\n|---|---|---|---|\n| 0 | 16'hd82c | 8'h62 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: result=16'h0234, odd=16'h0044\n- **B**: result=16'h0002, odd=16'h142c\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 24,
+    "first_cycle": 183,
+    "stim": [
+     [
+      25429,
+      191
+     ],
+     [
+      27159,
+      212
+     ],
+     [
+      42652,
+      20
+     ],
+     [
+      99,
+      152
+     ],
+     [
+      12603,
+      178
+     ],
+     [
+      21915,
+      40
+     ],
+     [
+      15690,
+      57
+     ],
+     [
+      41772,
+      114
+     ],
+     [
+      24815,
+      181
+     ],
+     [
+      57371,
+      172
+     ],
+     [
+      37234,
+      223
+     ],
+     [
+      27158,
+      8
+     ],
+     [
+      26362,
+      223
+     ],
+     [
+      45995,
+      145
+     ],
+     [
+      27408,
+      197
+     ],
+     [
+      43397,
+      181
+     ],
+     [
+      3065,
+      42
+     ],
+     [
+      29186,
+      16
+     ],
+     [
+      16988,
+      179
+     ],
+     [
+      10334,
+      114
+     ],
+     [
+      34575,
+      226
+     ],
+     [
+      31933,
+      232
+     ],
+     [
+      36792,
+      154
+     ],
+     [
+      49511,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00000000100001010000000000011010",
+      "00000000100000000000000000010111",
+      "00001000010101000000000000001100",
+      "00000000000000000000000001100011",
+      "00000000010001100000000010001111",
+      "00000010001000110000000000100011",
+      "00000001000100110000000000001111",
+      "00000001011011100000000000110000",
+      "00000000100010010000000000010010",
+      "00000001010011010000000001011111",
+      "00000000101001100000000011011000",
+      "00001101010000100000000000000110",
+      "00000000011101100000000000110000",
+      "00000001001111010000000000011110",
+      "00000000100010110000000000011001",
+      "00000000111011110000000010001010",
+      "00000000010010000000000000101001",
+      "00000111001000000000000000000010",
+      "00000000010111100000000010100010",
+      "00000000010110100000000001001010",
+      "00000000100110000000000011011111",
+      "00000000100010010000000010010101",
+      "00000000111011100000000010001100",
+      "11111111111111111100000101100111"
+     ],
+     [
+      "00000000100001010000000000011010",
+      "00000000100000000000000000010111",
+      "00001000010101000000000000001100",
+      "00000000000000000000000001100011",
+      "00000000010001100000000010001111",
+      "00000010001000110000000000100011",
+      "00000001000100110000000000001111",
+      "00000001011011100000000000110000",
+      "00000000100010010000000000010010",
+      "00000001010011010000000001011111",
+      "00000000101001100000000011011000",
+      "00001101010000100000000000000110",
+      "00000000011101100000000000110000",
+      "00000001001111010000000000011110",
+      "00000000100010110000000000011001",
+      "00000000111011110000000010001010",
+      "00000000010010000000000000101001",
+      "00000111001000000000000000000010",
+      "00000000010111100000000010100010",
+      "00000000010110100000000001001010",
+      "00000000100110000000000011011111",
+      "00000000100010010000000010010101",
+      "00000000111011100000000010001100",
+      "11111111111111110000000101100111"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | A | B | A out | B out |\n|---|---|---|---|---|\n| 0 | 16'h6355 | 8'hbf | result=16'h0085, odd=16'h001a | result=16'h0085, odd=16'h001a |\n| 1 | 16'h6a17 | 8'hd4 | result=16'h0080, odd=16'h0017 | result=16'h0080, odd=16'h0017 |\n| 2 | 16'ha69c | 8'h14 | result=16'h0854, odd=16'h000c | result=16'h0854, odd=16'h000c |\n| 3 | 16'h0063 | 8'h98 | result=16'h0000, odd=16'h0063 | result=16'h0000, odd=16'h0063 |\n| 4 | 16'h313b | 8'hb2 | result=16'h0046, odd=16'h008f | result=16'h0046, odd=16'h008f |\n| 5 | 16'h559b | 8'h28 | result=16'h0223, odd=16'h0023 | result=16'h0223, odd=16'h0023 |\n| 6 | 16'h3d4a | 8'h39 | result=16'h0113, odd=16'h000f | result=16'h0113, odd=16'h000f |\n| 7 | 16'ha32c | 8'h72 | result=16'h016e, odd=16'h0030 | result=16'h016e, odd=16'h0030 |\n| 8 | 16'h60ef | 8'hb5 | result=16'h0089, odd=16'h0012 | result=16'h0089, odd=16'h0012 |\n| 9 | 16'he01b | 8'hac | result=16'h014d, odd=16'h005f | result=16'h014d, odd=16'h005f |\n| 10 | 16'h9172 | 8'hdf | result=16'h00a6, odd=16'h00d8 | result=16'h00a6, odd=16'h00d8 |\n| 11 | 16'h6a16 | 8'h08 | result=16'h0d42, odd=16'h0006 | result=16'h0d42, odd=16'h0006 |\n| 12 | 16'h66fa | 8'hdf | result=16'h0076, odd=16'h0030 | result=16'h0076, odd=16'h0030 |\n| 13 | 16'hb3ab | 8'h91 | result=16'h013d, odd=16'h001e | result=16'h013d, odd=16'h001e |\n| 14 | 16'h6b10 | 8'hc5 | result=16'h008b, odd=16'h0019 | result=16'h008b, odd=16'h0019 |\n| 15 | 16'ha985 | 8'hb5 | result=16'h00ef, odd=16'h008a | result=16'h00ef, odd=16'h008a |\n| 16 | 16'h0bf9 | 8'h2a | result=16'h0048, odd=16'h0029 | result=16'h0048, odd=16'h0029 |\n| 17 | 16'h7202 | 8'h10 | result=16'h0720, odd=16'h0002 | result=16'h0720, odd=16'h0002 |\n| 18 | 16'h425c | 8'hb3 | result=16'h005e, odd=16'h00a2 | result=16'h005e, odd=16'h00a2 |\n| 19 | 16'h285e | 8'h72 | result=16'h005a, odd=16'h004a | result=16'h005a, odd=16'h004a |\n| 20 | 16'h870f | 8'he2 | result=16'h0098, odd=16'h00df | result=16'h0098, odd=16'h00df |\n| 21 | 16'h7cbd | 8'he8 | result=16'h0089, odd=16'h0095 | result=16'h0089, odd=16'h0095 |\n| 22 | 16'h8fb8 | 8'h9a | result=16'h00ee, odd=16'h008c | result=16'h00ee, odd=16'h008c |\n| 23 | 16'hc167 | 8'h00 | result=16'hffff, odd=16'hc167 | result=16'hffff, odd=16'h0167 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     49511,
+     0
+    ]
+   ],
+   "options": [
+    "11111111111111111100000101100111",
+    "11111111111111110000000101100111",
+    "11111111111111110000000011111111"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c2": "C",
+    "c3": "A",
+    "c4": "B"
+   },
+   "label": "A",
+   "ref_value": "11111111111111111100000101100111",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | A | B | out |\n|---|---|---|---|\n| 0 | 16'hc167 | 8'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: result=16'hffff, odd=16'hc167\n- **B**: result=16'hffff, odd=16'h0167\n- **C**: result=16'hffff, odd=16'h00ff\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      55340,
+      98
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00000010001101000000000001000100"
+     ],
+     [
+      "00000000000000100001010000101100"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | A | B | A out | B out |\n|---|---|---|---|---|\n| 0 | 16'hd82c | 8'h62 | result=16'h0234, odd=16'h0044 | result=16'h0002, odd=16'h142c |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     55340,
+     0
+    ]
+   ],
+   "options": [
+    "11111111111111110000000011111111",
+    "11111111111111111101100000101100",
+    "11111111111111110000000000101100"
+   ],
+   "cluster_option": {
+    "c0": "B",
+    "c2": "A",
+    "c3": "B",
+    "c4": "C"
+   },
+   "label": "B",
+   "ref_value": "11111111111111111101100000101100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | A | B | out |\n|---|---|---|---|\n| 0 | 16'hd82c | 8'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: result=16'hffff, odd=16'h00ff\n- **B**: result=16'hffff, odd=16'hd82c\n- **C**: result=16'hffff, odd=16'h002c\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 24,
+    "first_cycle": 183,
+    "stim": [
+     [
+      25429,
+      191
+     ],
+     [
+      27159,
+      212
+     ],
+     [
+      42652,
+      20
+     ],
+     [
+      99,
+      152
+     ],
+     [
+      12603,
+      178
+     ],
+     [
+      21915,
+      40
+     ],
+     [
+      15690,
+      57
+     ],
+     [
+      41772,
+      114
+     ],
+     [
+      24815,
+      181
+     ],
+     [
+      57371,
+      172
+     ],
+     [
+      37234,
+      223
+     ],
+     [
+      27158,
+      8
+     ],
+     [
+      26362,
+      223
+     ],
+     [
+      45995,
+      145
+     ],
+     [
+      27408,
+      197
+     ],
+     [
+      43397,
+      181
+     ],
+     [
+      3065,
+      42
+     ],
+     [
+      29186,
+      16
+     ],
+     [
+      16988,
+      179
+     ],
+     [
+      10334,
+      114
+     ],
+     [
+      34575,
+      226
+     ],
+     [
+      31933,
+      232
+     ],
+     [
+      36792,
+      154
+     ],
+     [
+      49511,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00000000100001010000000000011010",
+      "00000000100000000000000000010111",
+      "00001000010101000000000000001100",
+      "00000000000000000000000001100011",
+      "00000000010001100000000010001111",
+      "00000010001000110000000000100011",
+      "00000001000100110000000000001111",
+      "00000001011011100000000000110000",
+      "00000000100010010000000000010010",
+      "00000001010011010000000001011111",
+      "00000000101001100000000011011000",
+      "00001101010000100000000000000110",
+      "00000000011101100000000000110000",
+      "00000001001111010000000000011110",
+      "00000000100010110000000000011001",
+      "00000000111011110000000010001010",
+      "00000000010010000000000000101001",
+      "00000111001000000000000000000010",
+      "00000000010111100000000010100010",
+      "00000000010110100000000001001010",
+      "00000000100110000000000011011111",
+      "00000000100010010000000010010101",
+      "00000000111011100000000010001100",
+      "11111111111111110000000011111111"
+     ],
+     [
+      "00000000100001010000000000011010",
+      "00000000100000000000000000010111",
+      "00001000010101000000000000001100",
+      "00000000000000000000000001100011",
+      "00000000010001100000000010001111",
+      "00000010001000110000000000100011",
+      "00000001000100110000000000001111",
+      "00000001011011100000000000110000",
+      "00000000100010010000000000010010",
+      "00000001010011010000000001011111",
+      "00000000101001100000000011011000",
+      "00001101010000100000000000000110",
+      "00000000011101100000000000110000",
+      "00000001001111010000000000011110",
+      "00000000100010110000000000011001",
+      "00000000111011110000000010001010",
+      "00000000010010000000000000101001",
+      "00000111001000000000000000000010",
+      "00000000010111100000000010100010",
+      "00000000010110100000000001001010",
+      "00000000100110000000000011011111",
+      "00000000100010010000000010010101",
+      "00000000111011100000000010001100",
+      "11111111111111110000000101100111"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | A | B | A out | B out |\n|---|---|---|---|---|\n| 0 | 16'h6355 | 8'hbf | result=16'h0085, odd=16'h001a | result=16'h0085, odd=16'h001a |\n| 1 | 16'h6a17 | 8'hd4 | result=16'h0080, odd=16'h0017 | result=16'h0080, odd=16'h0017 |\n| 2 | 16'ha69c | 8'h14 | result=16'h0854, odd=16'h000c | result=16'h0854, odd=16'h000c |\n| 3 | 16'h0063 | 8'h98 | result=16'h0000, odd=16'h0063 | result=16'h0000, odd=16'h0063 |\n| 4 | 16'h313b | 8'hb2 | result=16'h0046, odd=16'h008f | result=16'h0046, odd=16'h008f |\n| 5 | 16'h559b | 8'h28 | result=16'h0223, odd=16'h0023 | result=16'h0223, odd=16'h0023 |\n| 6 | 16'h3d4a | 8'h39 | result=16'h0113, odd=16'h000f | result=16'h0113, odd=16'h000f |\n| 7 | 16'ha32c | 8'h72 | result=16'h016e, odd=16'h0030 | result=16'h016e, odd=16'h0030 |\n| 8 | 16'h60ef | 8'hb5 | result=16'h0089, odd=16'h0012 | result=16'h0089, odd=16'h0012 |\n| 9 | 16'he01b | 8'hac | result=16'h014d, odd=16'h005f | result=16'h014d, odd=16'h005f |\n| 10 | 16'h9172 | 8'hdf | result=16'h00a6, odd=16'h00d8 | result=16'h00a6, odd=16'h00d8 |\n| 11 | 16'h6a16 | 8'h08 | result=16'h0d42, odd=16'h0006 | result=16'h0d42, odd=16'h0006 |\n| 12 | 16'h66fa | 8'hdf | result=16'h0076, odd=16'h0030 | result=16'h0076, odd=16'h0030 |\n| 13 | 16'hb3ab | 8'h91 | result=16'h013d, odd=16'h001e | result=16'h013d, odd=16'h001e |\n| 14 | 16'h6b10 | 8'hc5 | result=16'h008b, odd=16'h0019 | result=16'h008b, odd=16'h0019 |\n| 15 | 16'ha985 | 8'hb5 | result=16'h00ef, odd=16'h008a | result=16'h00ef, odd=16'h008a |\n| 16 | 16'h0bf9 | 8'h2a | result=16'h0048, odd=16'h0029 | result=16'h0048, odd=16'h0029 |\n| 17 | 16'h7202 | 8'h10 | result=16'h0720, odd=16'h0002 | result=16'h0720, odd=16'h0002 |\n| 18 | 16'h425c | 8'hb3 | result=16'h005e, odd=16'h00a2 | result=16'h005e, odd=16'h00a2 |\n| 19 | 16'h285e | 8'h72 | result=16'h005a, odd=16'h004a | result=16'h005a, odd=16'h004a |\n| 20 | 16'h870f | 8'he2 | result=16'h0098, odd=16'h00df | result=16'h0098, odd=16'h00df |\n| 21 | 16'h7cbd | 8'he8 | result=16'h0089, odd=16'h0095 | result=16'h0089, odd=16'h0095 |\n| 22 | 16'h8fb8 | 8'h9a | result=16'h00ee, odd=16'h008c | result=16'h00ee, odd=16'h008c |\n| 23 | 16'hc167 | 8'h00 | result=16'hffff, odd=16'h00ff | result=16'hffff, odd=16'h0167 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "11111111111111110000000011111111",
+    "11111111111111110000000000000000"
+   ],
+   "cluster_option": {
+    "c0": "B",
+    "c2": "A",
+    "c3": "B",
+    "c4": "B"
+   },
+   "label": "B",
+   "ref_value": "11111111111111110000000000000000",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | A | B | out |\n|---|---|---|---|\n| 0 | 16'h0000 | 8'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: result=16'hffff, odd=16'h00ff\n- **B**: result=16'hffff, odd=16'h0000\n"
+  },
+  {
+   "long": {
+    "label": "B",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      55340,
+      98
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00000000000000100001010000101100"
+     ],
+     [
+      "00000010001101000000000001000100"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | A | B | A out | B out |\n|---|---|---|---|---|\n| 0 | 16'hd82c | 8'h62 | result=16'h0002, odd=16'h142c | result=16'h0234, odd=16'h0044 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c3",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     55340,
+     0
+    ]
+   ],
+   "options": [
+    "11111111111111111101100000101100",
+    "11111111111111110000000000101100",
+    "11111111111111110000000011111111"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c2": "C",
+    "c3": "A",
+    "c4": "B"
+   },
+   "label": "A",
+   "ref_value": "11111111111111111101100000101100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a 16-bit divider module, the dividend is 16-bit and the divider is 8-bit in combinational logic. Extract the higher bits of the dividend, matching the bit width of the divisor. Compare these bits with the divisor: if the dividend bits are greater, set the quotient to 1, otherwise set it to 0, and use the difference as the remainder. Concatenate the remainder with the highest remaining 1-bit of the dividend, and repeat the process until all dividend bits are processed.\n\nModule name:\n    div_16bit\n\nInput ports:\n    A: 16-bit dividend.\n    B: 8-bit divisor.\n\nOutput ports:\n    result: 16-bit quotient.\n    odd: 16-bit remainder.\n\nImplementation:\nThe module uses two always blocks to perform the division operation.\nThe first always block is a combinational block triggered by any change in the input values A and B. It updates the values of two registers, a_reg and b_reg, with the values of A and B, respectively.\nThe second always block is also a combinational block triggered by any change in the input values A and B.\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | A | B | out |\n|---|---|---|---|\n| 0 | 16'hd82c | 8'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: result=16'hffff, odd=16'hd82c\n- **B**: result=16'hffff, odd=16'h002c\n- **C**: result=16'hffff, odd=16'h00ff\n"
+  }
+ ]
+}

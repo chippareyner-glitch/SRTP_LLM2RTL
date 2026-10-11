@@ -1,0 +1,41 @@
+{
+ "case": "signal_generator",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "rst_n",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "rst_n",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "wave",
+    5
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 3
+}

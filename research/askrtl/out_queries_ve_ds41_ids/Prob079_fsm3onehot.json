@@ -1,0 +1,147 @@
+{
+ "case": "Prob079_fsm3onehot",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    1
+   ],
+   [
+    "state",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "next_state",
+    4
+   ],
+   [
+    "out",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3",
+    "c4",
+    "c5"
+   ],
+   "votes": 6,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 7,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00000",
+      "00000",
+      "00010",
+      "00100",
+      "01000",
+      "00100",
+      "01010"
+     ],
+     [
+      "00000",
+      "00000",
+      "00010",
+      "00100",
+      "01000",
+      "00100",
+      "00000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in\n - input  state (4 bits)\n - output next_state (4 bits)\n - output out\n\nThe module should implement the state transition table for a Moore state\nmachine with one input, one output, and four states. Use the following\none-hot state encoding: A=4'b0001, B=4'b0010, C=4'b0100, D=4'b1000.\nDerive state transition and output logic equations by inspection assuming\na one-hot encoding. Implement only the state transition logic and output\nlogic (the combinational logic portion) for this state machine.\n\n  State | Next state in=0, Next state in=1 | Output\n  A     | A, B                             | 0\n  B     | C, B                             | 0\n  C     | A, D                             | 0\n  D     | C, B                             | 1\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | in | state | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 4'b0000 | next_state=4'b0000, out=1'b0 | next_state=4'b0000, out=1'b0 |\n| 1 | 1'b1 | 4'b0000 | next_state=4'b0000, out=1'b0 | next_state=4'b0000, out=1'b0 |\n| 2 | 1'b0 | 4'b0001 | next_state=4'b0001, out=1'b0 | next_state=4'b0001, out=1'b0 |\n| 3 | 1'b1 | 4'b0001 | next_state=4'b0010, out=1'b0 | next_state=4'b0010, out=1'b0 |\n| 4 | 1'b0 | 4'b0010 | next_state=4'b0100, out=1'b0 | next_state=4'b0100, out=1'b0 |\n| 5 | 1'b1 | 4'b0010 | next_state=4'b0010, out=1'b0 | next_state=4'b0010, out=1'b0 |\n| 6 | 1'b0 | 4'b0011 | next_state=4'b0101, out=1'b0 | next_state=4'b0000, out=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     3
+    ]
+   ],
+   "options": [
+    "01010",
+    "00000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "01010",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in\n - input  state (4 bits)\n - output next_state (4 bits)\n - output out\n\nThe module should implement the state transition table for a Moore state\nmachine with one input, one output, and four states. Use the following\none-hot state encoding: A=4'b0001, B=4'b0010, C=4'b0100, D=4'b1000.\nDerive state transition and output logic equations by inspection assuming\na one-hot encoding. Implement only the state transition logic and output\nlogic (the combinational logic portion) for this state machine.\n\n  State | Next state in=0, Next state in=1 | Output\n  A     | A, B                             | 0\n  B     | C, B                             | 0\n  C     | A, D                             | 0\n  D     | C, B                             | 1\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | in | state | out |\n|---|---|---|---|\n| 0 | 1'b0 | 4'b0011 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: next_state=4'b0101, out=1'b0\n- **B**: next_state=4'b0000, out=1'b0\n"
+  }
+ ]
+}

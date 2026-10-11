@@ -1,0 +1,90 @@
+{
+ "case": "Prob130_circuit5",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    4
+   ],
+   [
+    "b",
+    4
+   ],
+   [
+    "c",
+    4
+   ],
+   [
+    "d",
+    4
+   ],
+   [
+    "e",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    4
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c2",
+   "c3",
+   "c4",
+   "c5"
+  ],
+  [
+   "c1"
+  ]
+ ],
+ "ci_pairs": 5,
+ "ci_found": 5,
+ "ci_missed": [],
+ "off_pairs": 11,
+ "off_found": 5,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 5,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 9,
+   "orig_len": 6,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 6
+}

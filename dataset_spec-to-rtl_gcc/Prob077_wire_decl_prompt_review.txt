@@ -1,0 +1,122 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a
+ - input  b
+ - input  c
+ - input  d
+ - output out
+ - output out_n
+
+The module should implement the following circuit. Create two
+intermediate wires (named anything you want) to connect the AND and OR
+gates together. Note that the wire that feeds the NOT gate is really wire
+`out`, so you do not necessarily need to declare a third wire here.
+Notice how wires are driven by exactly one source (output of a gate), but
+can feed multiple inputs.
+
+The circuit is composed of two layers. The first layer, counting from the
+input, is two AND gates: one whose input is connected to a and b, and the
+second is connected to c and d. The second layer there is an OR gate to
+OR the two AND outputs, connected the output 'out'. Additionally, there
+is an inverted output 'out_n'.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report for TopModule Implementation
+
+### 1. Specification Summary
+- **Module Name**: TopModule
+- **Inputs**: 1-bit signals a, b, c, d
+- **Outputs**: out (1-bit), out_n (1-bit)
+- **Function**: Implements the logic: out = (a AND b) OR (c AND d), out_n = NOT(out)
+- **Structure**: Two-layer logic with intermediate wires between AND gates and OR gate
+- **Key Constraint**: Each wire driven by exactly one source but can feed multiple inputs
+
+### 2. Ambiguity Analysis
+- **Intermediate Wire Naming**: Specification allows arbitrary naming but doesn't specify naming conventions
+- **Timing Requirements**: No clock, reset, or timing constraints specified (combinational logic assumed)
+- **Gate Implementation**: No specification of gate delays, technology library, or drive strength
+- **Port Directions**: Clear, but no specification of input/output timing relationships
+
+### 3. Missing Critical Details
+- **Reset/Power-on Behavior**: No specification of initial state or power-up conditions
+- **Timing Constraints**: Missing setup/hold times, propagation delays, or maximum frequency
+- **Loading/Drive Strength**: No specification of output drive capability or fanout constraints
+- **Testability Features**: No scan chain requirements or test mode functionality
+- **Power Constraints**: No low-power requirements or clock gating specifications
+- **I/O Standards**: No voltage levels or I/O buffer specifications
+
+### 4. Edge Cases & Boundary Conditions
+- **Input Combinations**: All 16 possible input combinations should be verified
+- **Metastability**: No asynchronous inputs specified, but should consider glitch behavior
+- **Simultaneous Switching**: Behavior when multiple inputs change simultaneously
+- **High-Z/Unknown Inputs**: Response to X or Z states in simulation
+- **Fanout Considerations**: out_n drives an unknown load - should specify maximum fanout
+- **Glitch Propagation**: Potential for glitches in the two-level logic structure
+
+### 5. Functional Correctness Prediction
+- **Boolean Function**: out = ab + cd, out_n = ~(ab + cd) - logically straightforward
+- **Race Conditions**: Minimal risk due to simple combinational logic
+- **Synthesis Compatibility**: Standard cell mapping should be straightforward
+- **Verification Coverage**: 100% functional coverage achievable with 16 test vectors
+- **Critical Path**: AND→OR path will determine timing performance
+- **Area Estimation**: 2xAND + 1xOR + 1xNOT gates ≈ 4-6 standard cells
+
+### 6. Actionable Guidance for RTL Generation
+
+**Architecture Decisions:**
+```systemverilog
+// Use continuous assignments for combinational logic
+// Implement exactly as specified: two AND gates feeding one OR gate
+// Explicit wire declarations for intermediate signals
+```
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  logic a, b, c, d,
+    output logic out, out_n
+);
+    
+    // Intermediate wires (clear naming recommended)
+    logic and1_out, and2_out;
+    
+    // First layer: AND gates
+    assign and1_out = a & b;
+    assign and2_out = c & d;
+    
+    // Second layer: OR gate and inverter
+    assign out = and1_out | and2_out;
+    assign out_n = ~out;
+    
+endmodule
+```
+
+**Verification Requirements:**
+- Create testbench with all 16 input combinations
+- Verify both out and out_n for each case
+- Add timing checks for propagation delays
+- Include X-propagation checks
+
+**Synthesis Guidance:**
+- Add `/* synthesis syn_keep */` if intermediate nets need to be preserved
+- Consider adding drive strength specifications if needed
+- Include don't-touch constraints if specific gate-level implementation is required
+
+**Additional Recommendations:**
+- Add assertion checks for unknown inputs in simulation
+- Consider adding `unique` or `priority` keywords if synthesis optimization is desired
+- Document wire naming convention for maintainability
+- Add parameterization for potential future width expansion
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

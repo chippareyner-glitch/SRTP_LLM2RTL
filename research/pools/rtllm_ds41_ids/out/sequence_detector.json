@@ -1,0 +1,142 @@
+{
+ "case": "sequence_detector",
+ "n_samples": 9,
+ "n_distinct": 8,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "421829fd63d0",
+   "sources": [
+    "ids:i00"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\sequence_detector\\i00.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "2377b3af1202",
+   "sources": [
+    "ids:i01"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\sequence_detector\\i01.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ncandidate.sv:20: error: This assignment requires an explicit cast.\ncandidate.sv:21: error: This assignment requires an explicit cast.\ncandidate.sv:22: error: This assignment requires an explicit cast.\ncandidate.sv:23: error: This assignment requires an explicit cast.\ncandidate.sv:24: error: This assignment requires an explicit cast.\n5 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c2",
+   "hash": "f9db7217130d",
+   "sources": [
+    "ids:i10"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\sequence_detector\\i10.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "33231252609d",
+   "sources": [
+    "ids:i11"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\sequence_detector\\i11.sv",
+   "gold": {
+    "status": "pass",
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c4",
+   "hash": "db95fff1d671",
+   "sources": [
+    "rtllm_ds41_ids:s0"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\sequence_detector\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ncandidate.sv:28: error: This assignment requires an explicit cast.\ncandidate.sv:29: error: This assignment requires an explicit cast.\ncandidate.sv:30: error: This assignment requires an explicit cast.\ncandidate.sv:31: error: This assignment requires an explicit cast.\ncandidate.sv:32: error: This assignment requires an explicit cast.\n5 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c5",
+   "hash": "696740417c66",
+   "sources": [
+    "rtllm_ds41_ids:s1"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\sequence_detector\\s1.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ncandidate.sv:29: error: This assignment requires an explicit cast.\ncandidate.sv:30: error: This assignment requires an explicit cast.\ncandidate.sv:31: error: This assignment requires an explicit cast.\ncandidate.sv:32: error: This assignment requires an explicit cast.\ncandidate.sv:33: error: This assignment requires an explicit cast.\n5 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "3c6ff2e7fbb7",
+   "sources": [
+    "rtllm_ds41_ids:s2"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\sequence_detector\\s2.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ncandidate.sv:28: error: This assignment requires an explicit cast.\ncandidate.sv:29: error: This assignment requires an explicit cast.\ncandidate.sv:30: error: This assignment requires an explicit cast.\ncandidate.sv:31: error: This assignment requires an explicit cast.\ncandidate.sv:32: error: This assignment requires an explicit cast.\n5 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c7",
+   "hash": "65c79e12dddb",
+   "sources": [
+    "rtllm_ds41_ids:s3",
+    "rtllm_ds41_ids:s4"
+   ],
+   "model": "rtllm_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\rtllm_ds41_ids\\gen\\sequence_detector\\s3.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\ncandidate.sv:29: error: This assignment requires an explicit cast.\ncandidate.sv:30: error: This assignment requires an explicit cast.\ncandidate.sv:31: error: This assignment requires an explicit cast.\ncandidate.sv:32: error: This assignment requires an explicit cast.\ncandidate.sv:33: error: This assignment requires an explicit cast.\n5 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

@@ -1,0 +1,178 @@
+[
+ {
+  "id": "Prob030_popcount255__zeros",
+  "cat": "rule",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob035_count1to10__3to12",
+  "cat": "param",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob037_review2015_count1k__500",
+  "cat": "param",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob041_dff8r__resetA5",
+  "cat": "param",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob054_edgedetect__negedge",
+  "cat": "name",
+  "n": 5,
+  "base": 1.0,
+  "pass": 0.8,
+  "rev": 0.0,
+  "other": 0.2,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob066_edgecapture__rising",
+  "cat": "rule",
+  "n": 5,
+  "base": 0.8,
+  "pass": 0.6,
+  "rev": 0.0,
+  "other": 0.4,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob067_countslow__down",
+  "cat": "rule",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob072_thermostat__nofanheat",
+  "cat": "rule",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob085_shift4__enaprio",
+  "cat": "rule",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob085_shift4__left",
+  "cat": "rule",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob086_lfsr5__taps52",
+  "cat": "param",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob096_review2015_fsmseq__pulse",
+  "cat": "rule",
+  "n": 5,
+  "base": 0.2,
+  "pass": 0.2,
+  "rev": 0.0,
+  "other": 0.8,
+  "maj_ok": false,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob096_review2015_fsmseq__seq1011",
+  "cat": "param",
+  "n": 5,
+  "base": 0.2,
+  "pass": 0.2,
+  "rev": 0.0,
+  "other": 0.8,
+  "maj_ok": false,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob108_rule90__ones",
+  "cat": "rule",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob108_rule90__wrap",
+  "cat": "rule",
+  "n": 5,
+  "base": 1.0,
+  "pass": 1.0,
+  "rev": 0.0,
+  "other": 0.0,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ },
+ {
+  "id": "Prob124_rule110__wrap",
+  "cat": "rule",
+  "n": 5,
+  "base": 1.0,
+  "pass": 0.8,
+  "rev": 0.0,
+  "other": 0.2,
+  "maj_ok": true,
+  "all_fail_reverted": false
+ }
+]

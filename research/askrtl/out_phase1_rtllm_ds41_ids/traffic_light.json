@@ -1,0 +1,781 @@
+{
+ "case": "traffic_light",
+ "excluded_iface": [
+  "c6",
+  "c8"
+ ],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "rst_n",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "rst_n",
+    1
+   ],
+   [
+    "pass_request",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "clock",
+    8
+   ],
+   [
+    "red",
+    1
+   ],
+   [
+    "yellow",
+    1
+   ],
+   [
+    "green",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0"
+  ],
+  [
+   "c1"
+  ],
+  [
+   "c2"
+  ],
+  [
+   "c3"
+  ],
+  [
+   "c4"
+  ],
+  [
+   "c5"
+  ],
+  [
+   "c7"
+  ]
+ ],
+ "ci_pairs": 12,
+ "ci_found": 12,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 21,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 12,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 32,
+   "orig_len": 13,
+   "min_len": 12,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c5"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c7"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c1",
+    "c4"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 10,
+   "orig_len": 5,
+   "min_len": 4,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c1",
+    "c5"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 3,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 5,
+   "orig_len": 4,
+   "min_len": 3,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c1",
+    "c7"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 10,
+   "orig_len": 5,
+   "min_len": 4,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c2",
+    "c4"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c2",
+    "c5"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c2",
+    "c7"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c3",
+    "c4"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c3",
+    "c5"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c3",
+    "c7"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c4",
+    "c5"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 3,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 5,
+   "orig_len": 4,
+   "min_len": 3,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c4",
+    "c7"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 14,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 38,
+   "orig_len": 15,
+   "min_len": 14,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c5",
+    "c7"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 3,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 5,
+   "orig_len": 4,
+   "min_len": 3,
+   "toggles": 1
+  }
+ ],
+ "status": "ok",
+ "n_live": 7
+}

@@ -1,0 +1,11 @@
+{
+ "case": "width_8to16",
+ "category": "Miscellaneous",
+ "top": "width_8to16",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "width_8to16"
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Dependence on a,b,d,e for c<4",
+   "severity": "high",
+   "readings": [
+    "q = (c==0)?b : (c==1)?e : (c==2)?a : (c==3)?d : 4'hF (uses inputs a,b,d,e)",
+    "q = (c==0)?4'hB : (c==1)?4'hE : (c==2)?4'hA : (c==3)?4'hD : 4'hF (fixed constants, ignores a,b,d,e)"
+   ]
+  },
+  {
+   "aspect": "Behavior when c is unknown (x)",
+   "severity": "medium",
+   "readings": [
+    "q propagates x when c is x (mux-like behavior)",
+    "q defaults to 4'hF when c is x (case-statement default)"
+   ]
+  },
+  {
+   "aspect": "Dependence on a,b,d,e for c>=4",
+   "severity": "low",
+   "readings": [
+    "q is always 4'hF for c>=4 regardless of a,b,d,e",
+    "q for c>=4 is some function of a,b,d,e that equals 4'hF only for the tested values a=4'hA, b=4'hB, d=4'hD, e=4'hE"
+   ]
+  }
+ ]
+}

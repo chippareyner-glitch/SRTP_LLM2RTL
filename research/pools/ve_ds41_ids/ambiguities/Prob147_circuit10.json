@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Input sampling relative to clock edge",
+   "severity": "high",
+   "readings": [
+    "Flip-flop captures the input values present just before the positive clock edge (so input changes at the edge are seen in the next cycle)",
+    "Flip-flop captures the input values present at the positive clock edge (so input changes at the edge are seen immediately)"
+   ]
+  },
+  {
+   "aspect": "Initial state / reset",
+   "severity": "medium",
+   "readings": [
+    "State is uninitialized (x) until the first valid update, as shown in the waveform",
+    "State is initialized to 0 at power-up (e.g., via initial block or assumed reset)"
+   ]
+  },
+  {
+   "aspect": "Behavior on unknown inputs (x)",
+   "severity": "low",
+   "readings": [
+    "An x on a or b is treated as not equal, causing state to hold its previous value",
+    "An x on a or b is treated as 0 or 1 for comparison, potentially updating state"
+   ]
+  }
+ ]
+}

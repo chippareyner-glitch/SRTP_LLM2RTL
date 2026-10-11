@@ -1,0 +1,78 @@
+{
+ "case": "adder_16bit",
+ "excluded_iface": [
+  "c3"
+ ],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    16
+   ],
+   [
+    "b",
+    16
+   ],
+   [
+    "Cin",
+    1
+   ],
+   [
+    "a",
+    8
+   ],
+   [
+    "b",
+    8
+   ],
+   [
+    "Cin",
+    1
+   ],
+   [
+    "a",
+    8
+   ],
+   [
+    "b",
+    8
+   ],
+   [
+    "Cin",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "y",
+    16
+   ],
+   [
+    "Co",
+    1
+   ],
+   [
+    "y",
+    8
+   ],
+   [
+    "Co",
+    1
+   ],
+   [
+    "y",
+    8
+   ],
+   [
+    "Co",
+    1
+   ]
+  ]
+ },
+ "status": "harness_error",
+ "error": "s declared here as a net.\nharness.sv:36: error: 'Co__c4' has already been declared in this scope.\nharness.sv:34:      : It was declared here as a net.\nharness.sv:37: error: 'y__c4' has already been declared in this scope.\nharness.sv:33:      : It was declared here as a net.\nharness.sv:38: error: 'Co__c4' has already been declared in this scope.\nharness.sv:34:      : It was declared here as a net.\n"
+}

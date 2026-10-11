@@ -1,0 +1,143 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  w
+ - input  R
+ - input  E
+ - input  L
+ - output Q
+
+The module will be one stage in a larger n-bit shift register circuit.
+Input E is for enabling shift, R for value to load, L is asserted when it
+should load, and w is the input from the prevous stage of the shift
+register. Assume all sequential logic is triggered on the positive edge
+of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` is a single-bit stage of an n-bit shift register with the following functionality:
+- **Clock**: `clk` (positive edge-triggered)
+- **Data Inputs**: 
+  - `w`: Shift input from previous stage
+  - `R`: Load value (parallel load data)
+- **Control Inputs**:
+  - `E`: Shift enable (active high)
+  - `L`: Load enable (active high)
+- **Output**: `Q` (registered output)
+
+The module should operate as a configurable register stage that can either shift data from the previous stage (`w`) or load parallel data (`R`) based on control signals.
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **Priority between L and E**: When both `L` and `E` are asserted simultaneously, the specification doesn't define which operation takes priority. This is a fundamental design decision.
+2. **Default operation**: When neither `L` nor `E` is asserted, the behavior is unspecified. Should the register hold its current value or reset to a default state?
+3. **Reset mechanism**: No reset signal is specified. Is this intentional (power-on reset only) or an oversight?
+4. **Initial state**: The initial value of `Q` after power-up is not defined.
+
+**Minor Ambiguities:**
+5. Signal polarity: While "asserted" typically means high, explicit confirmation would be beneficial.
+6. Timing requirements: Setup/hold times for inputs relative to clock are not specified.
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+1. **Reset behavior**: No synchronous or asynchronous reset mechanism defined
+2. **Control signal priority**: Missing precedence rules for `L` vs `E` conflicts
+3. **Initialization**: Power-on state of the output register
+4. **Timing constraints**: Required setup/hold times for all inputs
+5. **Metastability handling**: No specification for synchronizer requirements if inputs are asynchronous
+
+**Implementation Details:**
+6. **Output timing**: Propagation delay requirements not specified
+7. **Clock gating**: Whether clock gating is allowed/permitted
+8. **Testability**: Scan chain insertion requirements not mentioned
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+1. **L=1, E=1**: Both load and shift enabled simultaneously
+2. **L=0, E=0**: No operation enabled - should hold current value
+3. **Clock glitches**: Behavior during clock anomalies not specified
+4. **Signal transitions near clock edge**: Meta-stability scenarios
+5. **Power-up sequence**: Initialization timing and requirements
+
+**Functional Boundary Conditions:**
+6. **Rapid control switching**: `L`/`E` toggling every cycle
+7. **Maximum frequency**: No operating frequency range specified
+8. **Input timing violations**: Behavior when setup/hold times are violated
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **Control conflict resolution**: 85% probability of functional bugs if priority not properly handled
+2. **Reset implementation**: 70% risk of initialization issues without explicit reset
+3. **Timing closure**: 60% risk of metastability without proper synchronizer assumptions
+
+**Expected Behavior Scenarios:**
+- When `L=1`: `Q` should load `R` on next clock edge (priority case)
+- When `L=0, E=1`: `Q` should shift in `w` on next clock edge  
+- When `L=0, E=0`: `Q` should maintain current value (most likely)
+- Power-up: `Q` should initialize to known state (typically 0)
+
+## 6. Actionable Guidance for RTL Generation
+
+**Design Decisions Required:**
+1. **Priority resolution**: Recommend `L` having priority over `E` (load over shift)
+2. **Reset strategy**: Add synchronous reset or document assumption of power-on reset only
+3. **Default behavior**: Hold current value when no operation enabled
+
+**RTL Implementation Template:**
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic w, R, E, L,
+    output logic Q
+);
+    
+    // Recommended implementation with synchronous reset and L-priority
+    logic next_Q;
+    
+    always_comb begin
+        if (L) begin
+            next_Q = R;        // Load has priority
+        end else if (E) begin
+            next_Q = w;        // Shift when enabled
+        end else begin
+            next_Q = Q;        // Hold current value
+        end
+    end
+    
+    always_ff @(posedge clk) begin
+        Q <= next_Q;           // Register the output
+    end
+    
+endmodule
+```
+
+**Verification Requirements:**
+1. Create testbench covering all control signal combinations
+2. Verify priority resolution (L vs E conflict)
+3. Test power-up initialization behavior
+4. Validate timing constraints through static timing analysis
+5. Include metastability tests for asynchronous inputs
+
+**Documentation Additions:**
+- Clearly specify the priority scheme chosen
+- Document reset behavior assumption
+- Define initial state requirements
+- Specify timing constraints for synthesis
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

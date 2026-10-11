@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial state without reset",
+   "severity": "medium",
+   "readings": [
+    "The register's power-on value is unspecified; without rst, the output sequence is undefined (e.g., X in simulation or random in hardware).",
+    "The implementation may include an explicit initial value (e.g., 0000) or a seed parameter, yielding a different but deterministic output sequence when reset is never asserted."
+   ]
+  }
+ ]
+}

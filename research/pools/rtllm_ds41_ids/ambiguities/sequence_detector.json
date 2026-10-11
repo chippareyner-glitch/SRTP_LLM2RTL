@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output assertion latency",
+   "severity": "high",
+   "readings": [
+    "sequence_detected is a Moore output asserted during the same clock cycle in which the fourth bit (1) is sampled and state becomes S4",
+    "sequence_detected is registered and asserted one clock cycle after the fourth bit is sampled"
+   ]
+  },
+  {
+   "aspect": "Overlapping detection after S4",
+   "severity": "high",
+   "readings": [
+    "After detecting 1001 in S4, the FSM returns to IDLE, so an overlapping sequence such as 1001001 produces only one detection",
+    "After S4, the FSM transitions to S1 or equivalent so the final 1 can start a new sequence, producing two detections for 1001001"
+   ]
+  },
+  {
+   "aspect": "Mismatch/resynchronization transitions",
+   "severity": "medium",
+   "readings": [
+    "On any non-matching bit, the FSM resets to IDLE, so a later valid sequence is missed if it depended on a suffix of the mismatched stream",
+    "On a non-matching bit, the FSM transitions to the longest-suffix state, so inputs like 11001 still detect 1001"
+   ]
+  },
+  {
+   "aspect": "sequence_detected value during reset",
+   "severity": "medium",
+   "readings": [
+    "sequence_detected is forced low while rst_n is low, either directly or because the state is IDLE",
+    "sequence_detected is not explicitly reset and may retain its previous value until the next active clock edge"
+   ]
+  }
+ ]
+}

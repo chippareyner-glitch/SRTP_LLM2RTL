@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial state of Q",
+   "severity": "high",
+   "readings": [
+    "Q initializes to 0 (or some defined value) on power-up/reset",
+    "Q initializes to X/undefined (no reset specified), so Z is undefined until enough shifts occur"
+   ]
+  },
+  {
+   "aspect": "Bit order of ABC",
+   "severity": "medium",
+   "readings": [
+    "A is the MSB, so ABC=001 selects Q[1]",
+    "A is the LSB, so ABC=001 selects Q[4]"
+   ]
+  },
+  {
+   "aspect": "Order of flip-flops in shift register",
+   "severity": "low",
+   "readings": [
+    "Q[0] is the first flip-flop, then Q[1], Q[2], ..., Q[7] (data shifts from Q[0] to Q[7])",
+    "Q[0] is the first flip-flop, but the remaining flip-flops are labeled in reverse order (e.g., Q[7] is second), changing which Q bit holds the oldest data"
+   ]
+  }
+ ]
+}

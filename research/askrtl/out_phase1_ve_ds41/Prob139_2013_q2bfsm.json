@@ -1,0 +1,62 @@
+{
+ "case": "Prob139_2013_q2bfsm",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "resetn",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "resetn",
+    1
+   ],
+   [
+    "x",
+    1
+   ],
+   [
+    "y",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "f",
+    1
+   ],
+   [
+    "g",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1",
+   "c3",
+   "c4"
+  ]
+ ],
+ "ci_pairs": 2,
+ "ci_found": 0,
+ "ci_missed": [
+  [
+   "c1",
+   "c3"
+  ],
+  [
+   "c3",
+   "c4"
+  ]
+ ],
+ "off_pairs": 3,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 1,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 3
+}

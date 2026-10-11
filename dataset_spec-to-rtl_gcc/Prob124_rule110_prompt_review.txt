@@ -1,0 +1,178 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  load
+ - input  data (512 bits)
+ - output q    (512 bits)
+
+The module should implement Rule 110, a one-dimensional cellular
+automaton with interesting properties (such as being Turing-complete).
+There is a one-dimensional array of cells (on or off). At each time step,
+the state of each cell changes. In Rule 110, the next state of each cell
+depends only on itself and its two neighbours, according to the following
+table:
+
+  Left[i+1] | Center[i] | Right[i-1] | Center's next state 
+  1         | 1         | 1          | 0
+  1         | 1         | 0          | 1
+  1         | 0         | 1          | 1
+  1         | 0         | 0          | 0
+  0         | 1         | 1          | 1
+  0         | 1         | 0          | 1
+  0         | 0         | 1          | 1
+  0         | 0         | 0          | 0
+
+In this circuit, create a 512-cell system (q[511:0]), and advance by one
+time step each clock cycle. The synchronous active high load input
+indicates the state of the system should be loaded with data[511:0].
+Assume the boundaries (q[-1] and q[512], if they existed) are both zero
+(off). Assume all sequential logic is triggered on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a 512-bit Rule 110 cellular automaton with the following key characteristics:
+
+- **Interface**: 512-bit data input/output, single-bit clock and load control
+- **Function**: Each clock cycle advances the automaton by one time step
+- **Rule Logic**: Next state depends on current cell + left/right neighbors (8 possible combinations)
+- **Boundary Handling**: Fixed boundary conditions (q[-1] = 0, q[512] = 0)
+- **Control**: Synchronous load overrides normal operation
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity - Boundary Implementation:**
+The specification states boundaries "q[-1] and q[512]" are zero, but doesn't specify how this translates to the actual 512-bit vector q[511:0]. This creates implementation uncertainty:
+
+- Does q[0] use left neighbor = 0 and right neighbor = q[1]?
+- Does q[511] use left neighbor = q[510] and right neighbor = 0?
+- Are the boundary cells handled differently from internal cells?
+
+**Load Timing Ambiguity:**
+- When load=1, does the loaded data become immediately available at q, or does it appear on the next cycle?
+- Is load synchronous with the clock edge? (implied but not explicit)
+
+## 3. Missing Critical Details
+
+**Reset Behavior:**
+- No power-on reset specification
+- No initial state definition for q when no load has occurred
+- Critical for deterministic simulation and real hardware
+
+**Timing Constraints:**
+- No maximum clock frequency guidance
+- No setup/hold times for load and data signals
+- Missing propagation delay requirements
+
+**Performance Requirements:**
+- No throughput/latency specifications
+- No area/power constraints for synthesis
+
+## 4. Edge Cases & Boundary Conditions
+
+**Boundary Cell Handling:**
+- q[0] neighbors: Left = 0, Center = q[0], Right = q[1]
+- q[511] neighbors: Left = q[510], Center = q[511], Right = 0
+- Must verify all 8 rule combinations work correctly at boundaries
+
+**Load Operation Edge Cases:**
+- Load asserted for multiple consecutive cycles
+- Load asserted simultaneously with normal operation
+- Load timing relative to clock edge (setup/hold violations)
+
+**Data Stability:**
+- Behavior when data changes while load=0
+- Behavior when load is deasserted mid-cycle
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **Boundary Logic**: Highest risk of implementation errors due to special handling
+2. **Load Timing**: Potential race conditions if not properly synchronized
+3. **Rule 110 Implementation**: Complex combinatorial logic may introduce glitches
+
+**Verification Challenges:**
+- 512-bit state space too large for exhaustive simulation
+- Need directed tests for boundary conditions and rule patterns
+- Load functionality requires careful timing verification
+
+## 6. Actionable Guidance for RTL Generation
+
+**Architecture Recommendations:**
+```
+// Recommended module structure
+module TopModule (
+    input  clk,
+    input  load,
+    input  [511:0] data,
+    output reg [511:0] q
+);
+
+// Internal next state logic
+wire [511:0] next_q;
+
+// Combinatorial Rule 110 logic
+always_comb begin
+    // Boundary cells (special handling)
+    next_q[0]   = rule110(1'b0, q[0], q[1]);      // Left boundary = 0
+    next_q[511] = rule110(q[510], q[511], 1'b0);  // Right boundary = 0
+    
+    // Internal cells (standard rule application)
+    for (int i = 1; i < 511; i++) begin
+        next_q[i] = rule110(q[i-1], q[i], q[i+1]);
+    end
+end
+
+// Sequential logic with load priority
+always_ff @(posedge clk) begin
+    if (load) begin
+        q <= data;  // Load takes precedence
+    end else begin
+        q <= next_q;  // Normal operation
+    end
+end
+
+// Rule 110 function definition
+function automatic logic rule110(input left, center, right);
+    case ({left, center, right})
+        3'b111: return 1'b0;
+        3'b110: return 1'b1;
+        3'b101: return 1'b1;
+        3'b100: return 1'b0;
+        3'b011: return 1'b1;
+        3'b010: return 1'b1;
+        3'b001: return 1'b1;
+        3'b000: return 1'b0;
+    endcase
+endfunction
+
+endmodule
+```
+
+**Critical Implementation Details:**
+1. **Reset Strategy**: Add asynchronous or synchronous reset (specify based on system requirements)
+2. **Timing Constraints**: Add `create_clock` and input delay constraints for synthesis
+3. **Simulation Support**: Include initial block for simulation initialization
+4. **Verification Plan**:
+   - Test boundary conditions with known patterns
+   - Verify load functionality with timing checks
+   - Test rule correctness with specific input patterns
+   - Validate wrap-around does not occur
+
+**Synthesis Considerations:**
+- The combinatorial logic may create timing challenges at high frequencies
+- Consider pipelining if timing closure is difficult
+- Evaluate area vs. performance tradeoffs for the 512-bit implementation
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

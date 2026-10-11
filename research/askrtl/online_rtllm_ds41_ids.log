@@ -1,0 +1,48 @@
+﻿  live: accu q0 label=B -> B
+  live: adder_bcd q0 label=A -> ANY
+  live: alu q22 label=B -> B
+  live: alu q12 label=A -> B
+  live: comparator_3bit q0 label=A -> A
+  live: div_16bit q6 label=C -> C
+  live: div_16bit q2 label=A -> A
+  live: div_16bit q3 label=A -> API_ERROR
+  live: fixed_point_adder q1 label=A -> A
+  live: fixed_point_adder q0 label=B -> B
+  live: fixed_point_substractor q0 label=NONE -> B
+  live: freq_div q2 label=NONE -> B
+  live: freq_div q1 label=A -> A
+  live: freq_div q0 label=A -> A
+  live: freq_divbyfrac q0 label=B -> B
+  live: freq_divbyodd q2 label=B -> API_ERROR
+  live: freq_divbyodd q1 label=B -> B
+  live: freq_divbyodd q0 label=B -> B
+  live: fsm q0 label=B -> A
+  live: instr_reg q2 label=A -> B
+  live: instr_reg q1 label=A -> A
+  live: JC_counter q0 label=A -> A
+  live: LIFObuffer q1 label=NONE -> A
+  live: LIFObuffer q5 label=B -> A
+  live: LIFObuffer q3 label=B -> A
+  live: multi_16bit q2 label=A -> A
+  live: multi_16bit q0 label=B -> B
+  live: multi_booth_8bit q2 label=A -> A
+  live: multi_booth_8bit q0 label=B -> B
+  live: multi_pipe_8bit q1 label=NONE -> A
+  live: parallel2serial q1 label=A -> A
+  live: parallel2serial q5 label=A -> A
+  live: sequence_detector q0 label=A -> UNCLEAR
+  live: signal_generator q0 label=A -> A
+  live: square_wave q0 label=A -> A
+  live: traffic_light q14 label=B -> B
+  live: traffic_light q19 label=A -> A
+  live: traffic_light q10 label=B -> B
+  live: up_down_counter q1 label=A -> A
+  live: width_8to16 q2 label=A -> A
+  live: width_8to16 q0 label=A -> A
+
+benchmark accuracy over 42 problems:
+  majority vote (per sample)       0.880
+  majority vote (per config)       0.869
+  AskRTL online (B=3, p=0.8)      0.873   questions asked=41 (1.64/divergent problem)
+  live calls=41 tokens~335833 blocked-by-guard=0
+  divergent problems not solved: ['alu', 'fixed_point_adder', 'freq_divbyodd', 'fsm']

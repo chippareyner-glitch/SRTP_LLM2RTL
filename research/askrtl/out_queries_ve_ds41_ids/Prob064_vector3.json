@@ -1,0 +1,269 @@
+{
+ "case": "Prob064_vector3",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    5
+   ],
+   [
+    "b",
+    5
+   ],
+   [
+    "c",
+    5
+   ],
+   [
+    "d",
+    5
+   ],
+   [
+    "e",
+    5
+   ],
+   [
+    "f",
+    5
+   ]
+  ],
+  "outputs": [
+   [
+    "w",
+    8
+   ],
+   [
+    "x",
+    8
+   ],
+   [
+    "y",
+    8
+   ],
+   [
+    "z",
+    8
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c4",
+    "c5"
+   ],
+   "votes": 7,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      27,
+      12,
+      24,
+      28,
+      13,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "11011011001100011100011010000111"
+     ],
+     [
+      "10000111110001100011000111011011"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (5 bits)\n - input  b (5 bits)\n - input  c (5 bits)\n - input  d (5 bits)\n - input  e (5 bits)\n - input  f (5 bits)\n - output w (8 bits)\n - output x (8 bits)\n - output y (8 bits)\n - output z (8 bits)\n\nThe module should concatenate the input vectors together then split them\nup into several output vectors. There are six 5-bit input vectors: a, b,\nc, d, e, and f, for a total of 30 bits of input. There are four 8-bit\noutput vectors: w, x, y, and z, for 32 bits of output. The output should\nbe a concatenation of the input vectors followed by two 1 bits (the two 1\nbits should be in the LSB positions).\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | e | f | A out | B out |\n|---|---|---|---|---|---|---|---|---|\n| 0 | 5'h1b | 5'h0c | 5'h18 | 5'h1c | 5'h0d | 5'h01 | w=8'hdb, x=8'h31, y=8'hc6, z=8'h87 | w=8'h87, x=8'hc6, y=8'h31, z=8'hdb |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "00000000000000000000000000000011",
+    "00000011000000000000000000000000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B",
+    "c3": "A"
+   },
+   "label": "A",
+   "ref_value": "00000000000000000000000000000011",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (5 bits)\n - input  b (5 bits)\n - input  c (5 bits)\n - input  d (5 bits)\n - input  e (5 bits)\n - input  f (5 bits)\n - output w (8 bits)\n - output x (8 bits)\n - output y (8 bits)\n - output z (8 bits)\n\nThe module should concatenate the input vectors together then split them\nup into several output vectors. There are six 5-bit input vectors: a, b,\nc, d, e, and f, for a total of 30 bits of input. There are four 8-bit\noutput vectors: w, x, y, and z, for 32 bits of output. The output should\nbe a concatenation of the input vectors followed by two 1 bits (the two 1\nbits should be in the LSB positions).\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | e | f | out |\n|---|---|---|---|---|---|---|---|\n| 0 | 5'h00 | 5'h00 | 5'h00 | 5'h00 | 5'h00 | 5'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: w=8'h00, x=8'h00, y=8'h00, z=8'h03\n- **B**: w=8'h03, x=8'h00, y=8'h00, z=8'h00\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      27,
+      12,
+      24,
+      28,
+      13,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "11011011001100011100011010000111"
+     ],
+     [
+      "00001011011110011000011001101111"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (5 bits)\n - input  b (5 bits)\n - input  c (5 bits)\n - input  d (5 bits)\n - input  e (5 bits)\n - input  f (5 bits)\n - output w (8 bits)\n - output x (8 bits)\n - output y (8 bits)\n - output z (8 bits)\n\nThe module should concatenate the input vectors together then split them\nup into several output vectors. There are six 5-bit input vectors: a, b,\nc, d, e, and f, for a total of 30 bits of input. There are four 8-bit\noutput vectors: w, x, y, and z, for 32 bits of output. The output should\nbe a concatenation of the input vectors followed by two 1 bits (the two 1\nbits should be in the LSB positions).\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | e | f | A out | B out |\n|---|---|---|---|---|---|---|---|---|\n| 0 | 5'h1b | 5'h0c | 5'h18 | 5'h1c | 5'h0d | 5'h01 | w=8'hdb, x=8'h31, y=8'hc6, z=8'h87 | w=8'h0b, x=8'h79, y=8'h86, z=8'h6f |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   ],
+   "options": [
+    "00000000000000000000000000000111",
+    "00001000000000000000000000000011",
+    "00000111000000000000000000000000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "C",
+    "c3": "B"
+   },
+   "label": "A",
+   "ref_value": "00000000000000000000000000000111",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (5 bits)\n - input  b (5 bits)\n - input  c (5 bits)\n - input  d (5 bits)\n - input  e (5 bits)\n - input  f (5 bits)\n - output w (8 bits)\n - output x (8 bits)\n - output y (8 bits)\n - output z (8 bits)\n\nThe module should concatenate the input vectors together then split them\nup into several output vectors. There are six 5-bit input vectors: a, b,\nc, d, e, and f, for a total of 30 bits of input. There are four 8-bit\noutput vectors: w, x, y, and z, for 32 bits of output. The output should\nbe a concatenation of the input vectors followed by two 1 bits (the two 1\nbits should be in the LSB positions).\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | e | f | out |\n|---|---|---|---|---|---|---|---|\n| 0 | 5'h00 | 5'h00 | 5'h00 | 5'h00 | 5'h00 | 5'h01 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: w=8'h00, x=8'h00, y=8'h00, z=8'h07\n- **B**: w=8'h08, x=8'h00, y=8'h00, z=8'h03\n- **C**: w=8'h07, x=8'h00, y=8'h00, z=8'h00\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      27,
+      12,
+      24,
+      28,
+      13,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "10000111110001100011000111011011"
+     ],
+     [
+      "00001011011110011000011001101111"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (5 bits)\n - input  b (5 bits)\n - input  c (5 bits)\n - input  d (5 bits)\n - input  e (5 bits)\n - input  f (5 bits)\n - output w (8 bits)\n - output x (8 bits)\n - output y (8 bits)\n - output z (8 bits)\n\nThe module should concatenate the input vectors together then split them\nup into several output vectors. There are six 5-bit input vectors: a, b,\nc, d, e, and f, for a total of 30 bits of input. There are four 8-bit\noutput vectors: w, x, y, and z, for 32 bits of output. The output should\nbe a concatenation of the input vectors followed by two 1 bits (the two 1\nbits should be in the LSB positions).\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | e | f | A out | B out |\n|---|---|---|---|---|---|---|---|---|\n| 0 | 5'h1b | 5'h0c | 5'h18 | 5'h1c | 5'h0d | 5'h01 | w=8'h87, x=8'hc6, y=8'h31, z=8'hdb | w=8'h0b, x=8'h79, y=8'h86, z=8'h6f |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "00000011000000000000000000000000",
+    "00000000000000000000000000000011"
+   ],
+   "cluster_option": {
+    "c0": "B",
+    "c1": "A",
+    "c3": "B"
+   },
+   "label": "B",
+   "ref_value": "00000000000000000000000000000011",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (5 bits)\n - input  b (5 bits)\n - input  c (5 bits)\n - input  d (5 bits)\n - input  e (5 bits)\n - input  f (5 bits)\n - output w (8 bits)\n - output x (8 bits)\n - output y (8 bits)\n - output z (8 bits)\n\nThe module should concatenate the input vectors together then split them\nup into several output vectors. There are six 5-bit input vectors: a, b,\nc, d, e, and f, for a total of 30 bits of input. There are four 8-bit\noutput vectors: w, x, y, and z, for 32 bits of output. The output should\nbe a concatenation of the input vectors followed by two 1 bits (the two 1\nbits should be in the LSB positions).\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | e | f | out |\n|---|---|---|---|---|---|---|---|\n| 0 | 5'h00 | 5'h00 | 5'h00 | 5'h00 | 5'h00 | 5'h00 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: w=8'h03, x=8'h00, y=8'h00, z=8'h00\n- **B**: w=8'h00, x=8'h00, y=8'h00, z=8'h03\n"
+  }
+ ]
+}

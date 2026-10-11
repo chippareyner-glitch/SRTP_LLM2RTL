@@ -1,0 +1,128 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  data
+ - output start_shifting
+
+The module should implement a finite-state machine that searches for the
+sequence 1101 in an input bit stream. When the sequence is found, it
+should set start_shifting to 1, forever, until reset. Reset is active
+high synchronous. Assume all sequential logic is triggered on the
+positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` is a sequence detector that:
+- Searches for the pattern `1101` in a serial bit stream (`data`)
+- Sets `start_shifting` to `1` permanently once the pattern is detected
+- Uses synchronous active-high reset (`reset`) and positive-edge clocking
+- Maintains `start_shifting` until reset, regardless of subsequent input
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **"Forever" behavior**: Does "forever" mean the FSM locks in a final state, or does `start_shifting` remain high through a simple latch? The spec suggests a state machine that enters a terminal state.
+- **Sequence overlap handling**: When detecting `1101`, if the input stream is `1101101`, should the second detection be ignored (since `start_shifting` is already high) or does the FSM continue pattern matching?
+- **Reset state**: After reset, does the FSM resume pattern matching from the beginning, or wait for a new trigger?
+
+**Recommendations:**
+- Clarify that the FSM enters a terminal "DETECTED" state that can only exit via reset
+- Specify that pattern matching stops once detected (until reset)
+- Define behavior for partial matches across reset boundaries
+
+## 3. Missing Critical Details
+
+**Timing & Synchronization:**
+- No specification of when `start_shifting` asserts relative to pattern completion
+- Should `start_shifting` assert on the same cycle the final bit (`1`) is received?
+- Propagation delay requirements not specified
+
+**Initial Conditions:**
+- Power-on state not defined (assume reset initializes to idle state)
+- Behavior when pattern detection occurs immediately after reset release
+
+**Input Constraints:**
+- No setup/hold times specified for `data` relative to `clk`
+- No maximum frequency specification
+
+## 4. Edge Cases & Boundary Conditions
+
+**Pattern-Related Edge Cases:**
+- **Overlapping sequences**: `1101101` - detection at bits 3-6, then 4-7
+- **Partial match then reset**: `110` followed by reset, then `101` - should not detect
+- **Pattern at startup**: `1101` immediately after reset release
+- **False starts**: `101101` (partial match `10` then valid `1101`)
+
+**Timing Edge Cases:**
+- Reset assertion during pattern matching
+- Data changing coincident with clock edge (simulation vs reality)
+- Very long streams without the pattern (counter overflow potential)
+
+## 5. Functional Correctness Prediction
+
+**Potential Failure Modes:**
+- **Overlap mishandling**: If implemented as simple shift register, may miss back-to-back patterns
+- **Glitch susceptibility**: `start_shifting` might glitch if not properly registered
+- **Reset recovery**: FSM may not properly initialize if reset is asynchronous (but spec says synchronous)
+
+**Verification Requirements:**
+- Test sequence: `1101` → detect
+- Test sequence: `1101101` → detect once at first occurrence
+- Test sequence: `101101` → detect at bits 3-6
+- Reset during partial match: `11` → reset → `01` → no detect
+- Reset after detection: verify `start_shifting` clears
+
+## 6. Actionable Guidance for RTL Generation
+
+**FSM Architecture:**
+```
+States: IDLE, S1, S11, S110, DETECTED
+Transition on each clock edge based on current state and data input
+DETECTED state only exits via reset
+```
+
+**Implementation Strategy:**
+```systemverilog
+typedef enum logic [2:0] {
+  IDLE    = 3'b000,
+  S1      = 3'b001,  // Received '1'
+  S11     = 3'b010,  // Received '11'
+  S110    = 3'b011,  // Received '110'
+  DETECTED = 3'b100  // Pattern found
+} state_t;
+
+state_t current_state, next_state;
+```
+
+**Critical RTL Considerations:**
+- Register `start_shifting` output to avoid glitches
+- Use explicit state encoding for reliability
+- Implement synchronous reset that fully initializes state machine
+- Add comments for each state transition for maintainability
+
+**Verification Hooks:**
+- Consider adding a `current_state` output for debug (if allowed)
+- Document the expected cycle-accurate behavior for verification
+
+**Sample Test Cases to Implement:**
+1. Basic detection: `...1101` → assert on 4th bit
+2. Overlap: `...1101101` → assert on 4th bit, ignore 8th bit
+3. Reset during match: `...11` → reset → verify clean restart
+4. Continuous operation post-detection: verify `start_shifting` remains high
+
+This analysis ensures the implementation will be robust, testable, and synthesis-friendly while meeting the specified requirements.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

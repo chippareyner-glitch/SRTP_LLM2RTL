@@ -1,0 +1,57 @@
+{
+ "case": "Prob132_always_if2",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "cpu_overheated",
+    1
+   ],
+   [
+    "arrived",
+    1
+   ],
+   [
+    "gas_tank_empty",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "shut_off_computer",
+    1
+   ],
+   [
+    "keep_driving",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3",
+   "c4",
+   "c5",
+   "c6"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 10,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 7
+}

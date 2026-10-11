@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T06:32:47.265649+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob072_thermostat__nofanheat",
+  "returned_model": "deepseek-flash",
+  "id": "0407dfe2-6128-42fe-b9b7-1d23fbe8e60d",
+  "usage": {
+    "prompt_tokens": 401,
+    "completion_tokens": 199,
+    "total_tokens": 600,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 113
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 145
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 1.2603079000000434
+}

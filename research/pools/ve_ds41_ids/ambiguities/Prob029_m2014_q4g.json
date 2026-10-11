@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "output latency (combinational vs sequential)",
+   "severity": "high",
+   "readings": [
+    "out is purely combinational: out = ~(in1 ^ in2) ^ in3, valid in the same cycle the inputs are applied",
+    "out is a registered/delayed version of the XNOR-XOR result, appearing one cycle after the inputs are applied (i.e. the module is pipelined even without an explicit clock in the port list)"
+   ]
+  },
+  {
+   "aspect": "implicit clock/reset and initial value of out",
+   "severity": "medium",
+   "readings": [
+    "No clock or reset exists; the design has no state, so out is a pure function of in1/in2/in3 with no initial value to define",
+    "The module is sequential and therefore needs an implicit clock and reset, leaving the reset value of out (0 vs 1) and whether out updates during reset unspecified"
+   ]
+  },
+  {
+   "aspect": "interpretation of the described function (XNOR-then-XOR vs three-input parity)",
+   "severity": "low",
+   "readings": [
+    "Implement literally as stated: out = XNOR(in1, in2) XOR in3, i.e. out = ~(in1 ^ in2 ^ in3)",
+    "Treat the description as a single 3-input parity/XNOR intent, giving out = in1 ^ in2 ^ in3 (the inverse of the literal reading for all input combinations)"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset value",
+   "severity": "high",
+   "readings": [
+    "resetn asserted clears all 16 DFFs to 0",
+    "resetn asserted sets all 16 DFFs to an unspecified value (e.g., all 1s)"
+   ]
+  },
+  {
+   "aspect": "Reset vs byte enable priority",
+   "severity": "medium",
+   "readings": [
+    "resetn has priority: when resetn=0, q<=0 regardless of byteena",
+    "byte enable has priority: when resetn=0 and byteena=1, q<=d"
+   ]
+  },
+  {
+   "aspect": "Byte enable polarity",
+   "severity": "medium",
+   "readings": [
+    "byteena is active-high (1 enables write)",
+    "byteena is active-low (0 enables write)"
+   ]
+  }
+ ]
+}

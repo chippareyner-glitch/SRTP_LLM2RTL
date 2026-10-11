@@ -1,0 +1,869 @@
+{
+ "case": "Prob078_dualedge",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c1",
+   "members": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c7"
+   ],
+   "votes": 7,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c0",
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c6",
+   "members": [
+    "c6"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1"
+     ],
+     [
+      "x",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d\n - output q\n\nA dual-edge triggered flip-flop is triggered on both edges of the clock.\nHowever, FPGAs don't have dual-edge triggered flip-flops, and using an\nalways @(posedge clk or negedge clk) is not accepted as a legal\nsensitivity list. Build a circuit that functionally behaves like a\ndual-edge triggered flip-flop.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | d | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=1'b0 | q=1'b1 | q=1'bx | q=1'b1 |\n| 1 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 2 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 3 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 4 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 5 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 6 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 7 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 8 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 9 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 10 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 11 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 12 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 13 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 14 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 15 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 16 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 17 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 18 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 19 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 20 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 21 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 22 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 23 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 24 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 25 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 26 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 27 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 28 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 29 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n| 30 | 1'b0 | q=1'b0 | q=1'b0 | q=1'b0 | q=1'b0 |\n| 31 | 1'b1 | q=1'b1 | q=1'b1 | q=1'b1 | q=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "x"
+   ],
+   "cluster_option": {
+    "c1": "B",
+    "c0": "A",
+    "c6": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "x",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d\n - output q\n\nA dual-edge triggered flip-flop is triggered on both edges of the clock.\nHowever, FPGAs don't have dual-edge triggered flip-flops, and using an\nalways @(posedge clk or negedge clk) is not accepted as a legal\nsensitivity list. Build a circuit that functionally behaves like a\ndual-edge triggered flip-flop.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | d | pre | post |\n|---|---|---|---|\n| 0 | 1'b0 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=1'b0\n- **B**: q=1'bx\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "x",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1"
+     ],
+     [
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d\n - output q\n\nA dual-edge triggered flip-flop is triggered on both edges of the clock.\nHowever, FPGAs don't have dual-edge triggered flip-flops, and using an\nalways @(posedge clk or negedge clk) is not accepted as a legal\nsensitivity list. Build a circuit that functionally behaves like a\ndual-edge triggered flip-flop.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | d | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=1'bx | q=1'b1 | q=1'bx | q=1'bx |\n| 1 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 2 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 3 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 4 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 5 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 6 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 7 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 8 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 9 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 10 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 11 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 12 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 13 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 14 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 15 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 16 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 17 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 18 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 19 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 20 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 21 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 22 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 23 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 24 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 25 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 26 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 27 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 28 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 29 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 30 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 31 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c6"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "x"
+   ],
+   "cluster_option": {
+    "c1": "A",
+    "c0": "other",
+    "c6": "B"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": true,
+   "hist": [
+    "x"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d\n - output q\n\nA dual-edge triggered flip-flop is triggered on both edges of the clock.\nHowever, FPGAs don't have dual-edge triggered flip-flops, and using an\nalways @(posedge clk or negedge clk) is not accepted as a legal\nsensitivity list. Build a circuit that functionally behaves like a\ndual-edge triggered flip-flop.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | d | pre | post |\n|---|---|---|---|\n| 0 | 1'b0 | q=1'bx | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=1'b0\n- **B**: q=1'bx\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1"
+     ],
+     [
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x",
+      "x"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d\n - output q\n\nA dual-edge triggered flip-flop is triggered on both edges of the clock.\nHowever, FPGAs don't have dual-edge triggered flip-flops, and using an\nalways @(posedge clk or negedge clk) is not accepted as a legal\nsensitivity list. Build a circuit that functionally behaves like a\ndual-edge triggered flip-flop.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | d | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | q=1'b0 | q=1'b1 | q=1'bx | q=1'bx |\n| 1 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 2 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 3 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 4 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 5 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 6 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 7 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 8 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 9 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 10 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 11 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 12 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 13 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 14 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 15 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 16 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 17 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 18 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 19 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 20 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 21 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 22 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 23 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 24 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 25 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 26 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 27 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 28 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 29 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n| 30 | 1'b0 | q=1'b0 | q=1'b0 | q=1'bx | q=1'bx |\n| 31 | 1'b1 | q=1'b1 | q=1'b1 | q=1'bx | q=1'bx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c6"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "0",
+    "x"
+   ],
+   "cluster_option": {
+    "c1": "B",
+    "c0": "A",
+    "c6": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "x",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  d\n - output q\n\nA dual-edge triggered flip-flop is triggered on both edges of the clock.\nHowever, FPGAs don't have dual-edge triggered flip-flops, and using an\nalways @(posedge clk or negedge clk) is not accepted as a legal\nsensitivity list. Build a circuit that functionally behaves like a\ndual-edge triggered flip-flop.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | d | pre | post |\n|---|---|---|---|\n| 0 | 1'b0 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=1'b0\n- **B**: q=1'bx\n"
+  }
+ ]
+}

@@ -1,0 +1,148 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a (4 bits)
+ - input  b (4 bits)
+ - input  c (4 bits)
+ - input  d (4 bits)
+ - input  e (4 bits)
+ - output q (4 bits)
+
+The module should implement a combinational circuit. Read the simulation
+waveforms to determine what the circuit does, then implement it.
+
+  time  a  b  c  d  e  q
+  0ns   x  x  x  x  x  x
+  5ns   x  x  x  x  x  x
+  10ns  x  x  x  x  x  x
+  15ns  a  b  0  d  e  b
+  20ns  a  b  1  d  e  e
+  25ns  a  b  2  d  e  a
+  30ns  a  b  3  d  e  d
+  35ns  a  b  4  d  e  f
+  40ns  a  b  5  d  e  f
+  45ns  a  b  6  d  e  f
+  50ns  a  b  7  d  e  f
+  55ns  a  b  8  d  e  f
+  60ns  a  b  9  d  e  f
+  65ns  a  b  a  d  e  f
+  70ns  a  b  b  d  e  f
+  75ns  a  b  c  d  e  f
+  80ns  a  b  d  d  e  f
+  85ns  a  b  e  d  e  f
+  90ns  a  b  f  d  e  f
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report
+
+### 1. Specification Summary
+- **Module**: TopModule (combinational logic)
+- **Inputs**: 5×4-bit signals (a, b, c, d, e)
+- **Output**: 4-bit signal (q)
+- **Behavior**: Output `q` is selected from input signals based on the value of `c`
+- **Key Pattern**: When `c` = 0,1,2,3 → `q` = b,e,a,d respectively; otherwise `q` = 'f'
+
+### 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **'x' vs 'f'**: The waveform shows 'x' (unknown) initially but later uses 'f' - unclear if 'f' represents hexadecimal F (4'b1111) or an error state
+- **Signal Values**: 'a', 'b', 'd', 'e' in the table represent signal names, but their actual values are ambiguous
+- **Timing**: The 0-15ns period shows 'x' outputs - unclear if this represents reset behavior or just simulation initialization
+
+**Resolution Needed:**
+- Confirm 'f' = 4'b1111 (hexadecimal F)
+- Clarify that 'a','b','d','e' in the table refer to the corresponding input signal values
+- Specify that 'x' outputs are pre-stimulus and the circuit should be purely combinational
+
+### 3. Missing Critical Details
+
+**Essential Specifications Needed:**
+- **Reset/Power-on Behavior**: None specified for combinational logic
+- **'f' Definition**: Exact binary value not specified (assumed 4'b1111)
+- **Input Validation**: No constraints on input ranges or illegal values
+- **Propagation Delay**: No timing constraints mentioned
+- **Output for c > 3**: Should output remain 'f' for all c values > 3?
+
+### 4. Edge Cases & Boundary Conditions
+
+**Identified Edge Cases:**
+- **c = 0**: q = b
+- **c = 1**: q = e  
+- **c = 2**: q = a
+- **c = 3**: q = d
+- **c ≥ 4**: q = 4'b1111 (assuming 'f' = 0xF)
+- **c = 4'b1100-4'b1111**: Same as c ≥ 4 (all give 'f')
+
+**Unclear Cases:**
+- What happens when c contains X or Z values? (should propagate X)
+- Are there any don't-care conditions for optimization?
+
+### 5. Functional Correctness Prediction
+
+**Expected Truth Table:**
+```
+c[1:0] | q
+00     | b
+01     | e  
+10     | a
+11     | d
+```
+
+**But with important constraint:**
+- Only c[1:0] bits matter for the mux selection
+- c[3:2] are ignored (all cases where c ≥ 4 give 'f', but c=4-7,8-11,12-15 all have different c[3:2] but same output)
+
+**Correction**: Actually, the pattern shows that only c values 0,1,2,3 produce specific outputs. All other c values (4-15) produce 'f'. This suggests a 4:1 mux with default.
+
+### 6. Actionable Guidance for RTL Generation
+
+**Recommended Implementation:**
+```systemverilog
+module TopModule (
+    input  logic [3:0] a, b, c, d, e,
+    output logic [3:0] q
+);
+
+// Use case statement for clear functionality
+always_comb begin
+    case (c)
+        4'd0: q = b;
+        4'd1: q = e;
+        4'd2: q = a;
+        4'd3: q = d;
+        default: q = 4'b1111; // 'f' = 0xF
+    endcase
+end
+
+endmodule
+```
+
+**Verification Strategy:**
+1. Test all c values 0-15 with varying a,b,d,e inputs
+2. Verify X-propagation by injecting X into inputs
+3. Check that changes in c[3:2] don't affect output when c ≥ 4
+4. Confirm combinational behavior (no registers/clock)
+
+**Synthesis Considerations:**
+- Use `always_comb` for clear combinational intent
+- Case statement will infer optimal 4:1 mux + default
+- No sequential elements needed
+- Consider adding `unique case` if synthesis tools support it
+
+**Critical Assumptions Made:**
+- 'f' = 4'b1111 (hexadecimal F)
+- Output is purely combinational with no registers
+- All unspecified c values (4-15) should output 'f'
+- Inputs a,b,d,e can be any 4-bit value
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

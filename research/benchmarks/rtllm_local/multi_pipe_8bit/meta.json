@@ -1,0 +1,11 @@
+{
+ "case": "multi_pipe_8bit",
+ "category": "Arithmetic",
+ "top": "multi_pipe_8bit",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "multi_pipe_8bit"
+ ]
+}

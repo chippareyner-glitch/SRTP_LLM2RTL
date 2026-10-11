@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:25:13.929642+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "barrel_shifter",
+  "returned_model": "deepseek-flash",
+  "id": "fa1dfd33-90b6-43af-b9d1-a1f0209ebc20",
+  "usage": {
+    "prompt_tokens": 611,
+    "completion_tokens": 4956,
+    "total_tokens": 5567,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4492
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 227
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 19.731382300000405
+}

@@ -1,0 +1,197 @@
+{
+ "case": "Prob094_gatesv",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "out_both",
+    4
+   ],
+   [
+    "out_any",
+    4
+   ],
+   [
+    "out_different",
+    4
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1"
+  ],
+  [
+   "c3",
+   "c4"
+  ],
+  [
+   "c2"
+  ],
+  [
+   "c5"
+  ]
+ ],
+ "ci_pairs": 8,
+ "ci_found": 8,
+ "ci_missed": [],
+ "off_pairs": 13,
+ "off_found": 13,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c0",
+    "c5"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 3,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     3
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 4,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c3",
+    "c5"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  },
+  {
+   "pair": [
+    "c2",
+    "c5"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 6
+}

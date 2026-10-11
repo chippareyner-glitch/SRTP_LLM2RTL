@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Pipeline depth / mul_en_out latency",
+   "severity": "high",
+   "readings": [
+    "Input register stage + partial-sum register stage + final product register = mul_en_out asserted 3 cycles after mul_en_in (3-stage pipeline)",
+    "Only the input register and the final mul_out_reg are clocked stages, giving a 2-cycle latency; or splitting partial sums into two register stages gives 4 cycles. mul_en_out timing differs by 1-2 cycles for the same input."
+   ]
+  },
+  {
+   "aspect": "Enable shift-register update condition",
+   "severity": "high",
+   "readings": [
+    "mul_en_out_reg (and the data pipeline) shift/advance every clock unconditionally, so gaps between valid input samples propagate and mul_en_out is high only for the cycles corresponding to valid mul_en_in pulses",
+    "All registers update only when their stage's enable is active (as stated for the input registers), so a single mul_en_in pulse leaves mul_en_out high for several consecutive cycles and back-to-back products cannot be pipelined"
+   ]
+  },
+  {
+   "aspect": "Reset behavior and reset values",
+   "severity": "medium",
+   "readings": [
+    "rst_n asynchronously clears every state element (mul_a_reg, mul_b_reg, partial-sum regs, mul_out_reg, mul_en_out_reg) to 0 on the same edge",
+    "rst_n is synchronous and/or only the explicitly described registers are cleared, so sum[]/mul_out_reg power up undefined and mul_out may be X until the first valid product"
+   ]
+  },
+  {
+   "aspect": "mul_out output form / duration",
+   "severity": "low",
+   "readings": [
+    "mul_out is a purely combinational mux: mul_out = mul_en_out ? mul_out_reg : 16'h0, so it is 0 in the same cycle mul_en_out is low",
+    "mul_out is itself registered, so it holds the last product for one extra cycle after mul_en_out falls (or is cleared one cycle later), changing the cycle-by-cycle output waveform"
+   ]
+  }
+ ]
+}

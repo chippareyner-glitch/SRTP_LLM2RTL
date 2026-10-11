@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "output latency",
+   "severity": "high",
+   "readings": [
+    "q is the counter register itself; it updates on the same clock edge as the count value.",
+    "q is a separate output register loaded from the counter; it changes one clock cycle after the count value."
+   ]
+  },
+  {
+   "aspect": "bit ordering",
+   "severity": "medium",
+   "readings": [
+    "q[9] is the most significant bit and q[0] is the least significant bit.",
+    "q[0] is the most significant bit and q[9] is the least significant bit."
+   ]
+  },
+  {
+   "aspect": "reset effect on q",
+   "severity": "medium",
+   "readings": [
+    "Asserting reset forces q to 0 on the next rising clock edge.",
+    "Asserting reset only clears the internal counter; q is not reset and may hold its previous value (if q is implemented as a separate register)."
+   ]
+  },
+  {
+   "aspect": "initial value before reset",
+   "severity": "low",
+   "readings": [
+    "q is 0 at power-up even if reset has never been asserted.",
+    "q is undefined/unknown until reset is asserted."
+   ]
+  }
+ ]
+}

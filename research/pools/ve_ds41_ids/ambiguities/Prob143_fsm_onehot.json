@@ -1,0 +1,38 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "next_state computation for multiple active states",
+   "severity": "high",
+   "readings": [
+    "OR together the next-state bits from every active state's transition (next_state may have multiple bits set).",
+    "Arbitrate between active states (e.g., lowest or highest index) to produce a single one-hot next_state."
+   ]
+  },
+  {
+   "aspect": "out1/out2 computation for multiple active states",
+   "severity": "high",
+   "readings": [
+    "OR together the outputs of every active state (out1 = state[8]|state[9], out2 = state[7]|state[9]).",
+    "Use the outputs of a single arbitration-selected active state (e.g., lowest index) and ignore others.",
+    "Drive outputs to zero for any non-one-hot state combination, since only individual states have specified outputs."
+   ]
+  },
+  {
+   "aspect": "state[9:0] all zeros",
+   "severity": "medium",
+   "readings": [
+    "next_state = 0, out1 = 0, out2 = 0 (no active state, outputs default to zero).",
+    "Treat as invalid/reset-like and force next_state[0]=1 (S0).",
+    "Assume never occurs; outputs are don't-care."
+   ]
+  },
+  {
+   "aspect": "contradiction: multiple active states vs. singular 'the next state' in next_state bit description",
+   "severity": "medium",
+   "readings": [
+    "The statement 'next_state[1] is set to 1 when the next state is S1' implies exactly one next state, so multiple active states must be resolved to one.",
+    "The earlier statement that state can be a combination of multiple states implies next_state can be a vector with multiple bits set; the singular description applies only when one state is active."
+   ]
+  }
+ ]
+}

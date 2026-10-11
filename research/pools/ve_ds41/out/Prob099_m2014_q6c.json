@@ -1,0 +1,77 @@
+{
+ "case": "Prob099_m2014_q6c",
+ "n_samples": 5,
+ "n_distinct": 4,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "eb27fc458911",
+   "sources": [
+    "ve_ds41:s0",
+    "ve_ds41:s3"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob099_m2014_q6c\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:71: error: port ``Y4'' is not a port of good1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y2'' is not a port of top_module1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "cbb5d3ea294f",
+   "sources": [
+    "ve_ds41:s1"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob099_m2014_q6c\\s1.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:71: error: port ``Y4'' is not a port of good1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y2'' is not a port of top_module1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c2",
+   "hash": "f931b403ee24",
+   "sources": [
+    "ve_ds41:s2"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob099_m2014_q6c\\s2.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:71: error: port ``Y4'' is not a port of good1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y2'' is not a port of top_module1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c3",
+   "hash": "1c59aa7807d3",
+   "sources": [
+    "ve_ds41:s4"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob099_m2014_q6c\\s4.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:71: error: port ``Y4'' is not a port of good1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y2'' is not a port of top_module1.\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob099_m2014_q6c_test.sv:77: error: port ``Y4'' is not a port of top_module1.\n4 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

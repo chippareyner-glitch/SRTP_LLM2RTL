@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T16:35:27.570825+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob106_always_nolatches",
+  "returned_model": "deepseek-flash",
+  "id": "d5555c48-caf4-403c-80f8-e04d95c4c2ca",
+  "usage": {
+    "prompt_tokens": 473,
+    "completion_tokens": 991,
+    "total_tokens": 1464,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 984
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 217
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 5.397726000000148
+}

@@ -1,0 +1,76 @@
+{
+ "case": "Prob035_count1to10",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    4
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c2",
+   "c3",
+   "c4",
+   "c5"
+  ],
+  [
+   "c1"
+  ]
+ ],
+ "ci_pairs": 5,
+ "ci_found": 5,
+ "ci_missed": [],
+ "off_pairs": 5,
+ "off_found": 5,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 37,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 10,
+   "orig_len": 38,
+   "min_len": 3,
+   "toggles": 2
+  }
+ ],
+ "status": "ok",
+ "n_live": 6
+}

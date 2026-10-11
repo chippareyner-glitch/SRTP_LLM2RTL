@@ -1,0 +1,367 @@
+{
+ "case": "parallel2serial",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "rst_n",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "rst_n",
+    1
+   ],
+   [
+    "d",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "valid_out",
+    1
+   ],
+   [
+    "dout",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c3"
+   ],
+   "votes": 4,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      13
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      15
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      13
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      14
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      1,
+      15
+     ],
+     [
+      1,
+      15
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      1,
+      15
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      14
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      13
+     ],
+     [
+      1,
+      13
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "st0": 1,
+    "outs": [
+     [
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "11",
+      "11",
+      "01",
+      "01",
+      "00",
+      "00",
+      "01",
+      "01",
+      "10",
+      "10",
+      "00",
+      "00",
+      "01",
+      "01",
+      "00",
+      "00",
+      "11",
+      "11",
+      "00",
+      "00",
+      "00",
+      "00",
+      "01",
+      "01",
+      "11",
+      "11",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "11",
+      "11",
+      "01",
+      "01",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00"
+     ],
+     [
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "00",
+      "00",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "01",
+      "11",
+      "11",
+      "00",
+      "00",
+      "00",
+      "00",
+      "01",
+      "01",
+      "10",
+      "10",
+      "01",
+      "01",
+      "00",
+      "00",
+      "00",
+      "00",
+      "10",
+      "10",
+      "01",
+      "01",
+      "01",
+      "01",
+      "00",
+      "00",
+      "10",
+      "10",
+      "01",
+      "01",
+      "00",
+      "00",
+      "00",
+      "00",
+      "11",
+      "11",
+      "01",
+      "00",
+      "00",
+      "00",
+      "10",
+      "10",
+      "01",
+      "01",
+      "00"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a module for parallel-to-serial conversion, where every four input bits are converted to a serial one bit output (from MSB to LSB). The output signal valid_out is set to 1 to indicate the availability of valid serial output. When valid_out = 1, the most significant bit of d is output, and the remaining three bits are output sequentially in the following 3 cycles.\n\nModule name:  \n    parallel2serial     \n\nInput ports:\n    clk: Clock signal used for synchronous operations.\n    rst_n: Reset signal. Defined as 0 for reset and 1 for reset signal inactive.\n    d: 4-bit parallel data input.\n\nOutput ports:\n    valid_out: Valid signal indicating the availability of serial output.\n    dout: Serial output representing the converted data.\n\nImplementation:\nThe most significant bit of the parallel input is assigned to the serial output (dout). On each clock cycle, if the counter (cnt) is 3, indicating the last bit of the parallel input, the module updates the data register (data) with the parallel input (d), resets the counter (cnt) to 0, and sets the valid signal (valid) to 1.\nOtherwise, the module increments the counter (cnt) by 1, sets the valid signal (valid) to 0, and shifts the data register (data) one bit to the left, with the most significant bit shifted to the least significant bit.\nCounter Register: If the reset signal (rst_n) is high, the register (cnt) is incremented by 1.\n\nGive me the complete code.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | rst_n | d | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| 0 | 1'b0 | 4'b1101 | - | valid_out=1'b0, dout=1'b0 | - | valid_out=1'b0, dout=1'b0 |\n| 1 | 1'b0 | 4'b0110 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 |\n| 2 | 1'b1 | 4'b0110 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 |\n| 3 | 1'b1 | 4'b1111 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 |\n| 4 | 1'b1 | 4'b0110 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 |\n| 5 | 1'b1 | 4'b1101 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 |\n| 6 | 1'b1 | 4'b0111 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 |\n| 7 | 1'b1 | 4'b1110 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 |\n| 8 | 1'b1 | 4'b1000 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 |\n| 9 | 1'b1 | 4'b0010 | valid_out=1'b0, dout=1'b1 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 |\n| 10 | 1'b1 | 4'b1001 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b1, dout=1'b1 |\n| 11 | 1'b1 | 4'b1111 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b0 |\n| 12 | 1'b1 | 4'b1111 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 |\n| 13 | 1'b1 | 4'b1001 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 |\n| 14 | 1'b1 | 4'b0100 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b1, dout=1'b0 |\n| 15 | 1'b1 | 4'b0001 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 |\n| 16 | 1'b1 | 4'b1010 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 |\n| 17 | 1'b1 | 4'b1000 | valid_out=1'b0, dout=1'b1 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 |\n| 18 | 1'b1 | 4'b0110 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 |\n| 19 | 1'b1 | 4'b1010 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 |\n| 20 | 1'b1 | 4'b1111 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 |\n| 21 | 1'b1 | 4'b0111 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 |\n| 22 | 1'b1 | 4'b0100 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 |\n| 23 | 1'b1 | 4'b1110 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 |\n| 24 | 1'b1 | 4'b0000 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 |\n| 25 | 1'b1 | 4'b1101 | valid_out=1'b0, dout=1'b1 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 |\n| 26 | 1'b1 | 4'b1101 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b1 |\n| 27 | 1'b1 | 4'b1010 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b1 | valid_out=1'b0, dout=1'b1 |\n| 28 | 1'b0 | 4'b0111 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 |\n| 29 | 1'b1 | 4'b0101 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 |\n| 30 | 1'b1 | 4'b0101 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b1, dout=1'b0 | valid_out=1'b0, dout=1'b1 |\n| 31 | 1'b1 | 4'b0001 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b1 | valid_out=1'b0, dout=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "k": 3,
+   "len": 2,
+   "toggles": 1,
+   "stim": [
+    [
+     0,
+     13
+    ],
+    [
+     1,
+     13
+    ]
+   ],
+   "options": [
+    "00",
+    "11"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c4": "B"
+   },
+   "label": "A",
+   "ref_value": "00",
+   "x_involved": false,
+   "hist": [
+    "00",
+    "00",
+    "00"
+   ],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement a module for parallel-to-serial conversion, where every four input bits are converted to a serial one bit output (from MSB to LSB). The output signal valid_out is set to 1 to indicate the availability of valid serial output. When valid_out = 1, the most significant bit of d is output, and the remaining three bits are output sequentially in the following 3 cycles.\n\nModule name:  \n    parallel2serial     \n\nInput ports:\n    clk: Clock signal used for synchronous operations.\n    rst_n: Reset signal. Defined as 0 for reset and 1 for reset signal inactive.\n    d: 4-bit parallel data input.\n\nOutput ports:\n    valid_out: Valid signal indicating the availability of serial output.\n    dout: Serial output representing the converted data.\n\nImplementation:\nThe most significant bit of the parallel input is assigned to the serial output (dout). On each clock cycle, if the counter (cnt) is 3, indicating the last bit of the parallel input, the module updates the data register (data) with the parallel input (d), resets the counter (cnt) to 0, and sets the valid signal (valid) to 1.\nOtherwise, the module increments the counter (cnt) by 1, sets the valid signal (valid) to 0, and shifts the data register (data) one bit to the left, with the most significant bit shifted to the least significant bit.\nCounter Register: If the reset signal (rst_n) is high, the register (cnt) is incremented by 1.\n\nGive me the complete code.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | rst_n | d | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b0 | 4'b1101 | valid_out=1'b0, dout=1'b0 | valid_out=1'b0, dout=1'b0 |\n| 1 | 1'b1 | 4'b1101 | valid_out=1'b0, dout=1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: valid_out=1'b0, dout=1'b0\n- **B**: valid_out=1'b1, dout=1'b1\n"
+  }
+ ]
+}

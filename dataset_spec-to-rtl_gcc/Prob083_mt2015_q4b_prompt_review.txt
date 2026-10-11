@@ -1,0 +1,152 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  x
+ - input  y
+ - output z
+
+The module can be described by the following simulation waveform:
+
+  time  x  y  z
+  0ns   0  0  1
+  5ns   0  0  1
+  10ns  0  0  1
+  15ns  0  0  1
+  20ns  0  0  1
+  25ns  1  0  0
+  30ns  1  0  0
+  35ns  0  1  0
+  40ns  0  1  0
+  45ns  1  1  1
+  50ns  1  1  1
+  55ns  0  0  1
+  60ns  0  1  0
+  65ns  0  1  0
+  70ns  1  1  1
+  75ns  0  1  0
+  80ns  0  1  0
+  85ns  0  1  0
+  90ns  1  0  0
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a combinational logic module `TopModule` with:
+- **Inputs**: `x` (1-bit), `y` (1-bit)
+- **Output**: `z` (1-bit)
+- **Behavior**: Defined by a waveform showing input-output relationships at discrete 5ns intervals
+- **Key observations**: Output `z` appears to be 1 when inputs are equal (`x == y`), and 0 when inputs differ (`x != y`)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Timing Model Unclear**: The 5ns intervals suggest discrete sampling, but it's unspecified whether this is:
+  - Pure combinational logic (output changes immediately with inputs)
+  - Clocked sequential logic (sampled at 5ns intervals)
+  - Synchronous vs. asynchronous behavior
+
+**Minor Ambiguities:**
+- **Initial State**: The waveform starts at time 0ns, but no power-on reset behavior is specified
+- **Glitch Handling**: No specification for how the module should behave during input transitions
+
+## 3. Missing Critical Details
+
+**Essential Missing Information:**
+- **Clock Signal**: No clock port specified, yet timing is given in 5ns increments
+- **Reset Mechanism**: No reset input or power-on initialization behavior
+- **Propagation Delay**: No timing constraints for output response time
+- **Input Timing Constraints**: Setup/hold times if sequential logic is intended
+
+**Design Context Missing:**
+- Target technology/frequency constraints
+- Power/area optimization requirements
+- Testability requirements (scan chain, etc.)
+
+## 4. Edge Cases & Boundary Conditions
+
+**Identified Edge Cases:**
+- **Simultaneous Input Changes**: Both x and y changing at the same time (not shown in waveform)
+- **Metastability**: No handling specified for asynchronous inputs if clocked
+- **Unknown States**: Behavior when inputs are X (unknown) or Z (high-impedance)
+- **Power-On State**: Output behavior before first valid input sequence
+
+**Boundary Conditions to Verify:**
+- All 4 input combinations are covered in the waveform:
+  - (0,0) → z=1 ✓
+  - (0,1) → z=0 ✓  
+  - (1,0) → z=0 ✓
+  - (1,1) → z=1 ✓
+
+## 5. Functional Correctness Prediction
+
+**Pattern Analysis:**
+From the waveform data, the function appears to be:
+```
+z = (x == y)  // XNOR function: z = ~(x ^ y)
+```
+
+**Verification:**
+- All 16 time points match the XNOR truth table
+- No contradictions found in the provided waveform
+- Function is consistent across all input combinations
+
+**Potential Issues:**
+- If intended as sequential logic, the specification is incomplete
+- If combinational, the 5ns timing annotations are misleading
+
+## 6. Actionable Guidance for RTL Generation
+
+**Primary Implementation Approach (Recommended):**
+```systemverilog
+// Pure combinational implementation
+module TopModule(
+  input  logic x,
+  input  logic y, 
+  output logic z
+);
+  assign z = ~(x ^ y);  // XNOR function
+endmodule
+```
+
+**Alternative if Sequential Logic is Required:**
+```systemverilog
+// Synchronous implementation (if clocked behavior intended)
+module TopModule(
+  input  logic clk,     // Add clock
+  input  logic rst_n,   // Add reset
+  input  logic x,
+  input  logic y,
+  output logic z
+);
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) z <= 1'b0;  // or 1'b1 based on reset requirements
+    else        z <= ~(x ^ y);
+  end
+endmodule
+```
+
+**Verification Strategy:**
+1. Create testbench to verify all 4 input combinations
+2. Add timing checks if sequential implementation is used
+3. Verify glitch behavior with rapid input transitions
+4. Include reset sequence testing if sequential
+
+**Critical Questions for Specification Clarification:**
+- Is this truly combinational logic or should it be clocked?
+- Are there any timing constraints for the output?
+- What reset behavior is required?
+- What is the target clock frequency if sequential?
+
+**Implementation Priority:** Start with combinational XNOR implementation as it matches all provided waveform data points exactly.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

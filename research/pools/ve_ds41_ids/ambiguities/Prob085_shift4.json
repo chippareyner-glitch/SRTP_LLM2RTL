@@ -1,0 +1,29 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "areset semantics (asynchronous vs synchronous vs edge-triggered)",
+   "severity": "high",
+   "readings": [
+    "areset is an asynchronous level-sensitive reset: asserting areset immediately clears q to 0 and holds it cleared while areset is asserted, independent of clk",
+    "areset is a synchronous reset sampled on posedge clk: q clears only at the next rising clock edge while areset is asserted",
+    "areset is an asynchronous positive-edge-triggered reset: q clears only on the rising edge of areset, not while areset is held high"
+   ]
+  },
+  {
+   "aspect": "areset active level",
+   "severity": "high",
+   "readings": [
+    "areset is active-high: reset when areset=1",
+    "areset is active-low: reset when areset=0"
+   ]
+  },
+  {
+   "aspect": "priority between areset and load/ena",
+   "severity": "medium",
+   "readings": [
+    "areset has highest priority: when areset is asserted, q becomes 0 even if load=1 or ena=1",
+    "load/ena have priority over reset: when areset is asserted and load=1, q loads data (or shifts if ena=1) instead of clearing"
+   ]
+  }
+ ]
+}

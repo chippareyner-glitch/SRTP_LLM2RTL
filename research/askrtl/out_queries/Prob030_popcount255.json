@@ -1,0 +1,213 @@
+{
+ "case": "Prob030_popcount255",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    255
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    8
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c6",
+    "c7"
+   ],
+   "votes": 7,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c5",
+   "members": [
+    "c5"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c8",
+   "members": [
+    "c8"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      55896598275473892943926784801512502259748144244735511552773087393886749067213
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "01111110"
+     ],
+     [
+      "xxxxxxxx"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (255 bits)\n - output out (  8 bits)\n\nA \"population count\" circuit counts the number of '1's in an input\nvector. The module should implement a population count circuit for a\n255-bit input vector.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | in | A out | B out |\n|---|---|---|---|\n| 0 | 255'h7b945a7d42485e3a0a5d2f346baa9455e3e70682c2094cac629f6fbed82c07cd | out=8'h7e | out=8'bxxxxxxxx |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c5"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "00000000",
+    "xxxxxxxx"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c5": "B",
+    "c8": "A"
+   },
+   "label": "A",
+   "ref_value": "00000000",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (255 bits)\n - output out (  8 bits)\n\nA \"population count\" circuit counts the number of '1's in an input\nvector. The module should implement a population count circuit for a\n255-bit input vector.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | in | out |\n|---|---|---|\n| 0 | 255'h0000000000000000000000000000000000000000000000000000000000000000 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=8'h00\n- **B**: out=8'bxxxxxxxx\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      55896598275473892943926784801512502259748144244735511552773087393886749067213
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "01111110"
+     ],
+     [
+      "00001111"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (255 bits)\n - output out (  8 bits)\n\nA \"population count\" circuit counts the number of '1's in an input\nvector. The module should implement a population count circuit for a\n255-bit input vector.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | in | A out | B out |\n|---|---|---|---|\n| 0 | 255'h7b945a7d42485e3a0a5d2f346baa9455e3e70682c2094cac629f6fbed82c07cd | out=8'h7e | out=8'h0f |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c8"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     55896598275473892943926784801512502259748144244735511552773087393886749067213
+    ]
+   ],
+   "options": [
+    "01111110",
+    "00001111",
+    "xxxxxxxx"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c5": "C",
+    "c8": "B"
+   },
+   "label": "A",
+   "ref_value": "01111110",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (255 bits)\n - output out (  8 bits)\n\nA \"population count\" circuit counts the number of '1's in an input\nvector. The module should implement a population count circuit for a\n255-bit input vector.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | in | out |\n|---|---|---|\n| 0 | 255'h7b945a7d42485e3a0a5d2f346baa9455e3e70682c2094cac629f6fbed82c07cd | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=8'h7e\n- **B**: out=8'h0f\n- **C**: out=8'bxxxxxxxx\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      55896598275473892943926784801512502259748144244735511552773087393886749067213
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xxxxxxxx"
+     ],
+     [
+      "00001111"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (255 bits)\n - output out (  8 bits)\n\nA \"population count\" circuit counts the number of '1's in an input\nvector. The module should implement a population count circuit for a\n255-bit input vector.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | in | A out | B out |\n|---|---|---|---|\n| 0 | 255'h7b945a7d42485e3a0a5d2f346baa9455e3e70682c2094cac629f6fbed82c07cd | out=8'bxxxxxxxx | out=8'h0f |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c5",
+    "c8"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0
+    ]
+   ],
+   "options": [
+    "xxxxxxxx",
+    "00000000"
+   ],
+   "cluster_option": {
+    "c0": "B",
+    "c5": "A",
+    "c8": "B"
+   },
+   "label": "B",
+   "ref_value": "00000000",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (255 bits)\n - output out (  8 bits)\n\nA \"population count\" circuit counts the number of '1's in an input\nvector. The module should implement a population count circuit for a\n255-bit input vector.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | in | out |\n|---|---|---|\n| 0 | 255'h0000000000000000000000000000000000000000000000000000000000000000 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=8'bxxxxxxxx\n- **B**: out=8'h00\n"
+  }
+ ]
+}

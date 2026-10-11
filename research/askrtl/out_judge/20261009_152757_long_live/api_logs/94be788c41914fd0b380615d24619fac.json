@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T07:48:44.795253+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob078_dualedge",
+  "returned_model": "deepseek-flash",
+  "id": "60828b3b-ea5b-4e61-91d8-b2b0f2b7222c",
+  "usage": {
+    "prompt_tokens": 1536,
+    "completion_tokens": 9360,
+    "total_tokens": 10896,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 9218
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 1408
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 46.12502740000127
+}

@@ -1,0 +1,11 @@
+{
+ "case": "up_down_counter",
+ "category": "Control",
+ "top": "up_down_counter",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "up_down_counter"
+ ]
+}

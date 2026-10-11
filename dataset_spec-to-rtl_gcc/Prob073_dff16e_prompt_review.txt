@@ -1,0 +1,124 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  resetn
+ - input  byteena ( 2 bits)
+ - input  d       (16 bits)
+ - output q       (16 bits)
+
+The module should include 16 D flip-flops. It's sometimes useful to only
+modify parts of a group of flip-flops. The byte-enable inputs control
+whether each byte of the 16 registers should be written to on that cycle.
+byteena[1] controls the upper byte d[15:8], while byteena[0] controls the
+lower byte d[7:0]. resetn is a synchronous, active-low reset. All DFFs
+should be triggered by the positive edge of clk.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` implements a 16-bit register with byte-level write enable control:
+- **Clock**: Positive-edge triggered `clk`
+- **Reset**: Synchronous active-low `resetn` 
+- **Data Input**: 16-bit `d[15:0]`
+- **Byte Enable**: 2-bit `byteena[1:0]` controlling upper/lower bytes
+- **Data Output**: 16-bit `q[15:0]`
+- **Architecture**: 16 individual D flip-flops with byte-granular write control
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity - Reset Behavior:**
+- The specification states "resetn is a synchronous, active-low reset" but does **not** specify whether reset overrides byte-enable control
+- **Question**: During reset assertion, should all flip-flops reset regardless of byteena state, or should byteena still control which bytes get reset?
+- **Resolution Needed**: Reset should likely have priority over byte-enable (standard practice)
+
+**Minor Ambiguity - Initial State:**
+- No specification of power-on/reset values for the flip-flops
+- **Resolution**: Assume reset clears all flip-flops to 0 (most common case)
+
+## 3. Missing Critical Details
+
+**Reset Priority Logic:**
+- Missing specification of reset-behavior relationship with byte-enable
+- Need explicit reset priority policy
+
+**Synthesis Constraints:**
+- No guidance on technology mapping or area/timing constraints
+- No specification of whether flip-flops should be grouped or optimized
+
+**Timing Requirements:**
+- No setup/hold time specifications mentioned
+- No maximum frequency requirements
+
+## 4. Edge Cases & Boundary Conditions
+
+**Byte Enable Combinations:**
+- `byteena = 2'b00`: No bytes written (register holds previous value)
+- `byteena = 2'b01`: Only lower byte written
+- `byteena = 2'b10`: Only upper byte written  
+- `byteena = 2'b11`: Full 16-bit write
+
+**Reset Scenarios:**
+- Reset asserted with various byteena states
+- Reset deassertion timing relative to clock edges
+- Reset during partial byte writes
+
+**Power-On Conditions:**
+- Behavior when reset is asserted during initial power-up
+- State if reset is never asserted
+
+## 5. Functional Correctness Prediction
+
+**High Confidence Areas:**
+- Basic register functionality with byte-level enables is straightforward
+- Synchronous reset implementation is well-defined
+- 16 individual DFF structure is simple to implement
+
+**Potential Risk Areas:**
+- **Reset vs Byteena Priority**: Incorrect priority could cause functional errors
+- **Bit Ordering**: Risk of misinterpreting byte/bit ordering (big-endian vs little-endian)
+- **Synthesis Optimization**: Tools might optimize away individual flip-flops if not constrained properly
+
+## 6. Actionable Guidance for RTL Generation
+
+**Reset Priority Implementation:**
+```systemverilog
+// Reset should have priority over byte-enable
+always_ff @(posedge clk) begin
+    if (!resetn) begin
+        q <= 16'h0000;  // Reset all bits regardless of byteena
+    end else begin
+        // Byte-enable controlled updates
+        if (byteena[1]) q[15:8] <= d[15:8];
+        if (byteena[0]) q[7:0]  <= d[7:0];
+    end
+end
+```
+
+**Synthesis Guidance:**
+- Use `always_ff` for sequential logic
+- Explicitly code each byte section to prevent optimization issues
+- Consider adding `(* keep *)` attributes if individual flip-flop preservation is critical
+
+**Verification Requirements:**
+- Test all 4 byteena combinations under normal operation
+- Verify reset functionality with various byteena states
+- Check reset recovery timing
+- Validate bit-level independence
+
+**Additional Recommendations:**
+- Add comments clarifying bit ordering assumptions
+- Consider adding assertion checks for valid byteena values
+- Document the reset priority decision for future maintenance
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

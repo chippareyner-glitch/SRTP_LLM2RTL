@@ -1,0 +1,328 @@
+{
+ "case": "Prob145_circuit8",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clock",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "p",
+    1
+   ],
+   [
+    "q",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c4"
+   ],
+   "votes": 4,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "xx",
+      "1x",
+      "11",
+      "01",
+      "00",
+      "10",
+      "11",
+      "11",
+      "11",
+      "01",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "10",
+      "11",
+      "11",
+      "11",
+      "01",
+      "00",
+      "00",
+      "00",
+      "10",
+      "11",
+      "11",
+      "11",
+      "11",
+      "11",
+      "01",
+      "00",
+      "10",
+      "11",
+      "01",
+      "00",
+      "00",
+      "00",
+      "10",
+      "11",
+      "11",
+      "11",
+      "11",
+      "11",
+      "01",
+      "00",
+      "10",
+      "11",
+      "01",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "10",
+      "11",
+      "01",
+      "00",
+      "10",
+      "11",
+      "11",
+      "11",
+      "01",
+      "00",
+      "10"
+     ],
+     [
+      "xx",
+      "1x",
+      "10",
+      "00",
+      "01",
+      "11",
+      "11",
+      "11",
+      "10",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "01",
+      "11",
+      "11",
+      "11",
+      "10",
+      "00",
+      "00",
+      "00",
+      "01",
+      "11",
+      "11",
+      "11",
+      "11",
+      "11",
+      "10",
+      "00",
+      "01",
+      "11",
+      "10",
+      "00",
+      "00",
+      "00",
+      "01",
+      "11",
+      "11",
+      "11",
+      "11",
+      "11",
+      "10",
+      "00",
+      "01",
+      "11",
+      "10",
+      "00",
+      "00",
+      "00",
+      "00",
+      "00",
+      "01",
+      "11",
+      "10",
+      "00",
+      "01",
+      "11",
+      "11",
+      "11",
+      "10",
+      "00",
+      "01",
+      "11"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clock\n - input  a\n - output p\n - output q\n\nThe module should implement a sequential circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time   clock   a   p   q\n  0ns    0       0   x   x\n  5ns    0       0   x   x\n  10ns   0       0   x   x\n  15ns   0       0   x   x\n  20ns   0       0   x   x\n  25ns   1       0   0   x\n  30ns   1       0   0   x\n  35ns   1       0   0   x\n  40ns   1       0   0   x\n  45ns   1       0   0   x\n  50ns   1       0   0   x\n  55ns   0       0   0   0\n  60ns   0       0   0   0\n  65ns   0       0   0   0\n  70ns   0       1   0   0\n  75ns   0       0   0   0\n  80ns   0       1   0   0\n  85ns   1       0   0   0\n  90ns   1       1   1   0\n  95ns   1       0   0   0\n  100ns  1       1   1   0\n  105ns  1       0   0   0\n  110ns  1       1   1   0\n  115ns  0       0   1   1\n  120ns  0       1   1   1\n  125ns  0       0   1   1\n  130ns  0       1   1   1\n  135ns  0       0   1   1\n  140ns  0       0   1   1\n  145ns  1       0   0   1\n  150ns  1       0   0   1\n  155ns  1       0   0   1\n  160ns  1       0   0   1\n  165ns  1       1   1   1\n  170ns  1       0   0   1\n  175ns  0       1   0   0\n  180ns  0       0   0   0\n  185ns  0       1   0   0\n  190ns  0       0   0   0\n\n## Concrete scenario\n\nClock: `clock` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | a | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | p=1'bx, q=1'bx | p=1'b1, q=1'bx | p=1'bx, q=1'bx | p=1'b1, q=1'bx |\n| 1 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 2 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n| 3 | 1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 |\n| 4 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 5 | 1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 |\n| 6 | 1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 |\n| 7 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n| 8 | 1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 |\n| 9 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 10 | 1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 |\n| 11 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n| 12 | 1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 |\n| 13 | 1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 |\n| 14 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 15 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n| 16 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 17 | 1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 |\n| 18 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n| 19 | 1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 |\n| 20 | 1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 |\n| 21 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 22 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n| 23 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 24 | 1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 |\n| 25 | 1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 | p=1'b0, q=1'b0 |\n| 26 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n| 27 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 28 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n| 29 | 1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 | p=1'b1, q=1'b1 |\n| 30 | 1'b0 | p=1'b1, q=1'b1 | p=1'b0, q=1'b1 | p=1'b1, q=1'b0 | p=1'b0, q=1'b0 |\n| 31 | 1'b1 | p=1'b0, q=1'b0 | p=1'b1, q=1'b0 | p=1'b0, q=1'b1 | p=1'b1, q=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 2,
+   "len": 2,
+   "toggles": 1,
+   "stim": [
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "options": [
+    "11",
+    "10"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "B"
+   },
+   "label": "B",
+   "ref_value": "10",
+   "x_involved": false,
+   "hist": [
+    "xx",
+    "1x"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clock\n - input  a\n - output p\n - output q\n\nThe module should implement a sequential circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time   clock   a   p   q\n  0ns    0       0   x   x\n  5ns    0       0   x   x\n  10ns   0       0   x   x\n  15ns   0       0   x   x\n  20ns   0       0   x   x\n  25ns   1       0   0   x\n  30ns   1       0   0   x\n  35ns   1       0   0   x\n  40ns   1       0   0   x\n  45ns   1       0   0   x\n  50ns   1       0   0   x\n  55ns   0       0   0   0\n  60ns   0       0   0   0\n  65ns   0       0   0   0\n  70ns   0       1   0   0\n  75ns   0       0   0   0\n  80ns   0       1   0   0\n  85ns   1       0   0   0\n  90ns   1       1   1   0\n  95ns   1       0   0   0\n  100ns  1       1   1   0\n  105ns  1       0   0   0\n  110ns  1       1   1   0\n  115ns  0       0   1   1\n  120ns  0       1   1   1\n  125ns  0       0   1   1\n  130ns  0       1   1   1\n  135ns  0       0   1   1\n  140ns  0       0   1   1\n  145ns  1       0   0   1\n  150ns  1       0   0   1\n  155ns  1       0   0   1\n  160ns  1       0   0   1\n  165ns  1       1   1   1\n  170ns  1       0   0   1\n  175ns  0       1   0   0\n  180ns  0       0   0   0\n  185ns  0       1   0   0\n  190ns  0       0   0   0\n\n## Concrete scenario\n\nClock: `clock` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | a | pre | post |\n|---|---|---|---|\n| 0 | 1'b1 | p=1'bx, q=1'bx | p=1'b1, q=1'bx |\n| 1 | 1'b0 | **?** |  |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: p=1'b1, q=1'b1\n- **B**: p=1'b1, q=1'b0\n"
+  }
+ ]
+}

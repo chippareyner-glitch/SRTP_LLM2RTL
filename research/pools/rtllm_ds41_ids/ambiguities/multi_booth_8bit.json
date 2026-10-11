@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Algorithm: radix-4 vs described radix-2",
+   "severity": "high",
+   "readings": [
+    "Implement radix-4 Booth recoding: examine overlapping 3-bit groups, handle +2/+1/0/-1/-2, shift by 2, and complete in about 8 cycles.",
+    "Implement exactly as described: test multiplier[ctr] one bit per cycle, add multiplicand when 1, shift multiplicand left by 1, run for 16 cycles, and never subtract."
+   ]
+  },
+  {
+   "aspect": "Reset register assignment swapped",
+   "severity": "high",
+   "readings": [
+    "Respect the port roles: multiplier register <= sign-extended b, multiplicand register <= sign-extended a.",
+    "Follow the reset text literally: multiplier register <= sign-extended a, multiplicand register <= sign-extended b, swapping the roles of a and b."
+   ]
+  },
+  {
+   "aspect": "Reset coverage and initial state",
+   "severity": "high",
+   "readings": [
+    "Reset is asynchronous and sets only multiplier and multiplicand; p, ctr, and rdy keep previous or unknown values, so the first product and rdy depend on power-up or prior state.",
+    "Reset should also clear p=0, ctr=0, rdy=0, and may be synchronous or asynchronous depending on the intended sensitivity list, making the first multiplication deterministic."
+   ]
+  },
+  {
+   "aspect": "p accumulation ordering and shift timing",
+   "severity": "high",
+   "readings": [
+    "Left-shift multiplicand first in the same clock, then add the newly shifted value to p.",
+    "Because nonblocking assignments update together, add the old pre-shift multiplicand value to p; shift and add may occur in separate cycles."
+   ]
+  }
+ ]
+}

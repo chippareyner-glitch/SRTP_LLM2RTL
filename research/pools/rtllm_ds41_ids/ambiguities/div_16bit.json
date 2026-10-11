@@ -1,0 +1,40 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "comparison condition on equality (greater vs greater-or-equal)",
+   "severity": "high",
+   "readings": [
+    "Quotient bit = 1 only when the extracted dividend bits are strictly greater than B; when they are equal the quotient bit is 0 and no subtraction is performed (remainder = extracted bits)",
+    "Quotient bit = 1 when the extracted bits are >= B (normal restoring division); when they are equal the quotient bit is 1 and the remainder becomes 0"
+   ],
+   "aspect_note": ""
+  },
+  {
+   "aspect": "output latency (combinational vs registered result/odd)",
+   "severity": "high",
+   "readings": [
+    "Since both always blocks are declared combinational and triggered by A and B, result and odd are pure combinational functions of A and B valid in the same cycle as the inputs",
+    "Because the first block is described as loading A and B into registers a_reg/b_reg, result and odd are registered and are only valid one clock cycle after A/B change (the module is clocked)"
+   ],
+   "aspect_note": ""
+  },
+  {
+   "aspect": "width of the running remainder versus the 8-bit divisor",
+   "severity": "high",
+   "readings": [
+    "The remainder is kept 9 bits wide (8-bit remainder concatenated with the next dividend bit) and B is zero-extended to 9 bits for the compare/subtract, so a remainder with MSB=1 is handled correctly",
+    "The concatenated value is truncated back to 8 bits to 'match the bit width of the divisor', discarding the MSB, which changes every subsequent compare/subtract and the final odd"
+   ],
+   "aspect_note": ""
+  },
+  {
+   "aspect": "remainder value when the extracted bits are not greater than B",
+   "severity": "medium",
+   "readings": [
+    "The running remainder is left unchanged (the extracted dividend bits are kept as the remainder for the next iteration)",
+    "The remainder is forced to 0, taking 'use the difference as the remainder' literally with a difference of 0 when no subtraction occurs"
+   ],
+   "aspect_note": ""
+  }
+ ]
+}

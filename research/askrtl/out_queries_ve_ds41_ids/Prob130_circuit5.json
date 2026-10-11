@@ -1,0 +1,170 @@
+{
+ "case": "Prob130_circuit5",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    4
+   ],
+   [
+    "b",
+    4
+   ],
+   [
+    "c",
+    4
+   ],
+   [
+    "d",
+    4
+   ],
+   [
+    "e",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "q",
+    4
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3",
+    "c4",
+    "c5"
+   ],
+   "votes": 8,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 6,
+    "first_cycle": 0,
+    "stim": [
+     [
+      13,
+      6,
+      12,
+      14,
+      6
+     ],
+     [
+      0,
+      4,
+      15,
+      8,
+      7
+     ],
+     [
+      6,
+      14,
+      12,
+      13,
+      4
+     ],
+     [
+      15,
+      7,
+      5,
+      9,
+      14
+     ],
+     [
+      14,
+      3,
+      8,
+      2,
+      4
+     ],
+     [
+      2,
+      12,
+      1,
+      9,
+      12
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1111",
+      "1111",
+      "1111",
+      "1111",
+      "1111",
+      "1100"
+     ],
+     [
+      "1111",
+      "1111",
+      "1111",
+      "1111",
+      "1111",
+      "1110"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (4 bits)\n - input  b (4 bits)\n - input  c (4 bits)\n - input  d (4 bits)\n - input  e (4 bits)\n - output q (4 bits)\n\nThe module should implement a combinational circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time  a  b  c  d  e  q\n  0ns   x  x  x  x  x  x\n  5ns   x  x  x  x  x  x\n  10ns  x  x  x  x  x  x\n  15ns  a  b  0  d  e  b\n  20ns  a  b  1  d  e  e\n  25ns  a  b  2  d  e  a\n  30ns  a  b  3  d  e  d\n  35ns  a  b  4  d  e  f\n  40ns  a  b  5  d  e  f\n  45ns  a  b  6  d  e  f\n  50ns  a  b  7  d  e  f\n  55ns  a  b  8  d  e  f\n  60ns  a  b  9  d  e  f\n  65ns  a  b  a  d  e  f\n  70ns  a  b  b  d  e  f\n  75ns  a  b  c  d  e  f\n  80ns  a  b  d  d  e  f\n  85ns  a  b  e  d  e  f\n  90ns  a  b  f  d  e  f\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | c | d | e | A out | B out |\n|---|---|---|---|---|---|---|---|\n| 0 | 4'b1101 | 4'b0110 | 4'b1100 | 4'b1110 | 4'b0110 | q=4'b1111 | q=4'b1111 |\n| 1 | 4'b0000 | 4'b0100 | 4'b1111 | 4'b1000 | 4'b0111 | q=4'b1111 | q=4'b1111 |\n| 2 | 4'b0110 | 4'b1110 | 4'b1100 | 4'b1101 | 4'b0100 | q=4'b1111 | q=4'b1111 |\n| 3 | 4'b1111 | 4'b0111 | 4'b0101 | 4'b1001 | 4'b1110 | q=4'b1111 | q=4'b1111 |\n| 4 | 4'b1110 | 4'b0011 | 4'b1000 | 4'b0010 | 4'b0100 | q=4'b1111 | q=4'b1111 |\n| 5 | 4'b0010 | 4'b1100 | 4'b0001 | 4'b1001 | 4'b1100 | q=4'b1100 | q=4'b1110 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "0000",
+    "1011"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "0000",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  a (4 bits)\n - input  b (4 bits)\n - input  c (4 bits)\n - input  d (4 bits)\n - input  e (4 bits)\n - output q (4 bits)\n\nThe module should implement a combinational circuit. Read the simulation\nwaveforms to determine what the circuit does, then implement it.\n\n  time  a  b  c  d  e  q\n  0ns   x  x  x  x  x  x\n  5ns   x  x  x  x  x  x\n  10ns  x  x  x  x  x  x\n  15ns  a  b  0  d  e  b\n  20ns  a  b  1  d  e  e\n  25ns  a  b  2  d  e  a\n  30ns  a  b  3  d  e  d\n  35ns  a  b  4  d  e  f\n  40ns  a  b  5  d  e  f\n  45ns  a  b  6  d  e  f\n  50ns  a  b  7  d  e  f\n  55ns  a  b  8  d  e  f\n  60ns  a  b  9  d  e  f\n  65ns  a  b  a  d  e  f\n  70ns  a  b  b  d  e  f\n  75ns  a  b  c  d  e  f\n  80ns  a  b  d  d  e  f\n  85ns  a  b  e  d  e  f\n  90ns  a  b  f  d  e  f\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | c | d | e | out |\n|---|---|---|---|---|---|---|\n| 0 | 4'b0000 | 4'b0000 | 4'b0000 | 4'b0000 | 4'b0000 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: q=4'b0000\n- **B**: q=4'b1011\n"
+  }
+ ]
+}

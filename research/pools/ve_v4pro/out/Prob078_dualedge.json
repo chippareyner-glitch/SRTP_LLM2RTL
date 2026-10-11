@@ -1,0 +1,34 @@
+{
+ "case": "Prob078_dualedge",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "f5aea1b9ebf7",
+   "sources": [
+    "ve_v4pro:s0"
+   ],
+   "model": "ve_v4pro",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_v4pro\\gen\\Prob078_dualedge\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 224,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": true
+  }
+ ]
+}

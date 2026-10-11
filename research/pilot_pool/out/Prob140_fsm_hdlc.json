@@ -1,0 +1,134 @@
+{
+ "case": "Prob140_fsm_hdlc",
+ "n_samples": 7,
+ "n_distinct": 7,
+ "n_compiling": 2,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "23649b074ab6",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob140_fsm_hdlc\\module_initial.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": " an explicit cast.\ndut.sv:38: error: This assignment requires an explicit cast.\ndut.sv:39: error: This assignment requires an explicit cast.\ndut.sv:40: error: This assignment requires an explicit cast.\ndut.sv:41: error: This assignment requires an explicit cast.\ndut.sv:42: error: This assignment requires an explicit cast.\ndut.sv:43: error: This assignment requires an explicit cast.\ndut.sv:44: error: This assignment requires an explicit cast.\ndut.sv:45: error: This assignment requires an explicit cast.\ndut.sv:46: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "447de6f3d449",
+   "sources": [
+    "direct_batch"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\direct_batch_20260924_185024_475217\\Prob140_fsm_hdlc\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 801
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "ccc45b6f74e7",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob140_fsm_hdlc\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 24,
+    "samples": 801
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "1a30eaf83cf3",
+   "sources": [
+    "tri0926:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob140_fsm_hdlc\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": " an explicit cast.\ndut.sv:29: error: This assignment requires an explicit cast.\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:37: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c4",
+   "hash": "289a4ec5abc3",
+   "sources": [
+    "tri0927:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob140_fsm_hdlc\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": " an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:37: error: This assignment requires an explicit cast.\ndut.sv:38: error: This assignment requires an explicit cast.\ndut.sv:39: error: This assignment requires an explicit cast.\ndut.sv:40: error: This assignment requires an explicit cast.\ndut.sv:41: error: This assignment requires an explicit cast.\ndut.sv:42: error: This assignment requires an explicit cast.\ndut.sv:43: error: This assignment requires an explicit cast.\ndut.sv:44: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c5",
+   "hash": "2825a8c572e1",
+   "sources": [
+    "tri0927:candidate_2_contract"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob140_fsm_hdlc\\candidate_2_contract\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": " an explicit cast.\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\ndut.sv:37: error: This assignment requires an explicit cast.\ndut.sv:38: error: This assignment requires an explicit cast.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c6",
+   "hash": "3a942a8cbb72",
+   "sources": [
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260927_235104\\Prob140_fsm_hdlc\\candidate_3_counterexample\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "dut.sv:29: error: This assignment requires an explicit cast.\ndut.sv:30: error: This assignment requires an explicit cast.\ndut.sv:31: error: This assignment requires an explicit cast.\ndut.sv:32: error: This assignment requires an explicit cast.\ndut.sv:33: error: This assignment requires an explicit cast.\ndut.sv:34: error: This assignment requires an explicit cast.\ndut.sv:35: error: This assignment requires an explicit cast.\ndut.sv:36: error: This assignment requires an explicit cast.\n8 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": true,
+   "mixed": false
+  },
+  {
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": false,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 1
+}

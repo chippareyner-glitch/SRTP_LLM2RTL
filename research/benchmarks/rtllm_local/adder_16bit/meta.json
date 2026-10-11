@@ -1,0 +1,15 @@
+{
+ "case": "adder_16bit",
+ "category": "Arithmetic",
+ "top": "adder_16bit",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "adder_16bit",
+  "add8",
+  "add4",
+  "add2",
+  "add1"
+ ]
+}

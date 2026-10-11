@@ -1,0 +1,11 @@
+{
+ "case": "fixed_point_substractor",
+ "category": "Arithmetic",
+ "top": "fixed_point_subtractor",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "fixed_point_subtractor"
+ ]
+}

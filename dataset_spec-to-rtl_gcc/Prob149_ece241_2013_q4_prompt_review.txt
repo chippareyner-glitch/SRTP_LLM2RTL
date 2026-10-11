@@ -1,0 +1,192 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  s (3 bits)
+ - output fr2
+ - output fr1
+ - output fr0
+ - output dfr
+
+A large reservior of water serves several users. In order to keep the
+level of water succificently high, three sensors are placed vertically at
+5-inch intervals. When the water level is above the highest sensor s[2],
+the input flow rate should be zero. When the level is below the lowest
+sensor s[0], the flow rate should be at maximum (both Nominal flow valve
+and Supplemental flow valve opened). The flow rate when the level is
+between the upper and lower sensors is determined by two factors: the
+water level and the level previous to the last sensor change. Each water
+level has a nominal flow rate associated with it as show in the table
+below. If the sensor change indicates that the previous level was lower
+than the current level, the flow rate should be increased by opening the
+Supplemental flow valve (controlled by dfr).
+
+  Water Level           | Sensors Asserted | Nominal Flow Rate Inputs to be Asserted
+  Above s[2]            | s[0], s[1], s[2] | None
+  Between s[2] and s[1] | s[0], s[1]       | fr0
+  Between s[1] and s[0] | s[0]             | fr0, fr1
+  Below s[0]            | None             | fr0, fr1, fr2
+
+Also include an active-high synchronous reset that resets the state
+machine to a state equivalent to if the water level had been low for a
+long time (no sensors asserted, and all four outputs asserted).
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a water level control system with:
+- **Inputs**: 1-bit clk, reset; 3-bit sensor input `s[2:0]`
+- **Outputs**: Flow rate controls `fr2`, `fr1`, `fr0`, and supplemental flow `dfr`
+- **Sensor placement**: Three sensors spaced 5 inches apart (s[2] highest, s[0] lowest)
+- **Control logic**: Flow rates determined by current water level AND previous level trend
+- **Reset behavior**: Active-high synchronous reset to "below lowest sensor" state
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+
+1. **Sensor Interpretation**: The spec states "Sensors Asserted" but doesn't define if asserted means "1" (water detected) or "0". From context, sensors are likely active-high (1=water present).
+
+2. **Previous Level Detection**: The phrase "level previous to the last sensor change" is underspecified. How many clock cycles of history? What constitutes a "sensor change"? 
+
+3. **Supplemental Flow Logic**: The condition "previous level was lower than current level" needs precise definition. Does this mean:
+   - Any previous lower state? 
+   - Immediate previous state?
+   - Requires specific transition patterns?
+
+4. **Output Assertion Polarity**: Are outputs active-high (1=valve open) or active-low?
+
+## 3. Missing Critical Details
+
+**Timing Requirements:**
+- No clock frequency or timing constraints specified
+- No input setup/hold times defined
+- No output delay constraints
+
+**State Machine Definition:**
+- Missing explicit state definitions and transitions
+- No specification for how long "previous level" should be remembered
+- Undefined behavior for sensor glitches or multiple simultaneous changes
+
+**Sensor Behavior:**
+- No specification for invalid sensor patterns (e.g., s[1]=1 but s[0]=0)
+- Missing debouncing requirements for sensor inputs
+
+**Output Behavior:**
+- Unclear if outputs should be registered or combinatorial
+- No specification for output behavior during invalid states
+
+## 4. Edge Cases & Boundary Conditions
+
+**Sensor Edge Cases:**
+- `s = 3'b000` (below s[0]) - All outputs asserted
+- `s = 3'b001` (at s[0]) - fr0, fr1 asserted + dfr based on previous state
+- `s = 3'b011` (at s[1]) - fr0 asserted + dfr based on previous state  
+- `s = 3'b111` (above s[2]) - No outputs asserted
+- **Invalid patterns**: `3'b010`, `3'b100`, `3'b101`, `3'b110` - Need fallback behavior
+
+**Transition Scenarios:**
+- Rapid water level oscillations between states
+- Multiple sensor changes in one clock cycle
+- Reset assertion during normal operation
+- Power-up without reset sequence
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **State Machine Complexity**: The "previous level" tracking will require additional state storage beyond current sensor readings
+2. **Transition Detection**: Reliable detection of "level was lower" condition requires careful edge detection logic
+3. **Invalid State Recovery**: The system may enter unrecoverable states without proper handling of invalid sensor patterns
+
+**Expected Failure Modes:**
+- Incorrect dfr assertion due to improper transition detection
+- Output glitches during state transitions
+- Lock-up conditions from invalid sensor sequences
+
+## 6. Actionable Guidance for RTL Generation
+
+**Assumptions to Document:**
+```systemverilog
+// ASSUMPTIONS:
+// - Sensors are active-high (1 = water detected)
+// - Outputs are active-high (1 = valve open)
+// - Invalid sensor patterns default to "below s[0]" state
+// - "Previous level" means state from previous clock cycle
+```
+
+**Recommended Implementation Strategy:**
+
+1. **State Encoding:**
+```systemverilog
+typedef enum logic [1:0] {
+    BELOW_S0    = 2'b00,  // s=000
+    AT_S0       = 2'b01,  // s=001
+    AT_S1       = 2'b10,  // s=011  
+    AT_S2       = 2'b11   // s=111
+} water_level_t;
+```
+
+2. **Core State Machine:**
+```systemverilog
+// Registered state variables
+water_level_t current_level, prev_level;
+
+always_ff @(posedge clk) begin
+    if (reset) begin
+        current_level <= BELOW_S0;
+        prev_level <= BELOW_S0;
+        {fr2, fr1, fr0, dfr} <= 4'b1111;
+    end else begin
+        prev_level <= current_level;
+        current_level <= decode_sensors(s);
+        
+        // Output logic based on current_level and (current_level > prev_level)
+        {fr2, fr1, fr0} <= get_nominal_flow(current_level);
+        dfr <= (current_level > prev_level) ? 1'b1 : 1'b0;
+    end
+end
+```
+
+3. **Critical Helper Functions:**
+```systemverilog
+function automatic water_level_t decode_sensors(logic [2:0] s);
+    case (s)
+        3'b000: return BELOW_S0;  // Below lowest sensor
+        3'b001: return AT_S0;     // At lowest sensor
+        3'b011: return AT_S1;     // At middle sensor  
+        3'b111: return AT_S2;     // At highest sensor
+        default: return BELOW_S0; // Invalid pattern -> safe state
+    endcase
+endfunction
+
+function automatic logic [2:0] get_nominal_flow(water_level_t level);
+    case (level)
+        BELOW_S0: return 3'b111;  // All valves open
+        AT_S0:    return 3'b011;  // fr0, fr1 open
+        AT_S1:    return 3'b001;  // fr0 open
+        AT_S2:    return 3'b000;  // All valves closed
+        default:  return 3'b111;  // Safe fallback
+    endcase
+endfunction
+```
+
+4. **Validation Requirements:**
+- Test all valid sensor transitions with correct dfr behavior
+- Verify reset functionality across all states
+- Stress test with invalid sensor patterns
+- Validate timing constraints meet system requirements
+
+This implementation provides a robust foundation while allowing for specification refinements as ambiguities are resolved.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

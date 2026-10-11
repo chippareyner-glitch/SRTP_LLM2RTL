@@ -1,0 +1,33 @@
+﻿  live: Prob062_bugs_mux2 q0 label=B -> A
+  live: Prob066_edgecapture q0 label=A -> A
+  live: Prob078_dualedge q0 label=A -> A
+  live: Prob093_ece241_2014_q3 q0 label=A -> B
+  live: Prob098_circuit7 q0 label=B -> A
+  live: Prob112_always_case2 q0 label=A -> A
+  live: Prob116_m2014_q3 q2 label=B -> API_ERROR
+  live: Prob116_m2014_q3 q0 label=A -> B
+  live: Prob135_m2014_q6b q2 label=A -> B
+  live: Prob135_m2014_q6b q0 label=B -> B
+  live: Prob137_fsm_serial q0 label=A -> A
+  live: Prob145_circuit8 q0 label=B -> A
+  live: Prob146_fsm_serialdata q1 label=B -> B
+  live: Prob149_ece241_2013_q4 q2 label=NONE -> A
+  live: Prob149_ece241_2013_q4 q4 label=NONE -> B
+  live: Prob149_ece241_2013_q4 q0 label=NONE -> B
+  live: Prob150_review2015_fsmonehot q0 label=B -> A
+  live: Prob150_review2015_fsmonehot q2 label=B -> ANY
+  live: Prob150_review2015_fsmonehot q1 label=B -> B
+  live: Prob153_gshare q0 label=A -> B
+  live: Prob154_fsm_ps2data q2 label=B -> ANY
+  live: Prob154_fsm_ps2data q1 label=A -> ANY
+  live: Prob154_fsm_ps2data q0 label=C -> ANY
+  live: Prob155_lemmings4 q3 label=A -> A
+  live: Prob155_lemmings4 q0 label=B -> B
+  live: Prob155_lemmings4 q1 label=B -> B
+
+benchmark accuracy over 156 problems:
+  majority vote (per sample)       0.872
+  majority vote (per config)       0.872
+  AskRTL online (B=3, p=0.8)      0.875   questions asked=26 (1.24/divergent problem)
+  live calls=26 tokens~267007 blocked-by-guard=0
+  divergent problems not solved: ['Prob062_bugs_mux2', 'Prob093_ece241_2014_q3', 'Prob098_circuit7', 'Prob116_m2014_q3', 'Prob135_m2014_q6b', 'Prob146_fsm_serialdata', 'Prob149_ece241_2013_q4', 'Prob150_review2015_fsmonehot', 'Prob153_gshare', 'Prob154_fsm_ps2data', 'Prob156_review2015_fancytimer']

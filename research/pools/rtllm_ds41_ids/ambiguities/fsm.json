@@ -1,0 +1,37 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output timing (combinational vs registered)",
+   "severity": "high",
+   "readings": [
+    "MATCH is a combinational Mealy output: it changes in the same cycle as IN, so it is 1 at the same cycle as the last bit of 10011 (as stated).",
+    "MATCH is updated on the positive edge of CLK (as the sensitivity list 'positive edge of CLK' suggests), making it a registered output that appears one cycle after the last bit of 10011."
+   ]
+  },
+  {
+   "aspect": "Reset synchronization and polarity",
+   "severity": "high",
+   "readings": [
+    "RST is an asynchronous, active-high reset: when RST is high, MATCH is forced to 0 immediately, independent of CLK.",
+    "RST is a synchronous, active-high reset: MATCH is set to 0 only on the next rising edge of CLK while RST is high.",
+    "RST is an asynchronous, active-low reset (nRST): MATCH is forced to 0 when RST is low."
+   ]
+  },
+  {
+   "aspect": "Reset state",
+   "severity": "medium",
+   "readings": [
+    "After reset, the FSM goes to an idle state where no bits of the sequence have been matched, so MATCH is 0 until a full 10011 is seen.",
+    "The reset state is not defined, so it could reset to any of the sequence-detection states, potentially causing MATCH to be 1 for some inputs immediately after reset."
+   ]
+  },
+  {
+   "aspect": "Sensitivity list / update events",
+   "severity": "medium",
+   "readings": [
+    "MATCH is updated on any change of IN (as stated), which is correct for a Mealy output.",
+    "MATCH is updated only on the positive edge of CLK (as also stated), which would ignore IN changes between clock edges and make the output effectively Moore-like or registered."
+   ]
+  }
+ ]
+}

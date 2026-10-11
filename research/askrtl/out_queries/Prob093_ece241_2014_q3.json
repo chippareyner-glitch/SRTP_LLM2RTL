@@ -1,0 +1,642 @@
+{
+ "case": "Prob093_ece241_2014_q3",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "c",
+    1
+   ],
+   [
+    "d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "mux_in",
+    4
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c4",
+   "members": [
+    "c4",
+    "c5",
+    "c6",
+    "c8"
+   ],
+   "votes": 4,
+   "correct": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 2,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c2",
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c7",
+   "members": [
+    "c7"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0100"
+     ],
+     [
+      "1000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b0100 | mux_in=4'b1000 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "0100",
+    "1000",
+    "1001"
+   ],
+   "cluster_option": {
+    "c4": "B",
+    "c1": "A",
+    "c2": "C",
+    "c3": "B",
+    "c7": "B"
+   },
+   "label": "A",
+   "ref_value": "0100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b0100\n- **B**: mux_in=4'b1000\n- **C**: mux_in=4'b1001\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1001"
+     ],
+     [
+      "1000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b1001 | mux_in=4'b1000 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "1001",
+    "1000",
+    "0100"
+   ],
+   "cluster_option": {
+    "c4": "B",
+    "c1": "C",
+    "c2": "A",
+    "c3": "B",
+    "c7": "B"
+   },
+   "label": "C",
+   "ref_value": "0100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b1001\n- **B**: mux_in=4'b1000\n- **C**: mux_in=4'b0100\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 2,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1000",
+      "0001"
+     ],
+     [
+      "1000",
+      "1001"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b1000 | mux_in=4'b1000 |\n| 1 | 1'b1 | 1'b0 | mux_in=4'b0001 | mux_in=4'b1001 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c3",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0
+    ]
+   ],
+   "options": [
+    "0001",
+    "1001",
+    "0101",
+    "1010"
+   ],
+   "cluster_option": {
+    "c4": "B",
+    "c1": "C",
+    "c2": "D",
+    "c3": "A",
+    "c7": "B"
+   },
+   "label": "C",
+   "ref_value": "0101",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b0001\n- **B**: mux_in=4'b1001\n- **C**: mux_in=4'b0101\n- **D**: mux_in=4'b1010\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 3,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1000",
+      "1001",
+      "0001"
+     ],
+     [
+      "1000",
+      "1001",
+      "1001"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b1000 | mux_in=4'b1000 |\n| 1 | 1'b1 | 1'b0 | mux_in=4'b1001 | mux_in=4'b1001 |\n| 2 | 1'b0 | 1'b1 | mux_in=4'b0001 | mux_in=4'b1001 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c4",
+    "c7"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     1
+    ]
+   ],
+   "options": [
+    "0001",
+    "1001",
+    "0000"
+   ],
+   "cluster_option": {
+    "c4": "A",
+    "c1": "A",
+    "c2": "C",
+    "c3": "B",
+    "c7": "B"
+   },
+   "label": "A",
+   "ref_value": "0001",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b1 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b0001\n- **B**: mux_in=4'b1001\n- **C**: mux_in=4'b0000\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0100"
+     ],
+     [
+      "1001"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b0100 | mux_in=4'b1001 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "0100",
+    "1001",
+    "1000"
+   ],
+   "cluster_option": {
+    "c4": "C",
+    "c1": "A",
+    "c2": "B",
+    "c3": "C",
+    "c7": "C"
+   },
+   "label": "A",
+   "ref_value": "0100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b0100\n- **B**: mux_in=4'b1001\n- **C**: mux_in=4'b1000\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0100"
+     ],
+     [
+      "1000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b0100 | mux_in=4'b1000 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "0100",
+    "1000",
+    "1001"
+   ],
+   "cluster_option": {
+    "c4": "B",
+    "c1": "A",
+    "c2": "C",
+    "c3": "B",
+    "c7": "B"
+   },
+   "label": "A",
+   "ref_value": "0100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b0100\n- **B**: mux_in=4'b1000\n- **C**: mux_in=4'b1001\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0100"
+     ],
+     [
+      "1000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b0100 | mux_in=4'b1000 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c7"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "0100",
+    "1000",
+    "1001"
+   ],
+   "cluster_option": {
+    "c4": "B",
+    "c1": "A",
+    "c2": "C",
+    "c3": "B",
+    "c7": "B"
+   },
+   "label": "A",
+   "ref_value": "0100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b0100\n- **B**: mux_in=4'b1000\n- **C**: mux_in=4'b1001\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1001"
+     ],
+     [
+      "1000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b1001 | mux_in=4'b1000 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "1001",
+    "1000",
+    "0100"
+   ],
+   "cluster_option": {
+    "c4": "B",
+    "c1": "C",
+    "c2": "A",
+    "c3": "B",
+    "c7": "B"
+   },
+   "label": "C",
+   "ref_value": "0100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b1001\n- **B**: mux_in=4'b1000\n- **C**: mux_in=4'b0100\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1001"
+     ],
+     [
+      "1000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b1001 | mux_in=4'b1000 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c7"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "1001",
+    "1000",
+    "0100"
+   ],
+   "cluster_option": {
+    "c4": "B",
+    "c1": "C",
+    "c2": "A",
+    "c3": "B",
+    "c7": "B"
+   },
+   "label": "C",
+   "ref_value": "0100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b1001\n- **B**: mux_in=4'b1000\n- **C**: mux_in=4'b0100\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 2,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1000",
+      "0001"
+     ],
+     [
+      "1000",
+      "1001"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b1000 | mux_in=4'b1000 |\n| 1 | 1'b1 | 1'b0 | mux_in=4'b0001 | mux_in=4'b1001 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c3",
+    "c7"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0
+    ]
+   ],
+   "options": [
+    "0001",
+    "1001",
+    "0101",
+    "1010"
+   ],
+   "cluster_option": {
+    "c4": "B",
+    "c1": "C",
+    "c2": "D",
+    "c3": "A",
+    "c7": "B"
+   },
+   "label": "C",
+   "ref_value": "0101",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b1 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b0001\n- **B**: mux_in=4'b1001\n- **C**: mux_in=4'b0101\n- **D**: mux_in=4'b1010\n"
+  }
+ ]
+}

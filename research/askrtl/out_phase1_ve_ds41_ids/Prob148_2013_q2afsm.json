@@ -1,0 +1,82 @@
+{
+ "case": "Prob148_2013_q2afsm",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "resetn",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "resetn",
+    1
+   ],
+   [
+    "r",
+    3
+   ]
+  ],
+  "outputs": [
+   [
+    "g",
+    3
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c3",
+   "c4",
+   "c5",
+   "c6",
+   "c7",
+   "c8"
+  ],
+  [
+   "c2"
+  ]
+ ],
+ "ci_pairs": 8,
+ "ci_found": 8,
+ "ci_missed": [],
+ "off_pairs": 15,
+ "off_found": 8,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 32,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     6
+    ],
+    [
+     1,
+     4
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 33,
+   "min_len": 2,
+   "toggles": 2
+  }
+ ],
+ "status": "ok",
+ "n_live": 9
+}

@@ -1,0 +1,102 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a (5 bits)
+ - input  b (5 bits)
+ - input  c (5 bits)
+ - input  d (5 bits)
+ - input  e (5 bits)
+ - input  f (5 bits)
+ - output w (8 bits)
+ - output x (8 bits)
+ - output y (8 bits)
+ - output z (8 bits)
+
+The module should concatenate the input vectors together then split them
+up into several output vectors. There are six 5-bit input vectors: a, b,
+c, d, e, and f, for a total of 30 bits of input. There are four 8-bit
+output vectors: w, x, y, and z, for 32 bits of output. The output should
+be a concatenation of the input vectors followed by two 1 bits (the two 1
+bits should be in the LSB positions).
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+The module takes six 5-bit inputs (a-f) totaling 30 bits, concatenates them, appends two '1' bits as LSBs, and distributes the resulting 32-bit value across four 8-bit outputs (w-z). The concatenation order is not explicitly specified but implied to be sequential.
+
+## 2. Ambiguity Analysis
+- **Concatenation Order**: The spec doesn't specify if inputs should be concatenated as {a,b,c,d,e,f} or {f,e,d,c,b,a} or another order. Natural reading order suggests MSB-to-LSB: a→b→c→d→e→f.
+- **Bit Placement**: "Followed by two 1 bits" is clear for LSB placement, but the exact bit positions (which specific LSBs get '1's) needs confirmation.
+- **Output Assignment**: Unclear if outputs should be assigned MSB-first (w gets bits 31:24) or LSB-first (w gets bits 7:0).
+
+## 3. Missing Critical Details
+- **Reset Behavior**: No specification of reset type (synchronous/asynchronous), polarity, or initial output state.
+- **Timing Requirements**: Missing clock input, timing constraints, and pipeline requirements.
+- **Input/Output Timing**: No setup/hold times or input/output valid signals specified.
+- **Unused Bits**: With 30 input bits + 2 constant bits = 32 bits, all outputs are fully utilized, but behavior for partial inputs is undefined.
+
+## 4. Edge Cases & Boundary Conditions
+- **Unknown States**: How to handle X/Z values in inputs during simulation?
+- **Power-up State**: Output behavior before first valid input sequence.
+- **Input Changes**: Behavior when inputs change during operation (combinational vs registered).
+- **Bit Order**: Need to confirm endianness of concatenation (MSB/LSB ordering).
+
+## 5. Functional Correctness Prediction
+- **Bit Mapping**: Assuming {a,b,c,d,e,f,2'b11} → 32 bits, split into four 8-bit chunks:
+  - w = bits[31:24], x = bits[23:16], y = bits[15:8], z = bits[7:0]
+  - Or reverse if LSB-first assignment intended
+- **Constant Bits**: The two LSB '1's will always make z[1:0] = 2'b11
+- **Input Coverage**: All 30 input bits map directly to output bits 31:2
+
+## 6. Actionable Guidance for RTL Generation
+
+```systemverilog
+module TopModule (
+    input  logic [4:0] a, b, c, d, e, f,
+    output logic [7:0] w, x, y, z
+);
+
+// Critical implementation decisions needed:
+// 1. Choose concatenation order: {a,b,c,d,e,f} or other?
+// 2. Choose output assignment: MSB-first or LSB-first?
+// 3. Add clock/reset if sequential logic required
+// 4. Define behavior for undefined states
+
+// Recommended implementation (MSB-first, combinational):
+logic [31:0] concat_bus;
+
+assign concat_bus = {a, b, c, d, e, f, 2'b11};
+assign w = concat_bus[31:24];
+assign x = concat_bus[23:16]; 
+assign y = concat_bus[15:8];
+assign z = concat_bus[7:0];
+
+// Alternative LSB-first assignment:
+// assign {w, x, y, z} = concat_bus;
+
+endmodule
+```
+
+**Key Questions for Specification Clarification:**
+1. Clock and reset requirements?
+2. Desired concatenation order of inputs?
+3. MSB-first or LSB-first output assignment?
+4. Combinational or registered outputs?
+5. Handling of metastable/uninitialized states?
+
+**Verification Strategy:**
+- Create test cases for all input combinations
+- Verify bit positions in outputs match specification
+- Check constant '1' bits in LSB positions
+- Validate concatenation order matches requirements
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,373 @@
+{
+ "case": "Prob128_fsm_ps2",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c3",
+    "c5"
+   ],
+   "votes": 4,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4",
+    "c6",
+    "c7"
+   ],
+   "votes": 5,
+   "correct": [
+    false,
+    false,
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      216
+     ],
+     [
+      1,
+      98
+     ],
+     [
+      0,
+      107
+     ],
+     [
+      0,
+      247
+     ],
+     [
+      0,
+      103
+     ],
+     [
+      0,
+      212
+     ],
+     [
+      0,
+      122
+     ],
+     [
+      0,
+      228
+     ],
+     [
+      0,
+      129
+     ],
+     [
+      0,
+      35
+     ],
+     [
+      0,
+      158
+     ],
+     [
+      0,
+      252
+     ],
+     [
+      0,
+      251
+     ],
+     [
+      0,
+      154
+     ],
+     [
+      0,
+      79
+     ],
+     [
+      0,
+      18
+     ],
+     [
+      0,
+      175
+     ],
+     [
+      0,
+      143
+     ],
+     [
+      0,
+      111
+     ],
+     [
+      0,
+      163
+     ],
+     [
+      0,
+      247
+     ],
+     [
+      0,
+      113
+     ],
+     [
+      0,
+      66
+     ],
+     [
+      0,
+      235
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      215
+     ],
+     [
+      0,
+      211
+     ],
+     [
+      0,
+      160
+     ],
+     [
+      1,
+      126
+     ],
+     [
+      0,
+      85
+     ],
+     [
+      0,
+      83
+     ],
+     [
+      0,
+      16
+     ]
+    ],
+    "st0": 1,
+    "outs": [
+     [
+      "x",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "x",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  in (8 bits)\n - output done\n\nThe PS/2 mouse protocol sends messages that are three bytes long.\nHowever, within a continuous byte stream, it's not obvious where messages\nstart and end. The only indication is that the first byte of each three\nbyte message always has in[3]=1 (but in[3] of the other two bytes may be\n1 or 0 depending on data).\n\nThe module should implement a finite state machine that will search for\nmessage boundaries when given an input byte stream. The algorithm we'll\nuse is to discard bytes until we see one with in[3]=1. We then assume\nthat this is byte 1 of a message, and signal the receipt of a message\nonce all 3 bytes have been received (done). The FSM should signal done in\nthe cycle immediately after the third byte of each message was\nsuccessfully received. Reset should be active high synchronous. Assume\nall sequential logic is triggered on the positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | reset | in | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| 0 | 1'b1 | 8'hd8 | - | done=1'b0 | - | done=1'b0 |\n| 1 | 1'b1 | 8'h62 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 2 | 1'b0 | 8'h6b | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 3 | 1'b0 | 8'hf7 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b1 |\n| 4 | 1'b0 | 8'h67 | done=1'b0 | done=1'b1 | done=1'b1 | done=1'b0 |\n| 5 | 1'b0 | 8'hd4 | done=1'b1 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 6 | 1'b0 | 8'h7a | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 7 | 1'b0 | 8'he4 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b1 |\n| 8 | 1'b0 | 8'h81 | done=1'b0 | done=1'b1 | done=1'b1 | done=1'b0 |\n| 9 | 1'b0 | 8'h23 | done=1'b1 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 10 | 1'b0 | 8'h9e | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 11 | 1'b0 | 8'hfc | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b1 |\n| 12 | 1'b0 | 8'hfb | done=1'b0 | done=1'b1 | done=1'b1 | done=1'b0 |\n| 13 | 1'b0 | 8'h9a | done=1'b1 | done=1'b0 | done=1'b0 | done=1'b1 |\n| 14 | 1'b0 | 8'h4f | done=1'b0 | done=1'b0 | done=1'b1 | done=1'b0 |\n| 15 | 1'b0 | 8'h12 | done=1'b0 | done=1'b1 | done=1'b0 | done=1'b1 |\n| 16 | 1'b0 | 8'haf | done=1'b1 | done=1'b0 | done=1'b1 | done=1'b0 |\n| 17 | 1'b0 | 8'h8f | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b1 |\n| 18 | 1'b0 | 8'h6f | done=1'b0 | done=1'b1 | done=1'b1 | done=1'b0 |\n| 19 | 1'b0 | 8'ha3 | done=1'b1 | done=1'b0 | done=1'b0 | done=1'b1 |\n| 20 | 1'b0 | 8'hf7 | done=1'b0 | done=1'b0 | done=1'b1 | done=1'b0 |\n| 21 | 1'b0 | 8'h71 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 22 | 1'b0 | 8'h42 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 23 | 1'b0 | 8'heb | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 24 | 1'b0 | 8'h03 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b1 |\n| 25 | 1'b0 | 8'hd7 | done=1'b0 | done=1'b1 | done=1'b1 | done=1'b0 |\n| 26 | 1'b0 | 8'hd3 | done=1'b1 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 27 | 1'b0 | 8'ha0 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 28 | 1'b1 | 8'h7e | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 29 | 1'b0 | 8'h55 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 30 | 1'b0 | 8'h53 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n| 31 | 1'b0 | 8'h10 | done=1'b0 | done=1'b0 | done=1'b0 | done=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "k": 5,
+   "len": 3,
+   "toggles": 1,
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "options": [
+    "0",
+    "1"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c4": "B"
+   },
+   "label": "A",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [
+    "x",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  in (8 bits)\n - output done\n\nThe PS/2 mouse protocol sends messages that are three bytes long.\nHowever, within a continuous byte stream, it's not obvious where messages\nstart and end. The only indication is that the first byte of each three\nbyte message always has in[3]=1 (but in[3] of the other two bytes may be\n1 or 0 depending on data).\n\nThe module should implement a finite state machine that will search for\nmessage boundaries when given an input byte stream. The algorithm we'll\nuse is to discard bytes until we see one with in[3]=1. We then assume\nthat this is byte 1 of a message, and signal the receipt of a message\nonce all 3 bytes have been received (done). The FSM should signal done in\nthe cycle immediately after the third byte of each message was\nsuccessfully received. Reset should be active high synchronous. Assume\nall sequential logic is triggered on the positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | reset | in | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b1 | 8'hd8 | done=1'bx | done=1'b0 |\n| 1 | 1'b0 | 8'hd8 | done=1'b0 | done=1'b0 |\n| 2 | 1'b0 | 8'hd8 | done=1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: done=1'b0\n- **B**: done=1'b1\n"
+  }
+ ]
+}

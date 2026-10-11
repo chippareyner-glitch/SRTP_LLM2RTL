@@ -1,0 +1,56 @@
+{
+ "case": "Prob025_reduction",
+ "n_samples": 5,
+ "n_distinct": 2,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "6a21e2764fe8",
+   "sources": [
+    "ve_ds41:s0"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob025_reduction\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "751adac1c02c",
+   "sources": [
+    "ve_ds41:s1",
+    "ve_ds41:s2",
+    "ve_ds41:s3",
+    "ve_ds41:s4"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob025_reduction\\s1.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 100,
+    "correct": true,
+    "compiles": true
+   },
+   "correct": true,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1"
+   ],
+   "votes": 5,
+   "correct": true
+  }
+ ]
+}

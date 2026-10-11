@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "mapping of ab values to mux_in indices",
+   "severity": "high",
+   "readings": [
+    "mux_in[2] = function for ab=11, mux_in[3] = function for ab=10 (following K-map column order 00,01,11,10)",
+    "mux_in[2] = function for ab=10, mux_in[3] = function for ab=11 (following binary order of ab)"
+   ]
+  }
+ ]
+}

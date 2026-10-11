@@ -1,0 +1,375 @@
+{
+ "case": "Prob138_2012_q2fsm",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "w",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "z",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c1",
+   "members": [
+    "c1",
+    "c2",
+    "c3",
+    "c4"
+   ],
+   "votes": 5,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c6",
+   "members": [
+    "c6"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 1,
+    "outs": [
+     [
+      "x",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "x",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  w\n - output z\n\nThe module should implement the state machine shown below:\n\n  A (0) --1--> B\n  A (0) --0--> A\n  B (0) --1--> C\n  B (0) --0--> D\n  C (0) --1--> E\n  C (0) --0--> D\n  D (0) --1--> F\n  D (0) --0--> A\n  E (1) --1--> E\n  E (1) --0--> D\n  F (1) --1--> C\n  F (1) --0--> D\n\nReset resets into state A and is synchronous active-high. Assume all\nsequential logic is triggered on the positive edge of the clock.\n\nUse separate always blocks for the state table and the state flip-flops.\nDescribe the FSM output, which is called _z_, using either continuous\nassignment statement(s) or an always block (at your discretion). Assign\nany state codes that you wish to use.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | reset | w | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | - | z=1'b0 | - | z=1'b0 |\n| 1 | 1'b1 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 2 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 3 | 1'b0 | 1'b1 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 4 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 5 | 1'b0 | 1'b1 | z=1'b0 | z=1'b1 | z=1'b0 | z=1'b0 |\n| 6 | 1'b0 | 1'b0 | z=1'b1 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 7 | 1'b0 | 1'b1 | z=1'b0 | z=1'b1 | z=1'b0 | z=1'b0 |\n| 8 | 1'b0 | 1'b1 | z=1'b1 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 9 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 10 | 1'b0 | 1'b1 | z=1'b0 | z=1'b1 | z=1'b0 | z=1'b0 |\n| 11 | 1'b0 | 1'b1 | z=1'b1 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 12 | 1'b0 | 1'b1 | z=1'b0 | z=1'b1 | z=1'b0 | z=1'b1 |\n| 13 | 1'b0 | 1'b1 | z=1'b1 | z=1'b1 | z=1'b1 | z=1'b1 |\n| 14 | 1'b0 | 1'b0 | z=1'b1 | z=1'b0 | z=1'b1 | z=1'b0 |\n| 15 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 16 | 1'b0 | 1'b1 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 17 | 1'b0 | 1'b1 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 18 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 19 | 1'b0 | 1'b1 | z=1'b0 | z=1'b1 | z=1'b0 | z=1'b0 |\n| 20 | 1'b0 | 1'b1 | z=1'b1 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 21 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 22 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 23 | 1'b0 | 1'b1 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 24 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 25 | 1'b0 | 1'b1 | z=1'b0 | z=1'b1 | z=1'b0 | z=1'b0 |\n| 26 | 1'b0 | 1'b1 | z=1'b1 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 27 | 1'b0 | 1'b1 | z=1'b0 | z=1'b1 | z=1'b0 | z=1'b1 |\n| 28 | 1'b1 | 1'b0 | z=1'b1 | z=1'b0 | z=1'b1 | z=1'b0 |\n| 29 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 30 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n| 31 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 | z=1'b0 | z=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c6"
+   ],
+   "k": 7,
+   "len": 4,
+   "toggles": 3,
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c1": "A",
+    "c6": "B"
+   },
+   "label": "A",
+   "ref_value": "1",
+   "x_involved": false,
+   "hist": [
+    "x",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  w\n - output z\n\nThe module should implement the state machine shown below:\n\n  A (0) --1--> B\n  A (0) --0--> A\n  B (0) --1--> C\n  B (0) --0--> D\n  C (0) --1--> E\n  C (0) --0--> D\n  D (0) --1--> F\n  D (0) --0--> A\n  E (1) --1--> E\n  E (1) --0--> D\n  F (1) --1--> C\n  F (1) --0--> D\n\nReset resets into state A and is synchronous active-high. Assume all\nsequential logic is triggered on the positive edge of the clock.\n\nUse separate always blocks for the state table and the state flip-flops.\nDescribe the FSM output, which is called _z_, using either continuous\nassignment statement(s) or an always block (at your discretion). Assign\nany state codes that you wish to use.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | reset | w | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | z=1'bx | z=1'b0 |\n| 1 | 1'b0 | 1'b1 | z=1'b0 | z=1'b0 |\n| 2 | 1'b0 | 1'b0 | z=1'b0 | z=1'b0 |\n| 3 | 1'b0 | 1'b1 | z=1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: z=1'b1\n- **B**: z=1'b0\n"
+  }
+ ]
+}

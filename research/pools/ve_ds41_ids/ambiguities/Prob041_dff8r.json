@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "bit ordering / mapping between d and q",
+   "severity": "low",
+   "readings": [
+    "Each flip-flop i takes d[i] and drives q[i] (identity mapping, d[0]->q[0] ... d[7]->q[7])",
+    "The bit order is reversed between input and output (d[0]->q[7] ... d[7]->q[0]), which produces different values on q for the same d"
+   ]
+  }
+ ]
+}

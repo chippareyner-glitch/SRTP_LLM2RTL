@@ -1,0 +1,435 @@
+{
+ "case": "LIFObuffer",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "Clk",
+  "reset": "Rst",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "dataIn",
+    4
+   ],
+   [
+    "RW",
+    1
+   ],
+   [
+    "EN",
+    1
+   ],
+   [
+    "Rst",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "EMPTY",
+    1
+   ],
+   [
+    "FULL",
+    1
+   ],
+   [
+    "dataOut",
+    4
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c2",
+   "members": [
+    "c2",
+    "c3"
+   ],
+   "votes": 2,
+   "correct": [
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c0",
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      13,
+      0,
+      1,
+      1
+     ],
+     [
+      14,
+      0,
+      0,
+      1
+     ],
+     [
+      4,
+      1,
+      1,
+      0
+     ],
+     [
+      14,
+      1,
+      1,
+      0
+     ],
+     [
+      7,
+      0,
+      1,
+      0
+     ],
+     [
+      3,
+      1,
+      0,
+      0
+     ],
+     [
+      12,
+      0,
+      1,
+      0
+     ],
+     [
+      15,
+      1,
+      1,
+      0
+     ],
+     [
+      12,
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      10,
+      0,
+      0,
+      0
+     ],
+     [
+      5,
+      0,
+      0,
+      0
+     ],
+     [
+      14,
+      0,
+      1,
+      0
+     ],
+     [
+      7,
+      1,
+      1,
+      0
+     ],
+     [
+      12,
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      13,
+      1,
+      1,
+      0
+     ],
+     [
+      9,
+      0,
+      1,
+      0
+     ],
+     [
+      3,
+      1,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      3,
+      1,
+      1,
+      0
+     ],
+     [
+      8,
+      0,
+      0,
+      0
+     ],
+     [
+      5,
+      1,
+      1,
+      0
+     ],
+     [
+      7,
+      0,
+      0,
+      0
+     ],
+     [
+      11,
+      0,
+      1,
+      0
+     ],
+     [
+      14,
+      1,
+      0,
+      0
+     ],
+     [
+      9,
+      1,
+      1,
+      0
+     ],
+     [
+      1,
+      1,
+      1,
+      0
+     ],
+     [
+      9,
+      0,
+      0,
+      0
+     ],
+     [
+      13,
+      0,
+      0,
+      0
+     ],
+     [
+      10,
+      0,
+      0,
+      0
+     ],
+     [
+      10,
+      1,
+      0,
+      0
+     ]
+    ],
+    "st0": 1,
+    "outs": [
+     [
+      "xxxxxx",
+      "10xxxx",
+      "10xxxx",
+      "10xxxx",
+      "10xxxx",
+      "10xxxx",
+      "10xxxx",
+      "10xxxx",
+      "10xxxx",
+      "00xxxx",
+      "00xxxx",
+      "00xxxx",
+      "00xxxx",
+      "00xxxx",
+      "00xxxx",
+      "001100",
+      "001100",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "000111",
+      "000111",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "001110",
+      "001110",
+      "001110",
+      "001110",
+      "001110",
+      "001110",
+      "000001",
+      "000001",
+      "000001",
+      "000001",
+      "101001",
+      "101001",
+      "101001",
+      "101001",
+      "001001",
+      "001001",
+      "001001",
+      "001001",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011"
+     ],
+     [
+      "xxxxxx",
+      "100000",
+      "100000",
+      "100000",
+      "100000",
+      "100000",
+      "100000",
+      "100000",
+      "100000",
+      "000000",
+      "000000",
+      "000000",
+      "000000",
+      "000000",
+      "000000",
+      "001100",
+      "001100",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "100111",
+      "000111",
+      "000111",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "101110",
+      "001110",
+      "001110",
+      "001110",
+      "001110",
+      "001110",
+      "001110",
+      "000001",
+      "000001",
+      "000001",
+      "000001",
+      "101001",
+      "101001",
+      "101001",
+      "101001",
+      "001001",
+      "001001",
+      "001001",
+      "001001",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011",
+      "101011"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nA Last-In-First-Out (LIFO) buffer for temporary data storage. This 4-bit wide buffer can hold up to 4 entries, allowing for push and pop operations controlled by read/write (RW) signals.\n\nModule name:\n    LIFObuffer\n\nInput ports:\n    dataIn [3:0]: 4-bit input data to be pushed onto the buffer.\n    RW: Read/Write control signal (1 for read, 0 for write).\n    EN: Enable signal to activate buffer operations.\n    Rst: Active high reset signal to initialize the buffer.\n    Clk: Clock signal for synchronous operations.\n\nOutput ports:\n    EMPTY: Flag indicating whether the buffer is empty.\n    FULL: Flag indicating whether the buffer is full.\n    dataOut [3:0]: 4-bit output data retrieved from the buffer.\n\nImplementation:\n    The buffer uses a stack memory array (stack_mem) to store the data. A stack pointer (SP) tracks the current position in the stack.\n    On the rising edge of the clock (Clk), if the enable (EN) signal is high:\n    If the reset (Rst) signal is high, the stack is cleared, the stack pointer is set to 4 (indicating an empty buffer), and all memory locations are initialized to 0.\n    If the reset signal is low, the buffer checks if it is full or empty and processes data accordingly:\n    If RW is low (write operation) and the buffer is not full, data from dataIn is pushed onto the stack, and the stack pointer is decremented.\n    If RW is high (read operation) and the buffer is not empty, data is popped from the stack into dataOut, the corresponding stack memory is cleared, and the stack pointer is incremented.\n    Flags for EMPTY and FULL are updated based on the stack pointer status.\n\nGive me the complete code.\n\n## Concrete scenario\n\nClock: `Clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | dataIn | RW | EN | Rst | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|---|---|\n| 0 | 4'b1101 | 1'b0 | 1'b1 | 1'b1 | - | EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx | - | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000 |\n| 1 | 4'b1110 | 1'b0 | 1'b0 | 1'b1 | EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000 |\n| 2 | 4'b0100 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000 |\n| 3 | 4'b1110 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000 |\n| 4 | 4'b0111 | 1'b0 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b0, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0000 |\n| 5 | 4'b0011 | 1'b1 | 1'b0 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b0, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0000 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0000 |\n| 6 | 4'b1100 | 1'b0 | 1'b1 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b0, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0000 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0000 |\n| 7 | 4'b1111 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'bxxxx | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1100 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0000 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1100 |\n| 8 | 4'b1100 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1100 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1100 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 |\n| 9 | 4'b0001 | 1'b1 | 1'b0 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 |\n| 10 | 4'b1010 | 1'b0 | 1'b0 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 |\n| 11 | 4'b0101 | 1'b0 | 1'b0 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 |\n| 12 | 4'b1110 | 1'b0 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0111 |\n| 13 | 4'b0111 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0111 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 |\n| 14 | 4'b1100 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 |\n| 15 | 4'b0001 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 |\n| 16 | 4'b1101 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 |\n| 17 | 4'b1001 | 1'b0 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 |\n| 18 | 4'b0011 | 1'b1 | 1'b0 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 |\n| 19 | 4'b0001 | 1'b0 | 1'b1 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 |\n| 20 | 4'b0011 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1110 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0001 |\n| 21 | 4'b1000 | 1'b0 | 1'b0 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0001 |\n| 22 | 4'b0101 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0001 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b0001 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1001 |\n| 23 | 4'b0111 | 1'b0 | 1'b0 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1001 |\n| 24 | 4'b1011 | 1'b0 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1001 |\n| 25 | 4'b1110 | 1'b1 | 1'b0 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1001 |\n| 26 | 4'b1001 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b0, FULL=1'b0, dataOut=4'b1001 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 |\n| 27 | 4'b0001 | 1'b1 | 1'b1 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 |\n| 28 | 4'b1001 | 1'b0 | 1'b0 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 |\n| 29 | 4'b1101 | 1'b0 | 1'b0 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 |\n| 30 | 4'b1010 | 1'b0 | 1'b0 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 |\n| 31 | 4'b1010 | 1'b1 | 1'b0 | 1'b0 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 | EMPTY=1'b1, FULL=1'b0, dataOut=4'b1011 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     13,
+     0,
+     1,
+     1
+    ]
+   ],
+   "options": [
+    "10xxxx",
+    "100000"
+   ],
+   "cluster_option": {
+    "c2": "B",
+    "c0": "A"
+   },
+   "label": "B",
+   "ref_value": "1x0000",
+   "x_involved": true,
+   "hist": [
+    "xxxxxx"
+   ],
+   "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nA Last-In-First-Out (LIFO) buffer for temporary data storage. This 4-bit wide buffer can hold up to 4 entries, allowing for push and pop operations controlled by read/write (RW) signals.\n\nModule name:\n    LIFObuffer\n\nInput ports:\n    dataIn [3:0]: 4-bit input data to be pushed onto the buffer.\n    RW: Read/Write control signal (1 for read, 0 for write).\n    EN: Enable signal to activate buffer operations.\n    Rst: Active high reset signal to initialize the buffer.\n    Clk: Clock signal for synchronous operations.\n\nOutput ports:\n    EMPTY: Flag indicating whether the buffer is empty.\n    FULL: Flag indicating whether the buffer is full.\n    dataOut [3:0]: 4-bit output data retrieved from the buffer.\n\nImplementation:\n    The buffer uses a stack memory array (stack_mem) to store the data. A stack pointer (SP) tracks the current position in the stack.\n    On the rising edge of the clock (Clk), if the enable (EN) signal is high:\n    If the reset (Rst) signal is high, the stack is cleared, the stack pointer is set to 4 (indicating an empty buffer), and all memory locations are initialized to 0.\n    If the reset signal is low, the buffer checks if it is full or empty and processes data accordingly:\n    If RW is low (write operation) and the buffer is not full, data from dataIn is pushed onto the stack, and the stack pointer is decremented.\n    If RW is high (read operation) and the buffer is not empty, data is popped from the stack into dataOut, the corresponding stack memory is cleared, and the stack pointer is incremented.\n    Flags for EMPTY and FULL are updated based on the stack pointer status.\n\nGive me the complete code.\n\n## Concrete scenario\n\nClock: `Clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | dataIn | RW | EN | Rst | pre | post |\n|---|---|---|---|---|---|---|\n| 0 | 4'b1101 | 1'b0 | 1'b1 | 1'b1 | EMPTY=1'bx, FULL=1'bx, dataOut=4'bxxxx | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: EMPTY=1'b1, FULL=1'b0, dataOut=4'bxxxx\n- **B**: EMPTY=1'b1, FULL=1'b0, dataOut=4'b0000\n"
+  }
+ ]
+}

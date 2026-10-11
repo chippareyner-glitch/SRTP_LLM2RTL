@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-11T04:33:30.629504+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob020_mt2015_eq2",
+  "returned_model": "deepseek-flash",
+  "id": "568b8100-f4ca-4610-9685-63825d50e947",
+  "usage": {
+    "prompt_tokens": 223,
+    "completion_tokens": 118,
+    "total_tokens": 341,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 66
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 223
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "low",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 0.9592371999970055
+}

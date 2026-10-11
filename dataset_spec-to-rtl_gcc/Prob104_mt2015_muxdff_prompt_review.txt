@@ -1,0 +1,154 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  L
+ - input  q_in
+ - input  r_in
+ - output Q
+
+Consider this Verilog module "full_module":
+
+  module full_module (
+      input [2:0] r,
+      input L,
+      input clk,
+      output reg [2:0] q);
+
+    always @(posedge clk) begin
+      if (L) begin
+        q <= r;
+      end else begin
+        q <= {q[1] ^ q[2], q[0], q[2]};
+      end
+    end
+
+  endmodule
+
+Note that q[2:0] is three bits wide, representing three flip-flops that can be
+loaded from r when L is asserted. You want to factor full_module into a hierarchical
+design, flipflop and 2:1 multiplexer are in a submodule "TopModule", and that submodule
+will be instantiated three times in full_module code. Create the submodule called "TopModule".
+You do not have to provide the revised full_module.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The task requires creating a hierarchical submodule `TopModule` that will be instantiated three times within `full_module`. The submodule should implement the functionality of one bit position of the original design, containing a flip-flop and 2:1 multiplexer. The original `full_module` shows a 3-bit register with parallel load capability and a specific feedback function when not loading.
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Port mapping uncertainty**: The interface specifies `q_in` and `r_in` as single-bit inputs, but it's unclear which bit position each represents when instantiating three copies.
+- **Output naming conflict**: The output is named `Q` (singular) but each instance needs to output its individual bit value.
+- **Reset behavior unspecified**: The original `full_module` has no reset, but real hardware requires reset capability for predictable startup.
+
+**Moderate Ambiguities:**
+- **Clock domain assumptions**: No specification of clock constraints or timing requirements.
+- **Multiplexer selection logic**: While `L` controls loading, the exact mux implementation details are not specified.
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+- **Reset mechanism**: No asynchronous or synchronous reset input
+- **Power-on initialization**: Required for predictable startup behavior
+- **Timing constraints**: Setup/hold times for inputs relative to clock
+- **Instance interconnection**: How the three instances connect to form the 3-bit system
+- **Bit ordering**: Which instance corresponds to q[0], q[1], q[2]
+
+**Implementation Details:**
+- **Multiplexer width specification**: Input sources for the mux need clarification
+- **Feedback path connections**: How the XOR logic from other bits connects to each instance
+
+## 4. Edge Cases & Boundary Conditions
+
+**Timing Edge Cases:**
+- Simultaneous `L` assertion and clock edge with changing `r_in`
+- Metastability risks when `q_in` comes from other flip-flop outputs
+- Clock gating scenarios (though not specified)
+
+**Functional Edge Cases:**
+- `L` changing during clock edge (setup/hold violation handling)
+- All zeros/ones patterns in the feedback configuration
+- Startup condition without reset (unknown state propagation)
+
+**Corner Cases:**
+- `L` remaining high for multiple cycles (continuous loading)
+- `L` toggling at clock frequency (race conditions)
+- Feedback creating oscillatory patterns (e.g., 101 → 010 → 101)
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+- **Feedback dependencies**: Each instance's `q_in` depends on other instances' outputs, creating potential combinational loops if not properly pipelined
+- **Synchronization issues**: The XOR operation `q[1] ^ q[2]` crosses bit boundaries and may have timing challenges
+- **Initial state propagation**: Without reset, unknown states could create unpredictable behavior
+
+**Verification Challenges:**
+- The feedback pattern `{q[1] ^ q[2], q[0], q[2]}` creates complex state transitions that require extensive simulation
+- Three-instance interaction makes debug more complex than monolithic implementation
+
+## 6. Actionable Guidance for RTL Generation
+
+**Module Interface Definition:**
+```systemverilog
+module TopModule (
+    input  clk,      // Clock
+    input  L,        // Load control
+    input  q_in,     // Feedback input (from other bits)
+    input  r_in,     // Parallel load input  
+    output Q         // Current state output
+);
+```
+
+**Implementation Strategy:**
+1. **Add synchronous reset** for predictable initialization
+2. **Use standard flip-flop with 2:1 mux** structure:
+   - Mux selects between `r_in` (when L=1) and `q_in` (when L=0)
+   - Output feeds back through the flip-flop
+3. **Maintain strict synchronous design** practices
+
+**Critical Implementation Notes:**
+- Each instance will have different `q_in` connections based on the feedback pattern
+- Instance 0: `q_in = q[1] ^ q[2]` (XOR of bits 1 and 2)
+- Instance 1: `q_in = q[0]` (bit 0 value)  
+- Instance 2: `q_in = q[2]` (bit 2 value, effectively holds its value)
+
+**Verification Requirements:**
+- Test all load/unload sequences
+- Verify feedback pattern correctness
+- Check reset functionality
+- Validate timing constraints
+
+**Recommended Implementation:**
+```systemverilog
+module TopModule (
+    input  clk,
+    input  L,
+    input  q_in,
+    input  r_in,
+    output reg Q
+);
+    
+    wire mux_out = L ? r_in : q_in;
+    
+    always @(posedge clk) begin
+        Q <= mux_out;
+    end
+
+endmodule
+```
+
+This implementation provides the essential functionality while maintaining the hierarchical structure required by the specification.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

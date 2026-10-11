@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Non-one-hot state encoding behavior",
+   "severity": "high",
+   "readings": [
+    "Unused state encodings are don't-cares; minimized one-hot equations produce arbitrary/OR-combined next_state and out (e.g., out = state[3], so any state with bit 3 set outputs 1)",
+    "Invalid states must be explicitly handled with a default, e.g., next_state = 4'b0000 and out = 1'b0 (or some other fixed value), overriding the one-hot equations"
+   ]
+  }
+ ]
+}

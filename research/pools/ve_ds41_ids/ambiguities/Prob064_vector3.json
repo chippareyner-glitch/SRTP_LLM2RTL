@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "mapping of 32-bit concatenation to w/x/y/z",
+   "severity": "high",
+   "readings": [
+    "{w,x,y,z} = {a,b,c,d,e,f,2'b11} (w is MSB, z is LSB).",
+    "{z,y,x,w} = {a,b,c,d,e,f,2'b11} (z is MSB, w is LSB)."
+   ]
+  },
+  {
+   "aspect": "order of input vectors in concatenation",
+   "severity": "high",
+   "readings": [
+    "Concatenation is {a,b,c,d,e,f} with a as MSB and f as LSB.",
+    "Concatenation is {f,e,d,c,b,a} with f as MSB and a as LSB."
+   ]
+  },
+  {
+   "aspect": "bit indexing within each vector",
+   "severity": "medium",
+   "readings": [
+    "Vectors use conventional Verilog indexing: for a 5-bit vector, bit 4 is MSB and bit 0 is LSB.",
+    "Vectors use reverse indexing: bit 0 is MSB and bit 4 is LSB."
+   ]
+  }
+ ]
+}

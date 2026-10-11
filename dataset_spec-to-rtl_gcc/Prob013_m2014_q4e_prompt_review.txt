@@ -1,0 +1,102 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in1
+ - input  in2
+ - output out
+
+The module should implement a 2-input NOR gate.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report: TopModule NOR Gate Implementation
+
+### 1. Specification Summary
+**Module**: TopModule  
+**Function**: 2-input NOR gate  
+**Interface**:
+- Inputs: `in1` (1-bit), `in2` (1-bit)
+- Output: `out` (1-bit)  
+**Truth Table**: out = ~(in1 | in2) = ~in1 & ~in2
+
+### 2. Ambiguity Analysis
+- **Timing Requirements**: No clock or timing constraints specified (likely combinational)
+- **Signal Behavior**: No specification for unknown (X) or high-impedance (Z) input states
+- **Output Drive Strength**: No specification for output drive characteristics (pull-up/pull-down, strength)
+- **Propagation Delay**: No timing constraints for input-to-output delay
+
+### 3. Missing Critical Details
+**Critical Omissions**:
+- **Reset/Power-on State**: No specification for initial output state after power-up
+- **Timing Constraints**: No setup/hold times or maximum propagation delay requirements
+- **Glitch Handling**: No specification for handling input glitches or metastability
+- **Load Characteristics**: No output load/fanout specifications
+- **Testability**: No scan chain or test mode requirements mentioned
+
+### 4. Edge Cases & Boundary Conditions
+**Identified Edge Cases**:
+- **Simulation States**: Handling of X (unknown) and Z (high-impedance) inputs
+- **Simultaneous Switching**: Behavior when both inputs change simultaneously
+- **Power-up Conditions**: Output behavior during power-on/reset scenarios
+- **Floating Inputs**: No pull-up/down specifications for unused inputs
+- **Corner Cases**: All 4 input combinations (00, 01, 10, 11) must be verified
+
+### 5. Functional Correctness Prediction
+**Expected Behavior**:
+```
+in1 | in2 | out
+----|-----|----
+ 0  |  0  |  1
+ 0  |  1  |  0
+ 1  |  0  |  0
+ 1  |  1  |  0
+```
+
+**Risk Assessment**:
+- **Low Complexity**: Simple combinational logic with minimal implementation risk
+- **High Testability**: All 4 input combinations easily verifiable
+- **Synthesis-Friendly**: Straightforward mapping to standard cell libraries
+
+### 6. Actionable Guidance for RTL Generation
+
+**Recommended Implementation**:
+```systemverilog
+module TopModule (
+    input  logic in1,
+    input  logic in2,
+    output logic out
+);
+
+    // Continuous assignment for NOR function
+    assign out = ~(in1 | in2);
+
+endmodule
+```
+
+**Verification Requirements**:
+1. **Testbench Coverage**: Verify all 4 input combinations
+2. **Timing Verification**: Check propagation delay meets system requirements
+3. **Simulation States**: Test with X and Z inputs to ensure predictable behavior
+4. **Synthesis Checks**: Verify no combinational loops or timing violations
+
+**Additional Recommendations**:
+- Add `default_nettype none to prevent implicit wire declarations
+- Include timing constraints in SDC file for synthesis
+- Consider adding assertion checks for invalid input states
+- Document assumption of combinational behavior with no clock requirement
+
+**Implementation Notes**:
+- Use continuous assignment for pure combinational logic
+- No need for sequential elements (flip-flops) unless timing constraints specified
+- Ensure proper coding standards for linting and synthesis compatibility
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

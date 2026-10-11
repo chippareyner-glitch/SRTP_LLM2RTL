@@ -1,0 +1,40 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "2-bit counter polarity/update direction and predict_taken decode",
+   "severity": "high",
+   "readings": [
+    "Counter value 0 = strongly not-taken, 3 = strongly taken; train_taken=1 increments (saturating at 3), predict_taken = MSB (counter[1])",
+    "Counter value 0 = strongly taken, 3 = strongly not-taken; train_taken=1 decrements, predict_taken = counter[0] or inverted MSB — giving the opposite direction for the same counter state and the opposite saturation behaviour"
+   ],
+   "resolved": false
+  },
+  {
+   "aspect": "BHR recovery value on misprediction",
+   "severity": "high",
+   "readings": [
+    "train_history is the history *used* for the mispredicting branch, so recovery sets BHR = {train_history[5:0], train_taken} at the next clock edge",
+    "train_history is already the post-branch history supplied by the pipeline, so recovery loads BHR = train_history verbatim (no shift/taken insertion)"
+   ],
+   "resolved": false
+  },
+  {
+   "aspect": "Reset values of BHR and PHT",
+   "severity": "high",
+   "readings": [
+    "Both the 7-bit history register and all 128 PHT counters are cleared to 0 on async reset (so predict_taken=0 for all entries until trained)",
+    "Only the history register is reset to 0; PHT contents are undefined/not reset, or PHT is reset to the weakly-predicting state (e.g. 2'b10 / 1) — changing predict_taken right after reset"
+   ],
+   "resolved": false
+  },
+  {
+   "aspect": "BHR update when predict_valid and a non-mispredicting train_valid coincide",
+   "severity": "medium",
+   "readings": [
+    "Training takes precedence only for the misprediction case; with a correct-prediction train request the BHR still shifts in predict_taken (and the PHT trains normally)",
+    "Any simultaneous train_valid suppresses the prediction's BHR update entirely, so the BHR does not shift this cycle (contradicting the 'training only modifies the PHT' statement)"
+   ],
+   "resolved": false
+  }
+ ]
+}

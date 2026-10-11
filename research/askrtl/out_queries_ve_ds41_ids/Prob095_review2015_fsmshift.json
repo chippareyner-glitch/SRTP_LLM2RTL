@@ -1,0 +1,326 @@
+{
+ "case": "Prob095_review2015_fsmshift",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "shift_ena",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c4",
+    "c5",
+    "c6",
+    "c7"
+   ],
+   "votes": 8,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1
+     ],
+     [
+      1
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ]
+    ],
+    "st0": 1,
+    "outs": [
+     [
+      "x",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "x",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - output shift_ena\n\nThis module is a part of the FSM for controlling a shift register, we\nwant the ability to enable the shift register for exactly 4 clock cycles\nwhenever the proper bit pattern is detected. Whenever the FSM is reset,\nassert shift_ena for 4 cycles, then 0 forever (until reset). Reset should\nbe active high synchronous.\n\nAssume all sequential logic is triggered on the positive edge of the\nclock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | reset | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | - | shift_ena=1'b1 | - | shift_ena=1'b0 |\n| 1 | 1'b1 | shift_ena=1'b1 | shift_ena=1'b1 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 2 | 1'b0 | shift_ena=1'b1 | shift_ena=1'b1 | shift_ena=1'b0 | shift_ena=1'b1 |\n| 3 | 1'b0 | shift_ena=1'b1 | shift_ena=1'b1 | shift_ena=1'b1 | shift_ena=1'b1 |\n| 4 | 1'b0 | shift_ena=1'b1 | shift_ena=1'b1 | shift_ena=1'b1 | shift_ena=1'b1 |\n| 5 | 1'b0 | shift_ena=1'b1 | shift_ena=1'b0 | shift_ena=1'b1 | shift_ena=1'b1 |\n| 6 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b1 | shift_ena=1'b0 |\n| 7 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 8 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 9 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 10 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 11 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 12 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 13 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 14 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 15 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 16 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 17 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 18 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 19 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 20 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 21 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 22 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 23 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 24 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 25 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 26 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 27 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 28 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 29 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 30 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n| 31 | 1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 | shift_ena=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 1,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c3": "B"
+   },
+   "label": "A",
+   "ref_value": "1",
+   "x_involved": false,
+   "hist": [
+    "x"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - output shift_ena\n\nThis module is a part of the FSM for controlling a shift register, we\nwant the ability to enable the shift register for exactly 4 clock cycles\nwhenever the proper bit pattern is detected. Whenever the FSM is reset,\nassert shift_ena for 4 cycles, then 0 forever (until reset). Reset should\nbe active high synchronous.\n\nAssume all sequential logic is triggered on the positive edge of the\nclock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | reset | pre | post |\n|---|---|---|---|\n| 0 | 1'b1 | shift_ena=1'bx | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: shift_ena=1'b1\n- **B**: shift_ena=1'b0\n"
+  }
+ ]
+}

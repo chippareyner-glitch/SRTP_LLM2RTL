@@ -1,0 +1,53 @@
+{
+ "case": "Prob044_vectorgates",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    3
+   ],
+   [
+    "b",
+    3
+   ]
+  ],
+  "outputs": [
+   [
+    "out_or_bitwise",
+    3
+   ],
+   [
+    "out_or_logical",
+    1
+   ],
+   [
+    "out_not",
+    6
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 3
+}

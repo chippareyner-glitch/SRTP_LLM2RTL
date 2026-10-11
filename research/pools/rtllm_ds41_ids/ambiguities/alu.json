@@ -1,0 +1,38 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "shift operand roles (which operand is data vs. shift amount)",
+   "severity": "high",
+   "readings": [
+    "SLL/SRL/SRA: r = a shifted by b[4:0]; SLLV/SRLV/SRAV: r = a shifted by b[4:0] (i.e. b is the shift amount, a is the data)",
+    "SLL/SRL/SRA: r = b shifted by a[4:0]; SLLV/SRLV/SRAV: r = b shifted by a[4:0] (i.e. a is the shift amount, b is the data, matching the MIPS rs=shift-amount/rt=data convention)",
+    "The full 32-bit operand is used as the shift amount (no truncation to 5 bits), giving 0 for amounts >= 32 versus modulo-32 behaviour"
+   ]
+  },
+  {
+   "aspect": "output latency / missing clock",
+   "severity": "high",
+   "readings": [
+    "r/zero/carry/negative/overflow/flag are purely combinational from a, b, aluc (always @(*) with res as a variable), so outputs respond in the same cycle as the inputs",
+    "res is a real register clocked by an implicit/omitted clk (posedge clk in the always block, no clk port listed), so all outputs appear one cycle later and the port list in the spec is incomplete"
+   ]
+  },
+  {
+   "aspect": "flag output semantics",
+   "severity": "high",
+   "readings": [
+    "flag = 1 whenever aluc is SLT or SLTU, independent of the comparison result (and 'z' otherwise)",
+    "flag = the actual comparison result (1 only when a < b, 0 when a >= b) for SLT/SLTU, and 0 (not 'z') for all other opcodes",
+    "flag = 'z' for SLT/SLTU as well and only reflects the result when driven externally"
+   ]
+  },
+  {
+   "aspect": "carry/overflow/negative/zero definition for subtract, logic, shift, LUI and invalid opcodes",
+   "severity": "medium",
+   "readings": [
+    "carry is the unsigned carry-out/borrow of the 33-bit add/sub for ADD/ADDU/SUB/SUBU, and is forced to 0 (or 'z') for AND/OR/XOR/NOR/shift/LUI; overflow is set only for signed ADD/SUB, 0 for ADDU/SUBU and all others; negative = res[31] for every opcode",
+    "carry is only meaningful for ADDU/SUB (unsigned), overflow only for ADD/SUB (signed) with the other flag outputs undefined/'x' or 'z' for non-arithmetic opcodes and for aluc values not in the case list"
+   ]
+  }
+ ]
+}

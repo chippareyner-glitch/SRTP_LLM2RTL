@@ -1,0 +1,247 @@
+{
+ "case": "Prob132_always_if2",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "cpu_overheated",
+    1
+   ],
+   [
+    "arrived",
+    1
+   ],
+   [
+    "gas_tank_empty",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "shut_off_computer",
+    1
+   ],
+   [
+    "keep_driving",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c1",
+   "members": [
+    "c1",
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+   ],
+   "votes": 7,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c0",
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c2",
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "x1"
+     ],
+     [
+      "01"
+     ]
+    ],
+    "text": "## Specification\n\nConsider the following adder-subtractor with a zero flag:\n\n  module TopModule (\n      input      cpu_overheated,\n      output reg shut_off_computer,\n      input      arrived,\n      input      gas_tank_empty,\n      output reg keep_driving\n  );\n\n      always @(*) begin\n          if (cpu_overheated)\n             shut_off_computer = 1;\n      end\n\n      always @(*) begin\n          if (~arrived)\n             keep_driving = ~gas_tank_empty;\n      end\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | cpu_overheated | arrived | gas_tank_empty | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | shut_off_computer=1'bx, keep_driving=1'b1 | shut_off_computer=1'b0, keep_driving=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "x1",
+    "01"
+   ],
+   "cluster_option": {
+    "c1": "B",
+    "c0": "A",
+    "c2": "B"
+   },
+   "label": "B",
+   "ref_value": "01",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nConsider the following adder-subtractor with a zero flag:\n\n  module TopModule (\n      input      cpu_overheated,\n      output reg shut_off_computer,\n      input      arrived,\n      input      gas_tank_empty,\n      output reg keep_driving\n  );\n\n      always @(*) begin\n          if (cpu_overheated)\n             shut_off_computer = 1;\n      end\n\n      always @(*) begin\n          if (~arrived)\n             keep_driving = ~gas_tank_empty;\n      end\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | cpu_overheated | arrived | gas_tank_empty | out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: shut_off_computer=1'bx, keep_driving=1'b1\n- **B**: shut_off_computer=1'b0, keep_driving=1'b1\n"
+  },
+  {
+   "long": {
+    "label": "A",
+    "cycles": 3,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "01",
+      "11",
+      "00"
+     ],
+     [
+      "01",
+      "11",
+      "01"
+     ]
+    ],
+    "text": "## Specification\n\nConsider the following adder-subtractor with a zero flag:\n\n  module TopModule (\n      input      cpu_overheated,\n      output reg shut_off_computer,\n      input      arrived,\n      input      gas_tank_empty,\n      output reg keep_driving\n  );\n\n      always @(*) begin\n          if (cpu_overheated)\n             shut_off_computer = 1;\n      end\n\n      always @(*) begin\n          if (~arrived)\n             keep_driving = ~gas_tank_empty;\n      end\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | cpu_overheated | arrived | gas_tank_empty | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | shut_off_computer=1'b0, keep_driving=1'b1 | shut_off_computer=1'b0, keep_driving=1'b1 |\n| 1 | 1'b1 | 1'b0 | 1'b0 | shut_off_computer=1'b1, keep_driving=1'b1 | shut_off_computer=1'b1, keep_driving=1'b1 |\n| 2 | 1'b0 | 1'b1 | 1'b0 | shut_off_computer=1'b0, keep_driving=1'b0 | shut_off_computer=1'b0, keep_driving=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     1,
+     0
+    ]
+   ],
+   "options": [
+    "00",
+    "0x",
+    "x0"
+   ],
+   "cluster_option": {
+    "c1": "A",
+    "c0": "C",
+    "c2": "B"
+   },
+   "label": "A",
+   "ref_value": "00",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nConsider the following adder-subtractor with a zero flag:\n\n  module TopModule (\n      input      cpu_overheated,\n      output reg shut_off_computer,\n      input      arrived,\n      input      gas_tank_empty,\n      output reg keep_driving\n  );\n\n      always @(*) begin\n          if (cpu_overheated)\n             shut_off_computer = 1;\n      end\n\n      always @(*) begin\n          if (~arrived)\n             keep_driving = ~gas_tank_empty;\n      end\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | cpu_overheated | arrived | gas_tank_empty | out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b1 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: shut_off_computer=1'b0, keep_driving=1'b0\n- **B**: shut_off_computer=1'b0, keep_driving=1'bx\n- **C**: shut_off_computer=1'bx, keep_driving=1'b0\n"
+  },
+  {
+   "long": {
+    "label": "B",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "x1"
+     ],
+     [
+      "01"
+     ]
+    ],
+    "text": "## Specification\n\nConsider the following adder-subtractor with a zero flag:\n\n  module TopModule (\n      input      cpu_overheated,\n      output reg shut_off_computer,\n      input      arrived,\n      input      gas_tank_empty,\n      output reg keep_driving\n  );\n\n      always @(*) begin\n          if (cpu_overheated)\n             shut_off_computer = 1;\n      end\n\n      always @(*) begin\n          if (~arrived)\n             keep_driving = ~gas_tank_empty;\n      end\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | cpu_overheated | arrived | gas_tank_empty | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | shut_off_computer=1'bx, keep_driving=1'b1 | shut_off_computer=1'b0, keep_driving=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "x1",
+    "01"
+   ],
+   "cluster_option": {
+    "c1": "B",
+    "c0": "A",
+    "c2": "B"
+   },
+   "label": "B",
+   "ref_value": "01",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nConsider the following adder-subtractor with a zero flag:\n\n  module TopModule (\n      input      cpu_overheated,\n      output reg shut_off_computer,\n      input      arrived,\n      input      gas_tank_empty,\n      output reg keep_driving\n  );\n\n      always @(*) begin\n          if (cpu_overheated)\n             shut_off_computer = 1;\n      end\n\n      always @(*) begin\n          if (~arrived)\n             keep_driving = ~gas_tank_empty;\n      end\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | cpu_overheated | arrived | gas_tank_empty | out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: shut_off_computer=1'bx, keep_driving=1'b1\n- **B**: shut_off_computer=1'b0, keep_driving=1'b1\n"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "id": "Prob085_shift4__enaprio",
+ "base": "Prob085_shift4",
+ "delta": "enaprio",
+ "category": "rule",
+ "edits": [
+  [
+   "If both the load and ena inputs are asserted (1), the load input has higher priority.",
+   "If both the load and ena inputs are asserted (1), the ena input has higher priority (the register shifts and data is ignored)."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 427,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 65,
+   "samples": 427,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

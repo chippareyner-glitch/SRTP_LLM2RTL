@@ -1,0 +1,56 @@
+{
+ "case": "Prob065_7420",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "p1a",
+    1
+   ],
+   [
+    "p1b",
+    1
+   ],
+   [
+    "p1c",
+    1
+   ],
+   [
+    "p1d",
+    1
+   ],
+   [
+    "p2a",
+    1
+   ],
+   [
+    "p2b",
+    1
+   ],
+   [
+    "p2c",
+    1
+   ],
+   [
+    "p2d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "p1y",
+    1
+   ],
+   [
+    "p2y",
+    1
+   ]
+  ]
+ },
+ "status": "single_candidate",
+ "n_live": 1
+}

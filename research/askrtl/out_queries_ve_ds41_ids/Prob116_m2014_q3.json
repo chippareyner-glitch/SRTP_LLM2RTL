@@ -1,0 +1,239 @@
+{
+ "case": "Prob116_m2014_q3",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "x",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "f",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c1",
+   "members": [
+    "c1",
+    "c2",
+    "c3"
+   ],
+   "votes": 3,
+   "correct": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c0",
+   "members": [
+    "c0"
+   ],
+   "votes": 3,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 3,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "1"
+     ],
+     [
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  x (4 bits)\n - output f\n\nThe module should implement the function f shown in the Karnaugh map\nbelow. d is don't-care, which means you may choose to output whatever\nvalue is convenient.\n\n                x[1]x[2]\n  x[3]x[4]   00  01  11  10\n        00 | d | 0 | d | d |\n        01 | 0 | d | 1 | 0 |\n        11 | 1 | 1 | d | d |\n        10 | 1 | 1 | 0 | d |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | x | A out | B out |\n|---|---|---|---|\n| 0 | 4'b0000 | f=1'b0 | f=1'b0 |\n| 1 | 4'b0001 | f=1'b0 | f=1'b0 |\n| 2 | 4'b0010 | f=1'b1 | f=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     2
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c1": "B",
+    "c0": "A",
+    "c4": "B"
+   },
+   "label": "B",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  x (4 bits)\n - output f\n\nThe module should implement the function f shown in the Karnaugh map\nbelow. d is don't-care, which means you may choose to output whatever\nvalue is convenient.\n\n                x[1]x[2]\n  x[3]x[4]   00  01  11  10\n        00 | d | 0 | d | d |\n        01 | 0 | d | 1 | 0 |\n        11 | 1 | 1 | d | d |\n        10 | 1 | 1 | 0 | d |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | x | out |\n|---|---|---|\n| 0 | 4'b0010 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: f=1'b1\n- **B**: f=1'b0\n"
+  },
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 4,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      2
+     ],
+     [
+      3
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     [
+      "0",
+      "0",
+      "0",
+      "1"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  x (4 bits)\n - output f\n\nThe module should implement the function f shown in the Karnaugh map\nbelow. d is don't-care, which means you may choose to output whatever\nvalue is convenient.\n\n                x[1]x[2]\n  x[3]x[4]   00  01  11  10\n        00 | d | 0 | d | d |\n        01 | 0 | d | 1 | 0 |\n        11 | 1 | 1 | d | d |\n        10 | 1 | 1 | 0 | d |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | x | A out | B out |\n|---|---|---|---|\n| 0 | 4'b0000 | f=1'b0 | f=1'b0 |\n| 1 | 4'b0001 | f=1'b0 | f=1'b0 |\n| 2 | 4'b0010 | f=1'b0 | f=1'b0 |\n| 3 | 4'b0011 | f=1'b0 | f=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     3
+    ]
+   ],
+   "options": [
+    "0",
+    "1"
+   ],
+   "cluster_option": {
+    "c1": "A",
+    "c0": "B",
+    "c4": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "x",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  x (4 bits)\n - output f\n\nThe module should implement the function f shown in the Karnaugh map\nbelow. d is don't-care, which means you may choose to output whatever\nvalue is convenient.\n\n                x[1]x[2]\n  x[3]x[4]   00  01  11  10\n        00 | d | 0 | d | d |\n        01 | 0 | d | 1 | 0 |\n        11 | 1 | 1 | d | d |\n        10 | 1 | 1 | 0 | d |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | x | out |\n|---|---|---|\n| 0 | 4'b0011 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: f=1'b0\n- **B**: f=1'b1\n"
+  },
+  {
+   "long": {
+    "label": "B",
+    "cycles": 3,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "1"
+     ],
+     [
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  x (4 bits)\n - output f\n\nThe module should implement the function f shown in the Karnaugh map\nbelow. d is don't-care, which means you may choose to output whatever\nvalue is convenient.\n\n                x[1]x[2]\n  x[3]x[4]   00  01  11  10\n        00 | d | 0 | d | d |\n        01 | 0 | d | 1 | 0 |\n        11 | 1 | 1 | d | d |\n        10 | 1 | 1 | 0 | d |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | x | A out | B out |\n|---|---|---|---|\n| 0 | 4'b0000 | f=1'b0 | f=1'b0 |\n| 1 | 4'b0001 | f=1'b0 | f=1'b0 |\n| 2 | 4'b0010 | f=1'b1 | f=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     2
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c1": "B",
+    "c0": "A",
+    "c4": "B"
+   },
+   "label": "B",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  x (4 bits)\n - output f\n\nThe module should implement the function f shown in the Karnaugh map\nbelow. d is don't-care, which means you may choose to output whatever\nvalue is convenient.\n\n                x[1]x[2]\n  x[3]x[4]   00  01  11  10\n        00 | d | 0 | d | d |\n        01 | 0 | d | 1 | 0 |\n        11 | 1 | 1 | d | d |\n        10 | 1 | 1 | 0 | d |\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | x | out |\n|---|---|---|\n| 0 | 4'b0010 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: f=1'b1\n- **B**: f=1'b0\n"
+  }
+ ]
+}

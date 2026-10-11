@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset gating and synchrony",
+   "severity": "high",
+   "readings": [
+    "Reset is synchronous and only applied on a rising Clk edge when EN=1; if EN=0, Rst is ignored and SP, stack_mem, and flags hold their values.",
+    "Reset is an active-high reset independent of EN (and may be asynchronous); asserting Rst clears SP to 4, clears stack_mem to 0, and updates flags regardless of EN or Clk edge."
+   ]
+  },
+  {
+   "aspect": "dataOut update latency",
+   "severity": "high",
+   "readings": [
+    "dataOut is registered on the read clock edge, so the popped value appears one cycle after the read is sampled.",
+    "dataOut is combinational from the current top of stack (stack_mem[SP]) and reflects the popped entry in the same cycle as the pop."
+   ]
+  },
+  {
+   "aspect": "EMPTY/FULL output timing",
+   "severity": "high",
+   "readings": [
+    "EMPTY and FULL are combinational functions of SP and change in the same cycle as a push/pop updates SP.",
+    "EMPTY and FULL are registered flags updated on the clock edge, so they change one cycle after the push/pop."
+   ]
+  },
+  {
+   "aspect": "dataOut value when EMPTY",
+   "severity": "medium",
+   "readings": [
+    "When EMPTY=1, dataOut is forced to 0 (or to the reset value of stack_mem).",
+    "When EMPTY=1, dataOut holds its previous value or outputs an undefined/stale top-of-stack entry."
+   ]
+  }
+ ]
+}

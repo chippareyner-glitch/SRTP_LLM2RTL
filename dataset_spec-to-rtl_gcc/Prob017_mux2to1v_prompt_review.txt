@@ -1,0 +1,104 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a   (100 bits)
+ - input  b   (100 bits)
+ - input  sel
+ - output out (100 bits)
+
+The module should implement a 2-1 multiplexer. When sel=0, choose a. When
+sel=1, choose b.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+- **Module Name**: TopModule
+- **Function**: 100-bit wide 2:1 multiplexer
+- **Inputs**: 
+  - `a` (100-bit) - Input bus A
+  - `b` (100-bit) - Input bus B  
+  - `sel` (1-bit) - Selection signal
+- **Output**: 
+  - `out` (100-bit) - Selected output bus
+- **Behavior**: `out = (sel == 0) ? a : b`
+
+## 2. Ambiguity Analysis
+- **Selection Polarity**: Clear specification - sel=0 selects `a`, sel=1 selects `b`
+- **Bit Ordering**: No specification on bit ordering (MSB/LSB). Assuming standard [99:0] indexing
+- **Timing**: No timing requirements specified (combinational vs registered output)
+- **Unknown/High-Z Handling**: No specification for X/Z values on inputs or sel
+
+## 3. Missing Critical Details
+- **Timing Constraints**: 
+  - No setup/hold times specified for inputs relative to sel
+  - No propagation delay requirements
+  - No clock domain specification (appears to be combinational)
+- **Reset/Power-on Behavior**: No initialization requirements
+- **Output Drive Strength**: No specification for output drive capability
+- **Power Management**: No sleep/power-down behavior specified
+- **Testability**: No scan chain or test mode requirements
+
+## 4. Edge Cases & Boundary Conditions
+- **sel=X/Z**: Output behavior undefined (should be explicitly handled)
+- **Inputs with X/Z bits**: Propagation of unknown states not specified
+- **Bit Mismatch**: All 100 bits must be processed identically
+- **Glitch Handling**: No specification for transient sel signals
+- **Simulation vs Synthesis**: Potential differences in X-propagation
+
+## 5. Functional Correctness Prediction
+- **High Confidence**: Simple multiplexer function is well-defined
+- **Potential Issues**:
+  - Simulation mismatches due to undefined X-propagation behavior
+  - Timing violations if used in high-frequency applications without timing constraints
+  - Potential glitches if sel transitions occur while inputs are changing
+- **Testability**: Easy to verify with comprehensive test vectors
+
+## 6. Actionable Guidance for RTL Generation
+
+### Critical Implementation Decisions:
+```systemverilog
+// Use continuous assignment for combinational logic
+assign out = sel ? b : a;
+
+// Explicitly handle X propagation for simulation consistency
+// assign out = (sel === 1'b1) ? b : (sel === 1'b0) ? a : 'bx;
+```
+
+### Required Module Interface:
+```systemverilog
+module TopModule (
+    input  logic [99:0] a,      // 100-bit input A
+    input  logic [99:0] b,      // 100-bit input B  
+    input  logic        sel,    // Selection signal
+    output logic [99:0] out     // 100-bit output
+);
+```
+
+### Verification Strategy:
+- **Test Vectors**: Cover all selection cases with various input patterns
+- **Corner Cases**: Test with all-0, all-1, alternating patterns on inputs
+- **Timing Verification**: Static timing analysis for target frequency
+- **Formal Verification**: Prove `out == (sel ? b : a)` for all cases
+
+### Synthesis Considerations:
+- Ensure tool recognizes as simple multiplexer for optimal mapping
+- Consider adding `(* keep_hierarchy *)` if hierarchical preservation needed
+- Evaluate area vs speed tradeoffs for target technology
+
+### Documentation Requirements:
+- Clearly document the combinational nature and timing assumptions
+- Specify that this is a pure function with no internal state
+- Note the lack of reset/power-on initialization behavior
+
+This specification, while simple, requires explicit handling of simulation/synthesis consistency and timing constraints for robust implementation.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

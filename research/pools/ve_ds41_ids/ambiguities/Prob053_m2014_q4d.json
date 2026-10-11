@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial state of flip-flop",
+   "severity": "high",
+   "readings": [
+    "The flip-flop powers up with an unknown/undefined value (e.g., X in simulation), so 'out' is X until a known pattern is clocked in; since feedback is X XOR in = X, out may remain X indefinitely.",
+    "The flip-flop powers up with a defined value, typically 0 in synthesis or 1 depending on technology, leading to deterministic but implementation-dependent toggling behavior from the first clock edge."
+   ]
+  }
+ ]
+}

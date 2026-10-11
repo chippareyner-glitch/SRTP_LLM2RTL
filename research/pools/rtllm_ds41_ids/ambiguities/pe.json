@@ -1,0 +1,41 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset style (async level vs. edge/sync)",
+   "severity": "high",
+   "readings": [
+    "rst is an asynchronous level-sensitive reset: c is forced to 0 whenever rst is high (and the first clock edge after rst goes low accumulates a*b)",
+    "rst is edge-triggered as written (\"positive edge of the reset signal\"): c is cleared only on the rising edge of rst, so while rst stays high across several clock edges c keeps its previous value and no accumulation occurs, while a clock edge occurring after the single rising edge is ignored"
+   ],
+   "severity_note": ""
+  },
+  {
+   "aspect": "Signedness of a, b (and c)",
+   "severity": "high",
+   "readings": [
+    "a and b are signed 32-bit integers: a*b is a signed 64-bit product accumulated into a signed accumulator (e.g. a=-1, b=1 clears the accumulator)",
+    "a and b are unsigned 32-bit integers: a*b is an unsigned 64-bit product accumulated into an unsigned accumulator (e.g. 32'hFFFFFFFF * 1 adds 4294967295)"
+   ],
+   "severity_note": ""
+  },
+  {
+   "aspect": "Accumulator width / overflow and truncation point",
+   "severity": "medium",
+   "readings": [
+    "The 64-bit product is added to a full-precision internal accumulator and only the low 32 bits are presented on c, so overflow beyond 32 bits is retained internally and reappears later",
+    "The product is truncated to 32 bits (or the accumulator is 32 bits) and addition wraps mod 2^32, so overflow is discarded immediately",
+    "Overflow saturates at 32'h7FFFFFFF / 32'hFFFFFFFF instead of wrapping"
+   ],
+   "severity_note": ""
+  },
+  {
+   "aspect": "Output latency of c",
+   "severity": "low",
+   "readings": [
+    "c is a pure register: it holds the accumulation up to (but excluding) the current cycle's product, i.e. the product sampled at clock edge N appears on c during cycle N+1",
+    "c is registered but updated such that the product applied at the same clock edge is visible on c in the same cycle (combinational bypass of the newest product)"
+   ],
+   "severity_note": ""
+  }
+ ]
+}

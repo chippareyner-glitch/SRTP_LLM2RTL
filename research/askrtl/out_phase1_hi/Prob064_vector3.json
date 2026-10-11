@@ -1,0 +1,75 @@
+{
+ "case": "Prob064_vector3",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    5
+   ],
+   [
+    "b",
+    5
+   ],
+   [
+    "c",
+    5
+   ],
+   [
+    "d",
+    5
+   ],
+   [
+    "e",
+    5
+   ],
+   [
+    "f",
+    5
+   ]
+  ],
+  "outputs": [
+   [
+    "w",
+    8
+   ],
+   [
+    "x",
+    8
+   ],
+   [
+    "y",
+    8
+   ],
+   [
+    "z",
+    8
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3",
+   "c4"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [],
+ "status": "ok",
+ "n_live": 5
+}

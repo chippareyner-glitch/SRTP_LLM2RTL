@@ -1,0 +1,23 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+.venv/
+experiments/
+.deps/
+
+# Local PPA environments and caches
+tools/ppa/.venv312/
+tools/ppa/.venv/
+tools/ppa/cache/
+.vscode/
+_nul
+*.pyc
+v2/
+
+# Public repository: obtain CVDP artifacts separately
+research/pools/cvdp*/
+research/askrtl/out_*cvdp*/
+research/askrtl/supp_tests/cvdp.json
+research/askrtl/*cvdp*.json
+research/cvdp_analysis.json

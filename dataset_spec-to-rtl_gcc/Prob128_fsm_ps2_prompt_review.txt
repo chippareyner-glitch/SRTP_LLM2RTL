@@ -1,0 +1,146 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  in (8 bits)
+ - output done
+
+The PS/2 mouse protocol sends messages that are three bytes long.
+However, within a continuous byte stream, it's not obvious where messages
+start and end. The only indication is that the first byte of each three
+byte message always has in[3]=1 (but in[3] of the other two bytes may be
+1 or 0 depending on data).
+
+The module should implement a finite state machine that will search for
+message boundaries when given an input byte stream. The algorithm we'll
+use is to discard bytes until we see one with in[3]=1. We then assume
+that this is byte 1 of a message, and signal the receipt of a message
+once all 3 bytes have been received (done). The FSM should signal done in
+the cycle immediately after the third byte of each message was
+successfully received. Reset should be active high synchronous. Assume
+all sequential logic is triggered on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a PS/2 mouse protocol message boundary detector that:
+- Receives 8-bit input bytes on each clock cycle
+- Searches for 3-byte message boundaries using in[3]=1 as the start indicator
+- Outputs a 1-cycle 'done' pulse after receiving the third byte of each message
+- Uses synchronous active-high reset
+- Operates on positive clock edges
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Byte reception timing:** Unclear if bytes arrive continuously every cycle or with gaps
+- **Reset behavior:** Should the FSM return to idle/search state or maintain current state?
+- **'done' timing:** "Immediately after" could mean same cycle (combinational) or next cycle (registered)
+- **Back-to-back messages:** What happens if byte 3 has in[3]=1? Should it start a new message immediately?
+
+**Moderate Ambiguities:**
+- **Input validation:** Should bytes be checked for other PS/2 protocol bits (start/stop/parity)?
+- **Error handling:** What if we lose sync mid-message?
+
+## 3. Missing Critical Details
+
+**Timing & Interface:**
+- **Input valid signal:** Missing indication of when 'in' contains valid data
+- **Backpressure/ready:** No mechanism to handle backpressure if input rate > processing rate
+- **Reset initialization values:** Unspecified reset state for internal registers
+
+**Functional Gaps:**
+- **Message completion during reset:** Behavior when reset occurs mid-message
+- **Consecutive start bytes:** Handling of in[3]=1 in bytes 2 or 3 of current message
+- **Output persistence:** Should 'done' be registered or combinatorial?
+
+## 4. Edge Cases & Boundary Conditions
+
+**Reset Scenarios:**
+- Reset asserted during byte 2 reception
+- Reset deasserted exactly when byte arrives
+
+**Message Boundary Cases:**
+- Byte stream: ... X, Y, Z, A[3]=1, B, C, D[3]=1, E, F... (normal operation)
+- Byte stream: ... X, A[3]=1, B[3]=1, C, D... (consecutive start bytes)
+- Byte stream: ... X, A[3]=1, B, C[3]=1, D... (early start byte in byte 3)
+- Empty stream or single-byte messages
+
+**Timing Edge Cases:**
+- Reset and valid byte arrive on same cycle
+- Continuous bytes with in[3]=1 every cycle
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+- **State machine glitches:** Potential for incomplete message detection if timing assumptions are wrong
+- **Reset recovery:** FSM might not properly initialize after reset
+- **Back-to-back messages:** Likely bug source if not explicitly handled
+
+**Expected Failure Modes:**
+- False message detection on byte sequences like: X[3]=1, Y, Z[3]=1
+- Missed messages if input rate exceeds design assumptions
+- 'done' signal timing violations if not properly registered
+
+## 6. Actionable Guidance for RTL Generation
+
+**Architecture Decisions:**
+```systemverilog
+// Recommended FSM states
+typedef enum logic [1:0] {
+    SEARCH,     // Looking for start byte (in[3]=1)
+    BYTE2,      // Received byte 1, waiting for byte 2  
+    BYTE3       // Received byte 2, waiting for byte 3
+} state_t;
+```
+
+**Critical Implementation Rules:**
+1. **Add input valid signal:** `input logic in_valid` to indicate byte availability
+2. **Register 'done' output:** Generate done in cycle AFTER third byte receipt
+3. **Reset strategy:** FSM returns to SEARCH state on reset
+4. **Message boundary:** Any byte with in[3]=1 resets to BYTE2 state (new message start)
+
+**Key RTL Structure:**
+```systemverilog
+always_ff @(posedge clk) begin
+    if (reset) begin
+        state <= SEARCH;
+        done <= 1'b0;
+    end else if (in_valid) begin
+        case (state)
+            SEARCH: if (in[3]) state <= BYTE2;
+            BYTE2: state <= BYTE3;
+            BYTE3: begin
+                state <= in[3] ? BYTE2 : SEARCH;
+                done <= 1'b1;
+            end
+        endcase
+    end else begin
+        done <= 1'b0;
+    end
+end
+```
+
+**Verification Requirements:**
+- Test all state transitions with valid/invalid bytes
+- Verify reset during each FSM state
+- Check back-to-back message handling
+- Validate timing with cycle-accurate testbench
+
+**Synthesis Considerations:**
+- Ensure FSM encoding is synthesis-friendly (sequential, one-hot, or gray)
+- Add timing constraints for clock-to-output delays
+- Consider adding output register for better timing closure
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "bit ordering / index mapping of the 256-bit input vector",
+   "severity": "high",
+   "readings": [
+    "The 256-bit input vector is declared as [255:0], so in[0] is the least-significant bit and out = in[sel].",
+    "The 256-bit input vector is declared as [0:255], so in[0] is the most-significant bit and out = in[sel] (with the external bit significance reversed relative to the first reading)."
+   ]
+  }
+ ]
+}

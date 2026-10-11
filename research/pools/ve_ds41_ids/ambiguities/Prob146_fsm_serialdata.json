@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "done assertion timing",
+   "severity": "high",
+   "readings": [
+    "done is asserted combinationally in the same clock cycle in which the stop bit is sampled (e.g., done = (state == STOP && in == 1)).",
+    "done is registered and asserted in the clock cycle after the stop bit is sampled (e.g., set in a DONE state on the next clock edge)."
+   ]
+  },
+  {
+   "aspect": "invalid stop bit handling",
+   "severity": "high",
+   "readings": [
+    "When the stop bit is 0, the FSM enters a wait state and does not assert done or update out_byte; upon seeing a 1, it returns to idle to look for the next start bit.",
+    "When the stop bit is 0, the FSM enters a wait state; when it sees a 1, it asserts done and outputs the previously received data byte (treating the 1 as a found stop bit)."
+   ]
+  },
+  {
+   "aspect": "reset effect on outputs",
+   "severity": "low",
+   "readings": [
+    "Synchronous reset only affects the state at the clock edge; done and out_byte retain their previous values during the cycle reset is high, and are cleared on the next clock edge.",
+    "Reset forces done=0 and out_byte=0 combinationally during the same cycle reset is high, even though the spec says synchronous."
+   ]
+  }
+ ]
+}

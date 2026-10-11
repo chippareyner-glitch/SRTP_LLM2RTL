@@ -1,0 +1,201 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  j
+ - input  k
+ - output out
+
+The module should implement a Moore state machine with two states, two
+inputs, and one output according to diagram described below. Reset is an
+active-high asynchronous reset to state OFF.
+
+  OFF (out=0) --j=0--> OFF
+  OFF (out=0) --j=1--> ON
+  ON  (out=1) --k=0--> ON
+  ON  (out=1) --k=1--> OFF
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+**Module**: TopModule  
+**Type**: Moore Finite State Machine (FSM)  
+**States**: 2 states (OFF, ON)  
+**Inputs**: 
+- `clk` (clock)
+- `areset` (asynchronous reset, active-high)
+- `j` (1-bit control input)
+- `k` (1-bit control input)
+
+**Outputs**:
+- `out` (1-bit state indicator)
+
+**State Encoding**:
+- OFF: `out = 0`
+- ON: `out = 1`
+
+**State Transitions**:
+- OFF → OFF: when `j = 0`
+- OFF → ON: when `j = 1`  
+- ON → ON: when `k = 0`
+- ON → OFF: when `k = 1`
+
+**Reset Behavior**: Asynchronous reset to OFF state when `areset = 1`
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity**: **Input priority conflict** when both `j` and `k` are active simultaneously.
+
+- The specification defines transitions based on individual inputs (`j` for OFF state, `k` for ON state)
+- No guidance provided for the case when `j=1` AND `k=1` occurs
+- This creates a potential race condition or undefined behavior
+
+**Secondary Ambiguity**: **State encoding method** is unspecified:
+- Binary encoding (0=OFF, 1=ON) vs. one-hot encoding
+- While output mapping suggests binary, internal representation isn't defined
+
+## 3. Missing Critical Details
+
+**Input Handling**:
+- Behavior when `j=1` and `k=1` occurs simultaneously
+- Input sampling timing relative to clock edge (assumed positive edge)
+
+**State Machine Implementation**:
+- Explicit state variable declaration and encoding
+- Clock domain specification (positive/negative edge triggered)
+
+**Synthesis Constraints**:
+- Maximum operating frequency requirements
+- Output timing constraints (setup/hold times)
+
+**Verification Requirements**:
+- Expected reset recovery time
+- Power-up state behavior
+
+## 4. Edge Cases & Boundary Conditions
+
+**Input Combinations**:
+1. `j=1, k=1` (simultaneous activation) - **HIGH PRIORITY**
+2. `j=0, k=0` (both inputs inactive) - handled per spec
+3. `j=1, k=0` and `j=0, k=1` - standard operation
+
+**Timing Scenarios**:
+- Reset assertion during state transition
+- Input changes near clock edges (metastability risk)
+- Reset de-assertion timing relative to clock
+
+**Power Management**:
+- Reset behavior during power-up
+- State persistence during clock gating
+
+## 5. Functional Correctness Prediction
+
+**High Risk Areas**:
+1. **Simultaneous Input Handling**: Without resolution, the FSM may enter metastable state or exhibit unpredictable behavior
+2. **Reset Timing**: Asynchronous reset recovery must be handled carefully to avoid glitches
+
+**Expected Failure Modes**:
+- Incorrect state transitions when `j=1` and `k=1`
+- Potential output glitches during reset de-assertion
+- Timing violations if inputs change too close to clock edges
+
+**Verification Challenges**:
+- Corner cases with simultaneous inputs require extensive testing
+- Reset sequence validation needs careful timing analysis
+
+## 6. Actionable Guidance for RTL Generation
+
+### **Critical Design Decisions Required**:
+
+1. **Input Priority Resolution** (Choose one):
+   ```
+   Option A: j has priority when j=1,k=1 → follow j transition
+   Option B: k has priority when j=1,k=1 → follow k transition  
+   Option C: Maintain current state when j=1,k=1
+   Option D: Treat as error condition (assert error signal)
+   ```
+
+2. **State Encoding** (Recommended):
+   ```
+   typedef enum logic {OFF = 1'b0, ON = 1'b1} state_t;
+   state_t current_state, next_state;
+   ```
+
+### **Implementation Template**:
+
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic areset,
+    input  logic j,
+    input  logic k,
+    output logic out
+);
+
+    typedef enum logic {OFF = 1'b0, ON = 1'b1} state_t;
+    state_t current_state, next_state;
+    
+    // Next state logic WITH priority resolution
+    always_comb begin
+        case (current_state)
+            OFF: next_state = (j == 1'b1) ? ON : OFF;
+            ON:  next_state = (k == 1'b1) ? OFF : ON;
+            default: next_state = OFF;
+        endcase
+        
+        // Handle j=1,k=1 conflict (Option A: j priority)
+        if (j && k) begin
+            next_state = (current_state == OFF) ? ON : OFF;
+        end
+    end
+    
+    // State register with async reset
+    always_ff @(posedge clk or posedge areset) begin
+        if (areset) begin
+            current_state <= OFF;
+        end else begin
+            current_state <= next_state;
+        end
+    end
+    
+    // Moore output
+    assign out = (current_state == ON);
+    
+endmodule
+```
+
+### **Verification Requirements**:
+
+1. **Testbench Scenarios**:
+   - All input combinations in both states
+   - Reset assertion during transitions
+   - Simultaneous j=1,k=1 cases
+   - Timing violations near clock edges
+
+2. **Assertions**:
+   ```systemverilog
+   // Reset should force OFF state
+   assert property (@(posedge clk) areset |-> (out == 0));
+   
+   // State stability when no transition conditions
+   assert property (@(posedge clk) disable iff (areset)
+     (current_state == OFF && j==0) |=> (current_state == OFF));
+   ```
+
+### **Synthesis Guidance**:
+- Use `always_ff` for sequential logic
+- Ensure reset recovery time meets timing constraints
+- Consider adding input synchronizers if clock domain crossing is possible
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

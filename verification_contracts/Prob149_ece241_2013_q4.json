@@ -1,0 +1,27 @@
+{
+  "case_id": "Prob149_ece241_2013_q4",
+  "rtl_file": "Prob149_ece241_2013_q4_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob149_ece241_2013_q4_prompt.txt",
+  "normalization_notes": [
+    "The dfr direction follows the literal prompt: assert supplemental flow when the previous water level was lower than the current level."
+  ],
+  "ports": [
+    {"name": "clk", "direction": "input", "width": 1},
+    {"name": "reset", "direction": "input", "width": 1},
+    {"name": "s", "direction": "input", "width": 3},
+    {"name": "fr2", "direction": "output", "width": 1},
+    {"name": "fr1", "direction": "output", "width": 1},
+    {"name": "fr0", "direction": "output", "width": 1},
+    {"name": "dfr", "direction": "output", "width": 1}
+  ],
+  "clock": {"name": "clk", "half_period": 5},
+  "initial": {"reset": "1", "s": "3'b000"},
+  "tests": [
+    {"id": "reset_low_water", "requirement": "reset represents long-term low water with all outputs asserted", "steps": [{"posedge": 1, "expect": {"fr2": "1", "fr1": "1", "fr0": "1", "dfr": "1"}}]},
+    {"id": "rise_to_low_sensor", "requirement": "s=001 has fr0/fr1 nominal flow and rising water asserts dfr", "steps": [{"set": {"reset": "0", "s": "3'b001"}, "posedge": 1, "expect": {"fr2": "0", "fr1": "1", "fr0": "1", "dfr": "1"}}]},
+    {"id": "rise_to_middle_sensor", "requirement": "s=011 has fr0 nominal flow and rising water asserts dfr", "steps": [{"set": {"s": "3'b011"}, "posedge": 1, "expect": {"fr2": "0", "fr1": "0", "fr0": "1", "dfr": "1"}}]},
+    {"id": "above_high_sensor", "requirement": "s=111 closes every flow valve", "steps": [{"set": {"s": "3'b111"}, "posedge": 1, "expect": {"fr2": "0", "fr1": "0", "fr0": "0", "dfr": "0"}}]},
+    {"id": "fall_to_middle_sensor", "requirement": "previous level is not lower during a falling transition, so dfr is closed", "steps": [{"set": {"s": "3'b011"}, "posedge": 1, "expect": {"fr2": "0", "fr1": "0", "fr0": "1", "dfr": "0"}}]}
+  ]
+}

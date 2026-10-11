@@ -1,0 +1,11 @@
+{
+ "case": "parallel2serial",
+ "category": "Miscellaneous",
+ "top": "parallel2serial",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "parallel2serial"
+ ]
+}

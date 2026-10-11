@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "A-to-D transition condition",
+   "severity": "high",
+   "readings": [
+    "Literal diagram: A->D when r0=0,r1=0,r2=0, same condition as A->A; this contradicts the prose that the FSM stays in A when there are no requests and would allow entering D (device-2 grant state) with no request.",
+    "Prose-consistent reading: A->D only when r0=0,r1=0,r2=1 (device 2 is the only requester); r=000 must keep the FSM in A."
+   ]
+  },
+  {
+   "aspect": "State D output (g[2])",
+   "severity": "high",
+   "readings": [
+    "Diagram annotates only B with g0=1 and C with g1=1; D has no annotation, so D could be implemented with g=000 (no grant).",
+    "Prose says device 2 receives a grant in its state, so D should be implemented with g2=1 (e.g., g=001)."
+   ]
+  },
+  {
+   "aspect": "State D transitions",
+   "severity": "high",
+   "readings": [
+    "Inferred from prose: D stays D while r2=1 and goes to A when r2=0, holding the grant for device 2 until its request drops.",
+    "Literal diagram is silent: D has no outgoing arcs, so next state from D is unspecified; an implementation could stay in D, go to A unconditionally, or jump to B/C on higher-priority requests."
+   ]
+  },
+  {
+   "aspect": "Output g timing/latency",
+   "severity": "medium",
+   "readings": [
+    "Moore outputs combinational from current state: g changes immediately after the clock edge that enters B/C/D (same cycle as state change).",
+    "Outputs registered/sequential: g changes one cycle later than the state transition, or reset may not clear g; the spec permits either continuous assignment or an always block without specifying combinational vs sequential."
+   ]
+  }
+ ]
+}

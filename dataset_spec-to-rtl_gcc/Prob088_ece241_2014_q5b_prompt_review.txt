@@ -1,0 +1,143 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  x
+ - output z
+
+The module should implement the following Mealy finite-state machine
+which is an implementation of the 2's complementer. Implement using a
+one-hot encoding. Resets into state A and reset is asynchronous
+active-high.
+
+  A --x=0 (z=0)--> A
+  A --x=1 (z=1)--> B
+  B --x=0 (z=1)--> B
+  B --x=1 (z=0)--> B
+
+Assume all sequential logic is triggered on the positive edge of the
+clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a Mealy FSM (2's complementer) with:
+- **Interface**: clk, areset (async active-high), x (1-bit input), z (1-bit output)
+- **States**: A (reset state), B
+- **Encoding**: One-hot (2 states = 2 bits)
+- **Behavior**: 
+  - State A: x=0 → stay in A (z=0); x=1 → go to B (z=1)
+  - State B: x=0 → stay in B (z=1); x=1 → stay in B (z=0)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity Identified:**
+- **State transition/output timing**: The specification doesn't explicitly state whether outputs are registered or combinatorial. As a Mealy machine, `z` should be combinatorial (dependent on both current state AND input `x`), but this needs confirmation.
+
+**Minor Clarifications Needed:**
+- **Reset value for `z`**: Should `z` have a defined value during/after reset? (Likely 0 since reset state is A and x is undefined during reset)
+- **One-hot encoding order**: Which bit corresponds to state A vs state B? (Convention: A = "01", B = "10" or vice versa)
+
+## 3. Missing Critical Details
+
+**Timing Specifications:**
+- **Output delay constraints**: No setup/hold times specified for input `x` relative to `clk`
+- **Clock frequency/period**: No timing constraints for synthesis
+
+**Synthesis Constraints:**
+- **One-hot encoding verification**: No explicit requirement to verify one-hot property in hardware
+- **Power-on reset behavior**: Only async reset specified, but power-on behavior undefined
+
+**Interface Assumptions:**
+- **Input validity**: No specification about metastability handling or input synchronization
+- **Output loading**: No drive strength requirements for `z`
+
+## 4. Edge Cases & Boundary Conditions
+
+**Reset Scenarios:**
+- Async reset assertion during normal operation
+- Reset release timing relative to clock edge
+- Reset glitch handling
+
+**Input Edge Cases:**
+- `x` changing near clock edge (metastability risk)
+- `x` changing simultaneously with reset assertion/release
+- Continuous toggling of `x` at clock frequency
+
+**State Machine Protection:**
+- Illegal state recovery (though one-hot should prevent this)
+- What happens if both one-hot bits are active? (Hardware fault condition)
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+- **Mealy machine timing**: Output `z` may have glitches if `x` changes while clock is high
+- **Async reset synchronization**: Potential for metastability when reset is released near clock edge
+- **One-hot implementation**: Risk of non-one-hot states due to timing violations
+
+**Verification Challenges:**
+- Testing all reset timing scenarios
+- Verifying Mealy output behavior matches specification
+- Ensuring one-hot encoding remains valid under all conditions
+
+## 6. Actionable Guidance for RTL Generation
+
+**Essential Implementation Requirements:**
+```systemverilog
+// One-hot encoding definition
+localparam STATE_A = 2'b01;
+localparam STATE_B = 2'b10;
+
+// State register with async reset
+always_ff @(posedge clk or posedge areset) begin
+    if (areset) state <= STATE_A;
+    else state <= next_state;
+end
+
+// Combinational next state and output logic
+always_comb begin
+    case(state)
+        STATE_A: begin
+            next_state = x ? STATE_B : STATE_A;
+            z = x;  // Mealy output: depends on input
+        end
+        STATE_B: begin
+            next_state = STATE_B;  // Always stay in B
+            z = ~x;  // Mealy output: inverted input
+        end
+        default: begin  // Fault recovery
+            next_state = STATE_A;
+            z = 1'b0;
+        end
+    endcase
+end
+```
+
+**Critical Synthesis Directives:**
+- Add one-hot encoding synthesis directive: `(* fsm_encoding = "one-hot" *)`
+- Set async reset recovery timing constraints
+- Add don't-touch on state register to preserve one-hot
+
+**Verification Requirements:**
+- Test reset assertion during each state transition
+- Verify output `z` changes combinatorially with `x` (not clock-synchronized)
+- Validate one-hot property never violated
+- Check all input sequences match 2's complement behavior
+
+**Additional Recommendations:**
+- Add input synchronizer if `x` is asynchronous to `clk`
+- Consider adding output register if glitch-free `z` is required
+- Implement formal verification to prove one-hot invariant and correct state transitions
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

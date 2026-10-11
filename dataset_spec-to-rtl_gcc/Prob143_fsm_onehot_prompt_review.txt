@@ -1,0 +1,175 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in
+ - input  state (10 bits)
+ - output next_state (10 bits)
+ - output out1
+ - output out2
+
+Given the follow state machine with 1 input and 2 outputs (the outputs
+are given as "(out1, out2)"):
+
+  S0 (0, 0) --0--> S0
+  S0 (0, 0) --1--> S1
+  S1 (0, 0) --0--> S0
+  S1 (0, 0) --1--> S2
+  S2 (0, 0) --0--> S0
+  S2 (0, 0) --1--> S3
+  S3 (0, 0) --0--> S0
+  S3 (0, 0) --1--> S4
+  S4 (0, 0) --0--> S0
+  S4 (0, 0) --1--> S5
+  S5 (0, 0) --0--> S8
+  S5 (0, 0) --1--> S6
+  S6 (0, 0) --0--> S9
+  S6 (0, 0) --1--> S7
+  S7 (0, 1) --0--> S0
+  S7 (0, 1) --1--> S7
+  S8 (1, 0) --0--> S0
+  S8 (1, 0) --1--> S1
+  S9 (1, 1) --0--> S0
+  S9 (1, 1) --1--> S1
+
+Suppose this state machine uses one-hot encoding, where state[0] through
+state[9] correspond to the states S0 though S9, respectively. The outputs
+are zero unless otherwise specified. The next_state[0] through next_state[9] 
+correspond to the transition to next states S0 though S9. For example, The 
+next_state[1] is set to 1 when the next state is S1 , otherwise, it is set to 0.
+
+Here, the input state[9:0] can be a combinational of multiple states, and 
+the TopModule is expected to response.
+For example: 
+When the state[9:0] = 10'b0000010100, state[4] == 1, and state[2] == 1, the 
+states includes S4, and S2 states.
+
+The module should implement the state transition logic and output logic
+portions of the state machine (but not the state flip-flops). You are
+given the current state in state[9:0] and must implement next_state[9:0] 
+and the two outputs.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report
+
+### 1. Specification Summary
+- **Module**: `TopModule` implementing a 10-state FSM with one-hot encoding
+- **Inputs**: 
+  - `in` (1-bit): Control input
+  - `state[9:0]` (10-bit): Current state (one-hot encoded, S0=state[0], S9=state[9])
+- **Outputs**:
+  - `next_state[9:0]` (10-bit): Next state (one-hot encoded)
+  - `out1`, `out2` (1-bit each): Output signals
+- **Key Feature**: Supports **multiple active states simultaneously** (non-traditional FSM)
+- **Output Behavior**: Outputs are only non-zero in states S7, S8, S9; otherwise (0,0)
+
+### 2. Ambiguity Analysis
+
+**Critical Ambiguities Identified:**
+
+1. **Multiple Active States Resolution**: The spec states "state[9:0] can be a combinational of multiple states" but doesn't specify how to handle transitions when multiple states are active simultaneously. This is highly unusual for a state machine.
+
+2. **Output Generation Conflict**: When multiple states are active (e.g., S7 and S8 both active), the outputs conflict:
+   - S7: (out1=0, out2=1)
+   - S8: (out1=1, out2=0)
+   - **Ambiguity**: Which output takes precedence?
+
+3. **Transition Priority**: No priority scheme defined for handling multiple current states. Should transitions be OR-ed? AND-ed? Priority-encoded?
+
+### 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+
+1. **Reset Behavior**: No specification of initial state or reset conditions
+2. **Clock Domain**: No clock signal specified (understandable since this is combinational logic)
+3. **Multiple State Resolution Policy**: Critical missing specification for handling concurrent active states
+4. **Output Priority**: No defined priority when outputs from multiple active states conflict
+5. **Illegal State Handling**: No specification for handling non-one-hot or all-zero state inputs
+6. **Timing Constraints**: No setup/hold time requirements mentioned
+
+### 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle:**
+
+1. **All-Zero State**: `state[9:0] = 10'b0000000000` (no active state)
+2. **Multiple Hot States**: Various combinations like `10'b0000010100` (S2 and S4 active)
+3. **All-Ones State**: `state[9:0] = 10'b1111111111` (all states active)
+4. **Non-One-Hot Patterns**: Invalid encodings like `10'b0000000011` (S0 and S1 both active)
+5. **Output Conflicts**: States with conflicting outputs active simultaneously
+
+### 5. Functional Correctness Prediction
+
+**High Risk Areas:**
+
+1. **Multiple State Handling**: The current specification is underspecified for handling concurrent states. Without clear resolution rules, the implementation may be inconsistent.
+
+2. **Output Logic**: Output conflicts between S7, S8, S9 when multiple are active will lead to unpredictable behavior without priority rules.
+
+3. **State Transition Logic**: The next_state calculation for multiple current states needs explicit definition - likely should be OR-ed transitions.
+
+**Predicted Issues:**
+- Race conditions in output generation
+- Inconsistent next_state calculation
+- Potential glitches in combinatorial logic
+
+### 6. Actionable Guidance for RTL Generation
+
+**Required Clarifications (Assumptions Made):**
+
+1. **Multiple State Resolution**: Assume transitions are OR-ed (if any active state transitions to a target, set that target)
+2. **Output Priority**: Assume priority encoding (highest numbered active state determines outputs)
+3. **Illegal States**: Assume default to S0 behavior for illegal states
+
+**Implementation Strategy:**
+
+```systemverilog
+module TopModule (
+    input in,
+    input [9:0] state,
+    output [9:0] next_state,
+    output out1,
+    output out2
+);
+
+// Individual state transitions (OR logic for multiple active states)
+assign next_state[0] = (state[0] & ~in) |  // S0->S0
+                      (state[1] & ~in) |  // S1->S0
+                      (state[2] & ~in) |  // S2->S0
+                      (state[3] & ~in) |  // S3->S0
+                      (state[4] & ~in) |  // S4->S0
+                      (state[7] & ~in) |  // S7->S0
+                      (state[8] & ~in) |  // S8->S0
+                      (state[9] & ~in);   // S9->S0
+
+assign next_state[1] = (state[0] & in) |   // S0->S1
+                      (state[8] & in) |   // S8->S1
+                      (state[9] & in);    // S9->S1
+
+// ... continue for states 2-9 following state transition table
+
+// Output logic with priority encoding (highest active state wins)
+assign out1 = |state[9:8];  // S8 or S9 active
+assign out2 = |state[9:7] & state[9];  // S9 active, or S7 active but not S8/S9
+
+endmodule
+```
+
+**Verification Recommendations:**
+1. Create test cases for all single-state transitions
+2. Test multiple active state scenarios with conflicting transitions
+3. Verify output priority behavior
+4. Test edge cases (all zeros, all ones, illegal encodings)
+5. Add assertions for one-hot encoding validation
+
+**Critical: Request clarification on multiple active state handling policy before final implementation.**
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

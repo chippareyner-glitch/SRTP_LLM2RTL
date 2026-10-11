@@ -1,0 +1,377 @@
+{
+ "case": "Prob154_fsm_ps2data",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "out_bytes",
+    24
+   ],
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0"
+  ],
+  [
+   "c1"
+  ],
+  [
+   "c2"
+  ],
+  [
+   "c3"
+  ],
+  [
+   "c4"
+  ]
+ ],
+ "ci_pairs": 6,
+ "ci_found": 6,
+ "ci_missed": [],
+ "off_pairs": 10,
+ "off_found": 10,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 11,
+   "orig_len": 5,
+   "min_len": 4,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 11,
+   "orig_len": 5,
+   "min_len": 4,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 11,
+   "orig_len": 5,
+   "min_len": 4,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform_hi",
+   "stim": [
+    [
+     1,
+     220
+    ]
+   ],
+   "ok": true,
+   "calls": 0,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": null,
+   "hi_phase": true
+  },
+  {
+   "pair": [
+    "c1",
+    "c4"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 11,
+   "orig_len": 5,
+   "min_len": 4,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c2",
+    "c4"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 2,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 3,
+   "orig_len": 3,
+   "min_len": 2,
+   "toggles": 1
+  },
+  {
+   "pair": [
+    "c3",
+    "c4"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ],
+    [
+     0,
+     216
+    ]
+   ],
+   "ok": true,
+   "calls": 11,
+   "orig_len": 5,
+   "min_len": 4,
+   "toggles": 1
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

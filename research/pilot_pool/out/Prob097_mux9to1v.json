@@ -1,0 +1,90 @@
+{
+ "case": "Prob097_mux9to1v",
+ "n_samples": 10,
+ "n_distinct": 4,
+ "n_compiling": 3,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "68745ec1c9d3",
+   "sources": [
+    "deepseek_full",
+    "direct_batch",
+    "tri0926:candidate_2_contract",
+    "tri0926:candidate_3_counterexample",
+    "tri0927:candidate_1_literal",
+    "tri0927:candidate_2_contract",
+    "tri0927:candidate_3_counterexample"
+   ],
+   "model": "deepseek-v4-pro",
+   "path": "E:\\SRTP\\deepseek_full_20260920\\Prob097_mux9to1v\\attempt_00\\module.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 220
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "52db5dbb1f57",
+   "sources": [
+    "legacy_v2"
+   ],
+   "model": "deepseek",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\legacy_v2_20260921_092109_394863\\Prob097_mux9to1v\\module_initial.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 220
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "fcea87ecab95",
+   "sources": [
+    "json_ir"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\json_pipeline_20260926_004134_869935\\Prob097_mux9to1v\\final.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 0,
+    "samples": 220
+   },
+   "correct": true,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "218b152adcaa",
+   "sources": [
+    "tri0926:candidate_1_literal"
+   ],
+   "model": "deepseek-flash",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\experiments\\candidate_selection\\three_candidate_select_20260926_234951\\Prob097_mux9to1v\\candidate_1_literal\\attempt_00.sv",
+   "gold": {
+    "status": "compile_error",
+    "log": "s wire.\ndut.sv:22: error: out is not a valid l-value in tb.top_module1.\ndut.sv:12:      : out is declared here as wire.\ndut.sv:23: error: out is not a valid l-value in tb.top_module1.\ndut.sv:12:      : out is declared here as wire.\ndut.sv:24: error: out is not a valid l-value in tb.top_module1.\ndut.sv:12:      : out is declared here as wire.\ndut.sv:25: error: out is not a valid l-value in tb.top_module1.\ndut.sv:12:      : out is declared here as wire.\ndut.sv:26: error: out is not a valid l-value in tb.top_module1.\ndut.sv:12:      : out is declared here as wire.\n10 error(s) during elaboration.\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0",
+    "c1",
+    "c2"
+   ],
+   "votes": 9,
+   "correct": true,
+   "mixed": false
+  }
+ ],
+ "nontransitive_pairs": 0
+}

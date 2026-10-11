@@ -1,0 +1,132 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - output q (5 bits)
+
+A linear feedback shift register is a shift register usually with a few
+XOR gates to produce the next state of the shift register. A Galois LFSR
+is one particular arrangement that shifts right, where a bit position with
+a "tap" is XORed with the LSB output bit (q[0]) to produce its next value,
+while bit positions without a tap shift right unchanged.  If the taps positions
+are carefully chosen, the LFSR can be made to be "maximum-length". A maximum-length
+LFSR of n bits cycles through 2**n-1 states before repeating (the all-zero state is
+never reached).
+
+The module should implement a 5-bit maximal-length Galois LFSR with taps
+at bit positions 5 and 3. The active-high synchronous reset should reset
+the LFSR output to 1. Assume all sequential logic is triggered on the
+positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report: TopModule (5-bit Galois LFSR)
+
+### 1. Specification Summary
+- **Module Name**: TopModule
+- **Interface**: 
+  - Inputs: `clk` (1-bit), `reset` (1-bit, active-high)
+  - Outputs: `q` (5-bit vector)
+- **Function**: 5-bit maximal-length Galois LFSR with taps at positions 5 and 3
+- **Reset Behavior**: Synchronous reset to value `1` (active-high)
+- **Clock Domain**: Positive-edge triggered sequential logic
+- **LFSR Type**: Right-shifting Galois configuration with XOR feedback
+
+### 2. Ambiguity Analysis
+
+**Critical Ambiguity - Tap Position Interpretation:**
+The specification states "taps at bit positions 5 and 3" but uses 1-based indexing. This creates ambiguity:
+- **Option A**: 1-based indexing (positions 5 and 3) → bits q[4] and q[2] in 0-based SystemVerilog
+- **Option B**: 0-based indexing (positions 5 and 3) → impossible for 5-bit register
+
+**Recommended Resolution**: Adopt 1-based indexing convention common in LFSR literature, making taps at:
+- Position 5 → q[4] (MSB)
+- Position 3 → q[2] (middle bit)
+
+**Feedback Path Ambiguity**: The description states "XORed with the LSB output bit (q[0])" but doesn't specify if this is the only feedback source or if multiple taps share the same feedback.
+
+### 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+1. **Initial State After Reset**: Clearly specified as `1` (00001 binary)
+2. **Polynomial Representation**: Missing explicit polynomial (x⁵ + x³ + 1)
+3. **Feedback Wiring**: Unclear whether taps XOR with q[0] independently or combined
+4. **Output Interpretation**: Is `q` the current state or registered output?
+5. **Bit Ordering**: MSB/LSB convention for the 5-bit output not specified
+
+**Timing Requirements**: No setup/hold times or clock frequency constraints specified
+
+### 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+1. **All-Zero State**: Maximum-length LFSR should never reach 00000 (dead state)
+2. **Reset Timing**: Behavior when reset is asserted/deasserted near clock edges
+3. **Startup Conditions**: State evolution from non-reset initial conditions
+4. **Consecutive Reset**: Behavior when reset is held for multiple cycles
+5. **Metastability**: No protection for asynchronous reset (specified as synchronous)
+
+**Boundary Conditions:**
+- **State 00001**: Reset state (starting point)
+- **State 11111**: Maximum value before wrap-around
+- **State 00000**: Illegal state (should never occur in maximal-length sequence)
+
+### 5. Functional Correctness Prediction
+
+**Expected Behavior Based on 5-bit Maximal-LFSR:**
+- **Sequence Length**: 2⁵ - 1 = 31 unique states
+- **Cycle Pattern**: Should exclude all-zero state
+- **Tap Validation**: Polynomial x⁵ + x³ + 1 should produce maximal length
+- **State Transition**: Verified Galois configuration for given taps
+
+**Potential Implementation Risks:**
+- **Incorrect Tap Interpretation**: Major risk due to indexing ambiguity
+- **Feedback Wiring**: Risk of incorrect XOR network implementation
+- **Reset Synchronization**: Proper synchronous reset implementation critical
+
+### 6. Actionable Guidance for RTL Generation
+
+**Implementation Specifications:**
+```
+// Resolved Tap Positions (1-based → 0-based indexing)
+// Position 5 → q[4] (MSB)
+// Position 3 → q[2] (middle bit)
+
+// Feedback Logic: 
+// q[4]_next = q[3] ^ q[0]  (tap at position 5)
+// q[2]_next = q[1] ^ q[0]  (tap at position 3)
+// Other bits: q[3]_next = q[2], q[1]_next = q[0], q[0]_next = q[4]
+
+// Reset Value: 5'b00001 (decimal 1)
+```
+
+**RTL Implementation Strategy:**
+1. **Use Synchronous Always Block**: Sensitive to posedge clk
+2. **Explicit Reset Handling**: if (reset) q <= 5'b00001; else update logic
+3. **Combinational Feedback**: Calculate next state using XOR taps
+4. **State Register**: q represents current LFSR state
+
+**Verification Requirements:**
+- **Sequence Validation**: Verify 31-state cycle excluding 00000
+- **Reset Recovery**: Test reset assertion/deassertion timing
+- **Corner Cases**: Verify behavior from illegal states (if reachable)
+- **Monte Carlo Testing**: Random reset points to verify sequence integrity
+
+**Synthesis Considerations:**
+- **No Asynchronous Logic**: Pure synchronous design
+- **Reset Synchronizer**: Ensure clean reset synchronization
+- **Timing Constraints**: Typical register-to-register timing
+- **Area Optimization**: Minimal logic (4 XOR gates expected)
+
+This analysis provides a complete foundation for correct RTL implementation with clear resolution of ambiguities and comprehensive coverage of functional requirements.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

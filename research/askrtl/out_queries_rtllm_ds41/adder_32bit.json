@@ -1,0 +1,4 @@
+{
+ "case": "adder_32bit",
+ "status": "no_divergence"
+}

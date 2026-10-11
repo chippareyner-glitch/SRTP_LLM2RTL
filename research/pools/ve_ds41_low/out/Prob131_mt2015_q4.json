@@ -1,0 +1,25 @@
+{
+ "case": "Prob131_mt2015_q4",
+ "n_samples": 1,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "d0662419bcfd",
+   "sources": [
+    "ve_ds41_low:s0"
+   ],
+   "model": "ve_ds41_low",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_low\\gen\\Prob131_mt2015_q4\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob131_mt2015_q4_test.sv:68: error: Unknown module type: TopModule\n2 error(s) during elaboration.\n*** These modules were missing:\n        TopModule referenced 1 times.\n***\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

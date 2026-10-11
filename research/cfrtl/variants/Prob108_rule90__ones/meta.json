@@ -1,0 +1,27 @@
+{
+ "id": "Prob108_rule90__ones",
+ "base": "Prob108_rule90",
+ "delta": "ones",
+ "category": "rule",
+ "edits": [
+  [
+   "Assume the boundaries (q[-1] and q[512]) are both zero (off).",
+   "Assume the boundaries (q[-1] and q[512]) are both one (on)."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 7121,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 7058,
+   "samples": 7121,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

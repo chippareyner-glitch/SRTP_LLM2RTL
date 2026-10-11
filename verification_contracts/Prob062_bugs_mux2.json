@@ -1,0 +1,32 @@
+{
+  "case_id": "Prob062_bugs_mux2",
+  "rtl_file": "Prob062_bugs_mux2_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob062_bugs_mux2_prompt.txt",
+  "normalization_notes": [
+    "The shown expression (~sel & a) | (sel & b) establishes sel=0 selects a and sel=1 selects b. The stated bug is the one-bit output width, not the select polarity."
+  ],
+  "ports": [
+    {"name": "sel", "direction": "input", "width": 1},
+    {"name": "a", "direction": "input", "width": 8},
+    {"name": "b", "direction": "input", "width": 8},
+    {"name": "out", "direction": "output", "width": 8}
+  ],
+  "initial": {"sel": "0", "a": "8'h00", "b": "8'h00"},
+  "tests": [
+    {
+      "id": "select_a_when_zero",
+      "requirement": "the corrected 8-bit version preserves the shown sel=0 data path",
+      "steps": [
+        {"set": {"sel": "0", "a": "8'h35", "b": "8'hca"}, "delay": 1, "expect": {"out": "8'h35"}}
+      ]
+    },
+    {
+      "id": "select_b_when_one",
+      "requirement": "the corrected 8-bit version preserves the shown sel=1 data path",
+      "steps": [
+        {"set": {"sel": "1", "a": "8'h0f", "b": "8'hf0"}, "delay": 1, "expect": {"out": "8'hf0"}}
+      ]
+    }
+  ]
+}

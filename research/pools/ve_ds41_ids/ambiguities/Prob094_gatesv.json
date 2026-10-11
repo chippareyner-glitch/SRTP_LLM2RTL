@@ -1,0 +1,21 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "out_any[0] value",
+   "severity": "medium",
+   "readings": [
+    "out_any[0] is 0 because there is no right neighbour, so the condition cannot be met",
+    "out_any[0] equals in[0] because the only bit to consider is in[0] itself",
+    "out_any[0] is 1 because the spec says we do not need to know it (don't-care)"
+   ]
+  },
+  {
+   "aspect": "out_both[3] value",
+   "severity": "medium",
+   "readings": [
+    "out_both[3] is 0 because there is no left neighbour, so both bits cannot be 1",
+    "out_both[3] is 1 because the spec says we do not need to know it (don't-care)"
+   ]
+  }
+ ]
+}

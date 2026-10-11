@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T10:42:33.509669+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "square_wave",
+  "returned_model": "deepseek-flash",
+  "id": "2a8abf04-51b7-4556-9d0b-bd89449a44f4",
+  "usage": {
+    "prompt_tokens": 445,
+    "completion_tokens": 4694,
+    "total_tokens": 5139,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4553
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 445
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 21.350118800000928
+}

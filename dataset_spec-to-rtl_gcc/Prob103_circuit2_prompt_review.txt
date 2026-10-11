@@ -1,0 +1,123 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a
+ - input  b
+ - input  c
+ - input  d
+ - output q
+
+The module should implement a combinational circuit. Read the simulation
+waveforms to determine what the circuit does, then implement it.
+
+  time  a  b  c  d  q
+  0ns   0  0  0  0  1
+  5ns   0  0  0  0  1
+  10ns  0  0  0  0  1
+  15ns  0  0  0  0  1
+  20ns  0  0  0  1  0
+  25ns  0  0  1  0  0
+  30ns  0  0  1  1  1
+  35ns  0  1  0  0  0
+  40ns  0  1  0  1  1
+  45ns  0  1  1  0  1
+  50ns  0  1  1  1  0
+  55ns  1  0  0  0  0
+  60ns  1  0  0  1  1
+  65ns  1  0  1  0  1
+  70ns  1  0  1  1  0
+  75ns  1  1  0  0  1
+  80ns  1  1  0  1  0
+  85ns  1  1  1  0  0
+  90ns  1  1  1  1  1
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report
+
+### 1. Specification Summary
+- **Module**: TopModule (combinational logic)
+- **Inputs**: a, b, c, d (all 1-bit)
+- **Output**: q (1-bit)
+- **Behavior**: Output q is determined by the combination of inputs a, b, c, d
+- **Data Provided**: Complete truth table showing all 16 possible input combinations
+
+### 2. Ambiguity Analysis
+- **Primary Ambiguity**: The specification states "read the simulation waveforms to determine what the circuit does" but provides a truth table rather than timing waveforms. This creates initial confusion about the intended analysis method.
+- **Timing Ambiguity**: The time column (0ns, 5ns, etc.) suggests sequential behavior, but the specification explicitly states it's a combinational circuit. The timing values appear to be arbitrary simulation timestamps rather than functional timing requirements.
+- **Functional Intent**: No high-level description of what the circuit should accomplish (e.g., "implement a specific logic function" or "detect a pattern").
+
+### 3. Missing Critical Details
+- **Propagation Delay**: No maximum propagation delay specification for synthesis constraints
+- **Input Timing Constraints**: No setup/hold time requirements (though combinational, this affects timing analysis)
+- **Power Constraints**: No maximum power consumption or switching activity requirements
+- **Testability Requirements**: No scan chain or testability features specified
+- **Verification Methodology**: No mention of how to verify beyond the provided truth table
+
+### 4. Edge Cases & Boundary Conditions
+- **Complete Coverage**: The truth table provides all 16 input combinations (0000-1111), so no missing input cases
+- **Glitch Analysis**: Need to consider potential glitches during input transitions, especially since this is combinational logic
+- **Unknown States**: No specification for handling X (unknown) or Z (high-impedance) input states
+- **Multi-bit Input Transitions**: Simultaneous multi-bit changes could cause temporary glitches in output
+
+### 5. Functional Correctness Prediction
+**Logic Function Identified**: After analyzing the truth table, the function appears to be:
+- **q = a ⊕ b ⊕ c ⊕ d** (4-input XOR function)
+
+**Verification**:
+- 0000 → 0⊕0⊕0⊕0 = 0 (but table shows 1) - **CONFLICT**
+- Wait, let me re-examine: The pattern suggests it's actually **odd parity detection** (q=1 when odd number of 1's in inputs)
+
+**Correct Pattern**: q = 1 when the number of 1's in {a,b,c,d} is odd
+- 0000 (0 ones) → q=1 (table shows 1) - **ERROR in my initial analysis**
+- Actually, the table shows: q=1 for even parity, not odd
+
+**Final Determination**: q = 1 when number of 1's in inputs is EVEN (even parity generator)
+
+### 6. Actionable Guidance for RTL Generation
+
+```systemverilog
+module TopModule (
+    input  logic a,
+    input  logic b, 
+    input  logic c,
+    input  logic d,
+    output logic q
+);
+
+    // Even parity detection: q=1 when even number of 1's in inputs
+    assign q = ~(a ^ b ^ c ^ d);  // Alternative: assign q = ~(a + b + c + d)[0]
+    
+    // Or more explicitly:
+    // assign q = ((a + b + c + d) % 2 == 0) ? 1'b1 : 1'b0;
+
+endmodule
+```
+
+**Implementation Notes**:
+1. Use continuous assignment (`assign`) for combinational logic
+2. The XOR chain implementation is efficient for parity detection
+3. Consider adding `always_comb` block for more complex future modifications
+4. Add `/* synthesis syn_keep */` if synthesis optimization preservation is needed
+
+**Verification Strategy**:
+- Create testbench that exercises all 16 input combinations
+- Verify against the provided truth table
+- Add corner case tests for simultaneous input transitions
+- Include timing checks for propagation delay
+
+**Synthesis Considerations**:
+- The XOR implementation should map efficiently to LUT4 in most FPGA architectures
+- For ASIC, consider area vs. speed tradeoffs for the specific technology node
+- Add timing constraints for maximum path delay if performance requirements exist
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

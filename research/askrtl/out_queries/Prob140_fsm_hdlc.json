@@ -1,0 +1,407 @@
+{
+ "case": "Prob140_fsm_hdlc",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "disc",
+    1
+   ],
+   [
+    "flag",
+    1
+   ],
+   [
+    "err",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c2",
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 95,
+    "stim": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "001",
+      "001",
+      "000"
+     ],
+     [
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "000",
+      "001",
+      "001",
+      "100"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  in\n - output disc\n - output flag\n - output err\n\nSynchronous HDLC framing involves decoding a continuous bit stream of\ndata to look for bit patterns that indicate the beginning and end of\nframes (packets). Seeing exactly 6 consecutive 1s (i.e., 01111110) is a\n\"flag\" that indicate frame boundaries. To avoid the data stream from\naccidentally containing \"flags\", the sender inserts a zero after every 5\nconsecutive 1s which the receiver must detect and discard. We also need\nto signal an error if there are 7 or more consecutive 1s. Create a\nMoore-type finite state machine to recognize these three sequences:\n\n  (1) 0111110: Signal a bit needs to be discarded (disc).\n  (2) 01111110: Flag the beginning/end of a frame (flag).\n  (3) 01111111...: Error (7 or more 1s) (err).\n\nWhen the FSM is reset, it should be in a state that behaves as though the\nprevious input were 0. The reset signal is active high synchronous. The\noutput signals should be asserted for a complete cycle beginning on the\nclock cycle after the condition occurs. Assume all sequential\nlogic is triggered on the positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | reset | in | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| ... | *cycles 0-94 omitted (95 cycles; both traces were identical there)* |\n| 95 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 96 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 97 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 98 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 99 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 100 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 101 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 102 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 103 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 104 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 105 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 106 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 107 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 108 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 109 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 110 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 111 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 112 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 113 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 114 | 1'b1 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 115 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 116 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 117 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 118 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 119 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 120 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 121 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 122 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 123 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 124 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 125 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b1 |\n| 126 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b1 | disc=1'b1, flag=1'b0, err=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "k": 17,
+   "len": 9,
+   "toggles": 2,
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "000",
+    "100"
+   ],
+   "cluster_option": {
+    "c1": "A",
+    "c2": "B"
+   },
+   "label": "A",
+   "ref_value": "000",
+   "x_involved": false,
+   "hist": [
+    "xxx",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "000",
+    "001",
+    "001"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  in\n - output disc\n - output flag\n - output err\n\nSynchronous HDLC framing involves decoding a continuous bit stream of\ndata to look for bit patterns that indicate the beginning and end of\nframes (packets). Seeing exactly 6 consecutive 1s (i.e., 01111110) is a\n\"flag\" that indicate frame boundaries. To avoid the data stream from\naccidentally containing \"flags\", the sender inserts a zero after every 5\nconsecutive 1s which the receiver must detect and discard. We also need\nto signal an error if there are 7 or more consecutive 1s. Create a\nMoore-type finite state machine to recognize these three sequences:\n\n  (1) 0111110: Signal a bit needs to be discarded (disc).\n  (2) 01111110: Flag the beginning/end of a frame (flag).\n  (3) 01111111...: Error (7 or more 1s) (err).\n\nWhen the FSM is reset, it should be in a state that behaves as though the\nprevious input were 0. The reset signal is active high synchronous. The\noutput signals should be asserted for a complete cycle beginning on the\nclock cycle after the condition occurs. Assume all sequential\nlogic is triggered on the positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | reset | in | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | disc=1'bx, flag=1'bx, err=1'bx | disc=1'b0, flag=1'b0, err=1'b0 |\n| 1 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 2 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 3 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 4 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 5 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 6 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b0 |\n| 7 | 1'b0 | 1'b1 | disc=1'b0, flag=1'b0, err=1'b0 | disc=1'b0, flag=1'b0, err=1'b1 |\n| 8 | 1'b0 | 1'b0 | disc=1'b0, flag=1'b0, err=1'b1 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: disc=1'b0, flag=1'b0, err=1'b0\n- **B**: disc=1'b1, flag=1'b0, err=1'b0\n"
+  }
+ ]
+}

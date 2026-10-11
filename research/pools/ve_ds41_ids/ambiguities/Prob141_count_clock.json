@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "BCD digit ordering in hh/mm/ss",
+   "severity": "high",
+   "readings": [
+    "Tens digit in the high nibble (bits 7:4), ones digit in the low nibble (bits 3:0)",
+    "Ones digit in the high nibble (bits 7:4), tens digit in the low nibble (bits 3:0)"
+   ]
+  }
+ ]
+}

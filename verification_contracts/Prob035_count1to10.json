@@ -1,0 +1,46 @@
+{
+  "case_id": "Prob035_count1to10",
+  "rtl_file": "Prob035_count1to10_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob035_count1to10_prompt.txt",
+  "ports": [
+    {"name": "clk", "direction": "input", "width": 1},
+    {"name": "reset", "direction": "input", "width": 1},
+    {"name": "q", "direction": "output", "width": 4}
+  ],
+  "clock": {"name": "clk", "half_period": 5},
+  "initial": {"reset": "1'b1"},
+  "tests": [
+    {
+      "id": "synchronous_reset",
+      "requirement": "active-high synchronous reset sets q to 1",
+      "steps": [
+        {"posedge": 1, "expect": {"q": "4'd1"}}
+      ]
+    },
+    {
+      "id": "count_up",
+      "requirement": "counter increments once per positive edge",
+      "steps": [
+        {"set": {"reset": "1'b0"}, "posedge": 1, "expect": {"q": "4'd2"}},
+        {"posedge": 1, "expect": {"q": "4'd3"}},
+        {"posedge": 7, "expect": {"q": "4'd10"}}
+      ]
+    },
+    {
+      "id": "wrap_ten_to_one",
+      "requirement": "the sequence wraps from 10 back to 1",
+      "steps": [
+        {"posedge": 1, "expect": {"q": "4'd1"}}
+      ]
+    },
+    {
+      "id": "reset_priority",
+      "requirement": "asserted reset synchronously returns the counter to 1",
+      "steps": [
+        {"posedge": 2, "expect": {"q": "4'd3"}},
+        {"set": {"reset": "1'b1"}, "posedge": 1, "expect": {"q": "4'd1"}}
+      ]
+    }
+  ]
+}

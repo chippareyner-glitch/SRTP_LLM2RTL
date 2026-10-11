@@ -1,0 +1,168 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  in
+ - output out
+
+The module should implement a Moore machine with the diagram described
+below:
+
+  B (1) --0--> A
+  B (1) --1--> B
+  A (0) --0--> B
+  A (0) --1--> A
+
+It should asynchronously reset into state B if reset if high.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a 2-state Moore FSM with:
+- **States**: A (output=0) and B (output=1)
+- **Transitions**: 
+  - State B → State B (when input=1)
+  - State B → State A (when input=0)
+  - State A → State A (when input=1)
+  - State A → State B (when input=0)
+- **Reset**: Asynchronous reset to state B (output=1)
+- **Interface**: Single-bit clock, asynchronous reset, input, and output
+
+## 2. Ambiguity Analysis
+
+**State Encoding Not Specified**
+- The specification doesn't define how states A and B should be encoded
+- This could lead to implementation ambiguity (binary, one-hot, etc.)
+
+**Clock Edge Assumption**
+- While implied by convention, the active clock edge (posedge/negedge) isn't explicitly stated
+- Reset polarity is clear (high-active) but clock edge should be confirmed
+
+**Output Timing**
+- The specification doesn't clarify if the output should be registered or combinational
+- As a Moore machine, output depends only on current state, but timing relative to clock isn't specified
+
+## 3. Missing Critical Details
+
+**State Encoding Method**
+- Need explicit specification of state representation (e.g., A=1'b0, B=1'b1)
+
+**Clock Edge Specification**
+- Should specify whether to use posedge or negedge clk
+
+**Output Registering**
+- Should clarify if output is registered (synchronous with clock) or combinational
+
+**Reset Recovery Timing**
+- No specification of reset removal timing relative to clock
+
+## 4. Edge Cases & Boundary Conditions
+
+**Reset During Normal Operation**
+- Asynchronous reset should override all other logic when asserted
+- Output should immediately go to 1 when reset is asserted, regardless of clock
+
+**Input Metastability**
+- No specification for handling asynchronous input signals
+- May need input synchronization if 'in' can be asynchronous to clk
+
+**Reset Deassertion**
+- Behavior when reset is deasserted: state machine should remain in state B
+- Transition on first clock edge after reset deassertion
+
+**Power-up State**
+- Implied by asynchronous reset, but FPGA/ASIC power-up behavior should be verified
+
+## 5. Functional Correctness Prediction
+
+**State Transition Logic**
+- The state transitions are well-defined and unambiguous
+- Moore output correctly depends only on current state
+
+**Reset Functionality**
+- Asynchronous reset to state B is clearly specified
+- Should function correctly if implemented with proper asynchronous reset handling
+
+**Potential Issues**
+- Without input synchronization, metastability could cause incorrect state transitions
+- Output timing ambiguity could lead to simulation vs. synthesis mismatches
+
+## 6. Actionable Guidance for RTL Generation
+
+**State Encoding Recommendation**
+```systemverilog
+typedef enum logic {STATE_A = 1'b0, STATE_B = 1'b1} state_t;
+```
+
+**Clock and Reset Strategy**
+- Use `posedge clk` as the active clock edge (industry standard)
+- Implement asynchronous reset with `if (areset)`
+
+**Output Implementation**
+- Register the output for better timing: `out <= (current_state == STATE_B)`
+
+**Input Handling**
+- Add a synchronizer if 'in' can be asynchronous:
+```systemverilog
+logic in_sync;
+always_ff @(posedge clk or posedge areset) begin
+    if (areset) in_sync <= 1'b0;
+    else in_sync <= in;
+end
+```
+
+**Complete Implementation Structure**
+```systemverilog
+module TopModule (
+    input  clk,
+    input  areset,
+    input  in,
+    output out
+);
+    
+    typedef enum logic {STATE_A = 1'b0, STATE_B = 1'b1} state_t;
+    state_t current_state;
+    
+    // Input synchronization (recommended)
+    logic in_sync;
+    always_ff @(posedge clk or posedge areset) begin
+        if (areset) in_sync <= 1'b0;
+        else in_sync <= in;
+    end
+    
+    // State transition logic
+    always_ff @(posedge clk or posedge areset) begin
+        if (areset) begin
+            current_state <= STATE_B;
+        end else begin
+            case (current_state)
+                STATE_A: current_state <= in_sync ? STATE_A : STATE_B;
+                STATE_B: current_state <= in_sync ? STATE_B : STATE_A;
+            endcase
+        end
+    end
+    
+    // Output logic (Moore - depends only on state)
+    assign out = (current_state == STATE_B);
+    
+endmodule
+```
+
+**Verification Requirements**
+- Test all state transitions with various input sequences
+- Verify asynchronous reset functionality during normal operation
+- Check reset recovery and setup/hold timing
+- Validate output behavior matches Moore machine definition
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "reset value",
+   "severity": "high",
+   "readings": [
+    "All four flip-flops are cleared to 0 on synchronous reset",
+    "All four flip-flops are set to 1 on synchronous reset"
+   ]
+  },
+  {
+   "aspect": "output tap",
+   "severity": "high",
+   "readings": [
+    "out is driven by the first flip-flop, giving a 1-cycle delay from in to out",
+    "out is driven by the fourth flip-flop, giving a 4-cycle delay from in to out"
+   ]
+  },
+  {
+   "aspect": "reset scope",
+   "severity": "medium",
+   "readings": [
+    "Reset clears all four flip-flops",
+    "Reset clears only the flip-flop that drives out, leaving the other three stages unchanged"
+   ]
+  },
+  {
+   "aspect": "power-up state",
+   "severity": "low",
+   "readings": [
+    "Flip-flops have a defined power-up value (e.g., 0) when reset is not asserted",
+    "Flip-flops power up in an unknown state (X) when reset is not asserted"
+   ]
+  }
+ ]
+}

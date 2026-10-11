@@ -1,0 +1,21 @@
+{
+  "case_id": "Prob093_ece241_2014_q3",
+  "rtl_file": "Prob093_ece241_2014_q3_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob093_ece241_2014_q3_prompt.txt",
+  "normalization_notes": [
+    "mux_in[n] is the K-map column selected by binary ab=n, exactly as stated in the prompt."
+  ],
+  "ports": [
+    {"name": "c", "direction": "input", "width": 1},
+    {"name": "d", "direction": "input", "width": 1},
+    {"name": "mux_in", "direction": "output", "width": 4}
+  ],
+  "initial": {"c": "0", "d": "0"},
+  "tests": [
+    {"id": "kmap_cd00", "requirement": "mux inputs reproduce K-map row cd=00", "steps": [{"set": {"c": "0", "d": "0"}, "delay": 1, "expect": {"mux_in": "4'b0100"}}]},
+    {"id": "kmap_cd01", "requirement": "mux inputs reproduce K-map row cd=01", "steps": [{"set": {"c": "0", "d": "1"}, "delay": 1, "expect": {"mux_in": "4'b0001"}}]},
+    {"id": "kmap_cd10", "requirement": "mux inputs reproduce K-map row cd=10", "steps": [{"set": {"c": "1", "d": "0"}, "delay": 1, "expect": {"mux_in": "4'b0101"}}]},
+    {"id": "kmap_cd11", "requirement": "mux inputs reproduce K-map row cd=11", "steps": [{"set": {"c": "1", "d": "1"}, "delay": 1, "expect": {"mux_in": "4'b1101"}}]}
+  ]
+}

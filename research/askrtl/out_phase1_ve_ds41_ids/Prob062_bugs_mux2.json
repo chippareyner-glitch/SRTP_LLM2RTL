@@ -1,0 +1,79 @@
+{
+ "case": "Prob062_bugs_mux2",
+ "excluded_iface": [
+  "c1",
+  "c2"
+ ],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "sel",
+    1
+   ],
+   [
+    "a",
+    8
+   ],
+   [
+    "b",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    8
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0"
+  ],
+  [
+   "c3"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 1,
+ "off_found": 1,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 0,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     0,
+     194
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 2
+}

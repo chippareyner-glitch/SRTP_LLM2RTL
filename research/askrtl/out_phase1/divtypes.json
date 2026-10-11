@@ -1,0 +1,2746 @@
+[
+ {
+  "case": "Prob030_popcount255",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "init"
+   },
+   {
+    "pair": [
+     "c0",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "init"
+   }
+  ]
+ },
+ {
+  "case": "Prob033_ece241_2014_q1c",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob043_vector5",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob057_kmap2",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob062_bugs_mux2",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob063_review2015_shiftcount",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob066_edgecapture",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "reset"
+   }
+  ]
+ },
+ {
+  "case": "Prob070_ece241_2013_q2",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c9"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c7",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c7",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c8",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob071_always_casez",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob074_ece241_2014_q4",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "init"
+   }
+  ]
+ },
+ {
+  "case": "Prob078_dualedge",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     true,
+     true
+    ],
+    "type": "init"
+   }
+  ]
+ },
+ {
+  "case": "Prob082_lfsr32",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob086_lfsr5",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob088_ece241_2014_q5b",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob089_ece241_2014_q5a",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob093_ece241_2014_q3",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c4",
+     "c1"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob094_gatesv",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c2"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob095_review2015_fsmshift",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "latency"
+   },
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob098_circuit7",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c3",
+     "c0"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "latency"
+   }
+  ]
+ },
+ {
+  "case": "Prob101_circuit4",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob102_circuit3",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob112_always_case2",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob113_2012_q1g",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c9"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c7",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c7",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c7",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob116_m2014_q3",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c5"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "init"
+   },
+   {
+    "pair": [
+     "c2",
+     "c5"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob117_circuit9",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c2",
+     "c0"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c7"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "init"
+   },
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "init"
+   },
+   {
+    "pair": [
+     "c7",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "init"
+   }
+  ]
+ },
+ {
+  "case": "Prob118_history_shift",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob123_bugs_addsubz",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob124_rule110",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "init"
+   },
+   {
+    "pair": [
+     "c0",
+     "c9"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "init"
+   }
+  ]
+ },
+ {
+  "case": "Prob125_kmap3",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     true
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob127_lemmings1",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c1",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob128_fsm_ps2",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob133_2014_q3fsm",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c1"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c2"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob134_2014_q3c",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c9"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob135_m2014_q6b",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob136_m2014_q6",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c2",
+     "c1"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob137_fsm_serial",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob138_2012_q2fsm",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c1",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob139_2013_q2bfsm",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c1",
+     "c0"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob140_fsm_hdlc",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c1",
+     "c2"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob141_count_clock",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c5",
+     "c0"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "equal"
+   },
+   {
+    "pair": [
+     "c5",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "equal"
+   },
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "equal"
+   }
+  ]
+ },
+ {
+  "case": "Prob142_lemmings2",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c2",
+     "c0"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob143_fsm_onehot",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob144_conwaylife",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c2",
+     "c0"
+    ],
+    "correct": [
+     true,
+     true
+    ],
+    "type": "init"
+   },
+   {
+    "pair": [
+     "c2",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob145_circuit8",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "init"
+   },
+   {
+    "pair": [
+     "c2",
+     "c4"
+    ],
+    "correct": [
+     true,
+     true
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob146_fsm_serialdata",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c1",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob147_circuit10",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob149_ece241_2013_q4",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c1"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c5"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob150_review2015_fsmonehot",
+  "sequential": false,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     true,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c7"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c7"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c8"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c7",
+     "c8"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob151_review2015_fsm",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c5"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c9"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob152_lemmings3",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c6"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c7"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c9"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c6"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c4",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c7"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c6",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c7",
+     "c9"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob153_gshare",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c5",
+     "c0"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c5",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob154_fsm_ps2data",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c1",
+     "c0"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c2"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     true,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob155_lemmings4",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c2",
+     "c1"
+    ],
+    "correct": [
+     false,
+     true
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c3"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c1",
+     "c4"
+    ],
+    "correct": [
+     true,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c3",
+     "c4"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ },
+ {
+  "case": "Prob156_review2015_fancytimer",
+  "sequential": true,
+  "pairs": [
+   {
+    "pair": [
+     "c0",
+     "c2"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c0",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   },
+   {
+    "pair": [
+     "c2",
+     "c3"
+    ],
+    "correct": [
+     false,
+     false
+    ],
+    "type": "value"
+   }
+  ]
+ }
+]

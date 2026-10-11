@@ -1,0 +1,41 @@
+{
+  "archive": "C:/Users/USER/Downloads/script_gcc_test_modular_9.25.zip",
+  "imports": [
+    {
+      "source": "design_ir.py",
+      "target": "rtl_json_pipeline/design_ir.py",
+      "original_sha256": "5ee8377cdd00c476503cfae41af4b1a261e0b7f03374892f240847245254345b",
+      "integrated_sha256": "7ac698da2e9661136f52e5d9ee8fa6d74395a6a2542217925a4f96c195a81ef9"
+    },
+    {
+      "source": "behavior_contract_v1/schema.py",
+      "target": "rtl_json_pipeline/contract_schema.py",
+      "original_sha256": "a6c4748ca1522d6a6a3e97e5436fb5b0138936f5c72403c5481793f2a19a58b5",
+      "integrated_sha256": "6b8b912948c9c43c71207c22ae8a118b89ffcff0b4732c01a1e5c7bedb231e40"
+    },
+    {
+      "source": "behavior_contract_v1/compiler.py",
+      "target": "rtl_json_pipeline/contract_compiler.py",
+      "original_sha256": "f62504dd7e0ed8c72b437558a8c02554981d0922b8a6dea50b00898a8309bc14",
+      "integrated_sha256": "10c7df9e204f746141541e9cb8a15a4be72a39b3316702c96b4f496cda196c82"
+    },
+    {
+      "source": "semantic_ir_v2/source_registry.py",
+      "target": "rtl_json_pipeline/source_registry.py",
+      "original_sha256": "153a177fbe54210cc4d32ad3db71438b74a51793e80bcd960f9f43d8a02dcb3d",
+      "integrated_sha256": "153a177fbe54210cc4d32ad3db71438b74a51793e80bcd960f9f43d8a02dcb3d"
+    },
+    {
+      "source": "design_frontend_v1/analyzers.py",
+      "target": "rtl_json_pipeline/analyzers.py",
+      "original_sha256": "16c33842888145d00bb9db2cb4ae9459591c3bf6cffe6bdb249831cefd990510",
+      "integrated_sha256": "16c33842888145d00bb9db2cb4ae9459591c3bf6cffe6bdb249831cefd990510"
+    },
+    {
+      "source": "design_frontend_v1/models.py",
+      "target": "rtl_json_pipeline/models.py",
+      "original_sha256": "ad922bb052b769a88a43ef58df2d7c308d840d4e3ea52f7d399b9dc49520e27a",
+      "integrated_sha256": "ad922bb052b769a88a43ef58df2d7c308d840d4e3ea52f7d399b9dc49520e27a"
+    }
+  ]
+}

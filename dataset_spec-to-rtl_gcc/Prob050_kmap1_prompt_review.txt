@@ -1,0 +1,143 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a
+ - input  b
+ - input  c
+ - output out
+
+The module should implement the circuit described by the Karnaugh map
+below.
+
+          a
+   bc   0   1
+   00 | 0 | 1 |
+   01 | 1 | 1 |
+   11 | 1 | 1 |
+   10 | 1 | 1 |
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a 3-input, 1-output combinational logic module called `TopModule` with:
+- Inputs: `a`, `b`, `c` (all 1-bit)
+- Output: `out` (1-bit)
+- Functionality defined by a Karnaugh map where the output is 1 for all input combinations except when `a=0`, `b=0`, `c=0`
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity Identified:**
+- The Karnaugh map labeling is inconsistent with standard notation. The map shows `bc` on the vertical axis with values `00`, `01`, `11`, `10`, but `a` on the horizontal axis with values `0`, `1`
+- Standard K-map convention would place all input variables on the axes, but here we have 3 variables with only 2 shown on axes
+- **Interpretation**: The map suggests `b` and `c` are combined on the vertical axis, while `a` is on the horizontal axis
+
+**Resolution**: The intended mapping appears to be:
+- Vertical axis: `{b, c}` combinations in Gray code order (00, 01, 11, 10)
+- Horizontal axis: `a` values (0, 1)
+- Each cell represents `out` value for the corresponding input combination
+
+## 3. Missing Critical Details
+
+**Timing Requirements:**
+- No propagation delay specifications
+- No setup/hold time requirements for inputs
+- No output timing constraints
+
+**Reset/Power-on Behavior:**
+- No specification for power-on reset state
+- No initialization requirements
+
+**Load/Drive Characteristics:**
+- No input capacitance specifications
+- No output drive strength requirements
+- No fanout limitations
+
+**Technology Constraints:**
+- No target technology library specified
+- No area/power optimization constraints
+
+## 4. Edge Cases & Boundary Conditions
+
+**Input Combinations Coverage:**
+- All 8 possible input combinations (2³) are covered by the K-map
+- The only case where `out = 0` is when `a=0, b=0, c=0`
+- All other 7 combinations produce `out = 1`
+
+**Metastability Considerations:**
+- No clock domain crossing specified (combinational logic only)
+- No synchronization requirements mentioned
+
+**Power Integrity:**
+- No mention of glitch prevention for critical paths
+- No power gating requirements
+
+## 5. Functional Correctness Prediction
+
+**Boolean Function Derivation:**
+From the K-map analysis:
+- `out = 1` for all cases except `a'b'c'` (where ' denotes complement)
+- Therefore: `out = a + b + c` (logical OR of all inputs)
+
+**Verification Points:**
+- Truth table verification: Only `(a,b,c) = (0,0,0)` should produce `out = 0`
+- All other combinations should produce `out = 1`
+- The function is symmetric in inputs (any input being 1 makes output 1)
+
+**Potential Implementation Issues:**
+- Simple OR gate implementation is straightforward
+- No complex timing paths expected
+- Minimal risk of functional errors
+
+## 6. Actionable Guidance for RTL Generation
+
+**Recommended Implementation:**
+```systemverilog
+module TopModule (
+    input  logic a,
+    input  logic b, 
+    input  logic c,
+    output logic out
+);
+    
+    // Direct implementation: out = a OR b OR c
+    assign out = a | b | c;
+    
+endmodule
+```
+
+**Verification Strategy:**
+1. **Exhaustive Testing**: Test all 8 input combinations
+2. **Corner Cases**: Verify `(0,0,0)` → `0` and all single-bit transitions
+3. **Timing Verification**: Check propagation delays meet requirements
+
+**Synthesis Considerations:**
+- Use `assign` statement for clear combinational logic
+- Ensure technology mapping produces efficient OR gate
+- Consider area vs. speed tradeoffs if constraints provided later
+
+**Documentation Requirements:**
+- Comment the Boolean equation derivation from K-map
+- Document the single exception case (`000` input)
+- Include truth table in module header for clarity
+
+**Additional Recommendations:**
+- Add `default_nettype none to prevent implicit wire declarations
+- Consider adding assertion checks for verification:
+  ```systemverilog
+  assert property (@(*) (a==0 && b==0 && c==0) |-> out==0);
+  assert property (@(*) (a==1 || b==1 || c==1) |-> out==1);
+  ```
+
+This implementation provides a minimal, correct solution that can be easily verified and meets the specified functionality.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

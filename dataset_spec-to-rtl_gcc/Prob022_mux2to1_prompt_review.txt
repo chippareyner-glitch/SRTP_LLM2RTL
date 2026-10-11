@@ -1,0 +1,155 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a
+ - input  b
+ - input  sel
+ - output out
+
+The module should implement a one-bit wide, 2-to-1 multiplexer. When
+sel=0, choose a. When sel=1, choose b.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+- **Module Name**: TopModule
+- **Function**: 1-bit wide 2-to-1 multiplexer
+- **Interface**:
+  - Input `a` (1-bit): Data input A
+  - Input `b` (1-bit): Data input B  
+  - Input `sel` (1-bit): Selection signal
+  - Output `out` (1-bit): Multiplexer output
+- **Behavior**: `out = a` when `sel=0`, `out = b` when `sel=1`
+
+## 2. Ambiguity Analysis
+The specification is clear with minimal ambiguity:
+- **Selection Polarity**: Explicitly defined (sel=0 → a, sel=1 → b)
+- **Bit Widths**: All ports explicitly specified as 1-bit
+- **Function**: Standard mux behavior is well-defined
+
+**Potential Minor Ambiguity**:
+- **Timing**: Not specified (combinational vs registered output)
+- **Reset Behavior**: Not applicable for pure combinational logic
+
+## 3. Missing Critical Details
+**Critical Omissions for RTL Implementation**:
+
+1. **Timing Requirements**:
+   - Combinational vs sequential logic not specified
+   - Propagation delay constraints undefined
+
+2. **Synthesis Directives**:
+   - No technology/library constraints
+   - No power/area optimization requirements
+
+3. **Verification Requirements**:
+   - No specified test coverage metrics
+   - No timing verification requirements
+
+4. **Interface Standards**:
+   - No input/output drive strength specifications
+   - No loading constraints
+
+## 4. Edge Cases & Boundary Conditions
+**Identified Edge Cases**:
+
+1. **Signal Transitions**:
+   - Simultaneous `sel` and input data changes
+   - Glitches on `sel` during input transitions
+
+2. **Metastability Scenarios**:
+   - `sel` changing near clock edges (if sequential)
+   - Asynchronous `sel` transitions
+
+3. **Power-Up Conditions**:
+   - Initial output state undefined
+   - X-propagation during unknown states
+
+4. **Timing Violations**:
+   - Input changes violating setup/hold times (if sequential)
+
+## 5. Functional Correctness Prediction
+**High Confidence Areas**:
+- Basic mux functionality: **100% predictable**
+- Truth table coverage: **Complete** (only 8 possible input combinations)
+- Combinational behavior: **Straightforward**
+
+**Risk Areas**:
+- Timing closure: **Medium risk** (no timing constraints specified)
+- Glitch propagation: **Low risk** (simple logic)
+- Synthesis results: **Medium risk** (no optimization directives)
+
+## 6. Actionable Guidance for RTL Generation
+
+### Implementation Recommendations:
+
+**Combinational Implementation (Recommended)**:
+```systemverilog
+module TopModule (
+    input  logic a,
+    input  logic b, 
+    input  logic sel,
+    output logic out
+);
+    assign out = sel ? b : a;
+endmodule
+```
+
+**Sequential Alternative (if timing required)**:
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input logic rst_n,
+    input  logic a,
+    input  logic b,
+    input  logic sel,
+    output logic out
+);
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) out <= 1'b0;
+        else out <= sel ? b : a;
+    end
+endmodule
+```
+
+### Verification Strategy:
+1. **Testbench Requirements**:
+   - Exhaustive input combination testing (8 cases)
+   - Timing violation testing
+   - Glitch injection on `sel`
+   - Power-on reset simulation
+
+2. **Coverage Points**:
+   - All input combinations covered
+   - `sel` transition coverage
+   - Output value coverage
+
+### Synthesis Guidance:
+- Add `dont_touch` pragma to prevent optimization
+- Specify maximum fanout if driving large loads
+- Consider adding input buffers if long routes expected
+
+### Documentation Additions:
+```systemverilog
+// Selection Truth Table:
+// sel | out
+// 0   | a
+// 1   | b
+//
+// Timing: Pure combinational logic
+// Propagation delay: Technology dependent
+// Setup/Hold: N/A (combinational)
+```
+
+This specification provides a solid foundation for a straightforward implementation with predictable behavior and minimal implementation risks.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

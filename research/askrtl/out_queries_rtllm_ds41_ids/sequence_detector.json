@@ -1,0 +1,395 @@
+{
+ "case": "sequence_detector",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "rst_n",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "rst_n",
+    1
+   ],
+   [
+    "data_in",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "sequence_detected",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c3"
+   ],
+   "votes": 2,
+   "correct": [
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c2",
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 9,
+    "stim": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1"
+     ],
+     [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a sequence detector to detect a specific 4-bit binary sequence 1001.\n\nModule name:\n    sequence_detector\n\nInput ports:\n    clk: Clock signal to synchronize the detector.\n    rst_n: Active-low reset signal to initialize the state machine.\n    data_in: 1-bit binary input signal to feed the bitstream for sequence detection.\n\nOutput ports:\n    sequence_detected: 1-bit output signal that is set high when the specific sequence is detected.\n    \nInternal logic:\n    State Machine: The sequence detector uses a finite state machine (FSM) with the following states:\n    IDLE: Waiting for the start of the sequence.\n    S1: The first bit of the desired sequence is detected.\n    S2: The second bit of the desired sequence is detected.\n    S3: The third bit of the desired sequence is detected.\n    S4: The fourth and final bit of the desired sequence is detected, and the output sequence_detected is set high.\n\nImplementation:\n    -FSM Design: The FSM transitions through states based on the bitstream data_in. On each clock cycle, the detector checks for a match of the specific sequence.\n\n    -Sequence Detection: The module checks the input data_in and transitions between states. Once the complete sequence is detected, sequence_detected is asserted.\n\n    -Reset Behavior: When rst_n is low, the state machine returns to the IDLE state, resetting the detection process.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | rst_n | data_in | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| ... | *cycles 0-8 omitted (9 cycles; both traces were identical there)* |\n| 9 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 10 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 11 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 12 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 13 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 14 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 15 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 16 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 |\n| 17 | 1'b1 | 1'b1 | sequence_detected=1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 |\n| 18 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 19 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 20 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 21 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 22 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 23 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 |\n| 24 | 1'b1 | 1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 |\n| 25 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 26 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 27 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 28 | 1'b0 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 29 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 30 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 31 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 32 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 33 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 34 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 35 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 36 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 37 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 |\n| 38 | 1'b1 | 1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 |\n| 39 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 40 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "k": 15,
+   "len": 8,
+   "toggles": 5,
+   "stim": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c2": "B"
+   },
+   "label": "A",
+   "ref_value": "1",
+   "x_involved": false,
+   "hist": [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "1",
+    "1",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   "text": "## Specification\n\nPlease act as a professional Verilog designer.\n\nImplement a module of a sequence detector to detect a specific 4-bit binary sequence 1001.\n\nModule name:\n    sequence_detector\n\nInput ports:\n    clk: Clock signal to synchronize the detector.\n    rst_n: Active-low reset signal to initialize the state machine.\n    data_in: 1-bit binary input signal to feed the bitstream for sequence detection.\n\nOutput ports:\n    sequence_detected: 1-bit output signal that is set high when the specific sequence is detected.\n    \nInternal logic:\n    State Machine: The sequence detector uses a finite state machine (FSM) with the following states:\n    IDLE: Waiting for the start of the sequence.\n    S1: The first bit of the desired sequence is detected.\n    S2: The second bit of the desired sequence is detected.\n    S3: The third bit of the desired sequence is detected.\n    S4: The fourth and final bit of the desired sequence is detected, and the output sequence_detected is set high.\n\nImplementation:\n    -FSM Design: The FSM transitions through states based on the bitstream data_in. On each clock cycle, the detector checks for a match of the specific sequence.\n\n    -Sequence Detection: The module checks the input data_in and transitions between states. Once the complete sequence is detected, sequence_detected is asserted.\n\n    -Reset Behavior: When rst_n is low, the state machine returns to the IDLE state, resetting the detection process.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | rst_n | data_in | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 1 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 2 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 3 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 4 | 1'b1 | 1'b1 | sequence_detected=1'b0 | sequence_detected=1'b1 |\n| 5 | 1'b1 | 1'b0 | sequence_detected=1'b1 | sequence_detected=1'b0 |\n| 6 | 1'b1 | 1'b0 | sequence_detected=1'b0 | sequence_detected=1'b0 |\n| 7 | 1'b1 | 1'b1 | sequence_detected=1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: sequence_detected=1'b1\n- **B**: sequence_detected=1'b0\n"
+  }
+ ]
+}

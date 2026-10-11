@@ -1,0 +1,29 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "width of out port vs. width of mux expression",
+   "severity": "high",
+   "readings": [
+    "The bug is the port declaration: out must be `output [7:0] out` and the expression `(~sel & a) | (sel & b)` kept as-is, so all 8 bits are observable at the output.",
+    "The bug is the expression/assignment: out stays a 1-bit port and the intent is a 1-bit result (e.g. select only the LSB, `out = sel ? b[0] : a[0]`, or a reduction of the 8-bit expression), so only one bit is observable."
+   ]
+  },
+  {
+   "aspect": "implicit truncation of the 8-bit expression on a 1-bit port",
+   "severity": "high",
+   "readings": [
+    "Accept the Verilog implicit truncation (out = expression[0], i.e. a[0]/b[0] selected by sel) and report the module as functionally correct for 1-bit use.",
+    "Treat the truncation as the defect itself and widen the port, making a[7:0]/b[7:0] visible on the output."
+   ]
+  },
+  {
+   "aspect": "behaviour when sel is unknown/X",
+   "severity": "low",
+   "readings": [
+    "Pure combinational gate semantics: out becomes X whenever sel is X, since ~sel is X and both AND terms are X (or 0 for zero operands), per bit.",
+    "A defined default is required (e.g. treat X on sel as selecting a, so out is always a known value), which changes observable output under X input."
+   ]
+  }
+ ],
+ "note": "The minimal behavioural fix consistent with the stated '8-bit 2-to-1 mux' is `output [7:0] out;` with the existing continuous assignment (no priority/edge behaviour involved)."
+}

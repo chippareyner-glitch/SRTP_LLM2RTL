@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset vs slowena priority",
+   "severity": "high",
+   "readings": [
+    "Reset has priority: when reset=1 and slowena=1, q becomes 0 on the next clock edge.",
+    "Slowena has priority: when reset=1 and slowena=1, the counter increments (or wraps) instead of resetting to 0."
+   ]
+  },
+  {
+   "aspect": "Bit ordering of q",
+   "severity": "medium",
+   "readings": [
+    "q[3] is MSB and q[0] is LSB (standard binary representation).",
+    "q[0] is MSB and q[3] is LSB, reversing the bit significance."
+   ]
+  },
+  {
+   "aspect": "Initial state without reset",
+   "severity": "low",
+   "readings": [
+    "The counter's initial state before any reset is undefined (X or random).",
+    "The counter initializes to 0 at power-up even without an explicit reset."
+   ]
+  }
+ ]
+}

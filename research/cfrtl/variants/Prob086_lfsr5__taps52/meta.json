@@ -1,0 +1,27 @@
+{
+ "id": "Prob086_lfsr5__taps52",
+ "base": "Prob086_lfsr5",
+ "delta": "taps52",
+ "category": "param",
+ "edits": [
+  [
+   "taps at bit positions 5 and 3.",
+   "taps at bit positions 5 and 2."
+  ]
+ ],
+ "verify": {
+  "self": {
+   "status": "ok",
+   "mismatches": 0,
+   "samples": 4443,
+   "timeout": false
+  },
+  "delta": {
+   "status": "ok",
+   "mismatches": 3732,
+   "samples": 4443,
+   "timeout": false
+  },
+  "ok": true
+ }
+}

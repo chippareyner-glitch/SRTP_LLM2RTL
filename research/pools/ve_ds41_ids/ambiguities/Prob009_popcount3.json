@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "output bit ordering / encoding",
+   "severity": "medium",
+   "readings": [
+    "out[1:0] = count, i.e., out[1] is MSB and out[0] is LSB (count=1 -> 2'b01)",
+    "out[0:1] = count, i.e., out[0] is MSB and out[1] is LSB (count=1 -> 2'b10)"
+   ]
+  }
+ ]
+}

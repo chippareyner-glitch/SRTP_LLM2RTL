@@ -1,0 +1,1169 @@
+{
+ "case": "alu",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    32
+   ],
+   [
+    "b",
+    32
+   ],
+   [
+    "aluc",
+    6
+   ]
+  ],
+  "outputs": [
+   [
+    "r",
+    32
+   ],
+   [
+    "zero",
+    1
+   ],
+   [
+    "carry",
+    1
+   ],
+   [
+    "negative",
+    1
+   ],
+   [
+    "overflow",
+    1
+   ],
+   [
+    "flag",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c2",
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 3,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998,
+      48
+     ],
+     [
+      3823568514,
+      1806341205,
+      2
+     ],
+     [
+      1112038970,
+      4146640122,
+      32
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000110101110101010100101000101010000z",
+      "001110010111000100010011001101000000z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000110101110101010100101000101010000z",
+      "001110010111000100010011001101000100z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | 6'h30 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 1 | 32'he3e70682 | 32'h6baa9455 | 6'h02 | r=32'h1aeaa515, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h1aeaa515, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 2 | 32'h42485e3a | 32'hf728b4fa | 6'h20 | r=32'h39711334, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h39711334, zero=1'b0, carry=1'b1, negative=1'b0, overflow=1'b0, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     4146640122,
+     32
+    ]
+   ],
+   "options": [
+    "111101110010100010110100111110100110z",
+    "111101110010100010110100111110100010z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B",
+    "c2": "B",
+    "c3": "B",
+    "c4": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "111101110010100010110100111110100zzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h00000000 | 32'hf728b4fa | 6'h20 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'hf728b4fa, zero=1'b0, carry=1'b1, negative=1'b1, overflow=1'b0, flag=1'bz\n- **B**: r=32'hf728b4fa, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 3,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998,
+      48
+     ],
+     [
+      3823568514,
+      1806341205,
+      2
+     ],
+     [
+      1112038970,
+      4146640122,
+      32
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000110101110101010100101000101010000z",
+      "001110010111000100010011001101000000z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000110101110101010100101000101010000z",
+      "001110010111000100010011001101000100z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | 6'h30 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 1 | 32'he3e70682 | 32'h6baa9455 | 6'h02 | r=32'h1aeaa515, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h1aeaa515, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 2 | 32'h42485e3a | 32'hf728b4fa | 6'h20 | r=32'h39711334, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h39711334, zero=1'b0, carry=1'b1, negative=1'b0, overflow=1'b0, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     4146640122,
+     32
+    ]
+   ],
+   "options": [
+    "111101110010100010110100111110100110z",
+    "111101110010100010110100111110100010z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B",
+    "c2": "B",
+    "c3": "B",
+    "c4": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "111101110010100010110100111110100zzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h00000000 | 32'hf728b4fa | 6'h20 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'hf728b4fa, zero=1'b0, carry=1'b1, negative=1'b1, overflow=1'b0, flag=1'bz\n- **B**: r=32'hf728b4fa, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 3,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998,
+      48
+     ],
+     [
+      3823568514,
+      1806341205,
+      2
+     ],
+     [
+      1112038970,
+      4146640122,
+      32
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000110101110101010100101000101010000z",
+      "001110010111000100010011001101000000z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000110101110101010100101000101010000z",
+      "001110010111000100010011001101000100z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | 6'h30 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 1 | 32'he3e70682 | 32'h6baa9455 | 6'h02 | r=32'h1aeaa515, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h1aeaa515, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 2 | 32'h42485e3a | 32'hf728b4fa | 6'h20 | r=32'h39711334, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h39711334, zero=1'b0, carry=1'b1, negative=1'b0, overflow=1'b0, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     4146640122,
+     32
+    ]
+   ],
+   "options": [
+    "111101110010100010110100111110100110z",
+    "111101110010100010110100111110100010z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B",
+    "c2": "B",
+    "c3": "B",
+    "c4": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "111101110010100010110100111110100zzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h00000000 | 32'hf728b4fa | 6'h20 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'hf728b4fa, zero=1'b0, carry=1'b1, negative=1'b1, overflow=1'b0, flag=1'bz\n- **B**: r=32'hf728b4fa, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz\n"
+  },
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998,
+      48
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzz0z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | 6'h30 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'bz, negative=1'bz, overflow=1'b0, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     48
+    ]
+   ],
+   "options": [
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzz0z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "A",
+    "c2": "A",
+    "c3": "A",
+    "c4": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h00000000 | 32'h00000000 | 6'h30 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz\n- **B**: r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'bz, negative=1'bz, overflow=1'b0, flag=1'bz\n"
+  },
+  {
+   "long": {
+    "label": "B",
+    "cycles": 24,
+    "first_cycle": 208,
+    "stim": [
+     [
+      2229104038,
+      1244770883,
+      28
+     ],
+     [
+      3952025686,
+      2098601769,
+      50
+     ],
+     [
+      2512077837,
+      3068351990,
+      43
+     ],
+     [
+      933096865,
+      1816934709,
+      5
+     ],
+     [
+      1581971554,
+      945484899,
+      63
+     ],
+     [
+      4291130325,
+      1120627997,
+      37
+     ],
+     [
+      3337619763,
+      715460430,
+      27
+     ],
+     [
+      824397566,
+      1539833323,
+      7
+     ],
+     [
+      274267788,
+      3530380182,
+      55
+     ],
+     [
+      3663000167,
+      3015084887,
+      1
+     ],
+     [
+      3878401463,
+      2258361298,
+      28
+     ],
+     [
+      3231698319,
+      2907353429,
+      12
+     ],
+     [
+      510715801,
+      2134974445,
+      25
+     ],
+     [
+      1101571809,
+      890054541,
+      41
+     ],
+     [
+      180824244,
+      4282256289,
+      60
+     ],
+     [
+      3424949592,
+      927259236,
+      39
+     ],
+     [
+      628587760,
+      449381102,
+      12
+     ],
+     [
+      1968847553,
+      1623634925,
+      23
+     ],
+     [
+      2346732606,
+      3551880368,
+      9
+     ],
+     [
+      449881842,
+      4246390734,
+      38
+     ],
+     [
+      4221906521,
+      2095520584,
+      9
+     ],
+     [
+      2421949755,
+      1743356771,
+      40
+     ],
+     [
+      2920274888,
+      1817797142,
+      56
+     ],
+     [
+      2238659989,
+      2127752239,
+      43
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "0000000000000000000000000000000100001",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "111111111100111101111111110111010010z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000000000000000000000000000000010000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000000001001101100100000100000110000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "111001111100101001100001001111000010z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "0000000000000000000000000000000010001"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "0000000000000000000000000000000100001",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "111111111100111101111111110111010010z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000000000000000000000000000000010000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000000001001101100100000100000110000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "111001111100101001100001001111000010z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "0000000000000000000000000000000010000"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'h84dd6da6 | 32'h4a31b243 | 6'h1c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 1 | 32'heb8f2056 | 32'h7d161f29 | 6'h32 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 2 | 32'h95bb440d | 32'hb6e355f6 | 6'h2b | r=32'h00000001, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b1 | r=32'h00000001, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b1 |\n| 3 | 32'h379deda1 | 32'h6c4c3935 | 6'h05 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 4 | 32'h5e4af862 | 32'h385af463 | 6'h3f | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 5 | 32'hffc573d5 | 32'h42cb6d1d | 6'h25 | r=32'hffcf7fdd, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz | r=32'hffcf7fdd, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz |\n| 6 | 32'hc6f00933 | 32'h2aa50f4e | 6'h1b | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 7 | 32'h31234efe | 32'h5bc7fdeb | 6'h07 | r=32'h00000001, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h00000001, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 8 | 32'h1058fe8c | 32'hd26d5396 | 6'h37 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 9 | 32'hda54f267 | 32'hb3b68b57 | 6'h01 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 10 | 32'he72bb5b7 | 32'h869bdbd2 | 6'h1c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 11 | 32'hc09fcd8f | 32'had4ab155 | 6'h0c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 12 | 32'h1e70e799 | 32'h7f411fed | 6'h19 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 13 | 32'h41a8a6e1 | 32'h350d278d | 6'h29 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 14 | 32'h0ac728b4 | 32'hff3e0ba1 | 6'h3c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 15 | 32'hcc249558 | 32'h3744da64 | 6'h27 | r=32'h009b2083, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h009b2083, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 16 | 32'h25777cf0 | 32'h1ac902ee | 6'h0c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 17 | 32'h755a3ac1 | 32'h60c6b3ed | 6'h17 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 18 | 32'h8be04c3e | 32'hd3b564b0 | 6'h09 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 19 | 32'h1ad0a6f2 | 32'hfd1ac7ce | 6'h26 | r=32'he7ca613c, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz | r=32'he7ca613c, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz |\n| 20 | 32'hfba52e59 | 32'h7ce71b48 | 6'h09 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 21 | 32'h905c053b | 32'h67e98363 | 6'h28 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 22 | 32'hae0fdbc8 | 32'h6c596216 | 6'h38 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 23 | 32'h856f3d95 | 32'h7ed2ec2f | 6'h2b | r=32'h00000000, zero=1'b1, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b1 | r=32'h00000000, zero=1'b1, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     2238659989,
+     0,
+     43
+    ]
+   ],
+   "options": [
+    "0000000000000000000000000000000010001",
+    "0000000000000000000000000000000010000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "A",
+    "c2": "B",
+    "c3": "B",
+    "c4": "A"
+   },
+   "label": "B",
+   "ref_value": "000000000000000000000000000000001zzz0",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h856f3d95 | 32'h00000000 | 6'h2b | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'h00000000, zero=1'b1, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b1\n- **B**: r=32'h00000000, zero=1'b1, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b0\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 24,
+    "first_cycle": 80,
+    "stim": [
+     [
+      2473699103,
+      514088150,
+      25
+     ],
+     [
+      393126321,
+      1589738942,
+      53
+     ],
+     [
+      4211286945,
+      498414388,
+      2
+     ],
+     [
+      2600620612,
+      92928119,
+      12
+     ],
+     [
+      4127597889,
+      4169090045,
+      11
+     ],
+     [
+      3084273275,
+      532125690,
+      30
+     ],
+     [
+      904419226,
+      3123107921,
+      51
+     ],
+     [
+      262357606,
+      4024251896,
+      43
+     ],
+     [
+      97850419,
+      2337473309,
+      27
+     ],
+     [
+      2665456602,
+      435940125,
+      53
+     ],
+     [
+      1116347426,
+      300666185,
+      14
+     ],
+     [
+      309116047,
+      2778524824,
+      19
+     ],
+     [
+      1504501144,
+      1872900585,
+      11
+     ],
+     [
+      262175295,
+      2163102318,
+      29
+     ],
+     [
+      169130250,
+      2561883246,
+      6
+     ],
+     [
+      3003569920,
+      4244437633,
+      25
+     ],
+     [
+      856226606,
+      1117263813,
+      22
+     ],
+     [
+      3884362551,
+      3142190795,
+      30
+     ],
+     [
+      3600585154,
+      3875367144,
+      58
+     ],
+     [
+      2447137263,
+      727673138,
+      44
+     ],
+     [
+      2888969234,
+      873659410,
+      61
+     ],
+     [
+      3295736039,
+      249326891,
+      50
+     ],
+     [
+      2904264544,
+      679500893,
+      54
+     ],
+     [
+      695587449,
+      1470221169,
+      33
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000011101101101010011001100110100000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "0000000000000000000000000000000100001",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000000000010011000101100110011110000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "100000010001011110011101111010100010z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000011101101101010011001100110100000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "0000000000000000000000000000000100001",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000000000010011000101100110011110000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "100000010001011110011101111010100011z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'h9371a71f | 32'h1ea45cd6 | 6'h19 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 1 | 32'h176ea1b1 | 32'h5ec17dbe | 6'h35 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 2 | 32'hfb0323a1 | 32'h1db53334 | 6'h02 | r=32'h0eda999a, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h0eda999a, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 3 | 32'h9b025244 | 32'h0589f877 | 6'h0c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 4 | 32'hf6062541 | 32'hf87f43fd | 6'h0b | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 5 | 32'hb7d6467b | 32'h1fb797fa | 6'h1e | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 6 | 32'h35e8579a | 32'hba26d851 | 6'h33 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 7 | 32'h0fa34266 | 32'hefdd35f8 | 6'h2b | r=32'h00000001, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b1 | r=32'h00000001, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b1 |\n| 8 | 32'h05d51433 | 32'h8b53031d | 6'h1b | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 9 | 32'h9edfa3da | 32'h19fbeb1d | 6'h35 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 10 | 32'h428a1c22 | 32'h11ebcd49 | 6'h0e | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 11 | 32'h126cbc8f | 32'ha59cec98 | 6'h13 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 12 | 32'h59acdd98 | 32'h6fa231e9 | 6'h0b | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 13 | 32'h0fa07a3f | 32'h80ee526e | 6'h1d | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 14 | 32'h0a14b90a | 32'h98b33c6e | 6'h06 | r=32'h00262ccf, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h00262ccf, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 15 | 32'hb306d700 | 32'hfcfcfa81 | 6'h19 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 16 | 32'h3308fb2e | 32'h429817c5 | 6'h16 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 17 | 32'he786ab37 | 32'hbb4a06cb | 6'h1e | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 18 | 32'hd69c91c2 | 32'he6fd68e8 | 6'h3a | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 19 | 32'h91dc59ef | 32'h2b5f6932 | 6'h2c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 20 | 32'hac322c12 | 32'h3412fc12 | 6'h3d | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 21 | 32'hc470f0e7 | 32'h0edc6d2b | 6'h32 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 22 | 32'had1b8f60 | 32'h28805c5d | 6'h36 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 23 | 32'h2975d279 | 32'h57a1cb71 | 6'h21 | r=32'h81179dea, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz | r=32'h81179dea, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b1, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     695587449,
+     1470221169,
+     33
+    ]
+   ],
+   "options": [
+    "100000010001011110011101111010100010z",
+    "100000010001011110011101111010100011z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "A",
+    "c2": "A",
+    "c3": "B",
+    "c4": "A"
+   },
+   "label": "ANY:AB",
+   "ref_value": "100000010001011110011101111010100zzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h2975d279 | 32'h57a1cb71 | 6'h21 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'h81179dea, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz\n- **B**: r=32'h81179dea, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b1, flag=1'bz\n"
+  },
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998,
+      48
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzz0z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | 6'h30 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'bz, negative=1'bz, overflow=1'b0, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c1",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     48
+    ]
+   ],
+   "options": [
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzz0z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "A",
+    "c2": "A",
+    "c3": "A",
+    "c4": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h00000000 | 32'h00000000 | 6'h30 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz\n- **B**: r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'bz, negative=1'bz, overflow=1'b0, flag=1'bz\n"
+  },
+  {
+   "long": {
+    "label": "NONE",
+    "cycles": 24,
+    "first_cycle": 80,
+    "stim": [
+     [
+      2473699103,
+      514088150,
+      25
+     ],
+     [
+      393126321,
+      1589738942,
+      53
+     ],
+     [
+      4211286945,
+      498414388,
+      2
+     ],
+     [
+      2600620612,
+      92928119,
+      12
+     ],
+     [
+      4127597889,
+      4169090045,
+      11
+     ],
+     [
+      3084273275,
+      532125690,
+      30
+     ],
+     [
+      904419226,
+      3123107921,
+      51
+     ],
+     [
+      262357606,
+      4024251896,
+      43
+     ],
+     [
+      97850419,
+      2337473309,
+      27
+     ],
+     [
+      2665456602,
+      435940125,
+      53
+     ],
+     [
+      1116347426,
+      300666185,
+      14
+     ],
+     [
+      309116047,
+      2778524824,
+      19
+     ],
+     [
+      1504501144,
+      1872900585,
+      11
+     ],
+     [
+      262175295,
+      2163102318,
+      29
+     ],
+     [
+      169130250,
+      2561883246,
+      6
+     ],
+     [
+      3003569920,
+      4244437633,
+      25
+     ],
+     [
+      856226606,
+      1117263813,
+      22
+     ],
+     [
+      3884362551,
+      3142190795,
+      30
+     ],
+     [
+      3600585154,
+      3875367144,
+      58
+     ],
+     [
+      2447137263,
+      727673138,
+      44
+     ],
+     [
+      2888969234,
+      873659410,
+      61
+     ],
+     [
+      3295736039,
+      249326891,
+      50
+     ],
+     [
+      2904264544,
+      679500893,
+      54
+     ],
+     [
+      695587449,
+      1470221169,
+      33
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000011101101101010011001100110100000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "0000000000000000000000000000000100001",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000000000010011000101100110011110000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "100000010001011110011101111010100010z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000011101101101010011001100110100000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "0000000000000000000000000000000100001",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "000000000010011000101100110011110000z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+      "100000010001011110011101111010100011z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'h9371a71f | 32'h1ea45cd6 | 6'h19 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 1 | 32'h176ea1b1 | 32'h5ec17dbe | 6'h35 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 2 | 32'hfb0323a1 | 32'h1db53334 | 6'h02 | r=32'h0eda999a, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h0eda999a, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 3 | 32'h9b025244 | 32'h0589f877 | 6'h0c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 4 | 32'hf6062541 | 32'hf87f43fd | 6'h0b | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 5 | 32'hb7d6467b | 32'h1fb797fa | 6'h1e | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 6 | 32'h35e8579a | 32'hba26d851 | 6'h33 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 7 | 32'h0fa34266 | 32'hefdd35f8 | 6'h2b | r=32'h00000001, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b1 | r=32'h00000001, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'b1 |\n| 8 | 32'h05d51433 | 32'h8b53031d | 6'h1b | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 9 | 32'h9edfa3da | 32'h19fbeb1d | 6'h35 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 10 | 32'h428a1c22 | 32'h11ebcd49 | 6'h0e | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 11 | 32'h126cbc8f | 32'ha59cec98 | 6'h13 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 12 | 32'h59acdd98 | 32'h6fa231e9 | 6'h0b | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 13 | 32'h0fa07a3f | 32'h80ee526e | 6'h1d | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 14 | 32'h0a14b90a | 32'h98b33c6e | 6'h06 | r=32'h00262ccf, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz | r=32'h00262ccf, zero=1'b0, carry=1'b0, negative=1'b0, overflow=1'b0, flag=1'bz |\n| 15 | 32'hb306d700 | 32'hfcfcfa81 | 6'h19 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 16 | 32'h3308fb2e | 32'h429817c5 | 6'h16 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 17 | 32'he786ab37 | 32'hbb4a06cb | 6'h1e | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 18 | 32'hd69c91c2 | 32'he6fd68e8 | 6'h3a | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 19 | 32'h91dc59ef | 32'h2b5f6932 | 6'h2c | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 20 | 32'hac322c12 | 32'h3412fc12 | 6'h3d | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 21 | 32'hc470f0e7 | 32'h0edc6d2b | 6'h32 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 22 | 32'had1b8f60 | 32'h28805c5d | 6'h36 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz |\n| 23 | 32'h2975d279 | 32'h57a1cb71 | 6'h21 | r=32'h81179dea, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz | r=32'h81179dea, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b1, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     695587449,
+     1470221169,
+     33
+    ]
+   ],
+   "options": [
+    "100000010001011110011101111010100010z",
+    "100000010001011110011101111010100011z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "A",
+    "c2": "A",
+    "c3": "B",
+    "c4": "A"
+   },
+   "label": "ANY:AB",
+   "ref_value": "100000010001011110011101111010100zzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h2975d279 | 32'h57a1cb71 | 6'h21 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'h81179dea, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b0, flag=1'bz\n- **B**: r=32'h81179dea, zero=1'b0, carry=1'b0, negative=1'b1, overflow=1'b1, flag=1'bz\n"
+  },
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998,
+      48
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzz0z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | 6'h30 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'bz, negative=1'bz, overflow=1'b0, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c2",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     48
+    ]
+   ],
+   "options": [
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzz0z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "A",
+    "c2": "A",
+    "c3": "A",
+    "c4": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h00000000 | 32'h00000000 | 6'h30 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz\n- **B**: r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'bz, negative=1'bz, overflow=1'b0, flag=1'bz\n"
+  },
+  {
+   "long": {
+    "label": "ANY:AB",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      3626764237,
+      1654615998,
+      48
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z"
+     ],
+     [
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzz0z"
+     ]
+    ],
+    "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | a | b | aluc | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 32'hd82c07cd | 32'h629f6fbe | 6'h30 | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz | r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'bz, negative=1'bz, overflow=1'b0, flag=1'bz |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c3",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     48
+    ]
+   ],
+   "options": [
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzx0z0z",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzz0z"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "A",
+    "c2": "A",
+    "c3": "A",
+    "c4": "B"
+   },
+   "label": "ANY:AB",
+   "ref_value": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzzzz",
+   "x_involved": true,
+   "hist": [],
+   "text": "## Specification\n\nPlease act as a professional verilog designer.\n\nImplement an ALU for a 32-bit MIPS-ISA CPU. The \u201ca\u201d and \u201cb\u201d are the two operands of the ALU, the \u201caluc\u201d is the opcode, and the \u201cr\u201d gives out the result. \u201czero\u201d means if the result is zero, \u201ccarry\u201d means if there is a carry bit, \u201cnegative\u201d means if the result is negative, \u201coverflow\u201d means if the computation is overflow, the \u201cflag\u201d is the result of \u201cslt\u201d and \u201csltu\u201d instructions. The supported operations and corresponding opcode are shown below:\n    parameter ADD = 6'b100000;\n    parameter ADDU = 6'b100001;\n    parameter SUB = 6'b100010;\n    parameter SUBU = 6'b100011;\n    parameter AND = 6'b100100;\n    parameter OR = 6'b100101;\n    parameter XOR = 6'b100110;\n    parameter NOR = 6'b100111;\n    parameter SLT = 6'b101010;\n    parameter SLTU = 6'b101011;\n    parameter SLL = 6'b000000;\n    parameter SRL = 6'b000010;\n    parameter SRA = 6'b000011;\n    parameter SLLV = 6'b000100;\n    parameter SRLV = 6'b000110;\n    parameter SRAV = 6'b000111;\n    parameter LUI = 6'b001111;\n\nModule name:  \n    alu               \nInput ports:\n    a: a 32-bit input operand\n    b: a 32-bit input operand\n    aluc: a 6-bit control signal for selecting the operation to be performed\nOutput ports:\n    r: a 32-bit output representing the result of the operation\n    zero: a 1-bit output indicating whether the result is zero\n    carry: a 1-bit output indicating whether a carry occurred during the operation\n    negative: a 1-bit output indicating whether the result is negative\n    overflow: a 1-bit output indicating whether an overflow occurred during the operation\n    flag: a 1-bit output representing a general flag, which is set based on specific operations (SLT and SLTU)\n\nImplementation:\nThe module uses parameters to define the control signals for various operations, such as ADD, SUB, AND, OR, etc. \nThe module assigns the input operands to the signed wires and the output result (r) to the lower 32 bits of the register (res[31:0]). The flag output is determined based on the control signal (aluc) and is set to '1' when the operation is SLT or SLTU, and 'z' (high-impedance) otherwise. The zero output is set to '1' when the result is all zeros, and '0' otherwise.\nInside the always block, a case statement is used to perform the appropriate operation based on the control signal (aluc). The result is assigned to the register (res) accordingly. For shift operations (SLL, SRL, SRA, SLLV, SRLV, SRAV), the shift amount is determined by the value of 'a' or 'a[4:0]'. For the LUI operation, the lower 16 bits of 'a' are concatenated with 16 zeros to form the result.\nIf the control signal (aluc) does not match any defined operation, the result is assigned as 'z' (high-impedance).\n\nGive me the complete code.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | a | b | aluc | out |\n|---|---|---|---|---|\n| 0 | 32'h00000000 | 32'h00000000 | 6'h30 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'b0, negative=1'bz, overflow=1'b0, flag=1'bz\n- **B**: r=32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz, zero=1'bx, carry=1'bz, negative=1'bz, overflow=1'b0, flag=1'bz\n"
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+ "case": "comparator_3bit",
+ "category": "Arithmetic",
+ "top": "comparator_3bit",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "comparator_3bit"
+ ]
+}

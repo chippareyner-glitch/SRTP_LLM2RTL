@@ -1,0 +1,44 @@
+{
+ "case": "Prob059_wire4",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "a",
+    1
+   ],
+   [
+    "b",
+    1
+   ],
+   [
+    "c",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "w",
+    1
+   ],
+   [
+    "x",
+    1
+   ],
+   [
+    "y",
+    1
+   ],
+   [
+    "z",
+    1
+   ]
+  ]
+ },
+ "status": "single_candidate",
+ "n_live": 1
+}

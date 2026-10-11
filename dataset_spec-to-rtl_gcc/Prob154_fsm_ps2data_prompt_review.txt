@@ -1,0 +1,178 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  in (8 bits)
+ - output out_bytes (24 bits)
+ - output done
+
+The module should implement a finite state machine that will search for
+message boundaries when given an input byte stream. The algorithm we'll
+use is to discard bytes until we see one with in[3]=1. We then assume
+that this is byte 1 of a message, and signal the receipt of a message
+once all 3 bytes have been received (done). The FSM should signal done in
+the cycle immediately after the third byte of each message was
+successfully received.
+
+Implement the datapath module that will output the 24-bit (3 byte)
+message whenever a packet is received (out_bytes[23:16] is the first
+byte, out_bytes[15:8] is the second byte, etc.). The reset signal is
+active high synchronous. out_bytes needs to be valid whenever the done
+signal is asserted. You may output anything at other times (i.e.,
+don't-care). Assume all sequential logic is triggered on the positive
+edge of the clock.
+
+Here is an example waveform:
+
+  time   clk rst in  done out_bytes
+  0ns    0   1    0  x         x
+  5ns    1   1    0  0         x
+  10ns   0   1    0  0         x
+  15ns   1   0   2c  0         x
+  20ns   0   0   2c  0         x
+  25ns   1   0   81  0         x
+  30ns   0   0   81  0         x
+  35ns   1   0    9  0         x
+  40ns   0   0    9  0         x
+  45ns   1   0   6b  1    2c8109
+  50ns   0   0   6b  1    2c8109
+  55ns   1   0    d  0         x
+  60ns   0   0    d  0         x
+  65ns   1   0   8d  0         x
+  70ns   0   0   8d  0         x
+  75ns   1   0   6d  1    6b0d8d
+  80ns   0   0   6d  1    6b0d8d
+  85ns   1   0   12  0         x
+  90ns   0   0   12  0         x
+  95ns   1   0    1  0         x
+  100ns  0   0    1  0         x
+  105ns  1   0    d  1    6d1201
+  110ns  0   0    d  1    6d1201
+  115ns  1   0   76  0         x
+  120ns  0   0   76  0         x
+  125ns  1   0   3d  0         x
+  130ns  0   0   3d  0         x
+  135ns  1   0   ed  1     d763d
+  140ns  0   0   ed  1     d763d
+  145ns  1   0   8c  0         x
+  150ns  0   0   8c  0         x
+  155ns  1   0   f9  0         x
+  160ns  0   0   f9  0         x
+  165ns  1   0   ce  1    ed8cf9
+  170ns  0   0   ce  1    ed8cf9
+  175ns  1   0   c5  0         x
+  180ns  0   0   c5  0         x
+  185ns  1   0   aa  0         x
+  190ns  0   0   aa  0         x
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+# Analysis Report: TopModule Specification
+
+## 1. Specification Summary
+
+The module implements a 3-byte message boundary detector with the following key requirements:
+- **Input**: 8-bit byte stream with clock and synchronous reset
+- **Output**: 24-bit message output and single-cycle done pulse
+- **Algorithm**: Discard bytes until finding one with `in[3] = 1`, then collect 3 consecutive bytes as a message
+- **Timing**: `done` asserted in the cycle immediately after receiving the third byte
+- **Output Format**: `out_bytes[23:16]` = first byte, `[15:8]` = second byte, `[7:0]` = third byte
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities Identified:**
+
+1. **State Machine Behavior After Reset**: Unclear if the FSM should start in "search" mode or if it should immediately look for `in[3]=1` on the first cycle after reset deassertion.
+
+2. **Byte Counting Timing**: The specification states "signal done in the cycle immediately after the third byte" but doesn't clarify if this means:
+   - Cycle when third byte is presented (same cycle as byte arrival)
+   - Next cycle after third byte arrival (as waveform suggests)
+
+3. **Reset Behavior on Outputs**: Unspecified what `out_bytes` and `done` should be during reset.
+
+4. **Consecutive Messages**: If a new message starts immediately after the previous one (third byte has `in[3]=1`), behavior is undefined.
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+
+1. **Output Behavior During Reset**: Required values for `out_bytes` and `done` when reset is active.
+
+2. **Back-to-Back Messages**: No specification for handling the case where byte 3 of one message has `in[3]=1` (starting a new message).
+
+3. **Input Validation Timing**: Unclear if input bytes should be sampled on clock edges or treated as stable during clock cycles.
+
+4. **Power-on State**: Initial state of internal registers after power-up (before first reset).
+
+5. **Error Handling**: No specification for corrupted streams or unexpected conditions.
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle:**
+
+1. **Reset During Message Reception**: What happens if reset occurs while collecting bytes 1-3?
+2. **Continuous `in[3]=1` Bytes**: How to handle streams with multiple consecutive bytes having `in[3]=1`?
+3. **Message Boundary at Reset**: Behavior when a valid start byte arrives on the cycle reset is deasserted.
+4. **Maximum Clock Frequency**: No timing constraints specified for synthesis.
+5. **Glitch Handling**: No specification for metastability or input synchronization.
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas for Implementation:**
+
+1. **State Machine Design**: Risk of off-by-one errors in byte counting
+2. **Timing Alignment**: Critical to match waveform exactly (done pulse timing)
+3. **Reset Synchronization**: Potential for incomplete reset coverage
+4. **Output Stability**: `out_bytes` must be stable when `done` is asserted
+
+**Expected Failure Modes:**
+- Incorrect byte ordering in output
+- Missed done pulses or incorrect timing
+- Improper handling of back-to-back messages
+- Reset recovery issues
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+
+```systemverilog
+// Recommended FSM States
+typedef enum logic [1:0] {
+    SEARCH,      // Looking for start byte (in[3]==1)
+    BYTE2,       // Received first byte, waiting for second
+    BYTE3        // Received second byte, waiting for third
+} state_t;
+
+// Critical Design Decisions to Document:
+// 1. Reset values: out_bytes = 24'h0, done = 1'b0
+// 2. Byte sampling: Sample on posedge clk when not in reset
+// 3. Back-to-back messages: If byte3.in[3]==1, transition to BYTE2 not SEARCH
+// 4. Output behavior: out_bytes holds previous message until next done
+```
+
+**Verification Strategy:**
+1. Create test cases for reset during each state
+2. Verify back-to-back message handling
+3. Test boundary conditions (all 0s, all 1s inputs)
+4. Validate timing against provided waveform exactly
+5. Check power-on behavior and reset recovery
+
+**Synthesis Considerations:**
+- Use synchronous reset implementation
+- Ensure all outputs are registered
+- Add timing constraints for clock-to-output delay
+- Consider adding input synchronizers if clock domain crossing is possible
+
+The specification is generally clear but requires explicit decisions on the identified ambiguities before implementation can proceed reliably.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

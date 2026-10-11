@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Uninitialized ROM contents (addresses 4-255)",
+   "severity": "high",
+   "readings": [
+    "Unspecified addresses read as X (uninitialized) in simulation, and may synthesize to 0 or be undefined in hardware.",
+    "Unspecified addresses default to 0, either by tool default or by explicit initialization."
+   ]
+  },
+  {
+   "aspect": "Synthesizability of the initial block",
+   "severity": "high",
+   "readings": [
+    "The initial block is simulation-only and ignored by synthesis, so ROM contents are not guaranteed in hardware.",
+    "The initial block is supported by the target FPGA/ASIC flow and initializes the ROM in hardware."
+   ]
+  }
+ ]
+}

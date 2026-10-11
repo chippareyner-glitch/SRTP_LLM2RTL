@@ -1,0 +1,381 @@
+{
+ "case": "Prob096_review2015_fsmseq",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "data",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "start_shifting",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c3",
+   "members": [
+    "c3"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c6",
+   "members": [
+    "c6"
+   ],
+   "votes": 1,
+   "correct": [
+    true
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 32,
+    "first_cycle": 86,
+    "stim": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "1"
+     ],
+     [
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "1",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  data\n - output start_shifting\n\nThe module should implement a finite-state machine that searches for the\nsequence 1101 in an input bit stream. When the sequence is found, it\nshould set start_shifting to 1, forever, until reset. Reset is active\nhigh synchronous. Assume all sequential logic is triggered on the\npositive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | reset | data | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| ... | *cycles 0-85 omitted (86 cycles; both traces were identical there)* |\n| 86 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 87 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 88 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 89 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 90 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 91 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 92 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 93 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 94 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 95 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 96 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 97 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 98 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 99 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 100 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 101 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 102 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 103 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 104 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 105 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 106 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 107 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 108 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 109 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 110 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 111 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 112 | 1'b0 | 1'b0 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 113 | 1'b0 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 | start_shifting=1'b1 |\n| 114 | 1'b1 | 1'b1 | start_shifting=1'b1 | start_shifting=1'b0 | start_shifting=1'b1 | start_shifting=1'b0 |\n| 115 | 1'b0 | 1'b1 | start_shifting=1'b0 | start_shifting=1'b0 | start_shifting=1'b0 | start_shifting=1'b0 |\n| 116 | 1'b0 | 1'b0 | start_shifting=1'b0 | start_shifting=1'b0 | start_shifting=1'b0 | start_shifting=1'b0 |\n| 117 | 1'b0 | 1'b1 | start_shifting=1'b0 | start_shifting=1'b1 | start_shifting=1'b0 | start_shifting=1'b0 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c3",
+    "c6"
+   ],
+   "k": 11,
+   "len": 6,
+   "toggles": 5,
+   "stim": [
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "options": [
+    "1",
+    "0"
+   ],
+   "cluster_option": {
+    "c3": "A",
+    "c6": "B"
+   },
+   "label": "B",
+   "ref_value": "0",
+   "x_involved": false,
+   "hist": [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  reset\n - input  data\n - output start_shifting\n\nThe module should implement a finite-state machine that searches for the\nsequence 1101 in an input bit stream. When the sequence is found, it\nshould set start_shifting to 1, forever, until reset. Reset is active\nhigh synchronous. Assume all sequential logic is triggered on the\npositive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | reset | data | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b1 | 1'b1 | start_shifting=1'b0 | start_shifting=1'b0 |\n| 1 | 1'b0 | 1'b1 | start_shifting=1'b0 | start_shifting=1'b0 |\n| 2 | 1'b1 | 1'b1 | start_shifting=1'b0 | start_shifting=1'b0 |\n| 3 | 1'b0 | 1'b1 | start_shifting=1'b0 | start_shifting=1'b0 |\n| 4 | 1'b0 | 1'b0 | start_shifting=1'b0 | start_shifting=1'b0 |\n| 5 | 1'b0 | 1'b1 | start_shifting=1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: start_shifting=1'b1\n- **B**: start_shifting=1'b0\n"
+  }
+ ]
+}

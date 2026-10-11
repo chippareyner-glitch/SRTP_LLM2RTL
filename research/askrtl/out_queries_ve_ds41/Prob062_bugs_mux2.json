@@ -1,0 +1,105 @@
+{
+ "case": "Prob062_bugs_mux2",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "sel",
+    1
+   ],
+   [
+    "a",
+    8
+   ],
+   [
+    "b",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    8
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0"
+   ],
+   "votes": 2,
+   "correct": [
+    false
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 3,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      98,
+      194
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "11000010"
+     ],
+     [
+      "01100010"
+     ]
+    ],
+    "text": "## Specification\n\nConsider the following implementation of an 8-bit 2-to-1 mux:\n\n  module TopModule (\n      input        sel,\n      input  [7:0] a,\n      input  [7:0] b,\n      output       out\n  );\n\n      assign out = (~sel & a) | (sel & b);\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | sel | a | b | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 8'h62 | 8'hc2 | out=8'hc2 | out=8'h62 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     1,
+     0,
+     194
+    ]
+   ],
+   "options": [
+    "11000010",
+    "00000000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "B",
+   "ref_value": "00000000",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nConsider the following implementation of an 8-bit 2-to-1 mux:\n\n  module TopModule (\n      input        sel,\n      input  [7:0] a,\n      input  [7:0] b,\n      output       out\n  );\n\n      assign out = (~sel & a) | (sel & b);\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | sel | a | b | out |\n|---|---|---|---|---|\n| 0 | 1'b1 | 8'h00 | 8'hc2 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=8'hc2\n- **B**: out=8'h00\n"
+  }
+ ]
+}

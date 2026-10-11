@@ -1,0 +1,72 @@
+{
+ "case": "Prob018_mux256to1",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    256
+   ],
+   [
+    "sel",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c2"
+  ],
+  [
+   "c1"
+  ]
+ ],
+ "ci_pairs": 2,
+ "ci_found": 2,
+ "ci_missed": [],
+ "off_pairs": 2,
+ "off_found": 2,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 1,
+   "suite": "uniform0",
+   "stim": [
+    [
+     55186156870478567193644641351382124067713781048612400765092754877653207859685,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 2,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 3
+}

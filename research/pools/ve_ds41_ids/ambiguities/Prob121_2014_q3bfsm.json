@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output z latency",
+   "severity": "high",
+   "readings": [
+    "z is a combinational Moore output; it reflects the current state in the same cycle",
+    "z is a registered output; it updates on the next positive clock edge, one cycle after the state changes"
+   ]
+  },
+  {
+   "aspect": "Reset effect on z",
+   "severity": "medium",
+   "readings": [
+    "reset only synchronously clears the state to 000; z remains a function of the current state until the next clock edge",
+    "reset forces z to 0 as soon as reset is high (or on the reset edge), independent of the current state"
+   ]
+  },
+  {
+   "aspect": "Initial state / power-up value",
+   "severity": "medium",
+   "readings": [
+    "state register initializes to 000 at power-up (or before first clock), so z is defined before reset",
+    "state register initializes to an unknown value (or one of the don't-care states 101/110/111), so z is undefined until the first reset edge"
+   ]
+  },
+  {
+   "aspect": "Unreachable states 101,110,111",
+   "severity": "low",
+   "readings": [
+    "states 101,110,111 are don't-care; any next state and output value is acceptable",
+    "states 101,110,111 must have defined next states (e.g., return to 000) and a defined output z (e.g., 0) to avoid undefined behavior"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Output latency / registered vs combinational",
+   "severity": "high",
+   "readings": [
+    "pedge is asserted in the same clock cycle in which in first becomes 1 (combinational edge detect using a registered previous value)",
+    "pedge is asserted one clock cycle later (pedge itself is registered, giving two-cycle latency from the 0 sample)"
+   ]
+  },
+  {
+   "aspect": "Initial/previous state at startup (no reset)",
+   "severity": "high",
+   "readings": [
+    "The previous-value register initializes to 0 (or is treated as 0), so in=1 on the first clock cycle can produce pedge=1 as if a 0->1 transition occurred",
+    "No transition can be detected before two clock cycles, so pedge must be 0 (or undefined) on the first cycle regardless of in"
+   ]
+  },
+  {
+   "aspect": "Pulse duration / persistence",
+   "severity": "medium",
+   "readings": [
+    "pedge is a one-cycle pulse, high only in the cycle immediately following the detected 0->1 transition and deasserts even if in remains 1",
+    "pedge is set to 1 and remains 1 while in stays 1 (or until a 0 is observed), acting as a level flag"
+   ]
+  }
+ ]
+}

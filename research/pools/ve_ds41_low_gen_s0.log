@@ -1,0 +1,9 @@
+﻿154 generation calls pending (verilogeval, tag=ve_ds41_low); ~54K input tokens + ~2-3K reasoning/output each
+20/154 Prob024_hadd s0 ok
+40/154 Prob037_review2015_count1k s0 ok
+60/154 Prob061_2014_q4a s0 ok
+80/154 Prob085_shift4 s0 ok
+100/154 Prob105_rotate100 s0 ok
+120/154 Prob126_circuit6 s0 ok
+140/154 Prob146_fsm_serialdata s0 ok
+done

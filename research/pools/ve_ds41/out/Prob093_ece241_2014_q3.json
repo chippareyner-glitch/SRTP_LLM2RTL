@@ -1,0 +1,98 @@
+{
+ "case": "Prob093_ece241_2014_q3",
+ "n_samples": 5,
+ "n_distinct": 4,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "852d00065129",
+   "sources": [
+    "ve_ds41:s0"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob093_ece241_2014_q3\\s0.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 11,
+    "samples": 60,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c1",
+   "hash": "eeee40688b8f",
+   "sources": [
+    "ve_ds41:s1"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob093_ece241_2014_q3\\s1.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 38,
+    "samples": 60,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c2",
+   "hash": "f906e73a4737",
+   "sources": [
+    "ve_ds41:s2"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob093_ece241_2014_q3\\s2.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 38,
+    "samples": 60,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  },
+  {
+   "id": "c3",
+   "hash": "44a5c8cfc2c5",
+   "sources": [
+    "ve_ds41:s3",
+    "ve_ds41:s4"
+   ],
+   "model": "ve_ds41",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41\\gen\\Prob093_ece241_2014_q3\\s3.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 38,
+    "samples": 60,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c1",
+    "c2",
+    "c3"
+   ],
+   "votes": 4,
+   "correct": false
+  },
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 1,
+   "correct": false
+  }
+ ]
+}

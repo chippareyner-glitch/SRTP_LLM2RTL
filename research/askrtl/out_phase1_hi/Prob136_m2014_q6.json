@@ -1,0 +1,158 @@
+{
+ "case": "Prob136_m2014_q6",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "reset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "reset",
+    1
+   ],
+   [
+    "w",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "z",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c3",
+   "c4",
+   "c5",
+   "c6"
+  ],
+  [
+   "c1"
+  ],
+  [
+   "c2"
+  ]
+ ],
+ "ci_pairs": 5,
+ "ci_found": 5,
+ "ci_missed": [],
+ "off_pairs": 9,
+ "off_found": 9,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c1",
+    "c3"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 122,
+   "suite": "uniform2",
+   "stim": [
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 26,
+   "orig_len": 123,
+   "min_len": 5,
+   "toggles": 2
+  },
+  {
+   "pair": [
+    "c2",
+    "c3"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform_hi",
+   "stim": [
+    [
+     1,
+     1
+    ]
+   ],
+   "ok": true,
+   "calls": 0,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": null,
+   "hi_phase": true
+  },
+  {
+   "pair": [
+    "c1",
+    "c2"
+   ],
+   "correct": [
+    false,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 122,
+   "suite": "uniform2",
+   "stim": [
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 26,
+   "orig_len": 123,
+   "min_len": 5,
+   "toggles": 2
+  }
+ ],
+ "status": "ok",
+ "n_live": 6
+}

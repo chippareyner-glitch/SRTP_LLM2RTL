@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-09T17:44:38.938086+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "LIFObuffer",
+  "returned_model": "deepseek-flash",
+  "id": "5bfbefeb-c7de-47e8-b543-a92f5bd9b079",
+  "usage": {
+    "prompt_tokens": 929,
+    "completion_tokens": 6248,
+    "total_tokens": 7177,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 6019
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 289
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "high",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 26.337764399999287
+}

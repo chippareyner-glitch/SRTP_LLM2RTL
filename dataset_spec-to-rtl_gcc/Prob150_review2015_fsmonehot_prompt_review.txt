@@ -1,0 +1,207 @@
+[ORIGINAL SPECIFICATION]
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  d
+ - input  done_counting
+ - input  ack
+ - input  state (10 bits)
+ - output B3_next
+ - output S_next
+ - output S1_next
+ - output Count_next
+ - output Wait_next
+ - output done
+ - output counting
+ - output shift_ena
+
+The module should implement the following Moore state machine with 3
+input (d, done_counting, ack) and 3 outputs (shift_ena, counting, done).
+Unless otherwise stated in the diagram below, assume outputs are 0 and
+inputs are don't cares.
+
+state   (output)      --input--> next state
+-------------------------------------------
+  S     ()            --d=0--> S
+  S     ()            --d=1--> S1
+  S1    ()            --d=0--> S
+  S1    ()            --d=1--> S11
+  S11   ()            --d=0--> S110
+  S11   ()            --d=1--> S11
+  S110  ()            --d=0--> S
+  S110  ()            --d=1--> B0
+  B0    (shift_ena=1) --(always go to next cycle)--> B1
+  B1    (shift_ena=1) --(always go to next cycle)--> B2
+  B2    (shift_ena=1) --(always go to next cycle)--> B3
+  B3    (shift_ena=1) --(always go to next cycle)--> Count
+  Count (counting=1)  --done_counting=0--> Count
+  Count (counting=1)  --done_counting=1--> Wait
+  Wait  (done=1)      --ack=0--> Wait
+  Wait  (done=1)      --ack=1--> S
+
+At reset, the state machine starts in state "S". Derive next-state logic
+equations and output logic equations by inspection assuming the following
+one-hot encoding is used: (S, S1, S11, S110, B0, B1, B2, B3, Count, Wait)
+= (10'b0000000001, 10'b0000000010, 10'b0000000100, ... , 10'b1000000000)
+
+Derive state transition and output logic equations by inspection assuming
+a one-hot encoding. Implement only the state transition logic and output
+logic (the combinational logic portion) for this state machine.
+
+Write code that generates the following signals:
+
+ - B3_next -- Assert when next-state is B3 state
+ - S_next -- Assert when next-state is S state
+ - S1_next -- Assert when next-state is S1 state
+ - Count_next -- Assert when next-state is Count state
+ - Wait_next -- Assert when next-state is Wait state
+ - done -- output logic
+ - counting -- output logic
+ - shift_ena -- output logic
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Analysis Report for TopModule State Machine Implementation
+
+### 1. Specification Summary
+
+**Module**: TopModule (combinational next-state and output logic only)
+- **Inputs**: d (1-bit), done_counting (1-bit), ack (1-bit), state (10-bit one-hot)
+- **Outputs**: 
+  - Next-state indicators: B3_next, S_next, S1_next, Count_next, Wait_next
+  - Output logic: done, counting, shift_ena
+
+**State Machine**: Moore-type with 10 states using one-hot encoding:
+- Pattern Detection States: S, S1, S11, S110
+- Buffer States: B0, B1, B2, B3  
+- Control States: Count, Wait
+
+**Key Behavior**: Detects "1101" pattern, enters buffer/counting sequence, waits for acknowledgment.
+
+### 2. Ambiguity Analysis
+
+**Critical Ambiguities Identified**:
+
+1. **State Encoding Order**: The specification shows "(S, S1, S11, S110, B0, B1, B2, B3, Count, Wait)" but doesn't explicitly confirm the bit positions. Assumed order: S=bit0, S1=bit1, ..., Wait=bit9.
+
+2. **Output Behavior in Pattern States**: States S, S1, S11, S110 have "()" outputs - unclear if this means all outputs are 0 or if previous outputs should persist. Moore machine convention suggests outputs should be explicitly defined for each state.
+
+3. **"always go to next cycle" Timing**: For B0-B3 states, the transition timing is ambiguous. Should these transitions happen on every clock cycle regardless of other inputs?
+
+4. **Input Don't-Care Conditions**: The spec mentions "inputs are don't cares" but doesn't specify which states this applies to. This could lead to undefined behavior.
+
+### 3. Missing Critical Details
+
+**Essential Missing Information**:
+
+1. **Clock and Reset Interface**: No clock or reset ports specified, despite mentioning "at reset" behavior. Critical for sequential element integration.
+
+2. **Complete Output Specifications**: Only 3 outputs (shift_ena, counting, done) are defined in state transitions. The remaining outputs (B3_next, etc.) need explicit definition.
+
+3. **State Encoding Validation**: No explicit mapping between state names and one-hot bit positions.
+
+4. **Output Persistence Rules**: Unclear if outputs maintain their values between state transitions or reset to default.
+
+5. **Input Validation**: No specification for handling illegal state encodings or one-hot violations.
+
+### 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Handle**:
+
+1. **Invalid State Encodings**: Multiple bits set or no bits set in state input
+2. **Illegal State Transitions**: From states that shouldn't be reachable based on defined transitions
+3. **Simultaneous Input Assertions**: Multiple inputs asserted in states where it's not explicitly defined
+4. **Power-On State**: Reset behavior implementation
+5. **One-Hot Violation Recovery**: How to handle non-one-hot state inputs
+
+### 5. Functional Correctness Prediction
+
+**Potential Implementation Risks**:
+
+1. **State Machine Completeness**: The pattern detection logic appears correct for "1101" sequence
+2. **Output Logic Conflicts**: Risk of multiple outputs being asserted simultaneously if not carefully designed
+3. **Timing Issues**: The "always go to next cycle" transitions may create critical timing paths
+4. **Testability Concerns**: Limited observability of internal states beyond the defined outputs
+
+**Verification Priority**: Pattern detection sequence (S→S1→S11→S110→B0) and acknowledgment handshake (Wait→S transition) are highest risk areas.
+
+### 6. Actionable Guidance for RTL Generation
+
+**Immediate Implementation Requirements**:
+
+1. **Clarify State Encoding**:
+```systemverilog
+localparam S     = 10'b0000000001;
+localparam S1    = 10'b0000000010;
+localparam S11   = 10'b0000000100;
+localparam S110  = 10'b0000001000;
+localparam B0    = 10'b0000010000;
+localparam B1    = 10'b0000100000;
+localparam B2    = 10'b0001000000;
+localparam B3    = 10'b0010000000;
+localparam Count = 10'b0100000000;
+localparam Wait  = 10'b1000000000;
+```
+
+2. **Define Default Output Behavior**:
+```systemverilog
+// All outputs default to 0 unless explicitly specified
+assign done = (state == Wait);
+assign counting = (state == Count);
+assign shift_ena = (state == B0) || (state == B1) || (state == B2) || (state == B3);
+```
+
+3. **Implement Robust Next-State Logic**:
+```systemverilog
+// Next-state indicators (combinational)
+assign S_next = (state == S && d == 0) || 
+                (state == S1 && d == 0) || 
+                (state == S110 && d == 0) ||
+                (state == Wait && ack == 1);
+
+assign B3_next = (state == B2);  // B2 always goes to B3
+// ... similar logic for other next-state indicators
+```
+
+4. **Add Input Validation**:
+```systemverilog
+// Check for one-hot encoding validity
+logic state_valid;
+assign state_valid = (state == 0) ? 1'b0 : ((state & (state - 1)) == 0);
+```
+
+5. **Include Synthesis Directives**:
+```systemverilog
+// Prevent unintended latch inference
+always_comb begin
+    // Default assignments
+    B3_next = 1'b0;
+    S_next = 1'b0;
+    // ... other outputs
+    // State-specific overrides
+    case (1'b1)  // One-hot case statement
+        state[S]: begin
+            if (d == 0) S_next = 1'b1;
+            else if (d == 1) S1_next = 1'b1;
+        end
+        // ... other state transitions
+    endcase
+end
+```
+
+**Verification Strategy**:
+- Create test cases for "1101" pattern detection with varying bit sequences
+- Verify buffer state timing (B0→B1→B2→B3→Count transitions)
+- Test acknowledgment handshake protocol
+- Validate reset behavior and illegal state recovery
+
+This analysis ensures the RTL implementation will be robust, testable, and synthesis-friendly while maintaining the intended state machine behavior.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

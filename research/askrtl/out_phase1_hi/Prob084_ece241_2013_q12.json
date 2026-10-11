@@ -1,0 +1,92 @@
+{
+ "case": "Prob084_ece241_2013_q12",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "enable",
+    1
+   ],
+   [
+    "S",
+    1
+   ],
+   [
+    "A",
+    1
+   ],
+   [
+    "B",
+    1
+   ],
+   [
+    "C",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "Z",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c2",
+   "c3",
+   "c4",
+   "c5",
+   "c6"
+  ],
+  [
+   "c1"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 6,
+ "extra_x": 6,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 0,
+   "suite": "uniform_hi",
+   "stim": [
+    [
+     1,
+     1,
+     0,
+     0,
+     0
+    ]
+   ],
+   "ok": true,
+   "calls": 0,
+   "orig_len": 1,
+   "min_len": 1,
+   "toggles": null,
+   "hi_phase": true
+  }
+ ],
+ "status": "ok",
+ "n_live": 7
+}

@@ -1,0 +1,20 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Clock edge polarity",
+   "severity": "high",
+   "readings": [
+    "q updates on the rising edge of clk",
+    "q updates on the falling edge of clk"
+   ]
+  },
+  {
+   "aspect": "Initial/power-up value of q",
+   "severity": "medium",
+   "readings": [
+    "q is initialized to 0 at power-up even before any reset",
+    "q is undefined (e.g., X in simulation) until the first clock edge with r=1"
+   ]
+  }
+ ]
+}

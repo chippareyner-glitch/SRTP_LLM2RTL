@@ -1,0 +1,125 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in  (4 bits)
+ - output pos (2 bits)
+
+The module should implement a priority encoder. A priority encoder is a
+combinational circuit that, when given an input bit vector, outputs the
+position of the first 1 bit in the vector. For example, a 8-bit priority
+encoder given the input 8'b10010000 would output 3'd4, because bit[4] is
+first bit that is high. Build a 4-bit priority encoder. For this problem,
+if none of the input bits are high (i.e., input is zero), output zero.
+Note that a 4-bit number has 16 possible combinations.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+# Analysis Report for Priority Encoder Specification
+
+## 1. Specification Summary
+The specification requires a 4-bit priority encoder module named `TopModule` with:
+- **Input**: `in` (4-bit vector)
+- **Output**: `pos` (2-bit position indicator)
+- **Function**: Outputs the position (index) of the first '1' bit found from LSB to MSB (or vice versa - ambiguous)
+- **Special Case**: Outputs 0 when all input bits are 0
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity - Scan Direction:**
+- The specification does not specify whether scanning should be from LSB to MSB or MSB to LSB
+- The example shows 8'b10010000 → 3'd4, suggesting **MSB-first** priority (bit[4] in 0-based indexing from MSB)
+- However, this conflicts with typical hardware priority encoders that usually prioritize LSB-first
+
+**Bit Indexing Ambiguity:**
+- The example uses "bit[4]" but doesn't specify if this is 0-based or 1-based indexing
+- 4-bit input has positions 0-3, so "bit[4]" suggests 1-based indexing or possible error
+
+## 3. Missing Critical Details
+
+**Scan Direction:** Must explicitly define priority order (LSB-first or MSB-first)
+
+**Output Encoding:**
+- Position encoding format (0-based vs 1-based indexing)
+- Output value when no '1' bits are present (spec says "output zero" but is this 2'b00?)
+
+**Timing Requirements:**
+- Pure combinational logic (no clock/register requirements specified)
+- No timing constraints (setup/hold, propagation delay)
+
+**Interface Details:**
+- No reset mechanism specified
+- No enable/valid signaling
+
+## 4. Edge Cases & Boundary Conditions
+
+**All-Zero Input:** `in = 4'b0000` → `pos = 2'b00` (as specified)
+
+**Single '1' Cases:**
+- `in = 4'b0001` → Position depends on scan direction
+- `in = 4'b1000` → Position depends on scan direction
+
+**Multiple '1' Bits:** Must ignore subsequent '1's after the first
+
+**Full Input Range:** 16 possible input combinations need verification
+
+## 5. Functional Correctness Prediction
+
+**High Risk Areas:**
+- Scan direction ambiguity could lead to completely wrong functionality
+- Indexing confusion (0-based vs 1-based) affects output values
+
+**Expected Behavior (Assuming MSB-first as in example):**
+- `4'b1000` → `2'b00` (MSB bit 3)
+- `4'b0100` → `2'b01` (bit 2)  
+- `4'b0010` → `2'b10` (bit 1)
+- `4'b0001` → `2'b11` (bit 0)
+- `4'b0000` → `2'b00`
+
+## 6. Actionable Guidance for RTL Generation
+
+**Clarification Required Before Implementation:**
+1. **Priority Direction:** Confirm MSB-first (as example suggests) or LSB-first (typical)
+2. **Indexing Basis:** 0-based (0-3) or 1-based (1-4) position output
+
+**Implementation Strategy:**
+```systemverilog
+// MSB-first approach (based on example)
+module TopModule (
+    input  logic [3:0] in,
+    output logic [1:0] pos
+);
+    
+    always_comb begin
+        casez (in)
+            4'b1???: pos = 2'b00;  // MSB (bit 3) high
+            4'b01??: pos = 2'b01;  // bit 2 high
+            4'b001?: pos = 2'b10;  // bit 1 high
+            4'b0001: pos = 2'b11;  // bit 0 high
+            default: pos = 2'b00;  // all zeros
+        endcase
+    end
+    
+endmodule
+```
+
+**Verification Plan:**
+- Test all 16 input combinations
+- Verify priority behavior with multiple '1' bits
+- Confirm all-zero input produces zero output
+- Check output encoding matches expected indexing
+
+**Synthesis Considerations:**
+- Use `casez` for efficient priority encoding
+- Ensure no latches inferred (complete case coverage)
+- Consider `unique case` for additional optimization hints
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,11 @@
+{
+ "case": "alu",
+ "category": "Miscellaneous",
+ "top": "alu",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "alu"
+ ]
+}

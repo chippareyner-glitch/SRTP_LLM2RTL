@@ -1,0 +1,158 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  reset
+ - input  data
+ - input  done_counting
+ - input  ack
+ - output shift_ena
+ - output counting
+ - output done
+
+The module should implement a timer that:
+
+  (1) is started when a particular pattern (1101) is detected,
+  (2) shifts in 4 more bits to determine the duration to delay,
+  (3) waits for the counters to finish counting, and
+  (4) notifies the user and waits for the user to acknowledge the timer.
+
+In this problem, implement just the finite-state machine that controls
+the timer. The data path (counters and some comparators) are not included
+here.
+
+The serial data is available on the data input pin. When the pattern 1101
+is received, the state machine must then assert output shift_ena for
+exactly 4 clock cycles. After that, the state machine asserts its
+counting output to indicate it is waiting for the counters, and waits
+until input done_counting is high.At that point, the state machine must
+assert done to notify the user the timer has timed out, and waits until
+input ack is 1 before being reset to look for the next occurrence of the
+start sequence (1101). The state machine should have a active high
+synchronous reset, setting the state to where it begins searching for the
+input sequence 1101. Assume all sequential logic is triggered on the
+positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a timer controller FSM with the following behavior:
+- **Detection Phase**: Continuously monitors serial `data` input for pattern "1101" (MSB first)
+- **Configuration Phase**: After pattern detection, enables shift register for 4 cycles via `shift_ena`
+- **Counting Phase**: Asserts `counting` and waits for external counter completion (`done_counting`)
+- **Completion Phase**: Asserts `done` and waits for user acknowledgment (`ack`)
+- **Reset**: Synchronous active-high reset returns to detection phase
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+1. **Pattern Detection Timing**: Unspecified whether "1101" should be detected MSB-first or LSB-first
+2. **Overlapping Patterns**: Behavior when new "1101" pattern starts before current timer completes
+3. **Input Stability**: Requirements for `data` setup/hold times relative to clock
+4. **Signal Assertion Timing**: When exactly `shift_ena`, `counting`, and `done` should assert/deassert
+
+**Resolution Needed:**
+- Assume MSB-first detection (common for serial protocols)
+- Define behavior for overlapping patterns (ignore new patterns during active timer)
+- Specify all outputs as registered (synchronous to clock edge)
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+1. **State Machine States**: Expected states and transitions not defined
+2. **Output Behavior During Reset**: Output values when reset is active
+3. **Input Validation**: No specification for glitch protection on inputs
+4. **Power-On State**: Behavior after power-up without explicit reset
+5. **Error Conditions**: Response to unexpected input sequences
+
+**Recommended Additions:**
+- Define 5 states: IDLE, SHIFT, COUNT, DONE, ACK_WAIT
+- All outputs should be driven to 0 during reset
+- Add input synchronization if asynchronous inputs are possible
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+1. **Reset During Active States**: Immediate termination of all activities
+2. **done_counting Assertion Timing**: What if `done_counting` pulses vs stays high
+3. **Simultaneous Events**: `done_counting` and `ack` asserting on same cycle
+4. **Back-to-back Timers**: Minimum gap between timer completions and new starts
+5. **Signal Contention**: Multiple control signals asserting unexpectedly
+
+**Handling Strategy:**
+- Treat `done_counting` as level-sensitive (wait while high)
+- Process one event per clock cycle (prioritize reset > ack > counting)
+- Ensure clean state transitions with no undefined states
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+1. **Pattern Detection Reliability**: Risk of false detections with bit-slippage
+2. **State Machine Deadlocks**: Potential hangs if signals don't behave as expected
+3. **Timing Violations**: Meta-stability on asynchronous inputs
+
+**Verification Priority:**
+- Test pattern detection with various bit sequences
+- Verify all state transitions under reset conditions
+- Validate output timing relationships
+- Stress test with minimum/maximum timing between events
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+```systemverilog
+// Recommended State Encoding
+typedef enum logic [2:0] {
+    IDLE,      // Waiting for 1101 pattern
+    SHIFT,     // Shift enable active (4 cycles)
+    COUNT,     // Waiting for counters
+    DONE,      // Timer completed
+    ACK_WAIT   // Waiting for acknowledgment
+} state_t;
+
+// Critical Implementation Details:
+// 1. Use registered outputs for all control signals
+// 2. Implement pattern detection with shift register
+// 3. Add counter for 4-cycle shift enable
+// 4. Synchronize asynchronous inputs if needed
+```
+
+**Specific Requirements:**
+- **Pattern Detection**: 4-bit shift register, compare to 4'b1101
+- **Shift Counter**: Down-counter from 3 to 0, decrement when in SHIFT state
+- **Output Sequencing**: 
+  - `shift_ena` high only in SHIFT state
+  - `counting` high in COUNT state
+  - `done` high in DONE and ACK_WAIT states
+- **Reset Behavior**: Immediate transition to IDLE, all outputs low
+
+**Verification Hooks:**
+- Add state monitoring signals for debug
+- Include assertion checks for illegal state transitions
+- Verify minimum/maximum cycle counts for each phase
+
+**Timing Diagram Expectation:**
+```
+clk:     _|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_
+data:    ___1__1__0__1__0__0__1__1___..._______________________
+reset:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+shift_ena: ______‾‾‾‾‾‾‾‾‾‾‾‾___________________________________
+counting: ________________‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+done_counting: ____________‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|‾|___
+done:    ________________________‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+ack:     __________________________________________‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+
+This analysis provides a comprehensive foundation for correct and robust RTL implementation.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

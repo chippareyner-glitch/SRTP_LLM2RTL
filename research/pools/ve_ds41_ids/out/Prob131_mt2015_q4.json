@@ -1,0 +1,93 @@
+{
+ "case": "Prob131_mt2015_q4",
+ "n_samples": 5,
+ "n_distinct": 5,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "f4a6917c8e66",
+   "sources": [
+    "ve_ds41_ids:s0"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob131_mt2015_q4\\s0.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob131_mt2015_q4_test.sv:68: error: Unknown module type: TopModule\n2 error(s) during elaboration.\n*** These modules were missing:\n        TopModule referenced 1 times.\n***\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c1",
+   "hash": "cc3f4e2a1c8e",
+   "sources": [
+    "ve_ds41_ids:s1"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob131_mt2015_q4\\s1.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob131_mt2015_q4_test.sv:68: error: Unknown module type: TopModule\n2 error(s) during elaboration.\n*** These modules were missing:\n        TopModule referenced 1 times.\n***\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c2",
+   "hash": "b6e81c7e864f",
+   "sources": [
+    "ve_ds41_ids:s2"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob131_mt2015_q4\\s2.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob131_mt2015_q4_test.sv:68: error: Unknown module type: TopModule\n2 error(s) during elaboration.\n*** These modules were missing:\n        TopModule referenced 1 times.\n***\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c3",
+   "hash": "df9a20e84365",
+   "sources": [
+    "ve_ds41_ids:s3"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob131_mt2015_q4\\s3.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob131_mt2015_q4_test.sv:68: error: Unknown module type: TopModule\n2 error(s) during elaboration.\n*** These modules were missing:\n        TopModule referenced 1 times.\n***\n"
+   },
+   "correct": false,
+   "compiles": false
+  },
+  {
+   "id": "c4",
+   "hash": "6a02de21a9de",
+   "sources": [
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob131_mt2015_q4\\s4.sv",
+   "gold": {
+    "status": "compile_error",
+    "correct": false,
+    "compiles": false,
+    "log": "\nE:\\SRTP\\SRTP_LLM2RTL\\dataset_spec-to-rtl_gcc\\Prob131_mt2015_q4_test.sv:68: error: Unknown module type: TopModule\n2 error(s) during elaboration.\n*** These modules were missing:\n        TopModule referenced 1 times.\n***\n"
+   },
+   "correct": false,
+   "compiles": false
+  }
+ ],
+ "clusters": []
+}

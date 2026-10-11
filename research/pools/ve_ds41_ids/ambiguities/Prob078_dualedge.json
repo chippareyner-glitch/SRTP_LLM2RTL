@@ -1,0 +1,28 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial/reset value",
+   "severity": "high",
+   "readings": [
+    "q and internal state power up to 0 (or another defined value)",
+    "q and internal state power up to unknown (X) / are not initialized"
+   ]
+  },
+  {
+   "aspect": "Output glitch/update timing at clock edge",
+   "severity": "medium",
+   "readings": [
+    "q must be glitch-free and change only once per clock edge, as an ideal dual-edge flip-flop",
+    "q may have transient delta-cycle glitches at the clock edge, as in the two-FF plus mux implementation"
+   ]
+  },
+  {
+   "aspect": "Setup/hold at clock edge",
+   "severity": "low",
+   "readings": [
+    "If d changes at the same time as the clock edge, the new d value is captured",
+    "If d changes at the same time as the clock edge, the old d value is captured (or the result is nondeterministic)"
+   ]
+  }
+ ]
+}

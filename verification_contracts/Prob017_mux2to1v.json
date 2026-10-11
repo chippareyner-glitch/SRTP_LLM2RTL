@@ -1,0 +1,37 @@
+{
+  "case_id": "Prob017_mux2to1v",
+  "rtl_file": "Prob017_mux2to1v_ref.sv",
+  "dut_module": "RefModule",
+  "source": "Prob017_mux2to1v_prompt.txt",
+  "ports": [
+    {"name": "a", "direction": "input", "width": 100},
+    {"name": "b", "direction": "input", "width": 100},
+    {"name": "sel", "direction": "input", "width": 1},
+    {"name": "out", "direction": "output", "width": 100}
+  ],
+  "initial": {"a": "100'h0", "b": "100'h0", "sel": "1'b0"},
+  "tests": [
+    {
+      "id": "select_a",
+      "requirement": "sel=0 selects a",
+      "steps": [
+        {"set": {"a": "100'h123456789abcdef0123456789", "b": "100'h0fedcba9876543210fedcba98", "sel": "1'b0"}, "delay": 1, "expect": {"out": "100'h123456789abcdef0123456789"}}
+      ]
+    },
+    {
+      "id": "select_b",
+      "requirement": "sel=1 selects b",
+      "steps": [
+        {"set": {"a": "100'hfffffffffffffffffffffffff", "b": "100'h0555555555555555555555555", "sel": "1'b1"}, "delay": 1, "expect": {"out": "100'h0555555555555555555555555"}}
+      ]
+    },
+    {
+      "id": "boundary_patterns",
+      "requirement": "selection preserves all 100 bits",
+      "steps": [
+        {"set": {"a": "100'h0", "b": "100'hfffffffffffffffffffffffff", "sel": "1'b0"}, "delay": 1, "expect": {"out": "100'h0"}},
+        {"set": {"sel": "1'b1"}, "delay": 1, "expect": {"out": "100'hfffffffffffffffffffffffff"}}
+      ]
+    }
+  ]
+}

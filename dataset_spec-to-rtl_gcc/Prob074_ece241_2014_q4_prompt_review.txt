@@ -1,0 +1,158 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  x
+ - output z
+
+The module should implement a finite state machine with the following
+behavior. Input x goes to three different two-input gates: an XOR, an
+AND, and a OR gate. Each of the three gates is connected to the input of
+a D flip-flop and then the flip-flop outputs all go to a three-input
+NOR gate, whose output is Z. The second input of the XOR is its corresponding
+flip-flop's output, the second input of the AND is its corresponding
+flip-flop's complemented output, and finally the second input of the OR
+is its corresponding flip-flop's complementary output.
+
+Assume that the D flip-flops are initially reset to zero before the
+machine begins. Assume all sequential logic is triggered on the positive
+edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module `TopModule` implements a synchronous sequential circuit with:
+- **Inputs**: `clk` (clock), `x` (1-bit data input)
+- **Output**: `z` (1-bit output)
+- **Architecture**: Three parallel data paths, each containing:
+  - A 2-input logic gate (XOR, AND, OR) fed by input `x` and a state-dependent signal
+  - A D flip-flop storing the gate output
+  - The flip-flop outputs feed a 3-input NOR gate to produce `z`
+- **State feedback**: Each gate's second input comes from its corresponding flip-flop:
+  - XOR: flip-flop output (Q)
+  - AND: flip-flop complemented output (~Q)
+  - OR: flip-flop complemented output (~Q)
+- **Initialization**: All flip-flops reset to 0 at startup
+- **Timing**: Positive-edge triggered clocking
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities Identified:**
+
+1. **OR Gate Input Specification Conflict**: The spec states "the second input of the OR is its corresponding flip-flop's complementary output" but later says "the second input of the OR is its corresponding flip-flop's complementary output" (repeated text). This creates uncertainty about whether the OR gate should use Q or ~Q.
+
+2. **Reset Mechanism Unspecified**: While "initially reset to zero" is mentioned, the reset type (synchronous vs asynchronous) and reset signal presence are not defined.
+
+3. **Timing Relationships**: No specification of setup/hold times or clock-to-output delays for verification.
+
+## 3. Missing Critical Details
+
+**Essential Omissions:**
+
+1. **Reset Implementation**: No reset port (async/sync reset input) specified despite requiring initial state
+2. **Gate Order/Assignment**: Unclear which flip-flop corresponds to which gate in the NOR input ordering
+3. **Propagation Delay Constraints**: No timing requirements for synthesis
+4. **Output Timing**: Clock-to-output delay specification missing
+5. **Power-up Behavior**: Behavior during initial power-up cycles not defined
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases to Consider:**
+
+1. **Initial State Behavior**: At time 0, with all flip-flops at 0:
+   - XOR output = x ⊕ 0 = x
+   - AND output = x & 1 = x (since ~0 = 1)
+   - OR output = x | 1 = 1 (if using ~Q) or x | 0 = x (if using Q)
+
+2. **Metastability Conditions**: Simultaneous transitions on x and clock edges
+
+3. **Constant Input Patterns**: 
+   - x = 0 continuously
+   - x = 1 continuously
+   - x toggling every cycle
+
+4. **Glitch Scenarios**: x changing near clock edges
+
+## 5. Functional Correctness Prediction
+
+**Expected Behavior Analysis:**
+
+Based on the specification (assuming OR uses ~Q as second input):
+
+**State Equations:**
+- Q_xor_next = x ⊕ Q_xor
+- Q_and_next = x & (~Q_and)
+- Q_or_next = x | (~Q_or)
+
+**Output Equation:**
+- z = ~(Q_xor | Q_and | Q_or)
+
+**Predicted Characteristics:**
+- The circuit creates three independent state machines with different dynamics
+- XOR path acts as a toggle circuit
+- AND path requires x=1 and previous state=0 to set
+- OR path remains high unless both x=0 and previous state=1
+- Complex periodic behavior expected due to nonlinear interactions
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Requirements:**
+
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic x, 
+    output logic z
+);
+
+// Critical implementation decisions needed:
+// 1. RESET STRATEGY - Add async reset port or assume power-on reset?
+// 2. OR GATE INPUT - Confirm: Q or ~Q for second input?
+// 3. FLOP ORDERING - Define mapping to NOR inputs
+
+// Recommended implementation structure:
+logic q_xor, q_and, q_or;
+logic d_xor, d_and, d_or;
+
+// Combinational logic (ASSUMPTION: OR uses ~q_or)
+assign d_xor = x ^ q_xor;
+assign d_and = x & (~q_and);
+assign d_or  = x | (~q_or);  // CONFIRM THIS ASSUMPTION
+
+// Sequential logic
+always_ff @(posedge clk) begin
+    q_xor <= d_xor;
+    q_and <= d_and; 
+    q_or  <= d_or;
+end
+
+// Output logic
+assign z = ~(q_xor | q_and | q_or);
+
+endmodule
+```
+
+**Verification Strategy:**
+1. Create testbench with known initial conditions
+2. Verify all flip-flops initialize to 0
+3. Test sequences: constant 0, constant 1, alternating patterns
+4. Check for desired periodic behavior
+5. Validate timing constraints post-synthesis
+
+**Critical Questions for Specification Clarification:**
+1. Should an explicit reset port be added?
+2. Confirm second input for OR gate: Q or ~Q?
+3. Any specific naming convention for the three flip-flops?
+4. Are there any performance constraints (max frequency)?
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,114 @@
+{
+ "case": "Prob112_always_case2",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "in",
+    4
+   ]
+  ],
+  "outputs": [
+   [
+    "pos",
+    2
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3",
+    "c4"
+   ],
+   "votes": 4,
+   "correct": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 4,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      2
+     ],
+     [
+      3
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "00",
+      "00",
+      "01",
+      "00"
+     ],
+     [
+      "00",
+      "00",
+      "01",
+      "01"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (4 bits)\n - output pos (2 bits)\n\nThe module should implement a priority encoder. A priority encoder is a\ncombinational circuit that, when given an input bit vector, outputs the\nposition of the first 1 bit in the vector. For example, a 8-bit priority\nencoder given the input 8'b10010000 would output 3'd4, because bit[4] is\nfirst bit that is high. Build a 4-bit priority encoder. For this problem,\nif none of the input bits are high (i.e., input is zero), output zero.\nNote that a 4-bit number has 16 possible combinations.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | in | A out | B out |\n|---|---|---|---|\n| 0 | 4'b0000 | pos=2'b00 | pos=2'b00 |\n| 1 | 4'b0001 | pos=2'b00 | pos=2'b00 |\n| 2 | 4'b0010 | pos=2'b01 | pos=2'b01 |\n| 3 | 4'b0011 | pos=2'b00 | pos=2'b01 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     3
+    ]
+   ],
+   "options": [
+    "00",
+    "01"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "A",
+   "ref_value": "00",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  in  (4 bits)\n - output pos (2 bits)\n\nThe module should implement a priority encoder. A priority encoder is a\ncombinational circuit that, when given an input bit vector, outputs the\nposition of the first 1 bit in the vector. For example, a 8-bit priority\nencoder given the input 8'b10010000 would output 3'd4, because bit[4] is\nfirst bit that is high. Build a 4-bit priority encoder. For this problem,\nif none of the input bits are high (i.e., input is zero), output zero.\nNote that a 4-bit number has 16 possible combinations.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | in | out |\n|---|---|---|\n| 0 | 4'b0011 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: pos=2'b00\n- **B**: pos=2'b01\n"
+  }
+ ]
+}

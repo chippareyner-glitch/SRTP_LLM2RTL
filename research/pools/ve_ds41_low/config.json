@@ -1,0 +1,7 @@
+{
+ "bench": "verilogeval",
+ "samples": 1,
+ "effort": "low",
+ "model": "DEEPSEEK_MODEL",
+ "system": "You are an expert RTL designer. Implement exactly the supplied hardware specification in synthesizable SystemVerilog. Preserve the requested module name, port names, directions, and widths. Pay special attention to clock edge, reset polarity and timing, priority, state-update timing, output latency, signedness, and boundary behavior. Do not invent unspecified behavior unless required for a legal implementation. Return exactly one SystemVerilog code block and no explanation."
+}

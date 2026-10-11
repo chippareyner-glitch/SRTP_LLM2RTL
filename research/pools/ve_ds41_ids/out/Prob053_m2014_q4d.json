@@ -1,0 +1,40 @@
+{
+ "case": "Prob053_m2014_q4d",
+ "n_samples": 7,
+ "n_distinct": 1,
+ "candidates": [
+  {
+   "id": "c0",
+   "hash": "6c57421da716",
+   "sources": [
+    "ids:i00",
+    "ids:i01",
+    "ve_ds41_ids:s0",
+    "ve_ds41_ids:s1",
+    "ve_ds41_ids:s2",
+    "ve_ds41_ids:s3",
+    "ve_ds41_ids:s4"
+   ],
+   "model": "ve_ds41_ids",
+   "path": "E:\\SRTP\\SRTP_LLM2RTL\\research\\pools\\ve_ds41_ids\\gen\\Prob053_m2014_q4d\\i00.sv",
+   "gold": {
+    "status": "ok",
+    "mismatches": 1,
+    "samples": 100,
+    "correct": false,
+    "compiles": true
+   },
+   "correct": false,
+   "compiles": true
+  }
+ ],
+ "clusters": [
+  {
+   "members": [
+    "c0"
+   ],
+   "votes": 7,
+   "correct": false
+  }
+ ]
+}

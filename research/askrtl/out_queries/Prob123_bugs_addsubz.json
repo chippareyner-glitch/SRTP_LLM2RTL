@@ -1,0 +1,123 @@
+{
+ "case": "Prob123_bugs_addsubz",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "do_sub",
+    1
+   ],
+   [
+    "a",
+    8
+   ],
+   [
+    "b",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "out",
+    8
+   ],
+   [
+    "result_is_zero",
+    1
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c2",
+    "c3",
+    "c5",
+    "c6",
+    "c8"
+   ],
+   "votes": 8,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c4",
+   "members": [
+    "c4",
+    "c7"
+   ],
+   "votes": 2,
+   "correct": [
+    false,
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      1,
+      98,
+      194
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "101000000"
+     ],
+     [
+      "101000001"
+     ]
+    ],
+    "text": "## Specification\n\nConsider the following adder-subtractor with a zero flag:\n\n  synthesis verilog_input_version verilog_2001\n  module TopModule (\n      input do_sub,\n      input [7:0] a,\n      input [7:0] b,\n      output reg [7:0] out,\n      output reg result_is_zero\n  );\n\n      always @(*) begin\n          case (do_sub)\n            0: out = a+b;\n            1: out = a-b;\n          endcase\n\n          if (~out)\n              result_is_zero = 1;\n      end\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | do_sub | a | b | A out | B out |\n|---|---|---|---|---|---|\n| 0 | 1'b1 | 8'h62 | 8'hc2 | out=8'ha0, result_is_zero=1'b0 | out=8'ha0, result_is_zero=1'b1 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0,
+     194
+    ]
+   ],
+   "options": [
+    "110000100",
+    "110000101"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c4": "B"
+   },
+   "label": "A",
+   "ref_value": "110000100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nConsider the following adder-subtractor with a zero flag:\n\n  synthesis verilog_input_version verilog_2001\n  module TopModule (\n      input do_sub,\n      input [7:0] a,\n      input [7:0] b,\n      output reg [7:0] out,\n      output reg result_is_zero\n  );\n\n      always @(*) begin\n          case (do_sub)\n            0: out = a+b;\n            1: out = a-b;\n          endcase\n\n          if (~out)\n              result_is_zero = 1;\n      end\n\n  endmodule\n\nUnfortunately, this module has a bug. Implement a new version of this\nmodule that fixes the bug.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | do_sub | a | b | out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 8'h00 | 8'hc2 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: out=8'hc2, result_is_zero=1'b0\n- **B**: out=8'hc2, result_is_zero=1'b1\n"
+  }
+ ]
+}

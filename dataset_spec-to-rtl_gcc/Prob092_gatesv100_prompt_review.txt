@@ -1,0 +1,138 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  in            (100 bits)
+ - output out_both      (100 bits)
+ - output out_any       (100 bits)
+ - output out_different (100 bits)
+
+The module takes as input a 100-bit input vector in[99:0] and should
+produce the following three outputs:
+
+  (1) out_both: Each bit of this output vector should indicate whether
+  both the corresponding input bit and its neighbour to the left are '1'.
+  For example, out_both[98] should indicate if in[98] and in[99] are both
+  1. Since in[99] has no neighbour to the left, the answer is obvious so
+  simply set out_both[99] to be zero.
+
+  (2) out_any: Each bit of this output vector should indicate whether any
+  of the corresponding input bit and its neighbour to the right are '1'.
+  For example, out_any[2] should indicate if either in[2] or in[1] are 1.
+  Since in[0] has no neighbour to the right, the answer is obvious so
+  simply set out_any[0] to be zero.
+
+  (3) out_different: Each bit of this output vector should indicate
+  whether the corresponding input bit is different from its neighbour to
+  the left. For example, out_different[98] should indicate if in[98] is
+  different from in[99]. For this part, treat the vector as wrapping
+  around, so in[99]'s neighbour to the left is in[0].
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The `TopModule` processes a 100-bit input vector to generate three 100-bit output vectors:
+- **out_both**: Detects when a bit and its left neighbor are both '1' (MSB edge case handled)
+- **out_any**: Detects when a bit or its right neighbor is '1' (LSB edge case handled)  
+- **out_different**: Detects when a bit differs from its left neighbor (with circular wrapping)
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity Found:** The specification contains contradictory neighbor definitions:
+
+- **out_both**: "neighbour to the left" implies `in[98]` and `in[99]` for `out_both[98]` (left = higher index)
+- **out_any**: "neighbour to the right" implies `in[2]` and `in[1]` for `out_any[2]` (right = lower index)
+- **out_different**: Uses left neighbor definition but with circular wrapping
+
+**Resolution Required:** The module appears to process bits from MSB (99) to LSB (0), where "left" means higher index and "right" means lower index. This must be explicitly confirmed.
+
+## 3. Missing Critical Details
+
+**Timing Requirements:**
+- No clock or reset signals specified
+- Must clarify if this is purely combinational logic
+- No timing constraints provided (setup/hold requirements)
+
+**Behavioral Assumptions:**
+- No power-on reset state specified
+- No timing diagrams for verification
+- No latency requirements mentioned
+
+## 4. Edge Cases & Boundary Conditions
+
+**out_both[99]:** Correctly specified as 0 (no left neighbor)
+**out_any[0]:** Correctly specified as 0 (no right neighbor)  
+**out_different[99]:** Circular case - compares `in[99]` with `in[0]`
+
+**Additional Edge Cases:**
+- All zeros input vector
+- All ones input vector  
+- Single bit set patterns
+- Alternate bit patterns (0101...)
+- MSB/LSB specific patterns
+
+## 5. Functional Correctness Prediction
+
+**High Risk Areas:**
+- Indexing confusion due to mixed "left/right" terminology
+- Circular wrapping implementation for out_different
+- Boundary condition handling
+
+**Expected Behavior:**
+- out_both[i] = in[i] & in[i+1] for i=0-98, out_both[99]=0
+- out_any[i] = in[i] | in[i-1] for i=1-99, out_any[0]=0  
+- out_different[i] = in[i] ^ in[i+1] for i=0-98, out_different[99] = in[99] ^ in[0]
+
+## 6. Actionable Guidance for RTL Generation
+
+**Clarification Requirements:**
+1. Confirm that "left neighbor" means higher index (toward MSB)
+2. Confirm that "right neighbor" means lower index (toward LSB)
+3. Verify this is purely combinational logic
+
+**Implementation Strategy:**
+```systemverilog
+module TopModule (
+    input  [99:0] in,
+    output [99:0] out_both,
+    output [99:0] out_any, 
+    output [99:0] out_different
+);
+
+    // out_both: bit AND left neighbor (higher index)
+    assign out_both[99] = 1'b0;
+    assign out_both[98:0] = in[98:0] & in[99:1];
+
+    // out_any: bit OR right neighbor (lower index)  
+    assign out_any[0] = 1'b0;
+    assign out_any[99:1] = in[99:1] | in[98:0];
+
+    // out_different: bit XOR left neighbor (circular)
+    assign out_different[98:0] = in[98:0] ^ in[99:1];
+    assign out_different[99] = in[99] ^ in[0];
+
+endmodule
+```
+
+**Verification Priorities:**
+1. Test boundary conditions extensively
+2. Verify circular wrapping for out_different[99]
+3. Create test cases for all-zero, all-one, and alternating patterns
+4. Validate neighbor indexing consistency across all three outputs
+
+**Synthesis Considerations:**
+- Purely combinational implementation
+- No sequential elements needed
+- Regular structure suitable for efficient synthesis
+- Consider fanout constraints for 100-bit wide signals
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

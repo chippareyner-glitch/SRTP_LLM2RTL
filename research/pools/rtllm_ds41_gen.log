@@ -1,0 +1,20 @@
+﻿210 generation calls pending (rtllm, tag=rtllm_ds41); ~134K input tokens + ~2-3K reasoning/output each
+20/210 LIFObuffer s4 ok
+40/210 adder_32bit s3 ok
+60/210 comparator_3bit s1 ok
+80/210 edge_detect s2 ok
+96/210 float_multi s0 ERR Incomplete completion: 'length'; inspect API logs.
+97/210 float_multi s2 ERR Incomplete completion: 'length'; inspect API logs.
+98/210 float_multi s1 ERR Incomplete completion: 'length'; inspect API logs.
+100/210 freq_div s1 ok
+104/210 float_multi s3 ERR Incomplete completion: 'length'; inspect API logs.
+105/210 float_multi s4 ERR Incomplete completion: 'length'; inspect API logs.
+106/210 freq_divbyfrac s1 ERR Incomplete completion: 'length'; inspect API logs.
+107/210 freq_divbyfrac s0 ERR Incomplete completion: 'length'; inspect API logs.
+108/210 freq_divbyfrac s2 ERR Incomplete completion: 'length'; inspect API logs.
+120/210 instr_reg s1 ok
+140/210 multi_booth_8bit s3 ok
+160/210 pulse_detect s3 ok
+180/210 serial2parallel s3 ok
+200/210 up_down_counter s1 ok
+done

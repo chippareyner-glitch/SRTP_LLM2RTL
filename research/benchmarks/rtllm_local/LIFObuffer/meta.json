@@ -1,0 +1,11 @@
+{
+ "case": "LIFObuffer",
+ "category": "Memory",
+ "top": "LIFObuffer",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "LIFObuffer"
+ ]
+}

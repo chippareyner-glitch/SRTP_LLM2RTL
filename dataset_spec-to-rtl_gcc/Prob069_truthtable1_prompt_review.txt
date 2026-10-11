@@ -1,0 +1,111 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  x3
+ - input  x2
+ - input  x1
+ - output f
+
+The module should implement a combinational circuit for the following
+truth table:
+
+  x3 | x2 | x1 | f
+  0  | 0  | 0  | 0
+  0  | 0  | 1  | 0
+  0  | 1  | 0  | 1
+  0  | 1  | 1  | 1
+  1  | 0  | 0  | 0
+  1  | 0  | 1  | 1
+  1  | 1  | 0  | 0
+  1  | 1  | 1  | 1
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## Specification Analysis Report
+
+### 1. Specification Summary
+- **Module Name**: TopModule
+- **Interface**: 3 single-bit inputs (x3, x2, x1), 1 single-bit output (f)
+- **Function**: Combinational logic circuit implementing a specified 3-input truth table
+- **Key Behavior**: Output f is determined by the combination of x3, x2, x1 as per the provided truth table
+
+### 2. Ambiguity Analysis
+- **Port Ordering**: The specification lists ports as x3, x2, x1 (descending order) but the truth table follows conventional x3, x2, x1 ordering. This is consistent but could be confusing if interpreted as bit significance.
+- **Timing Requirements**: No explicit timing constraints mentioned (setup/hold times, propagation delay), which is acceptable for pure combinational logic but should be noted.
+- **Signal Interpretation**: No specification on active-high/low convention, though the truth table uses standard binary 0/1 values.
+
+### 3. Missing Critical Details
+- **Reset/Initialization**: No power-on reset behavior specified for the output. For combinational logic, this is typically not required.
+- **Input Stability**: No requirements for input signal stability duration or glitch handling.
+- **Output Drive Strength**: No specification on output drive capability (standard cell selection criteria).
+- **Timing Constraints**: No maximum propagation delay requirements for synthesis optimization.
+- **Load Conditions**: No output load capacitance specifications.
+
+### 4. Edge Cases & Boundary Conditions
+- **Unspecified Input Combinations**: All 8 possible input combinations (2³) are explicitly defined in the truth table - no undefined states.
+- **Meta-stability**: No handling specified for asynchronous input changes, which is acceptable for pure combinational circuits.
+- **Power-On State**: The output f will be determined solely by initial input states at power-up.
+- **Simultaneous Switching**: No special handling for near-simultaneous input changes.
+
+### 5. Functional Correctness Prediction
+- **Boolean Logic Analysis**: The truth table can be reduced to:
+  - f = x2 when x3=0
+  - f = x1 when x3=1
+  - Equivalent to: f = (~x3 & x2) | (x3 & x1)
+  
+- **Verification Coverage**: The provided truth table covers 100% of input combinations, making verification straightforward.
+- **Expected Implementation**: Simple 2-level logic (AND-OR) or multiplexer-based implementation.
+- **Synthesis Compatibility**: The function is well-suited for standard cell libraries and will synthesize efficiently.
+
+### 6. Actionable Guidance for RTL Generation
+
+**Recommended Implementation Approaches:**
+1. **Direct Boolean Expression** (most readable):
+   ```systemverilog
+   assign f = (~x3 & x2) | (x3 & x1);
+   ```
+
+2. **Case Statement** (explicit truth table mapping):
+   ```systemverilog
+   always_comb begin
+     case({x3, x2, x1})
+       3'b000: f = 1'b0;
+       3'b001: f = 1'b0;
+       3'b010: f = 1'b1;
+       3'b011: f = 1'b1;
+       3'b100: f = 1'b0;
+       3'b101: f = 1'b1;
+       3'b110: f = 1'b0;
+       3'b111: f = 1'b1;
+       default: f = 1'b0; // Good practice for undefined states
+     endcase
+   end
+   ```
+
+**Additional Implementation Requirements:**
+- Use `always_comb` for combinational logic to ensure simulation-synthesis matching
+- Include `default` case in conditional statements for robustness
+- Add comments explaining the logic function for maintainability
+- Consider adding assertion checks for unknown input states during simulation
+
+**Verification Strategy:**
+- Create testbench that exercises all 8 input combinations
+- Verify output matches truth table exactly
+- Include corner case testing with rapid input transitions
+- Add functional coverage points for each input combination
+
+**Synthesis Considerations:**
+- The logic should map efficiently to 4-input LUTs in FPGA implementations
+- For ASIC, expect 2-3 gate delays depending on standard cell library
+- No sequential elements required (pure combinational)
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

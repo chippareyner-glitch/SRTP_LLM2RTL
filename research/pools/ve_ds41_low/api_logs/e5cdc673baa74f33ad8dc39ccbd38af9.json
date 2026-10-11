@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-10-11T04:33:29.015957+00:00",
+  "requested_model": "deepseek-flash",
+  "case_id": "Prob012_xnorgate",
+  "returned_model": "deepseek-flash",
+  "id": "97a5756f-c35a-4077-9d89-4a76ad6ef271",
+  "usage": {
+    "prompt_tokens": 174,
+    "completion_tokens": 89,
+    "total_tokens": 263,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 50
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 174
+  },
+  "finish_reason": "stop",
+  "reasoning_effort": "low",
+  "max_tokens": 32768,
+  "temperature": null,
+  "elapsed_seconds": 0.8295085999998264
+}

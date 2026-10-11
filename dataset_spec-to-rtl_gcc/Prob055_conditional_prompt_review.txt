@@ -1,0 +1,136 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  a   (8 bits)
+ - input  b   (8 bits)
+ - input  c   (8 bits)
+ - input  d   (8 bits)
+ - output min (8 bits)
+
+The module should find the minimum of the four input values. Unsigned
+numbers can be compared with standard comparison operators (a < b).
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+# Analysis Report: TopModule Specification
+
+## 1. Specification Summary
+- **Module Name**: TopModule
+- **Function**: Find the minimum of four 8-bit unsigned inputs (a, b, c, d)
+- **Ports**: 
+  - Inputs: a[7:0], b[7:0], c[7:0], d[7:0] (8-bit unsigned)
+  - Output: min[7:0] (8-bit minimum value)
+- **Comparison**: Standard unsigned comparison operators (a < b) are valid
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **Timing behavior unspecified**: No clock, reset, or timing constraints defined
+- **Combinational vs Sequential**: Unclear if output should be combinational or registered
+- **Output behavior during input changes**: No specification for output stability during input transitions
+
+**Minor Clarifications Needed:**
+- **Operator precedence**: Should use explicit parentheses for clarity in comparisons
+- **Tie-breaking**: When multiple inputs have the same minimum value, which one should be selected?
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+- **Clock and Reset**: No clock input or reset mechanism specified
+- **Timing Constraints**: No propagation delay requirements
+- **Power-on Behavior**: Initial output state undefined
+- **Input Validation**: No specification for handling invalid inputs or metastability
+- **Synthesis Constraints**: No area/timing/power constraints
+
+**Interface Completeness:**
+- **Control Signals**: Missing valid/ready handshaking for pipelined operation
+- **Status Outputs**: No error or status indicators
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Edge Cases:**
+- **All inputs equal**: a = b = c = d = 0xFF (or any value)
+- **Two or three inputs tied for minimum**: Multiple identical minimum values
+- **Boundary values**: 0x00 and 0xFF comparisons
+- **Input changes during computation**: For sequential implementation
+
+**Corner Cases:**
+- **Power-on reset state**: Output behavior before first valid computation
+- **Simultaneous minimum**: When all inputs change to new values simultaneously
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+- **Timing violations**: Without clock specification, potential for race conditions
+- **Tie-breaking logic**: May lead to non-deterministic behavior if not specified
+- **Synthesis mismatches**: Different synthesis tools may interpret timing differently
+
+**Verification Challenges:**
+- **Exhaustive testing impractical**: 2³² input combinations (4.3 billion)
+- **Corner case coverage**: Need focused test strategy for boundary conditions
+
+## 6. Actionable Guidance for RTL Generation
+
+**Immediate Clarifications Required:**
+```
+1. Is this combinational or sequential logic?
+2. If sequential: clock frequency, reset type (sync/async), reset value
+3. Tie-breaking preference: first occurrence, arbitrary, or specific priority
+```
+
+**Recommended Implementation Strategy:**
+
+**Option A: Combinational (if timing allows)**
+```systemverilog
+// Pure combinational logic
+assign min = (a <= b && a <= c && a <= d) ? a :
+             (b <= c && b <= d) ? b :
+             (c <= d) ? c : d;
+```
+
+**Option B: Pipelined Sequential (recommended)**
+```systemverilog
+// Single-cycle pipelined with register
+logic [7:0] min_comb, min_reg;
+
+always_comb begin
+    // Hierarchical minimization
+    logic [7:0] min_ab, min_cd;
+    min_ab = (a <= b) ? a : b;
+    min_cd = (c <= d) ? c : d;
+    min_comb = (min_ab <= min_cd) ? min_ab : min_cd;
+end
+
+always_ff @(posedge clk or posedge reset) begin
+    if (reset) min_reg <= 8'h00;
+    else min_reg <= min_comb;
+end
+
+assign min = min_reg;
+```
+
+**Verification Plan:**
+1. **Unit Tests**: Boundary values, all-equal cases, random patterns
+2. **Formal Verification**: Prove min <= a,b,c,d and min equals one input
+3. **Timing Analysis**: Setup/hold checks for sequential implementation
+
+**Synthesis Constraints:**
+```tcl
+# Example SDC constraints
+create_clock -name clk -period 10 [get_ports clk]
+set_input_delay 2 -clock clk [all_inputs]
+set_output_delay 2 -clock clk [all_outputs]
+```
+
+**Request for Specification Update Before Implementation Proceeds**
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

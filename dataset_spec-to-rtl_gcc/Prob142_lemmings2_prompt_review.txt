@@ -1,0 +1,157 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  areset
+ - input  bump_left
+ - input  bump_right
+ - input  ground
+ - output walk_left
+ - output walk_right
+ - output aaah
+
+The game Lemmings involves critters with fairly simple brains. So simple
+that we are going to model it using a finite state machine. In the
+Lemmings' 2D world, Lemmings can be in one of two states: walking left
+(walk_left is 1) or walking right (walk_right is 1). It will switch
+directions if it hits an obstacle. In particular, if a Lemming is bumped
+on the left (by receiving a 1 on bump_left), it will walk right. If it's
+bumped on the right (by receiving a 1 on bump_right), it will walk left.
+If it's bumped on both sides at the same time, it will still switch
+directions.
+
+In addition to walking left and right and changing direction when bumped,
+when ground=0, the Lemming will fall and say "aaah!". When the ground
+reappears (ground=1), the Lemming will resume walking in the same
+direction as before the fall. Being bumped while falling does not affect
+the walking direction, and being bumped in the same cycle as ground
+disappears (but not yet falling), or when the ground reappears while
+still falling, also does not affect the walking direction.
+
+Implement a Moore state machine that models this behaviour. areset is
+positive edge triggered asynchronous reseting the Lemming machine to walk
+left. Assume all sequential logic is triggered on the positive edge of
+the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+# Lemmings FSM Specification Analysis
+
+## 1. Specification Summary
+
+The specification describes a Moore finite state machine for Lemming behavior with the following key characteristics:
+- **States**: Walking left, walking right, falling
+- **Inputs**: Clock, asynchronous reset, bump detection (left/right), ground presence
+- **Outputs**: Walk direction (left/right), falling indicator ("aaah")
+- **Reset Behavior**: Positive edge triggered asynchronous reset to "walk left" state
+- **Core Logic**: Direction changes on bumps, falling when ground disappears, resuming previous direction when ground reappears
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+
+1. **Falling State Entry Timing**: Unclear whether falling occurs immediately when ground=0 (combinational) or on the next clock edge (sequential). The phrase "when ground=0, the Lemming will fall" suggests immediate response, but as a Moore machine, state changes should be synchronous.
+
+2. **Bump Input Interpretation**: The spec states "being bumped while falling does not affect the walking direction" but doesn't specify if bump inputs should be ignored entirely during falling or only affect direction changes.
+
+3. **Simultaneous Events Priority**: No clear priority when multiple events occur simultaneously (e.g., ground=0 and bump_left=1 on same cycle).
+
+**Resolution Recommendations:**
+- Falling state transitions should occur synchronously on clock edges
+- Bump inputs should be ignored during falling state
+- Establish clear priority: ground transitions take precedence over bump events
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+
+1. **Output Behavior During Reset**: Unspecified values for walk_left, walk_right, aaah during reset
+2. **Falling State Persistence**: No specification for how long the falling state lasts
+3. **Input Synchronization**: No mention of metastability handling for asynchronous inputs (bump_left, bump_right, ground)
+4. **Output Timing**: Unclear if outputs are purely combinatorial or registered
+5. **State Encoding**: No guidance on state encoding method (binary, one-hot)
+
+## 4. Edge Cases & Boundary Conditions
+
+**Identified Edge Cases:**
+
+1. **Simultaneous Bump Events**: "bumped on both sides at the same time" - confirmed to switch directions
+2. **Ground Transition During Bump**: Ground disappears/appears in same cycle as bump
+3. **Reset During Falling**: Behavior when reset occurs while Lemming is falling
+4. **Rapid Ground Transitions**: Ground toggles multiple times between clock edges
+5. **Multiple Consecutive Bumps**: Bump signals asserted for multiple cycles
+
+**Required Handling:**
+- Ground transitions should override bump events in the same cycle
+- Reset should immediately force walk_left state regardless of current state
+- Only the most recent stable ground value before clock edge should matter
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Risks:**
+
+1. **Race Conditions**: Without proper input synchronization, metastability could cause erratic behavior
+2. **Glitch Generation**: Combinatorial outputs during state transitions could create glitches
+3. **State Machine Lockup**: Improper handling of simultaneous inputs could cause deadlock
+4. **Timing Violations**: Long combinatorial paths from inputs to state transitions
+
+**Verification Requirements:**
+- Test all state transitions with various input sequences
+- Verify reset functionality from all states
+- Check output stability during input changes
+- Validate Moore machine property (outputs depend only on current state)
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Strategy:**
+
+```systemverilog
+// Recommended State Encoding
+typedef enum logic [1:0] {
+    WALK_LEFT  = 2'b00,
+    WALK_RIGHT = 2'b01, 
+    FALL_LEFT  = 2'b10,  // Falling, will resume left
+    FALL_RIGHT = 2'b11   // Falling, will resume right
+} state_t;
+```
+
+**Key Implementation Rules:**
+
+1. **State Transition Logic:**
+   - Reset: Always → WALK_LEFT
+   - Falling: (ground=0) && (current state is walking) → FALL_LEFT/FALL_RIGHT
+   - Landing: (ground=1) && (current state is falling) → Resume walking direction
+   - Bump: Only in walking states, ignore during falling
+
+2. **Input Handling:**
+   - Synchronize asynchronous inputs (bump_left, bump_right, ground) with 2-flop synchronizers
+   - Use clock-edge sampling for all state transitions
+
+3. **Output Generation:**
+   - walk_left = (current_state == WALK_LEFT) || (current_state == FALL_LEFT)
+   - walk_right = (current_state == WALK_RIGHT) || (current_state == FALL_RIGHT)  
+   - aaah = (current_state == FALL_LEFT) || (current_state == FALL_RIGHT)
+
+4. **Timing Constraints:**
+   - Register all outputs for clean timing
+   - Ensure setup/hold times are met for input synchronization
+
+**Verification Test Plan:**
+- Reset sequence from all states
+- Normal walking with bump responses
+- Falling/landing sequences
+- Combined bump and ground transitions
+- Corner cases with simultaneous inputs
+
+This analysis provides a foundation for a robust, synthesizable implementation that meets the specified behavior while addressing practical hardware constraints.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "valid_out waveform (pulse vs. held level)",
+   "severity": "high",
+   "readings": [
+    "valid_out is a registered one-cycle pulse, high only during the single cycle in which the assembled 16-bit word is presented",
+    "valid_out is a level that stays high from the cycle after the second valid input until the next pair is completed (or is simply the registered internal 'flag' signal, so it is high on every other cycle)"
+   ]
+  },
+  {
+   "aspect": "persistence of a lone pending byte across idle cycles",
+   "severity": "high",
+   "readings": [
+    "The first byte is buffered indefinitely; any later valid_in (even after many cycles of valid_in=0) completes the pair, so the two valid inputs need not be consecutive",
+    "The pending byte is only valid for the immediately following cycle; a valid_in=0 cycle in between discards/deselects it, so two valid inputs must be back-to-back to produce an output"
+   ]
+  },
+  {
+   "aspect": "reset behaviour of valid_out, the pending-byte register and the flag",
+   "severity": "medium",
+   "readings": [
+    "Only data_out is cleared to 0 on reset; valid_out, data_lock and the flag are left unspecified/undriven until the first pair, so valid_out may be X or a stale value after reset",
+    "All outputs and state (valid_out, data_lock, flag) are cleared to 0 asynchronously on !rst_n, giving valid_out=0 and data_out=0 during reset"
+   ]
+  },
+  {
+   "aspect": "which register holds the first byte / concatenation operand order",
+   "severity": "medium",
+   "readings": [
+    "data_lock always holds the earlier byte, so data_out = {data_lock, data_in} matches 'first data in the high 8 bits' and data_lock only updates when a new first byte is captured",
+    "data_lock is loaded with the newest valid_in on every cycle, so on the second valid cycle {data_lock, data_in} duplicates the second byte; the intended order must be {data_in, data_lock} or the operand roles are reversed"
+   ]
+  }
+ ]
+}

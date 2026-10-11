@@ -1,0 +1,111 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  sel   (3 bits)
+ - input  data0 (4 bits)
+ - input  data1 (4 bits)
+ - input  data2 (4 bits)
+ - input  data3 (4 bits)
+ - input  data4 (4 bits)
+ - input  data5 (4 bits)
+ - output out   (4 bits)
+);
+
+The module should implement a 6-to-1 multiplexer. When sel is between 0
+and 5, choose the corresponding data input. Otherwise, output 0. The data
+inputs and outputs are all 4 bits wide.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+- **Module Name**: TopModule
+- **Function**: 6-to-1 multiplexer with 4-bit data paths
+- **Inputs**: 
+  - `sel` (3-bit): Select signal (0-5 for valid selection, 6-7 for default)
+  - `data0` to `data5` (4-bit each): Data inputs
+- **Output**: 
+  - `out` (4-bit): Selected data or zero
+- **Behavior**: 
+  - When sel = 0-5: out = corresponding data input
+  - When sel = 6-7: out = 4'b0000
+
+## 2. Ambiguity Analysis
+- **Selection Encoding**: Specification clearly states sel=0-5 for valid selection, but doesn't specify if this is binary encoding (000-101) or other encoding. Since sel is 3-bit, binary encoding is implied.
+- **Timing**: No timing constraints specified (combinational vs registered output). Since no clock/reset mentioned, combinational logic is implied.
+- **Signal Behavior**: No specification of X-propagation or power-up states.
+
+## 3. Missing Critical Details
+- **Reset Behavior**: No reset mechanism specified. For combinational logic, this may be acceptable, but for synchronous implementation, reset strategy is needed.
+- **Timing Constraints**: No setup/hold times or output delay requirements.
+- **Glitch Handling**: No specification on glitch prevention during sel transitions.
+- **Power Management**: No sleep or enable controls.
+- **Testability**: No scan chain or test mode requirements.
+
+## 4. Edge Cases & Boundary Conditions
+- **sel = 3'b110 (6)**: Specified → output 4'b0000
+- **sel = 3'b111 (7)**: Specified → output 4'b0000  
+- **X/Z states**: Undefined behavior for X/Z values on sel or data inputs
+- **Simultaneous Changes**: Behavior when sel and selected data change simultaneously
+- **Unused Combinations**: All 8 sel values explicitly covered (6 valid + 2 default)
+
+## 5. Functional Correctness Prediction
+- **High Correctness Potential**: Simple mux functionality with clear selection mapping
+- **Risk Areas**: 
+  - Glitches during sel transitions could cause temporary incorrect outputs
+  - No protection against meta-stability if sel is asynchronous
+  - Potential optimization issues if synthesized with don't-care conditions
+
+## 6. Actionable Guidance for RTL Generation
+
+### Implementation Strategy:
+```systemverilog
+module TopModule (
+    input  logic [2:0] sel,
+    input  logic [3:0] data0, data1, data2, data3, data4, data5,
+    output logic [3:0] out
+);
+    
+    always_comb begin
+        case (sel)
+            3'b000: out = data0;
+            3'b001: out = data1;
+            3'b010: out = data2;
+            3'b011: out = data3;
+            3'b100: out = data4;
+            3'b101: out = data5;
+            default: out = 4'b0000; // sel=6,7 and any X/Z
+        endcase
+    end
+    
+endmodule
+```
+
+### Critical Design Constraints:
+- **Use `always_comb`** for combinational behavior
+- **Explicit default case** to handle all unspecified sel values
+- **Avoid latches** by ensuring all code paths assign to `out`
+- **Add `unique case` or `priority case`** if specific synthesis behavior needed
+
+### Verification Requirements:
+- Create testbench covering all 8 sel values
+- Test boundary transitions (sel=5→6, sel=7→0)
+- Verify with X/Z inputs to observe simulation behavior
+- Check for glitches using timing simulations
+
+### Synthesis Guidance:
+- Use `case` statement rather than nested `if-else` for balanced timing
+- Consider adding `// synopsys full_case parallel_case` directives if needed
+- Ensure synthesis tool interprets default case correctly for optimization
+
+This implementation provides a clear, synthesizable solution that meets the specification requirements while handling all edge cases appropriately.
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

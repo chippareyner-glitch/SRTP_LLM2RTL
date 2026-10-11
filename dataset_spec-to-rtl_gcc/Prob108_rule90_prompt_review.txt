@@ -1,0 +1,154 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk,
+ - input  load,
+ - input  data (512 bits)
+ - output q    (512 bits)
+
+The module should implement Rule 90, a one-dimensional cellular automaton
+with interesting properties. The rules are simple. There is a
+one-dimensional array of cells (on or off). At each time step, the next
+state of each cell is the XOR of the cell's two current neighbours:
+
+  Left | Center | Right | Center's next state
+  1    | 1      | 1     | 0
+  1    | 1      | 0     | 1
+  1    | 0      | 1     | 0
+  1    | 0      | 0     | 1
+  0    | 1      | 1     | 1
+  0    | 1      | 0     | 0
+  0    | 0      | 1     | 1
+  0    | 0      | 0     | 0
+
+In this circuit, create a 512-cell system (q[511:0]), and advance by one
+time step each clock cycle. The load input indicates the state of the
+system should be loaded with data[511:0]. Assume the boundaries (q[-1]
+and q[512]) are both zero (off). Assume all sequential logic is triggered
+on the positive edge of the clock.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The module implements a 512-cell Rule 90 cellular automaton with the following key characteristics:
+- **Interface**: 512-bit data input/output, single-bit clock/load control
+- **Operation**: Advances automaton state by one time step each clock cycle
+- **Rule 90**: Next state = Left neighbor XOR Right neighbor
+- **Boundary conditions**: Virtual cells at q[-1] and q[512] are permanently 0
+- **Load functionality**: When load=1, loads data[511:0] into the state register
+- **Timing**: Positive-edge triggered sequential logic
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguity - Load Behavior Timing:**
+- Unclear whether load has priority over normal operation or vice versa
+- Ambiguous what happens when load=1 during a clock edge:
+  - Does the loaded data get processed by Rule 90 in the same cycle?
+  - Or does the loaded data become the starting point for the next cycle's computation?
+
+**Minor Clarifications Needed:**
+- Reset behavior not specified (power-on state undefined)
+- Timing constraints for load signal relative to clock not defined
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+1. **Reset Mechanism**: No synchronous/asynchronous reset specified
+2. **Load Timing**: Setup/hold times for load signal relative to clock
+3. **Initial Power-on State**: Undefined behavior at startup
+4. **Load Priority**: Relationship between load and normal operation undefined
+5. **Output Timing**: Propagation delay characteristics not specified
+
+## 4. Edge Cases & Boundary Conditions
+
+**Boundary Cell Implementation:**
+- q[0] next state = (0 XOR q[1]) = q[1]
+- q[511] next state = (q[510] XOR 0) = q[510]
+- This creates asymmetric boundary behavior that must be handled correctly
+
+**Load Operation Edge Cases:**
+- Load asserted for multiple consecutive cycles
+- Load asserted simultaneously with normal operation
+- Load timing violations (metastability concerns)
+
+**State Preservation:**
+- Behavior when load=0 for extended periods (normal operation continues)
+- What constitutes a valid state transition
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Issues:**
+1. **Boundary Handling**: Incorrect implementation of virtual 0-cells could cause pattern corruption
+2. **Load Priority**: If load doesn't override normal operation, unexpected behavior may occur
+3. **Concurrent Operation**: Simultaneous load and computation may cause race conditions
+4. **Bit Order**: MSB/LSB interpretation for neighbor relationships must be consistent
+
+**Verification Challenges:**
+- Rule 90 creates complex patterns that are hard to predict visually
+- Boundary effects may cause unexpected propagation behavior
+- Long sequences require extensive simulation to verify correctness
+
+## 6. Actionable Guidance for RTL Generation
+
+**Architecture Recommendations:**
+```systemverilog
+// Recommended module interface with clarifications
+module TopModule (
+    input  clk,
+    input  load,           // Synchronous load, overrides normal operation
+    input  [511:0] data,   // Load data (MSB:511, LSB:0)
+    output reg [511:0] q   // Current state (q[511] leftmost, q[0] rightmost)
+);
+
+// Add synchronous reset for deterministic startup
+// input rst_n, // Optional: active-low reset
+```
+
+**Implementation Strategy:**
+1. **Load Priority**: Load should override normal operation when asserted
+2. **Boundary Cells**: Implement as special cases using concatenation with zeros:
+   ```systemverilog
+   wire [511:0] next_state;
+   assign next_state[511:1] = q[510:0] ^ q[512:2];  // Internal cells
+   assign next_state[0] = q[1];                     // Left boundary
+   assign next_state[511] = q[510];                 // Right boundary
+   ```
+3. **Sequential Logic**:
+   ```systemverilog
+   always @(posedge clk) begin
+       if (load) 
+           q <= data;
+       else 
+           q <= next_state;
+   end
+   ```
+
+**Verification Requirements:**
+- Test known Rule 90 patterns (Sierpinski triangle generation)
+- Verify boundary cell behavior with all-zero and all-one inputs
+- Test load functionality during active computation
+- Validate timing with load signal assertions at various clock edges
+
+**Synthesis Considerations:**
+- The XOR-based logic is highly parallelizable and synthesis-friendly
+- 512-bit register is large but manageable in modern FPGAs/ASICs
+- Consider adding pipeline registers if timing becomes critical
+- Boundary logic should not create critical paths
+
+**Additional Recommendations:**
+- Add parameter for cell count to make design more reusable
+- Consider adding an enable signal for finer control
+- Implement optional reset functionality for testability
+- Document the cell indexing convention clearly in comments
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

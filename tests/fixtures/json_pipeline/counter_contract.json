@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "case_id": "Prob035_count1to10",
+  "module": {
+    "name": "TopModule",
+    "ports": [
+      {"name": "clk", "direction": "input", "width": 1, "source_refs": ["SRC005"]},
+      {"name": "reset", "direction": "input", "width": 1, "source_refs": ["SRC006"]},
+      {"name": "q", "direction": "output", "width": 4, "source_refs": ["SRC007"]}
+    ]
+  },
+  "clocks": [
+    {"signal": "clk", "initial": 0, "half_period": 5, "source_refs": ["SRC010", "SRC011"]}
+  ],
+  "initial": {"reset": "1'b1"},
+  "models": [
+    {"name": "expected", "width": 4, "signed": false, "initial": "4'd1"}
+  ],
+  "requirements": [
+    {
+      "id": "R1",
+      "text": "Count from 1 through 10 inclusive and wrap from 10 to 1.",
+      "source_refs": ["SRC008", "SRC009"]
+    },
+    {
+      "id": "R2",
+      "text": "State changes only on the positive edge of clk.",
+      "source_refs": ["SRC010", "SRC011"]
+    },
+    {
+      "id": "R3",
+      "text": "Active-high synchronous reset sets the counter to 1.",
+      "source_refs": ["SRC012", "SRC013"]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "reset_and_first_increment",
+      "verifies": ["R1", "R3"],
+      "source_refs": ["SRC008", "SRC009", "SRC012", "SRC013"],
+      "steps": [
+        {"op": "wait_edge", "signal": "clk", "edge": "posedge"},
+        {"op": "delay", "ticks": 1},
+        {"op": "expect", "values": {"q": "4'd1"}, "label": "synchronous reset value"},
+        {"op": "drive", "values": {"reset": "1'b0"}},
+        {"op": "wait_edge", "signal": "clk", "edge": "posedge"},
+        {"op": "delay", "ticks": 1},
+        {"op": "set_model", "values": {"expected": "4'd2"}},
+        {"op": "expect", "values": {"q": "expected"}, "label": "first increment"}
+      ]
+    },
+    {
+      "id": "synchronous_reset_timing",
+      "verifies": ["R2", "R3"],
+      "source_refs": ["SRC010", "SRC011", "SRC012", "SRC013"],
+      "steps": [
+        {"op": "wait_edge", "signal": "clk", "edge": "negedge"},
+        {"op": "drive", "values": {"reset": "1'b1"}},
+        {"op": "delay", "ticks": 1},
+        {"op": "expect", "values": {"q": "expected"}, "label": "reset must not act between active edges"},
+        {"op": "wait_edge", "signal": "clk", "edge": "posedge"},
+        {"op": "delay", "ticks": 1},
+        {"op": "set_model", "values": {"expected": "4'd1"}},
+        {"op": "expect", "values": {"q": "expected"}, "label": "reset acts at positive edge"}
+      ]
+    },
+    {
+      "id": "sequence_wrap_and_stability",
+      "verifies": ["R1", "R2"],
+      "source_refs": ["SRC008", "SRC009", "SRC010", "SRC011"],
+      "steps": [
+        {"op": "drive", "values": {"reset": "1'b0"}},
+        {
+          "op": "repeat",
+          "count": 10,
+          "steps": [
+            {"op": "wait_edge", "signal": "clk", "edge": "posedge"},
+            {"op": "delay", "ticks": 1},
+            {"op": "update_model", "values": {"expected": "(expected == 4'd10) ? 4'd1 : expected + 4'd1"}},
+            {"op": "expect", "values": {"q": "expected"}, "label": "next-state sequence"},
+            {"op": "delay", "ticks": 2},
+            {"op": "expect", "values": {"q": "expected"}, "label": "stable between active edges"}
+          ]
+        }
+      ]
+    }
+  ],
+  "timeout_ticks": 250
+}

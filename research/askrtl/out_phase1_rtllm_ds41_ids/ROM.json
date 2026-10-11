@@ -1,0 +1,69 @@
+{
+ "case": "ROM",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "addr",
+    8
+   ]
+  ],
+  "outputs": [
+   [
+    "dout",
+    16
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c2",
+   "c4"
+  ],
+  [
+   "c1",
+   "c3"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 6,
+ "extra_x": 6,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": true,
+   "orig_cycle": 4,
+   "suite": "exhaustive",
+   "stim": [
+    [
+     4
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 5,
+   "min_len": 1,
+   "toggles": 0
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

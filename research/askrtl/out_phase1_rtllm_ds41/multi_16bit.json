@@ -1,0 +1,112 @@
+{
+ "case": "multi_16bit",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "rst_n",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "rst_n",
+    1
+   ],
+   [
+    "start",
+    1
+   ],
+   [
+    "ain",
+    16
+   ],
+   [
+    "bin",
+    16
+   ]
+  ],
+  "outputs": [
+   [
+    "yout",
+    32
+   ],
+   [
+    "done",
+    1
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c1",
+   "c2",
+   "c3",
+   "c4"
+  ],
+  [
+   "c0"
+  ]
+ ],
+ "ci_pairs": 0,
+ "ci_found": 0,
+ "ci_missed": [],
+ "off_pairs": 0,
+ "off_found": 0,
+ "extra_splits": 4,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "correct": [
+    true,
+    true
+   ],
+   "x_involved": false,
+   "orig_cycle": 6,
+   "suite": "uniform0",
+   "stim": [
+    [
+     0,
+     1,
+     25247,
+     49673
+    ],
+    [
+     1,
+     1,
+     25247,
+     49673
+    ],
+    [
+     1,
+     1,
+     25247,
+     49673
+    ],
+    [
+     1,
+     0,
+     25247,
+     49673
+    ],
+    [
+     1,
+     1,
+     25247,
+     49673
+    ]
+   ],
+   "ok": true,
+   "calls": 22,
+   "orig_len": 7,
+   "min_len": 5,
+   "toggles": 3
+  }
+ ],
+ "status": "ok",
+ "n_live": 5
+}

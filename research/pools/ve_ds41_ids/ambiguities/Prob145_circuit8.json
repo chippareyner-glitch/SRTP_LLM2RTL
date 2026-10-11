@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial/reset state of p and q",
+   "severity": "high",
+   "readings": [
+    "p and q are uninitialized (x) at time 0 and remain x until the first clock edge (p at 25ns, q at 55ns), as shown in the waveform.",
+    "p and q must be initialized to a defined value (e.g., 0) at power-up, so they are 0 from time 0."
+   ]
+  },
+  {
+   "aspect": "Behavior when a is unknown (x)",
+   "severity": "medium",
+   "readings": [
+    "If a is x while clock is high, p follows a and becomes x; q captures x at the next falling edge.",
+    "If a is x, the module treats it as 0, so p and q remain 0."
+   ]
+  },
+  {
+   "aspect": "Clock edge timing vs. a changes (setup/hold)",
+   "severity": "medium",
+   "readings": [
+    "If a changes at the same time as a clock edge (e.g., falling edge at 115ns), the order is undefined; q may capture the old p (1) or the new p (0), giving different q at 115ns.",
+    "The waveform implies clock edge occurs before a changes, so q captures old p. This order is not explicitly stated for all edges."
+   ]
+  },
+  {
+   "aspect": "Output latency of p and q",
+   "severity": "low",
+   "readings": [
+    "p changes combinationally with a when clock=1 (zero delay), and q changes on the falling edge (zero delay), as shown by same-5ns-sample updates.",
+    "p and q have a propagation delay of one delta cycle, so at the exact sample time they might still show the previous value."
+   ]
+  }
+ ]
+}

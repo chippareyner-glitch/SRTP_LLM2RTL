@@ -1,0 +1,11 @@
+{
+ "case": "fixed_point_adder",
+ "category": "Arithmetic",
+ "top": "fixed_point_adder",
+ "testbenches": [
+  "testbench.v"
+ ],
+ "modules": [
+  "fixed_point_adder"
+ ]
+}

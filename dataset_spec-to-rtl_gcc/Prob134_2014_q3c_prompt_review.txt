@@ -1,0 +1,152 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  x
+ - input  y (3 bits)
+ - output Y0
+ - output z
+
+The module should implement the output logic and next state logic for an
+FSM using the table shown below. Note that the output Y0 is Y[0] of the
+next state signal.
+
+   Present state input y[2:0] | Next state Y[2:0] when x=0, Next state Y[2:0] when x=1 | Output z
+   000 | 000, 001 | 0
+   001 | 001, 100 | 0
+   010 | 010, 001 | 0
+   011 | 001, 010 | 1
+   100 | 011, 100 | 1
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+
+The specification describes a finite state machine (FSM) with:
+- **5 states** encoded in 3-bit binary (000, 001, 010, 011, 100)
+- **1-bit input** `x` controlling state transitions
+- **Current state** input via `y[2:0]` (unusual but specified)
+- **Next state** output `Y[2:0]` with `Y0` provided as separate output
+- **Moore-type output** `z` dependent only on current state
+- **Synchronous operation** with clock input `clk`
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities:**
+- **State storage mechanism**: The specification states `y[2:0]` is an input, suggesting external state storage, but this contradicts typical FSM design where the module contains its own state register.
+
+- **Y0 output definition**: "Y0 is Y[0] of the next state signal" is clear, but having both `Y[2:0]` and separate `Y0` is redundant unless `Y0` serves a special purpose.
+
+- **Reset behavior**: No reset mechanism specified (synchronous/asynchronous, active level, initial state).
+
+**Minor Clarifications Needed:**
+- Transition table completeness: Are the 3 unused state codes (101, 110, 111) valid? What should happen if they occur?
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+- **Reset strategy**: No reset signal or initial state specification
+- **Unused state handling**: Recovery mechanism for invalid states (101, 110, 111)
+- **Output timing**: When does `z` update relative to clock edges?
+- **State register location**: Should the module contain the state register or rely on external storage?
+
+**Synthesis Considerations:**
+- No timing constraints (setup/hold times)
+- No power-up behavior specification
+- No output loading characteristics
+
+## 4. Edge Cases & Boundary Conditions
+
+**Identified Edge Cases:**
+1. **Unused state codes**: 101, 110, 111 - Need recovery policy
+2. **Power-on state**: Unknown initial state behavior
+3. **Metastability**: No protection for asynchronous inputs if `y` is externally supplied
+4. **Glitch conditions**: Simultaneous `x` and `y` changes near clock edges
+
+**Boundary Conditions:**
+- State transitions at maximum clock frequency
+- Minimum pulse width requirements for `x`
+- Output stability during state transitions
+
+## 5. Functional Correctness Prediction
+
+**High-Risk Areas:**
+- **State encoding conflicts**: The transition 001→100 when x=1 creates a 2-bit change, potentially causing glitches if not properly synchronized
+- **Output glitches**: `z` changes between states 011↔100 and 100↔011 transitions
+- **Unreachable states**: Analysis shows states 010 and 011 may be difficult to reach from reset
+
+**Correctness Concerns:**
+- External state storage (`y` input) creates timing dependency on external logic
+- No specified recovery from invalid states could lead to lockup
+- Output `Y0` redundancy may indicate misunderstanding of interface requirements
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+
+```verilog
+module TopModule (
+    input  clk,
+    input  x,
+    input  [2:0] y,    // Current state input
+    output Y0,         // Y[0] of next state
+    output z           // Moore output
+);
+
+// Add these critical missing elements:
+// 1. Reset strategy (choose one):
+//    input rst_n,      // Asynchronous active-low reset
+//    input rst,        // Synchronous active-high reset
+
+// 2. State register (if module should contain it):
+// reg [2:0] state;
+// assign y = state;   // If external y not actually needed
+
+// Next state logic
+reg [2:0] next_state;
+always @(*) begin
+    case(y)
+        3'b000: next_state = x ? 3'b001 : 3'b000;
+        3'b001: next_state = x ? 3'b100 : 3'b001;
+        3'b010: next_state = x ? 3'b001 : 3'b010;
+        3'b011: next_state = x ? 3'b010 : 3'b001;
+        3'b100: next_state = x ? 3'b100 : 3'b011;
+        default: next_state = 3'b000; // Safe state recovery
+    endcase
+end
+
+// Output logic
+assign z = (y == 3'b011) || (y == 3'b100);
+assign Y0 = next_state[0];
+
+// If state register is internal:
+// always @(posedge clk or negedge rst_n) begin
+//     if (!rst_n) state <= 3'b000;
+//     else state <= next_state;
+// end
+
+endmodule
+```
+
+**Verification Requirements:**
+- Test all state transitions with both x=0 and x=1
+- Verify recovery from invalid states (101, 110, 111)
+- Check output timing relative to clock edges
+- Validate glitch-free operation during state transitions
+
+**Critical Questions for Specification Clarification:**
+1. Should the module contain the state register or use external `y` input?
+2. What reset strategy and initial state are required?
+3. How should unused state codes be handled?
+4. Are there any timing constraints for input signals?
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

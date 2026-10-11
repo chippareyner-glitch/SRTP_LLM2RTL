@@ -1,0 +1,141 @@
+[ORIGINAL SPECIFICATION]
+
+I would like you to implement a module named TopModule with the following
+interface. All input and output ports are one bit unless otherwise
+specified.
+
+ - input  clk
+ - input  resetn
+ - input  in
+ - output out
+
+The module should implement a shift register with four D flops. Assume
+all sequential logic is triggered on the positive edge of the clock.
+Reset is active-low synchronous resettable.
+
+
+
+[EXPERT REVIEW AND OPTIMIZATION GUIDANCE]
+## 1. Specification Summary
+- **Module**: TopModule
+- **Interface**: 
+  - `clk` (1-bit input) - positive edge triggered clock
+  - `resetn` (1-bit input) - active-low synchronous reset
+  - `in` (1-bit input) - serial data input
+  - `out` (1-bit output) - serial data output
+- **Function**: 4-stage shift register using D flip-flops
+- **Reset**: Synchronous, active-low (resetn = 0)
+- **Clock**: Positive edge triggered
+
+## 2. Ambiguity Analysis
+
+**Critical Ambiguities Identified:**
+
+1. **Reset Value Specification**: The spec doesn't define what values the flip-flops should take when reset is asserted. Should they reset to all zeros, all ones, or some specific pattern?
+
+2. **Output Connection**: It's unclear which flip-flop stage drives the `out` port:
+   - Option A: Output from the last (4th) flip-flop (most common)
+   - Option B: Output from a specific stage or configurable tap
+
+3. **Initial Power-on State**: No specification for behavior before first clock edge or during initial power-up.
+
+## 3. Missing Critical Details
+
+**Essential Missing Specifications:**
+
+1. **Reset Values**: Need explicit definition of flip-flop values after reset
+2. **Output Tap Position**: Must specify which stage provides the output
+3. **Propagation Delay**: No timing constraints mentioned (setup/hold times)
+4. **Input/Output Timing**: No specification of when input is valid relative to clock
+5. **Testability Features**: No scan chain or test mode requirements
+6. **Clock Gating**: No mention of clock enable or power management
+
+## 4. Edge Cases & Boundary Conditions
+
+**Critical Scenarios to Handle:**
+
+1. **Reset Assertion During Normal Operation**: 
+   - Reset asserted while data is shifting
+   - Reset de-assertion timing relative to clock edges
+
+2. **Consecutive Reset Pulses**: 
+   - Multiple reset assertions in quick succession
+   - Reset assertion during reset recovery
+
+3. **Clock/Reset Timing Violations**:
+   - Reset removal too close to clock edge
+   - Input changes near setup/hold window
+
+4. **High-Frequency Operation**:
+   - Maximum clock frequency constraints
+   - Metastability concerns with asynchronous inputs
+
+## 5. Functional Correctness Prediction
+
+**Potential Implementation Risks:**
+
+1. **Reset Synchronization**: Without proper reset synchronization, metastability could occur
+2. **Timing Closure**: 4-stage path might have timing issues at high frequencies
+3. **Reset Recovery**: Improper handling could lead to inconsistent reset states
+4. **Simulation vs. Silicon Mismatch**: Different initial states between simulation and actual hardware
+
+**Expected Behavior:**
+- After reset: All flip-flops → defined reset state (typically 0)
+- Normal operation: Data shifts right: Q3 ← Q2 ← Q1 ← Q0 ← in
+- Output: Typically Q3 (last stage)
+
+## 6. Actionable Guidance for RTL Generation
+
+**Implementation Recommendations:**
+
+```systemverilog
+module TopModule (
+    input  logic clk,
+    input  logic resetn,  // Active-low synchronous reset
+    input  logic in,      // Serial input
+    output logic out      // Serial output (from last stage)
+);
+
+// Internal flip-flops
+logic [3:0] shift_reg;
+
+// Sequential logic
+always_ff @(posedge clk) begin
+    if (!resetn) begin
+        shift_reg <= 4'b0000;  // Reset to all zeros (clarify requirement)
+    end else begin
+        shift_reg <= {shift_reg[2:0], in};  // Shift right operation
+    end
+end
+
+// Output assignment
+assign out = shift_reg[3];  // Output from last stage
+
+endmodule
+```
+
+**Critical Design Decisions to Confirm:**
+
+1. **Reset Value**: Confirm 4'b0000 is correct (alternative: 4'b1111 or other)
+2. **Output Tap**: Confirm output from stage 3 (last stage) is intended
+3. **Timing Constraints**: Add appropriate SDC constraints for synthesis
+4. **Testability**: Consider adding scan chain for manufacturing test
+
+**Verification Requirements:**
+- Test reset functionality with various timing scenarios
+- Verify shift operation with known test patterns
+- Check timing with corner case analysis
+- Validate behavior with clock/reset timing violations
+
+**Additional Considerations:**
+- Add assertions for reset recovery time
+- Include clock domain crossing checks if inputs are asynchronous
+- Consider adding a clock enable signal for power management
+- Document maximum operating frequency based on target technology
+
+[GENERATION REQUIREMENTS]
+Based on the specification and review above, please generate a complete, synthesizable SystemVerilog module implementation that:
+1. Strictly follows the original specification
+2. Incorporates all expert review suggestions
+3. Handles all identified edge cases and boundary conditions
+4. Uses proper coding practices for synthesis and timing closure

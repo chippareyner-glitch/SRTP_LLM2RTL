@@ -1,0 +1,371 @@
+{
+ "case": "Prob148_2013_q2afsm",
+ "status": "ok",
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "resetn",
+  "reset_active_low": true,
+  "inputs": [
+   [
+    "resetn",
+    1
+   ],
+   [
+    "r",
+    3
+   ]
+  ],
+  "outputs": [
+   [
+    "g",
+    3
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c1",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "votes": 8,
+   "correct": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "rep": "c2",
+   "members": [
+    "c2"
+   ],
+   "votes": 1,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "A",
+    "cycles": 32,
+    "first_cycle": 1,
+    "stim": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "000",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "000",
+      "000",
+      "010",
+      "010",
+      "000",
+      "000",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "000",
+      "000",
+      "010",
+      "010",
+      "010",
+      "010",
+      "000",
+      "000",
+      "000",
+      "000",
+      "010",
+      "010",
+      "010",
+      "010",
+      "000",
+      "000",
+      "100"
+     ],
+     [
+      "000",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "000",
+      "000",
+      "010",
+      "010",
+      "000",
+      "000",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "001",
+      "000",
+      "000",
+      "001",
+      "001",
+      "000",
+      "000",
+      "010",
+      "010",
+      "010",
+      "010",
+      "000",
+      "000",
+      "000",
+      "000",
+      "010",
+      "010",
+      "010",
+      "010",
+      "000",
+      "000",
+      "000"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  resetn\n - input  r (3 bits)\n - output g (3 bits)\n\nThe module should implement the FSM described by the state diagram shown\nbelow:\n\n  A        --r0=0,r1=0,r2=0--> A\n  A        -------r0=1-------> B\n  A        -----r0=0,r1=1----> C\n  A        --r0=0,r1=0,r2=0--> D\n  B (g0=1) -------r0=1-------> B\n  B (g0=1) -------r0=0-------> A\n  C (g1=1) -------r1=1-------> C\n  C (g1=1) -------r1=0-------> A\n\nResetn is an active-low synchronous reset that resets into state A. This\nFSM acts as an arbiter circuit, which controls access to some type of\nresource by three requesting devices. Each device makes its request for\nthe resource by setting a signal _r[i]_ = 1, where _r[i]_ is either\n_r[0]_, _r[1]_, or _r[2]_. Each r[i] is an input signal to the FSM, and\nrepresents one of the three devices. The FSM stays in state _A_ as long\nas there are no requests. When one or more request occurs, then the FSM\ndecides which device receives a grant to use the resource and changes to\na state that sets that device's _g[i]_ signal to 1. Each _g[i]_ is an\noutput from the FSM. There is a priority system, in that device 0 has a\nhigher priority than device 1, and device 2 has the lowest priority.\nHence, for example, device 2 will only receive a grant if it is the only\ndevice making a request when the FSM is in state _A_. Once a device, _i_,\nis given a grant by the FSM, that device continues to receive the grant\nas long as its request, _r[i]_ = 1.\n\nImplement a module that represents this FSM. Use separate always blocks\nfor the state table and the state flip-flops, as done in lectures.\nDescribe the FSM outputs, _g[i]_, using either continuous assignment\nstatement(s) or an always block (at your discretion). Assign any state\ncodes that you wish to use. Assume all sequential logic is triggered on\nthe positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = outputs just BEFORE the rising edge of that cycle; `post` = outputs just AFTER it.\n\n| cycle | resetn | r | A pre | A post | B pre | B post |\n|---|---|---|---|---|---|---|\n| ... | *cycles 0-0 omitted (1 cycles; both traces were identical there)* |\n| 1 | 1'b0 | 3'b011 | g=3'b000 | g=3'b000 | g=3'b000 | g=3'b000 |\n| 2 | 1'b1 | 3'b011 | g=3'b000 | g=3'b001 | g=3'b000 | g=3'b001 |\n| 3 | 1'b1 | 3'b111 | g=3'b001 | g=3'b001 | g=3'b001 | g=3'b001 |\n| 4 | 1'b1 | 3'b011 | g=3'b001 | g=3'b001 | g=3'b001 | g=3'b001 |\n| 5 | 1'b1 | 3'b110 | g=3'b001 | g=3'b000 | g=3'b001 | g=3'b000 |\n| 6 | 1'b1 | 3'b011 | g=3'b000 | g=3'b001 | g=3'b000 | g=3'b001 |\n| 7 | 1'b1 | 3'b111 | g=3'b001 | g=3'b001 | g=3'b001 | g=3'b001 |\n| 8 | 1'b1 | 3'b100 | g=3'b001 | g=3'b000 | g=3'b001 | g=3'b000 |\n| 9 | 1'b1 | 3'b001 | g=3'b000 | g=3'b001 | g=3'b000 | g=3'b001 |\n| 10 | 1'b1 | 3'b100 | g=3'b001 | g=3'b000 | g=3'b001 | g=3'b000 |\n| 11 | 1'b1 | 3'b111 | g=3'b000 | g=3'b001 | g=3'b000 | g=3'b001 |\n| 12 | 1'b1 | 3'b111 | g=3'b001 | g=3'b001 | g=3'b001 | g=3'b001 |\n| 13 | 1'b1 | 3'b100 | g=3'b001 | g=3'b000 | g=3'b001 | g=3'b000 |\n| 14 | 1'b1 | 3'b010 | g=3'b000 | g=3'b010 | g=3'b000 | g=3'b010 |\n| 15 | 1'b1 | 3'b000 | g=3'b010 | g=3'b000 | g=3'b010 | g=3'b000 |\n| 16 | 1'b1 | 3'b101 | g=3'b000 | g=3'b001 | g=3'b000 | g=3'b001 |\n| 17 | 1'b1 | 3'b100 | g=3'b001 | g=3'b000 | g=3'b001 | g=3'b000 |\n| 18 | 1'b1 | 3'b011 | g=3'b000 | g=3'b001 | g=3'b000 | g=3'b001 |\n| 19 | 1'b1 | 3'b101 | g=3'b001 | g=3'b001 | g=3'b001 | g=3'b001 |\n| 20 | 1'b1 | 3'b111 | g=3'b001 | g=3'b001 | g=3'b001 | g=3'b001 |\n| 21 | 1'b1 | 3'b011 | g=3'b001 | g=3'b001 | g=3'b001 | g=3'b001 |\n| 22 | 1'b1 | 3'b010 | g=3'b001 | g=3'b000 | g=3'b001 | g=3'b000 |\n| 23 | 1'b1 | 3'b111 | g=3'b000 | g=3'b001 | g=3'b000 | g=3'b001 |\n| 24 | 1'b1 | 3'b000 | g=3'b001 | g=3'b000 | g=3'b001 | g=3'b000 |\n| 25 | 1'b1 | 3'b110 | g=3'b000 | g=3'b010 | g=3'b000 | g=3'b010 |\n| 26 | 1'b1 | 3'b110 | g=3'b010 | g=3'b010 | g=3'b010 | g=3'b010 |\n| 27 | 1'b1 | 3'b101 | g=3'b010 | g=3'b000 | g=3'b010 | g=3'b000 |\n| 28 | 1'b0 | 3'b011 | g=3'b000 | g=3'b000 | g=3'b000 | g=3'b000 |\n| 29 | 1'b1 | 3'b010 | g=3'b000 | g=3'b010 | g=3'b000 | g=3'b010 |\n| 30 | 1'b1 | 3'b010 | g=3'b010 | g=3'b010 | g=3'b010 | g=3'b010 |\n| 31 | 1'b1 | 3'b000 | g=3'b010 | g=3'b000 | g=3'b010 | g=3'b000 |\n| 32 | 1'b1 | 3'b100 | g=3'b000 | g=3'b100 | g=3'b000 | g=3'b000 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c2"
+   ],
+   "k": 3,
+   "len": 2,
+   "toggles": 2,
+   "stim": [
+    [
+     0,
+     6
+    ],
+    [
+     1,
+     4
+    ]
+   ],
+   "options": [
+    "100",
+    "000"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c2": "B"
+   },
+   "label": "A",
+   "ref_value": "100",
+   "x_involved": false,
+   "hist": [
+    "xxx",
+    "000",
+    "000"
+   ],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  clk\n - input  resetn\n - input  r (3 bits)\n - output g (3 bits)\n\nThe module should implement the FSM described by the state diagram shown\nbelow:\n\n  A        --r0=0,r1=0,r2=0--> A\n  A        -------r0=1-------> B\n  A        -----r0=0,r1=1----> C\n  A        --r0=0,r1=0,r2=0--> D\n  B (g0=1) -------r0=1-------> B\n  B (g0=1) -------r0=0-------> A\n  C (g1=1) -------r1=1-------> C\n  C (g1=1) -------r1=0-------> A\n\nResetn is an active-low synchronous reset that resets into state A. This\nFSM acts as an arbiter circuit, which controls access to some type of\nresource by three requesting devices. Each device makes its request for\nthe resource by setting a signal _r[i]_ = 1, where _r[i]_ is either\n_r[0]_, _r[1]_, or _r[2]_. Each r[i] is an input signal to the FSM, and\nrepresents one of the three devices. The FSM stays in state _A_ as long\nas there are no requests. When one or more request occurs, then the FSM\ndecides which device receives a grant to use the resource and changes to\na state that sets that device's _g[i]_ signal to 1. Each _g[i]_ is an\noutput from the FSM. There is a priority system, in that device 0 has a\nhigher priority than device 1, and device 2 has the lowest priority.\nHence, for example, device 2 will only receive a grant if it is the only\ndevice making a request when the FSM is in state _A_. Once a device, _i_,\nis given a grant by the FSM, that device continues to receive the grant\nas long as its request, _r[i]_ = 1.\n\nImplement a module that represents this FSM. Use separate always blocks\nfor the state table and the state flip-flops, as done in lectures.\nDescribe the FSM outputs, _g[i]_, using either continuous assignment\nstatement(s) or an always block (at your discretion). Assign any state\ncodes that you wish to use. Assume all sequential logic is triggered on\nthe positive edge of the clock.\n\n## Concrete scenario\n\nClock: `clk` (rising-edge). Each row is one clock cycle. Inputs are applied at the start of the cycle and held until the next cycle. `pre` = output values just BEFORE the rising edge of that cycle; `post` = output values just AFTER that rising edge.\n\n| cycle | resetn | r | pre | post |\n|---|---|---|---|---|\n| 0 | 1'b0 | 3'b110 | g=3'bxxx | g=3'b000 |\n| 1 | 1'b1 | 3'b100 | g=3'b000 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: g=3'b100\n- **B**: g=3'b000\n"
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "status": {
+  "ok": 155,
+  "ungradable": 1
+ },
+ "pair_recall_correct_vs_incorrect": "527/528 = 0.998",
+ "problems_fully_separated": "47/48",
+ "separated_by_category": {
+  "combinational": "9/9",
+  "sequential": "12/12",
+  "fsm": "20/21",
+  "blackbox": "6/6"
+ },
+ "missed_problems": {
+  "Prob139_2013_q2bfsm": [
+   [
+    "c1",
+    "c6"
+   ]
+  ]
+ },
+ "official_pair_recall": "787/880 = 0.894",
+ "extra_splits(total, x-involved)": [
+  70,
+  60
+ ],
+ "impure_clusters": 1,
+ "minimised_pairs": 246,
+ "long_horizon_pairs(windowed)": {
+  "['c0', 'c5']": 4255,
+  "['c4', 'c5']": 42483,
+  "['c0', 'c4']": 4255
+ },
+ "clock_high_only_pairs": 22,
+ "ci_trace_len(orig_median, min_median, min_max)": [
+  4,
+  2,
+  23
+ ],
+ "ci_trace_len_hist": {
+  "1": 59,
+  "2": 24,
+  "3": 9,
+  "4": 6,
+  "5": 11,
+  "6": 3,
+  "9": 1,
+  "10": 5,
+  "11": 1,
+  "20": 1,
+  "23": 1
+ },
+ "ci_toggles_median": 1,
+ "sim_calls_median": 4.0
+}

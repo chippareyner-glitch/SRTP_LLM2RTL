@@ -1,0 +1,22 @@
+{
+  "source": "script_gcc_test_modular_9.27.zip",
+  "adapted": [
+    "main/run.py dispatch pattern",
+    "main/prompts/candidate_*_system.txt external prompts"
+  ],
+  "local_changes": [
+    "candidate_repair.py",
+    "candidate_verification.py",
+    "candidate_runtime.py",
+    "run_three_candidate_select.py",
+    "reselect_existing_candidates.py"
+  ],
+  "excluded": [
+    "member API keys",
+    "member directory restrictions",
+    "historical experiment results",
+    "reference-based candidate selection"
+  ],
+  "paid_api_calls": 0,
+  "tests_passed": 35
+}

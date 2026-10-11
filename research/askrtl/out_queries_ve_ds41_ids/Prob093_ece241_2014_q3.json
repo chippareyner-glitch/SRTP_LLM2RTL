@@ -1,0 +1,103 @@
+{
+ "case": "Prob093_ece241_2014_q3",
+ "status": "ok",
+ "iface": {
+  "sequential": false,
+  "clock": null,
+  "reset": null,
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "c",
+    1
+   ],
+   [
+    "d",
+    1
+   ]
+  ],
+  "outputs": [
+   [
+    "mux_in",
+    4
+   ]
+  ]
+ },
+ "clusters": [
+  {
+   "rep": "c0",
+   "members": [
+    "c0",
+    "c2",
+    "c3"
+   ],
+   "votes": 5,
+   "correct": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "rep": "c1",
+   "members": [
+    "c1"
+   ],
+   "votes": 2,
+   "correct": [
+    false
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "long": {
+    "label": "B",
+    "cycles": 1,
+    "first_cycle": 0,
+    "stim": [
+     [
+      0,
+      0
+     ]
+    ],
+    "st0": 0,
+    "outs": [
+     [
+      "1000"
+     ],
+     [
+      "0100"
+     ]
+    ],
+    "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector.\n\n| row | c | d | A out | B out |\n|---|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | mux_in=4'b1000 | mux_in=4'b0100 |\n\nTwo candidate implementations produced output traces A and B for the same inputs. Options: **A** = trace A is the correct behaviour, **B** = trace B is.\n"
+   },
+   "pair": [
+    "c0",
+    "c1"
+   ],
+   "k": 0,
+   "len": 1,
+   "toggles": 0,
+   "stim": [
+    [
+     0,
+     0
+    ]
+   ],
+   "options": [
+    "1000",
+    "0100"
+   ],
+   "cluster_option": {
+    "c0": "A",
+    "c1": "B"
+   },
+   "label": "B",
+   "ref_value": "0100",
+   "x_involved": false,
+   "hist": [],
+   "text": "## Specification\n\nI would like you to implement a module named TopModule with the following\ninterface. All input and output ports are one bit unless otherwise\nspecified.\n\n - input  c\n - input  d\n - output mux_in (4 bits)\n\nFor the following Karnaugh map, give the circuit implementation using one\n4-to-1 multiplexer and as many 2-to-1 multiplexers as required, but using\nas few as possible. You are not allowed to use any other logic gate and\nyou must use _a_ and _b_ as the multiplexer selector inputs, as shown on\nthe 4-to-1 multiplexer below.\n\n      ab\n  cd  00  01  11  10\n  00 | 0 | 0 | 0 | 1 |\n  01 | 1 | 0 | 0 | 0 |\n  11 | 1 | 0 | 1 | 1 |\n  10 | 1 | 0 | 0 | 1 |\n\nConsider a block diagram with inputs 'c' and 'd' going into a module\ncalled \"TopModule\". This \"TopModule\" has four outputs, mux_in[3:0], that\nconnect to a four input mux. The mux takes as input {a,b} and ab = 00 is\nconnected to mux_in[0], ab=01 is connected to mux_in[1], and so in. You\nare implementing in Verilog just the portion labelled \"TopModule\", such\nthat the entire circuit (including the 4-to-1 mux) implements the K-map.\n\n## Concrete scenario\n\nCombinational test: each row is one independent input vector; `out` is the settled output value.\n\n| row | c | d | out |\n|---|---|---|---|\n| 0 | 1'b0 | 1'b0 | **?** |\n\nAt the cell marked **?** the candidate implementations disagree. Options:\n- **A**: mux_in=4'b1000\n- **B**: mux_in=4'b0100\n"
+  }
+ ]
+}

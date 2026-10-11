@@ -1,0 +1,12 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Initial value of q (no reset)",
+   "severity": "high",
+   "readings": [
+    "q is initialized to 0 (or some known value) at power-up, so if load is never asserted, q remains that value.",
+    "q has no defined initial value (e.g., uninitialized/X), so its value before the first load is unpredictable."
+   ]
+  }
+ ]
+}

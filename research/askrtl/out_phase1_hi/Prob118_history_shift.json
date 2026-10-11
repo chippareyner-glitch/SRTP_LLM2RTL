@@ -1,0 +1,186 @@
+{
+ "case": "Prob118_history_shift",
+ "excluded_iface": [],
+ "iface": {
+  "sequential": true,
+  "clock": "clk",
+  "reset": "areset",
+  "reset_active_low": false,
+  "inputs": [
+   [
+    "areset",
+    1
+   ],
+   [
+    "predict_valid",
+    1
+   ],
+   [
+    "predict_taken",
+    1
+   ],
+   [
+    "train_mispredicted",
+    1
+   ],
+   [
+    "train_taken",
+    1
+   ],
+   [
+    "train_history",
+    32
+   ]
+  ],
+  "outputs": [
+   [
+    "predict_history",
+    32
+   ]
+  ]
+ },
+ "sims_failed": 0,
+ "clusters": [
+  [
+   "c0",
+   "c1",
+   "c2",
+   "c3"
+  ],
+  [
+   "c4",
+   "c5"
+  ],
+  [
+   "c6"
+  ]
+ ],
+ "ci_pairs": 12,
+ "ci_found": 12,
+ "ci_missed": [],
+ "off_pairs": 14,
+ "off_found": 14,
+ "extra_splits": 0,
+ "extra_x": 0,
+ "impure_clusters": 0,
+ "minimised": [
+  {
+   "pair": [
+    "c0",
+    "c4"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 3,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0,
+     1,
+     1,
+     1806341205
+    ],
+    [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1806341205
+    ]
+   ],
+   "ok": true,
+   "calls": 8,
+   "orig_len": 4,
+   "min_len": 2,
+   "toggles": 2
+  },
+  {
+   "pair": [
+    "c0",
+    "c6"
+   ],
+   "correct": [
+    true,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 3,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0,
+     1,
+     1,
+     1806341205
+    ],
+    [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1806341205
+    ],
+    [
+     0,
+     1,
+     1,
+     0,
+     1,
+     1806341205
+    ]
+   ],
+   "ok": true,
+   "calls": 10,
+   "orig_len": 4,
+   "min_len": 3,
+   "toggles": 3
+  },
+  {
+   "pair": [
+    "c4",
+    "c6"
+   ],
+   "correct": [
+    false,
+    false
+   ],
+   "x_involved": false,
+   "orig_cycle": 4,
+   "suite": "uniform0",
+   "stim": [
+    [
+     1,
+     1,
+     0,
+     1,
+     1,
+     1806341205
+    ],
+    [
+     0,
+     1,
+     0,
+     1,
+     1,
+     1806341205
+    ]
+   ],
+   "ok": true,
+   "calls": 4,
+   "orig_len": 5,
+   "min_len": 2,
+   "toggles": 1
+  }
+ ],
+ "status": "ok",
+ "n_live": 7
+}

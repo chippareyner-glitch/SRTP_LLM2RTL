@@ -1,0 +1,36 @@
+{
+ "ambiguities": [
+  {
+   "aspect": "Reset active level",
+   "severity": "high",
+   "readings": [
+    "reset is active-high: count clears to 0 when reset=1",
+    "reset is active-low: count clears to 0 when reset=0"
+   ]
+  },
+  {
+   "aspect": "Overflow/underflow behavior",
+   "severity": "high",
+   "readings": [
+    "counter wraps modulo 2^16: 65535+1 -> 0 and 0-1 -> 65535",
+    "counter saturates at the bounds: holds at 65535 on increment overflow and holds at 0 on decrement underflow"
+   ]
+  },
+  {
+   "aspect": "Priority between reset and up_down",
+   "severity": "medium",
+   "readings": [
+    "reset has priority: when reset is active, count becomes 0 regardless of up_down",
+    "up_down has priority: when reset is active and up_down=1, count increments instead of resetting"
+   ]
+  },
+  {
+   "aspect": "Output latency",
+   "severity": "medium",
+   "readings": [
+    "count is the internal counter register and updates on the same clk edge as the counter state",
+    "count is a separate output register, so it is delayed by one clk cycle relative to the internal counter state"
+   ]
+  }
+ ]
+}
