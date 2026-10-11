@@ -1,0 +1,19 @@
+test_csv_keeps_unavailable_numbers_blank_and_supports_direct_arms (test_ppa.PpaFailureTests.test_csv_keeps_unavailable_numbers_blank_and_supports_direct_arms) ... ok
+test_disabled_and_skipped_never_invoke_synthesis (test_ppa.PpaFailureTests.test_disabled_and_skipped_never_invoke_synthesis) ... ok
+test_existing_output_cannot_reuse_stale_metrics (test_ppa.PpaFailureTests.test_existing_output_cannot_reuse_stale_metrics) ... ok
+test_json_main_preserves_pass_when_ppa_tool_is_missing (test_ppa.PpaFailureTests.test_json_main_preserves_pass_when_ppa_tool_is_missing) ... ok
+test_missing_tool_keeps_functional_pass_and_unknown_metrics (test_ppa.PpaFailureTests.test_missing_tool_keeps_functional_pass_and_unknown_metrics) ... ok
+test_nonzero_exit_cannot_be_reported_as_success (test_ppa.PpaFailureTests.test_nonzero_exit_cannot_be_reported_as_success) ... ok
+test_script_injection_in_top_is_rejected (test_ppa.PpaFailureTests.test_script_injection_in_top_is_rejected) ... ok
+test_timeout_preserves_partial_log_and_unknown_synthesis (test_ppa.PpaFailureTests.test_timeout_preserves_partial_log_and_unknown_synthesis) ... ok
+test_zero_exit_without_reports_is_not_a_pass (test_ppa.PpaFailureTests.test_zero_exit_without_reports_is_not_a_pass) ... ok
+test_broken_rtl_and_unresolved_cell_do_not_pass (test_ppa.PpaRealSynthesisTests.test_broken_rtl_and_unresolved_cell_do_not_pass) ... ok
+test_constant_output_zero_cells_is_valid (test_ppa.PpaRealSynthesisTests.test_constant_output_zero_cells_is_valid) ... ok
+test_helper_hierarchy_is_flattened_and_auto_top_is_recorded (test_ppa.PpaRealSynthesisTests.test_helper_hierarchy_is_flattened_and_auto_top_is_recorded) ... ok
+test_inverter_has_one_gate_and_one_level (test_ppa.PpaRealSynthesisTests.test_inverter_has_one_gate_and_one_level) ... ok
+test_sequential_boundary_and_flip_flop_count (test_ppa.PpaRealSynthesisTests.test_sequential_boundary_and_flip_flop_count) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.827s
+
+OK

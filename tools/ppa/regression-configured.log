@@ -1,0 +1,167 @@
+test_all_imported_contracts_compile_to_testbench (test_candidate_integration.CandidateIntegrationTests.test_all_imported_contracts_compile_to_testbench) ... ok
+[1/4] Prob000_example
+  selection=generation_failed; candidates=['syntax_failed', 'syntax_failed', 'syntax_failed']; selected=None:none
+[2/4] Prob001_example
+  selection=generation_failed; candidates=['syntax_failed', 'syntax_failed', 'syntax_failed']; selected=None:none
+[3/4] Prob002_example
+连续三题异常，已停止并保存结果。
+test_batch_error_circuit_breaker_preserves_unattempted_cases (test_candidate_integration.CandidateIntegrationTests.test_batch_error_circuit_breaker_preserves_unattempted_cases) ... ok
+[1/1] test
+  selection=selected; candidates=['mock_official', 'mock_official', 'mock_official']; selected=2:mock_official
+test_end_to_end_freezes_selection_before_official_evaluation (test_candidate_integration.CandidateIntegrationTests.test_end_to_end_freezes_selection_before_official_evaluation) ... ok
+test_generated_contract_selects_correct_candidate_without_reference (test_candidate_integration.CandidateIntegrationTests.test_generated_contract_selects_correct_candidate_without_reference) ... ok
+test_official_failure_and_zero_samples_never_pass (test_candidate_integration.CandidateIntegrationTests.test_official_failure_and_zero_samples_never_pass) ... ok
+test_real_official_evaluation_uses_existing_dataset (test_candidate_integration.CandidateIntegrationTests.test_real_official_evaluation_uses_existing_dataset) ... ok
+test_saved_contract_real_simulation_rejects_wrong_rtl (test_candidate_integration.CandidateIntegrationTests.test_saved_contract_real_simulation_rejects_wrong_rtl) ... ok
+test_saved_contract_rejects_self_oracle_and_no_checks (test_candidate_integration.CandidateIntegrationTests.test_saved_contract_rejects_self_oracle_and_no_checks) ... ok
+test_baseline_matches_existing_prompt (test_direct_prompt.DirectPromptTests.test_baseline_matches_existing_prompt) ... ok
+test_entry_defaults_and_override (test_direct_prompt.DirectPromptTests.test_entry_defaults_and_override) ... ok
+test_failed_process_cannot_pass (test_evaluation.EvaluationTests.test_failed_process_cannot_pass) ... ok
+test_mismatch (test_evaluation.EvaluationTests.test_mismatch) ... ok
+test_success_requires_samples (test_evaluation.EvaluationTests.test_success_requires_samples) ... ok
+test_unknown_and_timeout_are_not_pass (test_evaluation.EvaluationTests.test_unknown_and_timeout_are_not_pass) ... ok
+Results: E:\SRTP\SRTP_LLM2RTL\tools\ppa\tmp\候选_t6n08x1f\results
+[code_eval] Evaluating module.sv...
+   Compiling...
+   ✓ Syntax check passed
+   Running simulation...
+[code_eval] Evaluating module.sv...
+   Compiling...
+   ✓ Syntax check passed
+   Running simulation...
+   ✓ Simulation completed
+   ❌ Functional verification FAILED (1/20 mismatches)
+[code_eval] Evaluating module.sv...
+   Compiling...
+   ✓ Syntax check passed
+   Running simulation...
+   ✓ Simulation completed
+   ✅ Functional verification PASSED (20 samples)
+[code_eval] Evaluating module.sv...
+   Compiling...
+   ✓ Syntax check passed
+   Running simulation...
+   ✓ Simulation completed
+   ❌ Functional verification FAILED (0/0 mismatches)
+[code_eval] Evaluating module.sv...
+   Compiling...
+   ✓ Syntax check passed
+   Running simulation...
+   ✓ Simulation completed
+   ✗ Unknown simulation failure
+[code_eval] Evaluating module.sv...
+   Compiling...
+   ✓ Syntax check passed
+   Running simulation...
+   ✗ Simulation timeout
+  candidate 1 功能修复 1/3
+test_functional_failure_really_iterates_and_keeps_frozen_contract (test_functional_repair.FunctionalRepairTests.test_functional_failure_really_iterates_and_keeps_frozen_contract) ... ok
+test_metrics_keep_initial_failure_separate_from_repaired_success (test_functional_repair.FunctionalRepairTests.test_metrics_keep_initial_failure_separate_from_repaired_success) ... ok
+test_shared_failure_stops_without_blindly_repairing (test_functional_repair.FunctionalRepairTests.test_shared_failure_stops_without_blindly_repairing) ... ok
+API回复截断，增加输出预算到 16384 后重试。
+test_truncated_response_retries_with_larger_recorded_budget (test_functional_repair.FunctionalRepairTests.test_truncated_response_retries_with_larger_recorded_budget) ... ok
+  candidate 1 功能修复 1/5
+test_unchanged_repair_stops_and_retains_previous_module (test_functional_repair.FunctionalRepairTests.test_unchanged_repair_stops_and_retains_previous_module) ... ok
+test_functional_repair (test_g3_closed_loop.G3ClosedLoopTests.test_functional_repair) ... ok
+test_repeated_candidate_stops (test_g3_closed_loop.G3ClosedLoopTests.test_repeated_candidate_stops) ... ok
+test_semantically_invalid_contract_never_generates_rtl (test_g3_closed_loop.G3ClosedLoopTests.test_semantically_invalid_contract_never_generates_rtl) ... ok
+test_api_error_persists (test_json_pipeline.JSONPipelineTest.test_api_error_persists) ... ok
+test_counter_and_bad_wrap (test_json_pipeline.JSONPipelineTest.test_counter_and_bad_wrap) ... ok
+test_empty_scenario_is_not_coverage (test_json_pipeline.JSONPipelineTest.test_empty_scenario_is_not_coverage) ... ok
+test_handoff_one_line_module_reaches_functional_validation (test_json_pipeline.JSONPipelineTest.test_handoff_one_line_module_reaches_functional_validation) ... ok
+test_model_update_uses_old_values (test_json_pipeline.JSONPipelineTest.test_model_update_uses_old_values) ... ok
+test_oracle_cannot_read_dut (test_json_pipeline.JSONPipelineTest.test_oracle_cannot_read_dut) ... ok
+test_raw_rtl_rejected (test_json_pipeline.JSONPipelineTest.test_raw_rtl_rejected) ... ok
+test_real_simulator_repair_and_no_reference_access (test_json_pipeline.JSONPipelineTest.test_real_simulator_repair_and_no_reference_access) ... ok
+test_statement_injection_rejected (test_json_pipeline.JSONPipelineTest.test_statement_injection_rejected) ... ok
+test_timeout_not_pass (test_json_pipeline.JSONPipelineTest.test_timeout_not_pass) ... ok
+test_auth_not_retried (test_json_recovery.RecoveryTests.test_auth_not_retried) ... ok
+[code_gen] Extracted code using strategy 3 (module to endmodule)
+[code_gen] Extracted code using strategy 3 (module to endmodule)
+[code_gen] Extracted code using strategy 3 (module to endmodule)
+[code_gen] Extracted code using strategy 3 (module to endmodule)
+API 连接或服务暂时异常，2 秒后重试（最多3次请求）。
+test_interrupted_response_retries (test_json_recovery.RecoveryTests.test_interrupted_response_retries) ... ok
+API 输出截断：下一次改用非思考模式生成紧凑 JSON（已记录配置变化）。
+test_length_fallback_recorded (test_json_recovery.RecoveryTests.test_length_fallback_recorded) ... ok
+API 连接或服务暂时异常，2 秒后重试（最多3次请求）。
+API 连接或服务暂时异常，4 秒后重试（最多3次请求）。
+test_retry_is_bounded (test_json_recovery.RecoveryTests.test_retry_is_bounded) ... ok
+[16:29:52] 
+================================================================================
+[16:29:52] ENHANCED CLOSED LOOP OPTIMIZATION - test
+[16:29:52] ================================================================================
+[16:29:52] Loading specifications...
+[16:29:52] 
+[Pre-phase] Generating initial code...
+[16:29:52] API 阶段失败，本题停止；保留错误记录，避免将旧代码重复验证计为修复。
+[16:29:52] 
+Summary saved: E:\SRTP\SRTP_LLM2RTL\tools\ppa\tmp\tmpgjdh5s8r\test\enhanced_summary.json
+test_api_failure_stops_without_fake_repair (test_legacy_records.LegacyRecordsTest.test_api_failure_stops_without_fake_repair) ... ok
+[16:29:52] 
+================================================================================
+[16:29:52] ENHANCED CLOSED LOOP OPTIMIZATION - test
+[16:29:52] ================================================================================
+[16:29:52] Loading specifications...
+[16:29:52] 
+[Pre-phase] Generating initial code...
+[16:29:52] 
+✗ FAILED after 2 iterations
+[16:29:52] Failed final code saved: E:\SRTP\SRTP_LLM2RTL\tools\ppa\tmp\tmpgy0c1d9b\test\module_failed_final_iteration_2.sv
+[16:29:52] 
+Summary saved: E:\SRTP\SRTP_LLM2RTL\tools\ppa\tmp\tmpgy0c1d9b\test\enhanced_summary.json
+test_failure_records_count (test_legacy_records.LegacyRecordsTest.test_failure_records_count) ... ok
+test_csv_keeps_unavailable_numbers_blank_and_supports_direct_arms (test_ppa.PpaFailureTests.test_csv_keeps_unavailable_numbers_blank_and_supports_direct_arms) ... ok
+test_disabled_and_skipped_never_invoke_synthesis (test_ppa.PpaFailureTests.test_disabled_and_skipped_never_invoke_synthesis) ... ok
+test_existing_output_cannot_reuse_stale_metrics (test_ppa.PpaFailureTests.test_existing_output_cannot_reuse_stale_metrics) ... ok
+test_json_main_preserves_pass_when_ppa_tool_is_missing (test_ppa.PpaFailureTests.test_json_main_preserves_pass_when_ppa_tool_is_missing) ... ok
+test_missing_tool_keeps_functional_pass_and_unknown_metrics (test_ppa.PpaFailureTests.test_missing_tool_keeps_functional_pass_and_unknown_metrics) ... ok
+test_nonzero_exit_cannot_be_reported_as_success (test_ppa.PpaFailureTests.test_nonzero_exit_cannot_be_reported_as_success) ... ok
+test_script_injection_in_top_is_rejected (test_ppa.PpaFailureTests.test_script_injection_in_top_is_rejected) ... ok
+test_timeout_preserves_partial_log_and_unknown_synthesis (test_ppa.PpaFailureTests.test_timeout_preserves_partial_log_and_unknown_synthesis) ... ok
+test_zero_exit_without_reports_is_not_a_pass (test_ppa.PpaFailureTests.test_zero_exit_without_reports_is_not_a_pass) ... ok
+test_broken_rtl_and_unresolved_cell_do_not_pass (test_ppa.PpaRealSynthesisTests.test_broken_rtl_and_unresolved_cell_do_not_pass) ... ok
+test_constant_output_zero_cells_is_valid (test_ppa.PpaRealSynthesisTests.test_constant_output_zero_cells_is_valid) ... ok
+test_helper_hierarchy_is_flattened_and_auto_top_is_recorded (test_ppa.PpaRealSynthesisTests.test_helper_hierarchy_is_flattened_and_auto_top_is_recorded) ... ok
+test_inverter_has_one_gate_and_one_level (test_ppa.PpaRealSynthesisTests.test_inverter_has_one_gate_and_one_level) ... ok
+test_sequential_boundary_and_flip_flop_count (test_ppa.PpaRealSynthesisTests.test_sequential_boundary_and_flip_flop_count) ... ok
+[1/1] invert
+pass
+test_generation_repair_and_reference_isolation (test_rtllm_adapter.RTLLMTests.test_generation_repair_and_reference_isolation) ... ok
+test_verdict_requires_success_and_no_failure (test_rtllm_adapter.RTLLMTests.test_verdict_requires_success_and_no_failure) ... ok
+test_assembles_separate_calls_with_shared_context (test_staged_contract.StagedContractTests.test_assembles_separate_calls_with_shared_context) ... ok
+test_changed_coverage_rejected (test_staged_contract.StagedContractTests.test_changed_coverage_rejected) ... ok
+test_default_no_reasoning_and_truncation_never_accepted (test_staged_contract.StagedContractTests.test_default_no_reasoning_and_truncation_never_accepted) ... ok
+Results: E:\SRTP\SRTP_LLM2RTL\tools\ppa\tmp\tmpc9te_qs9\out
+  Prob000_test: 修复候选 1/3
+test_api_error_never_passes (test_targeted_repair.TargetedRepairTests.test_api_error_never_passes) ... ok
+  Prob000_test: 修复候选 1/2
+  Prob000_test: 修复候选 2/2
+test_feedback_and_success_artifact (test_targeted_repair.TargetedRepairTests.test_feedback_and_success_artifact) ... ok
+test_only_functional_failures (test_targeted_repair.TargetedRepairTests.test_only_functional_failures) ... ERROR
+test_reject_alternatives_and_simulation_override (test_targeted_repair.TargetedRepairTests.test_reject_alternatives_and_simulation_override) ... ok
+test_blinded_order_is_stable_and_complete (test_three_candidate_select.ThreeCandidateMetricsTest.test_blinded_order_is_stable_and_complete) ... ok
+test_pass1_pass3_and_select3_are_distinct (test_three_candidate_select.ThreeCandidateMetricsTest.test_pass1_pass3_and_select3_are_distinct) ... ok
+
+======================================================================
+ERROR: test_only_functional_failures (test_targeted_repair.TargetedRepairTests.test_only_functional_failures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\SRTP\SRTP_LLM2RTL\tests\test_targeted_repair.py", line 14, in test_only_functional_failures
+    cases = runner.select_cases(args)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\SRTP\SRTP_LLM2RTL\run_targeted_repair.py", line 58, in select_cases
+    report = json.loads((source.parent / 'summary.json').read_text(encoding='utf-8'))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\USER\\OneDrive\\文档\\srtp\\SRTP_LLM2RTL\\experiments\\deepseek_full_20260920\\summary.json'
+
+----------------------------------------------------------------------
+Ran 63 tests in 11.996s
+
+FAILED (errors=1)
