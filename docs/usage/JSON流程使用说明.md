@@ -2,14 +2,14 @@
 
 ## 新入口
 
-`run_json_pipeline.py` 是本次集成后的主入口。旧 `closed_loop_enhanced_v2.py`、`generate_specs_batch.py` 和 `validator.py` 保留，分别用于历史闭环、直接生成对照和独立官方评测。运行旧脚本不会自动切到新方案。
+`run_json_pipeline.py` 是本次集成后的主入口。旧 `legacy/closed_loop_enhanced_v2.py`、`legacy/generate_specs_batch.py` 和 `validator.py` 保留，分别用于历史闭环、直接生成对照和独立官方评测。运行旧脚本不会自动切到新方案。
 
 在 PowerShell 中执行：
 
 ```powershell
 cd "C:\Users\USER\OneDrive\文档\srtp\SRTP_LLM2RTL"
-.\run_json.ps1 --check
-.\run_json.ps1 --cases Prob005 Prob035 --max-repairs 5
+.\run.ps1 json --check
+.\run.ps1 json --cases Prob005 Prob035 --max-repairs 5
 ```
 
 第二条只检查环境，不调用 API；第三条实际调用已配置的 DeepSeek。也可直接用正常 Python 执行 `python run_json_pipeline.py --cases Prob005 --max-repairs 5`。
@@ -17,7 +17,7 @@ cd "C:\Users\USER\OneDrive\文档\srtp\SRTP_LLM2RTL"
 扫描全部规格的命令：
 
 ```powershell
-.\run_json.ps1 --all --max-repairs 5
+.\run.ps1 json --all --max-repairs 5
 ```
 
 这并不保证当前 IR 能表达全部156题。建议先检查小批次结果。存储器数组、多时钟、模块实例等当前不支持，会记录为不支持或结构错误，而不是返回自由 RTL。只有新增经过测试的通用 IR 能力后才能扩大覆盖。

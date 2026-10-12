@@ -42,6 +42,9 @@
 
 ## 注意
 
-- 这是公开子集：CVDP 的题面、候选设计、测试与逐题输出未提交，混合裁定文件也已移除 CVDP 记录。完整实验仍保存在本地，公开副本不能独立复现这些全量统计。详见 [PUBLICATION_NOTES.md](../PUBLICATION_NOTES.md)。
 - 所有"人工裁定"（缺陷判定、N1 的 50 题裁定 `askrtl/adjudication_n1.json`）都由 AI 完成，投稿前需要人工独立复核。
 - `*.stale_clkfix` 是时钟/复位识别修复前的旧评审答案，只作存档。
+
+## 公开版本范围
+
+公开仓库保留代码、汇总报告和可公开的 VerilogEval / RTLLM 结果。CVDP 逐题数据与产物未发布，混合 JSON / JSONL 中也移除了 CVDP 记录。完整本地实验与公开版本的区别见 [PUBLICATION_NOTES.md](../PUBLICATION_NOTES.md)。

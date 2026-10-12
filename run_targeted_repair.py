@@ -158,7 +158,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='Offline preflight; no API requests')
     parser.add_argument('--cases', nargs='+', help='Unique case prefixes; default all 11 functional failures')
-    parser.add_argument('--prompts', type=Path, default=ROOT / 'repair_prompts_20261008')
+    parser.add_argument('--prompts', type=Path, default=ROOT / 'prompts' / 'repair_20261008')
     parser.add_argument('--dataset', type=Path, default=DATASET_DIR)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--target', choices=['benchmark', 'spec'], default='benchmark')

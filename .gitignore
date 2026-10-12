@@ -2,9 +2,13 @@
 .env.*
 !.env.example
 __pycache__/
+*.pyc
 .venv/
-experiments/
 .deps/
+experiments/
+tools/ppa/.venv312/
+tools/ppa/cache/
+.vscode/
 
 # Local PPA environments and caches
 tools/ppa/.venv312/

@@ -2,6 +2,8 @@ import unittest
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'legacy'))
 import closed_loop_enhanced_v2 as loop
 
 class LegacyRecordsTest(unittest.TestCase):

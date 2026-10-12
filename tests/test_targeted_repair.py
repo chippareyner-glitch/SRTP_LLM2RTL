@@ -10,7 +10,7 @@ import run_targeted_repair as runner
 
 class TargetedRepairTests(unittest.TestCase):
     def test_only_functional_failures(self):
-        args = SimpleNamespace(prompts=runner.ROOT/'repair_prompts_20261008', cases=None)
+        args = SimpleNamespace(prompts=runner.ROOT/'prompts'/'repair_20261008', cases=None)
         cases = runner.select_cases(args)
         self.assertEqual(len(cases), 11)
         self.assertIn('Prob154_fsm_ps2data', [c['case_id'] for c in cases])

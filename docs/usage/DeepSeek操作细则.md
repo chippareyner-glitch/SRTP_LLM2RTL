@@ -19,7 +19,7 @@
 
 ```powershell
 Set-Location -LiteralPath 'C:\Users\USER\OneDrive\文档\srtp\SRTP_LLM2RTL'
-powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --check
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 experiment --check
 ```
 
 预期输出包含 `key_configured: true`、`iverilog: true`、`vvp: true`、`cases: 156`、模型名 `deepseek-v4-pro`。这个操作不调用 API，不产生模型费用。
@@ -47,8 +47,8 @@ DEEPSEEK_MAX_TOKENS=32768
 ## 4. 先验证 API，再跑一道题
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --smoke
-powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --case Prob001 --max-repairs 0
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 experiment --smoke
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 experiment --case Prob001 --max-repairs 0
 ```
 
 `--smoke` 会产生一次很小的 API 请求，临时关闭思考、将输出上限设为 1024；它不会改变下一次运行的 `.env`。单题命令接受 `Prob001` 或完整的 `Prob001_zero`。
@@ -58,7 +58,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --case Prob001 --m
 ## 5. 运行首轮生成基线
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --all --max-repairs 0
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 experiment --all --max-repairs 0
 ```
 
 该命令对 156 道题逐题生成，每题最多一次调用，无反馈修复，适合记录单样本首轮通过率。普通仿真失败、输出截断或空回答会记录为失败并继续下一题；认证、余额、网络或文件异常会保存已完成结果并停止。重新执行默认新建目录；要继续已有实验，使用 `--resume --output 已有实验目录`，并保持相同的 dataset、模型和 max-repairs 设置。续跑保留已记录的失败题，不会偷偷重试或修改首轮分数。单独补生成应另建输出目录。
@@ -68,8 +68,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --all --max-repair
 ## 6. 运行带修复的实验
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --case Prob104 --max-repairs 2
-powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --all --max-repairs 2
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 experiment --case Prob104 --max-repairs 2
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 experiment --all --max-repairs 2
 ```
 
 `--max-repairs 2` 表示每题初次生成加最多两次修复，最多三个候选；156 题最多 468 次生成调用，实际通过后会提前结束。新入口把原题、上次代码及仿真错误交给同一模型修复，不发送参考答案源码。它是可控的生成—仿真—修复基线，不等同于原先多 Reviewer/VCD 诊断消融设置；论文中应标明流程差别。
@@ -100,7 +100,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --all --max-repair
 官方快照已保存在上级 `audit_20260919/upstream/verilog-eval-c498220d0a52248f8e3fdffe279075215bde2da6/`。使用其中原始 spec-to-rtl 数据：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --case Prob001 --max-repairs 0 --dataset '..\audit_20260919\upstream\verilog-eval-c498220d0a52248f8e3fdffe279075215bde2da6\dataset_spec-to-rtl'
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 experiment --case Prob001 --max-repairs 0 --dataset '..\audit_20260919\upstream\verilog-eval-c498220d0a52248f8e3fdffe279075215bde2da6\dataset_spec-to-rtl'
 ```
 
 新增数据集应按每题三个文件组织：`题号_prompt.txt`、`题号_ref.sv`、`题号_test.sv`；本入口默认 DUT 为 TopModule、参考模块为 RefModule、测试顶层为 tb，测试输出为 `Mismatches: X in Y samples`。其他格式需要适配器，不能只改文件夹名。先用参考答案改名为 TopModule 做基线控制，确保测试平台自身正常。
@@ -123,4 +123,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\run.ps1 --case Prob001 --m
 
 已接通共享 API、修复返回值误用和语法布尔判断、支持 verilog 代码围栏、统一功能评测、修正失配日志解析及候选排序。新入口隔离每题每次尝试的仿真目录，保存版本证据。
 
-历史高级入口 `closed_loop_enhanced_v2.py` 已接入新 API 并修复关键接口错误，但它的旧 Reviewer/VCD 支路仍有缺失依赖和策略问题，未完成全链路验证。现在优先运行本文的 `run.ps1` / `run_experiment.py`；不要直接依据 MODULE_README 中旧有的成功率预测、命令行示例开展正式实验。
+历史高级入口 `legacy/closed_loop_enhanced_v2.py` 已接入新 API 并修复关键接口错误，但它的旧 Reviewer/VCD 支路仍有缺失依赖和策略问题，未完成全链路验证。现在优先运行本文的 `run.ps1 experiment` / `run_experiment.py`；不要直接依据 MODULE_README（已移至 docs/history/MODULE_README_旧闭环架构.md）中旧有的成功率预测、命令行示例开展正式实验。
